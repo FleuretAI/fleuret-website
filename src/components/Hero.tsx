@@ -118,9 +118,6 @@ const Hero = () => {
                   )}
                 </Button>
               </div>
-              <p className="text-xs sm:text-sm text-muted-foreground mt-2 text-center px-2">
-                {t('waitlist.subtext')}
-              </p>
             </form>
           </div>
         </div>

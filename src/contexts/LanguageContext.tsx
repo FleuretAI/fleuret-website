@@ -15,13 +15,13 @@ const translations = {
     'nav.partners': 'Partenaires',
     'nav.about': 'À propos',
     'nav.whyUs': 'Pourquoi nous ?',
-    'nav.waitlist': 'Devenir early adopter',
+    'nav.waitlist': 'Book a demo',
     
     // Hero
-    'hero.title': 'Pentests en continu sur serveur et web, propulsés par une IA agentique.',
-    'hero.subtitle': 'De votre IP au rapport audit‑ready, en continu, hébergé en Europe.',
+    'hero.title': 'All in one offensive cybersecurity at scale.',
+    'hero.subtitle': 'Run a pentest with our AI agents and get an audit-grade report in hours.',
     'hero.cta.demo': 'Voir notre POC fonctionnel',
-    'hero.cta.waitlist': 'Devenir early adopter',
+    'hero.cta.waitlist': 'Book a demo',
     
     // Features
     'features.title': 'Une Solution Révolutionnaire',
@@ -264,11 +264,11 @@ const translations = {
     
     // Early Adopter Page
     'waitlist.back': 'Retour',
-    'waitlist.title': 'Devenez Early Adopter',
+    'waitlist.title': 'Book a demo',
     'waitlist.subtitle': 'Soyez parmi les premiers à découvrir Fleuret AI',
     'waitlist.placeholder': 'Entrez votre email',
-    'waitlist.subtext': 'Accédez en avant-première à nos agents IA.',
-    'waitlist.submit': 'Devenir Early Adopter',
+    'waitlist.subtext': '',
+    'waitlist.submit': 'Book a demo',
     'waitlist.submitting': 'Envoi...',
     'waitlist.success.title': 'Merci !',
     'waitlist.success.description': 'Vous recevrez un email de confirmation.',
@@ -314,13 +314,13 @@ const translations = {
     'nav.partners': 'Partners',
     'nav.about': 'About Us',
     'nav.whyUs': 'Why us?',
-    'nav.waitlist': 'Become an Early Adopter',
+    'nav.waitlist': 'Book a demo',
     
     // Hero
-    'hero.title': 'Continuous pentesting on server and web, powered by agentic AI.',
-    'hero.subtitle': 'From your IP to audit-ready report, continuously, hosted in Europe.',
+    'hero.title': 'All in one offensive cybersecurity at scale.',
+    'hero.subtitle': 'Run a pentest with our AI agents and get an audit-grade report in hours.',
     'hero.cta.demo': 'See our functional POC',
-    'hero.cta.waitlist': 'Become an Early Adopter',
+    'hero.cta.waitlist': 'Book a demo',
     
     // Features
     'features.title': 'A Revolutionary Solution',
@@ -563,11 +563,11 @@ const translations = {
     
     // Early Adopter Page
     'waitlist.back': 'Back',
-    'waitlist.title': 'Become an Early Adopter',
+    'waitlist.title': 'Book a demo',
     'waitlist.subtitle': 'Be among the first to discover Fleuret AI',
     'waitlist.placeholder': 'Enter your email',
-    'waitlist.subtext': 'Get early access to our AI agents.',
-    'waitlist.submit': 'Become an Early Adopter',
+    'waitlist.subtext': '',
+    'waitlist.submit': 'Book a demo',
     'waitlist.submitting': 'Sending...',
     'waitlist.success.title': 'Thank you!',
     'waitlist.success.description': 'You will receive a confirmation email.',
