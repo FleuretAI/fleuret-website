@@ -18,8 +18,8 @@ const translations = {
     'nav.waitlist': 'Book a demo',
     
     // Hero
-    'hero.title': 'All in one offensive cybersecurity at scale.',
-    'hero.subtitle': 'Run a pentest with our AI agents and get an audit-grade report in hours.',
+    'hero.title': 'Cybersécurité offensive tout-en-un, à grande échelle.',
+    'hero.subtitle': 'Lancez un pentest avec nos agents IA et recevez un rapport d’audit en quelques heures.',
     'hero.cta.demo': 'Voir notre POC fonctionnel',
     'hero.cta.waitlist': 'Book a demo',
     
@@ -314,13 +314,13 @@ const translations = {
     'nav.partners': 'Partners',
     'nav.about': 'About Us',
     'nav.whyUs': 'Why us?',
-    'nav.waitlist': 'Book a demo',
+    'nav.waitlist': 'Réserver une démo',
     
     // Hero
     'hero.title': 'All in one offensive cybersecurity at scale.',
     'hero.subtitle': 'Run a pentest with our AI agents and get an audit-grade report in hours.',
     'hero.cta.demo': 'See our functional POC',
-    'hero.cta.waitlist': 'Book a demo',
+    'hero.cta.waitlist': 'Réserver une démo',
     
     // Features
     'features.title': 'A Revolutionary Solution',
@@ -563,11 +563,11 @@ const translations = {
     
     // Early Adopter Page
     'waitlist.back': 'Back',
-    'waitlist.title': 'Book a demo',
+    'waitlist.title': 'Réserver une démo',
     'waitlist.subtitle': 'Be among the first to discover Fleuret AI',
     'waitlist.placeholder': 'Enter your email',
     'waitlist.subtext': '',
-    'waitlist.submit': 'Book a demo',
+    'waitlist.submit': 'Réserver une démo',
     'waitlist.submitting': 'Sending...',
     'waitlist.success.title': 'Thank you!',
     'waitlist.success.description': 'You will receive a confirmation email.',

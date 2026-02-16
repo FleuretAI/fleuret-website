@@ -62,9 +62,9 @@ const Hero = () => {
       <div className="container mx-auto px-4 z-10">
         <div className="max-w-5xl mx-auto text-center space-y-6 animate-in fade-in duration-1000">
 
-          <h1 className="text-3xl md:text-5xl lg:text-6xl tracking-tight font-urbanist" itemProp="headline">
+          <h1 className="text-3xl md:text-5xl lg:text-6xl tracking-tight font-urbanist break-words" itemProp="headline">
             <span className="text-gradient glow-effect">
-              <span className="whitespace-nowrap">{firstPart}</span>
+              <span className="whitespace-normal md:whitespace-nowrap">{firstPart}</span>
               {secondPart && (
                 <>
                   <br className="hidden md:block" />
