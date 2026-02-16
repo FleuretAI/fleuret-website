@@ -53,7 +53,7 @@ const Team = () => {
   ];
 
   return (
-    <section id="team" className="py-24 relative" itemScope itemType="https://schema.org/Organization">
+    <section id="team" className="pt-24 pb-16 relative" itemScope itemType="https://schema.org/Organization">
       <div className="container mx-auto px-4">
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
           <h2 className="text-5xl md:text-6xl font-urbanist">
