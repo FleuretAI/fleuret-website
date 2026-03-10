@@ -1,23 +1,25 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Partners from "@/components/Partners";
+import WhySection from "@/components/WhySection";
 import Benchmark from "@/components/Benchmark";
+import HowItWorks from "@/components/HowItWorks";
 import ComparisonTable from "@/components/ComparisonTable";
-import Urgency from "@/components/Urgency";
-import Team from "@/components/Team";
+import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-site-gradient">
+    <div className="min-h-screen">
       <Navbar />
-      <main className="relative z-10">
+      <main>
         <Hero />
         <Partners />
-        <Team />
+        <WhySection />
         <Benchmark />
+        <HowItWorks />
         <ComparisonTable />
-        <Urgency />
+        <CTASection />
         <Footer />
       </main>
     </div>

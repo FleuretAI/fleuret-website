@@ -1,125 +1,73 @@
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { supabase } from "@/integrations/supabase/client";
-import { useToast } from "@/hooks/use-toast";
-import { ArrowRight, Loader2 } from "lucide-react";
-import { z } from "zod";
-
-const emailSchema = z.string().email().max(255);
+import EmailSignupForm from "./EmailSignupForm";
 
 const Hero = () => {
   const { t } = useLanguage();
-  const { toast } = useToast();
-  const [email, setEmail] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    const validation = emailSchema.safeParse(email);
-    if (!validation.success) {
-      toast({
-        title: t('waitlist.error.invalid'),
-        variant: "destructive",
-      });
-      return;
-    }
-
-    setIsSubmitting(true);
-    try {
-      const { data, error } = await supabase.functions.invoke('add-to-brevo', {
-        body: { email: validation.data },
-      });
-
-      if (error) throw error;
-
-      toast({
-        title: t('waitlist.success.title'),
-        description: t('waitlist.success.description'),
-      });
-      setEmail("");
-    } catch (error) {
-      console.error('Error:', error);
-      toast({
-        title: t('waitlist.error.generic'),
-        variant: "destructive",
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const title = t('hero.title');
-  const [firstPartRaw, secondPartRaw] = title.split(',');
-  const firstPart = firstPartRaw?.trim();
-  const secondPart = secondPartRaw?.trim();
+  const words = t("hero.title").split(" ");
 
   return (
-    <section id="home" className="relative min-h-[70vh] flex items-center justify-center overflow-hidden pt-8 md:pt-12" itemScope itemType="https://schema.org/WebPageElement">
-      <div className="container mx-auto px-4 z-10">
-        <div className="max-w-5xl mx-auto text-center space-y-6 animate-in fade-in duration-1000">
+    <section
+      id="home"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+    >
+      {/* Colored radial glows */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/3 left-1/3 w-[600px] h-[600px] bg-[radial-gradient(ellipse_at_center,rgba(79,143,255,0.08),transparent_70%)]" />
+        <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-[radial-gradient(ellipse_at_center,rgba(139,92,246,0.06),transparent_70%)]" />
+        <div className="absolute top-1/2 right-1/3 w-[400px] h-[400px] bg-[radial-gradient(ellipse_at_center,rgba(239,68,68,0.05),transparent_70%)]" />
+      </div>
 
-          <h1 className="text-3xl md:text-5xl lg:text-6xl tracking-tight font-urbanist break-words" itemProp="headline">
-            <span className="text-gradient glow-effect">
-              <span className="whitespace-normal md:whitespace-nowrap">{firstPart}</span>
-              {secondPart && (
-                <>
-                  <br className="hidden md:block" />
-                  <span className="block md:inline">{secondPart}</span>
-                </>
-              )}
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="max-w-4xl mx-auto text-center space-y-8 pt-24 pb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.05 }}
+            className="flex justify-center"
+          >
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/[0.04] text-xs md:text-sm font-medium text-white/60 backdrop-blur-sm">
+              <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-blue)] animate-pulse" />
+              {t("hero.badge")}
             </span>
+          </motion.div>
+
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1]">
+            {words.map((word, i) => (
+              <motion.span
+                key={i}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 0.5,
+                  delay: 0.15 + i * 0.08,
+                  ease: [0.25, 0.46, 0.45, 0.94],
+                }}
+                className="inline-block mr-[0.3em] text-white"
+              >
+                {word}
+              </motion.span>
+            ))}
           </h1>
 
-          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed" itemProp="description">
-            {t('hero.subtitle')}
-          </p>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
+            className="text-lg md:text-xl text-white/50 max-w-2xl mx-auto leading-relaxed"
+          >
+            {t("hero.subtitle")}
+          </motion.p>
 
-          {/* Email signup form with demo button */}
-          <div id="waitlist" className="flex flex-col gap-4 justify-center items-stretch pt-6 max-w-3xl mx-auto scroll-mt-20 px-2">
-            {/* Demo button */}
-            <Link to="/demo" aria-label="Voir la démonstration de notre POC fonctionnel" className="w-full sm:w-auto sm:self-center">
-              <Button
-                size="lg"
-                className="w-full sm:w-auto text-base sm:text-lg rounded-full bg-primary text-primary-foreground hover:bg-primary/90 px-4 sm:px-6 h-[48px] sm:h-[52px]"
-              >
-                {t('hero.cta.demo')}
-              </Button>
-            </Link>
-
-            {/* Email form */}
-            <form onSubmit={handleSubmit} className="w-full">
-              <div className="relative flex flex-col sm:flex-row items-stretch sm:items-center bg-secondary/50 rounded-2xl sm:rounded-full border border-border/50 p-1.5 sm:p-1.5 backdrop-blur-sm transition-all duration-300 focus-within:border-primary/50 focus-within:shadow-[0_0_20px_rgba(59,130,246,0.3)] focus-within:bg-secondary/70 gap-2 sm:gap-0">
-                <Input
-                  type="email"
-                  placeholder={t('waitlist.placeholder')}
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full flex-1 bg-transparent border-0 text-foreground placeholder:text-muted-foreground focus-visible:ring-0 focus-visible:ring-offset-0 px-3 sm:px-4 text-sm sm:text-base min-w-0"
-                  disabled={isSubmitting}
-                  required
-                />
-                <Button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full sm:w-auto rounded-full bg-primary text-primary-foreground hover:bg-primary/90 px-4 sm:px-6 py-2 h-[40px] sm:h-auto font-medium text-sm sm:text-base whitespace-nowrap shrink-0"
-                >
-                  {isSubmitting ? (
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                  ) : (
-                    <>
-                      <span className="hidden sm:inline">{t('hero.cta.waitlist')}</span>
-                      <span className="sm:hidden">{t('nav.waitlist')}</span>
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </>
-                  )}
-                </Button>
-              </div>
-            </form>
-          </div>
+          <motion.div
+            id="waitlist"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 1.0 }}
+            className="flex justify-center pt-4 scroll-mt-32"
+          >
+            <EmailSignupForm />
+          </motion.div>
         </div>
       </div>
     </section>

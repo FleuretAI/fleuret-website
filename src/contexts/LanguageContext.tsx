@@ -15,13 +15,14 @@ const translations = {
     'nav.partners': 'Partenaires',
     'nav.about': 'À propos',
     'nav.whyUs': 'Pourquoi nous ?',
-    'nav.waitlist': 'Réserver une démo',
+    'nav.waitlist': 'Devenir early adopter',
     
     // Hero
-    'hero.title': 'Cybersécurité offensive tout-en-un, à grande échelle.',
-    'hero.subtitle': 'Lancez un pentest avec nos agents IA et recevez un rapport d’audit en quelques heures.',
+    'hero.badge': 'Fleuret lève 2,5 millions pour redéfinir le pentest',
+    'hero.title': 'Pentesting continu propulsé par l\'IA.',
+    'hero.subtitle': 'De votre IP au rapport audit‑ready, en continu, hébergé en Europe.',
     'hero.cta.demo': 'Voir notre POC fonctionnel',
-    'hero.cta.waitlist': 'Réserver une démo',
+    'hero.cta.waitlist': 'Devenir early adopter',
     
     // Features
     'features.title': 'Une Solution Révolutionnaire',
@@ -141,15 +142,15 @@ const translations = {
     // Benchmark Details
     'benchmark.title.main': 'Rapports Actionnables',
     'benchmark.subtitle.main': 'Pour chaque vulnérabilité détectée',
-    'benchmark.description': 'Chaque vulnérabilité remontée est accompagnée d’une preuve d’exploitation, d’un impact métier clair et d’un plan de remédiation priorisé.',
+    'benchmark.description': 'Au-delà de la simple détection, notre IA génère des recommandations précises et actionnables pour corriger chaque vulnérabilité identifiée. Chaque rapport inclut des étapes de remédiation détaillées, des exemples de code sécurisé et une priorisation basée sur le niveau de risque réel.',
     'benchmark.exploitation.label': 'Exploitation réelle',
-    'benchmark.exploitation.description': 'On exploite réellement les vulnérabilités clés pour éviter les faux positifs.',
+    'benchmark.exploitation.description': 'Validation concrète des vulnérabilités par exploitation effective',
     'benchmark.rapidite.label': 'Rapidité d\'exécution',
-    'benchmark.rapidite.description': 'Rapports exploitables en quelques heures, pas en semaines.',
+    'benchmark.rapidite.description': 'Analyse complète et résultats en quelques heures',
     'benchmark.validation.label': 'Validation PoC',
-    'benchmark.validation.description': 'Preuve de concept générée automatiquement pour chaque faille critique.',
-    'benchmark.efficacite.label': 'Priorisation claire',
-    'benchmark.efficacite.description': 'On vous indique quoi corriger en premier pour maximiser l\'impact.',
+    'benchmark.validation.description': 'Preuve de concept automatique pour chaque faille',
+    'benchmark.efficacite.label': 'Efficacité ressources',
+    'benchmark.efficacite.description': 'Optimisation intelligente des ressources IA',
     
     // Features Details
     'features.main.title': 'Une Solution',
@@ -264,11 +265,11 @@ const translations = {
     
     // Early Adopter Page
     'waitlist.back': 'Retour',
-    'waitlist.title': 'Réserver une démo',
+    'waitlist.title': 'Devenez Early Adopter',
     'waitlist.subtitle': 'Soyez parmi les premiers à découvrir Fleuret AI',
     'waitlist.placeholder': 'Entrez votre email',
-    'waitlist.subtext': '',
-    'waitlist.submit': 'Réserver une démo',
+    'waitlist.subtext': 'Accédez en avant-première à nos agents IA.',
+    'waitlist.submit': 'Devenir Early Adopter',
     'waitlist.submitting': 'Envoi...',
     'waitlist.success.title': 'Merci !',
     'waitlist.success.description': 'Vous recevrez un email de confirmation.',
@@ -280,6 +281,10 @@ const translations = {
     'notfound.subtitle': 'Oups ! Page introuvable',
     'notfound.home': 'Retour à l\'accueil',
     
+    // CTA Section
+    'cta.title': 'Prêt à sécuriser votre infrastructure ?',
+    'cta.subtitle': 'Rejoignez les entreprises qui font confiance à Fleuret AI pour leur sécurité continue.',
+
     // Comparison Table
     'comparison.title': 'Fleuret vs Services Traditionnels vs Solutions Automatisées',
     'comparison.header.capability': 'Capacité',
@@ -314,13 +319,14 @@ const translations = {
     'nav.partners': 'Partners',
     'nav.about': 'About Us',
     'nav.whyUs': 'Why us?',
-    'nav.waitlist': 'Book a demo',
+    'nav.waitlist': 'Become an Early Adopter',
     
     // Hero
-    'hero.title': 'All in one offensive cybersecurity at scale.',
-    'hero.subtitle': 'Run a pentest with our AI agents and get an audit-grade report in hours.',
+    'hero.badge': 'Fleuret raises €2.5M to redefine pentesting',
+    'hero.title': 'Continuous pentesting powered by AI.',
+    'hero.subtitle': 'From your IP to audit-ready report, continuously, hosted in Europe.',
     'hero.cta.demo': 'See our functional POC',
-    'hero.cta.waitlist': 'Book a demo',
+    'hero.cta.waitlist': 'Become an Early Adopter',
     
     // Features
     'features.title': 'A Revolutionary Solution',
@@ -440,15 +446,15 @@ const translations = {
     // Benchmark Details
     'benchmark.title.main': 'Actionable Reports',
     'benchmark.subtitle.main': 'For each detected vulnerability',
-    'benchmark.description': 'Every finding comes with proof of exploitation, clear business impact and a prioritized remediation plan.',
+    'benchmark.description': 'Beyond simple detection, our AI generates precise and actionable recommendations to fix each identified vulnerability. Each report includes detailed remediation steps, secure code examples and prioritization based on actual risk level.',
     'benchmark.exploitation.label': 'Real exploitation',
-    'benchmark.exploitation.description': 'We actually exploit key vulnerabilities to avoid false positives.',
+    'benchmark.exploitation.description': 'Concrete validation of vulnerabilities through effective exploitation',
     'benchmark.rapidite.label': 'Fast execution',
-    'benchmark.rapidite.description': 'Actionable reports delivered in hours, not weeks.',
+    'benchmark.rapidite.description': 'Complete analysis and results in hours',
     'benchmark.validation.label': 'PoC validation',
-    'benchmark.validation.description': 'Automatic proof of concept for every critical issue.',
-    'benchmark.efficacite.label': 'Clear prioritization',
-    'benchmark.efficacite.description': 'We tell you what to fix first to maximize impact.',
+    'benchmark.validation.description': 'Automatic proof of concept for each vulnerability',
+    'benchmark.efficacite.label': 'Resource efficiency',
+    'benchmark.efficacite.description': 'Intelligent optimization of AI resources',
     
     // Features Details
     'features.main.title': 'A',
@@ -563,11 +569,11 @@ const translations = {
     
     // Early Adopter Page
     'waitlist.back': 'Back',
-    'waitlist.title': 'Book a demo',
+    'waitlist.title': 'Become an Early Adopter',
     'waitlist.subtitle': 'Be among the first to discover Fleuret AI',
     'waitlist.placeholder': 'Enter your email',
-    'waitlist.subtext': '',
-    'waitlist.submit': 'Book a demo',
+    'waitlist.subtext': 'Get early access to our AI agents.',
+    'waitlist.submit': 'Become an Early Adopter',
     'waitlist.submitting': 'Sending...',
     'waitlist.success.title': 'Thank you!',
     'waitlist.success.description': 'You will receive a confirmation email.',
@@ -579,6 +585,10 @@ const translations = {
     'notfound.subtitle': 'Oops! Page not found',
     'notfound.home': 'Back to home',
     
+    // CTA Section
+    'cta.title': 'Ready to secure your infrastructure?',
+    'cta.subtitle': 'Join the companies that trust Fleuret AI for their continuous security.',
+
     // Comparison Table
     'comparison.title': 'Fleuret vs Traditional Services vs Automated Solutions',
     'comparison.header.capability': 'Capability',

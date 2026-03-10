@@ -1,58 +1,77 @@
-import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { HashLink, NavHashLink } from 'react-router-hash-link';
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { HashLink } from "react-router-hash-link";
+import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import logoSymbol from "@/assets/logo-symbol.svg";
 import logoWordmark from "@/assets/logo-wordmark.svg";
 import { useLanguage } from "@/contexts/LanguageContext";
 import LanguageSwitcher from "./LanguageSwitcher";
-import { Menu, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 const Navbar = () => {
-  const location = useLocation();
   const { t } = useLanguage();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const navItems = [
     { path: "/#home", label: t("nav.home") },
     { path: "/#partners", label: t("nav.partners") },
-    { path: "/#team", label: t("nav.about") },
-    { path: "/#comparison", label: t("nav.whyUs") },
+    { path: "/#why", label: t("nav.whyUs") },
+    { path: "/#comparison", label: t("comparison.header.capability") },
   ];
 
   return (
     <header
-      className="py-2 sticky top-0 bg-transparent backdrop-blur-sm z-50"
+      className={cn(
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
+        scrolled
+          ? "py-3 bg-[#0f101c]/80 backdrop-blur-xl border-b border-white/5"
+          : "py-5 bg-transparent"
+      )}
       role="banner"
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between">
-          {/* Logo à gauche */}
           <Link
             to="/"
-            className="flex items-center gap-3 hover:opacity-90 transition-opacity flex-shrink-0 -my-4"
-            aria-label="Retour à l'accueil Fleuret AI"
+            className="flex items-center gap-2.5 hover:opacity-80 transition-opacity flex-shrink-0"
+            aria-label="Fleuret AI - Accueil"
           >
-            <img src={logoSymbol} alt="" className="h-10 md:h-12 w-auto object-contain" width="34" height="59" />
-            <img src={logoWordmark} alt="Fleuret" className="h-10 md:h-12 w-auto object-contain" width="49" height="12" />
+            <img
+              src={logoSymbol}
+              alt=""
+              className={cn(
+                "w-auto object-contain transition-all duration-300 brightness-0 invert",
+                scrolled ? "h-8" : "h-10"
+              )}
+              width="34" height="59"
+            />
+            <img
+              src={logoWordmark}
+              alt="Fleuret"
+              className={cn(
+                "w-auto object-contain transition-all duration-300 brightness-0 invert",
+                scrolled ? "h-8" : "h-10"
+              )}
+              width="49" height="12"
+            />
           </Link>
 
-          {/* Navigation centrée - Desktop/Tablette */}
           <nav
-            className="hidden lg:flex items-center gap-1 bg-secondary/50 backdrop-blur-sm border border-primary/10 rounded-full px-2 py-1"
+            className="hidden lg:flex items-center gap-1 rounded-full px-1.5 py-1 border border-white/10 bg-white/5 backdrop-blur-sm"
             aria-label="Navigation principale"
           >
             {navItems.map((item) => (
               <HashLink
                 key={item.path}
                 to={item.path}
-                className={cn(
-                  "text-xs xl:text-sm font-medium transition-colors hover:text-primary px-2 xl:px-4 py-2 rounded-full whitespace-nowrap",
-                  location.pathname === item.path
-                    ? "text-primary bg-primary/10"
-                    : "text-muted-foreground hover:bg-secondary/80",
-                )}
+                className="text-sm font-medium text-white/50 hover:text-white px-4 py-1.5 rounded-full transition-colors hover:bg-white/5"
                 smooth
               >
                 {item.label}
@@ -60,84 +79,73 @@ const Navbar = () => {
             ))}
           </nav>
 
-          {/* Actions à droite - Desktop */}
-          <div className="hidden lg:flex items-center gap-2 xl:gap-3">
-            <Link to="/demo">
-              <Button variant="outline" size="sm" className="text-xs xl:text-sm px-2 xl:px-3 whitespace-nowrap">
-                {t("hero.cta.demo")}
-              </Button>
-            </Link>
+          <div className="hidden lg:flex items-center gap-3">
+            <LanguageSwitcher />
             <HashLink to="/#waitlist" smooth>
-              <Button size="sm" className="text-xs xl:text-sm px-2 xl:px-3 whitespace-nowrap">
+              <motion.button
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                className="text-sm font-medium px-5 py-2 rounded-full text-white transition-all hover:shadow-[0_0_20px_rgba(79,143,255,0.3)]"
+                style={{
+                  background: "linear-gradient(135deg, var(--accent-blue), var(--accent-violet))",
+                }}
+              >
                 {t("hero.cta.waitlist")}
-              </Button>
+              </motion.button>
             </HashLink>
-            <LanguageSwitcher />
-          </div>
-          
-          {/* Actions tablette */}
-          <div className="hidden md:flex lg:hidden items-center gap-2">
-            <Link to="/demo">
-              <Button variant="outline" size="sm" className="text-xs px-2 whitespace-nowrap">
-                {t("hero.cta.demo")}
-              </Button>
-            </Link>
-            <HashLink to="/#waitlist" smooth>
-              <Button size="sm" className="text-xs px-2 whitespace-nowrap">
-                {t("nav.waitlist")}
-              </Button>
-            </HashLink>
-            <LanguageSwitcher />
           </div>
 
-          {/* Mobile/Tablette menu button */}
           <button
-            className="lg:hidden p-2 text-muted-foreground hover:text-foreground transition-colors"
+            className="lg:hidden p-2 relative w-10 h-10 flex items-center justify-center"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle menu"
           >
-            {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            <div className="w-5 h-4 relative flex flex-col justify-between">
+              <motion.span animate={mobileMenuOpen ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }} className="block w-full h-0.5 rounded-full bg-white origin-center" />
+              <motion.span animate={mobileMenuOpen ? { opacity: 0 } : { opacity: 1 }} className="block w-full h-0.5 rounded-full bg-white" />
+              <motion.span animate={mobileMenuOpen ? { rotate: -45, y: -7 } : { rotate: 0, y: 0 }} className="block w-full h-0.5 rounded-full bg-white origin-center" />
+            </div>
           </button>
         </div>
 
-        {/* Mobile/Tablette menu */}
-        {mobileMenuOpen && (
-          <nav className="lg:hidden mt-4 pb-4 border-t border-primary/10 pt-4">
-            <div className="flex flex-col gap-2">
-              {navItems.map((item) => (
-                <HashLink
-                  key={item.path}
-                  to={item.path}
-                  smooth
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={cn(
-                    "text-sm font-medium transition-colors hover:text-primary px-4 py-2 rounded-lg",
-                    location.pathname === item.path
-                      ? "text-primary bg-primary/10"
-                      : "text-muted-foreground hover:bg-secondary/80",
-                  )}
-                >
-                  {item.label}
-                </HashLink>
-              ))}
-              <div className="flex flex-col gap-2 px-4 py-2 mt-2 border-t border-primary/10 pt-4">
-                <Link to="/demo" onClick={() => setMobileMenuOpen(false)}>
-                  <Button variant="outline" size="sm" className="w-full justify-center">
-                    {t("hero.cta.demo")}
-                  </Button>
-                </Link>
-                <HashLink to="/#waitlist" smooth onClick={() => setMobileMenuOpen(false)}>
-                  <Button size="sm" className="w-full justify-center">
-                    {t("hero.cta.waitlist")}
-                  </Button>
-                </HashLink>
-                <div className="flex items-center justify-center pt-2">
-                  <LanguageSwitcher />
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.nav
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.25, ease: "easeInOut" }}
+              className="lg:hidden overflow-hidden"
+            >
+              <div className="flex flex-col gap-1 pt-6 pb-4">
+                {navItems.map((item) => (
+                  <HashLink
+                    key={item.path}
+                    to={item.path}
+                    smooth
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="text-sm font-medium text-white/50 hover:text-white px-4 py-2.5 rounded-lg transition-colors hover:bg-white/5"
+                  >
+                    {item.label}
+                  </HashLink>
+                ))}
+                <div className="flex flex-col gap-3 px-4 pt-4 mt-2 border-t border-white/10">
+                  <HashLink to="/#waitlist" smooth onClick={() => setMobileMenuOpen(false)}>
+                    <button
+                      className="w-full text-sm font-medium px-5 py-2.5 rounded-full text-white"
+                      style={{ background: "linear-gradient(135deg, var(--accent-blue), var(--accent-violet))" }}
+                    >
+                      {t("hero.cta.waitlist")}
+                    </button>
+                  </HashLink>
+                  <div className="flex items-center justify-center pt-1">
+                    <LanguageSwitcher />
+                  </div>
                 </div>
               </div>
-            </div>
-          </nav>
-        )}
+            </motion.nav>
+          )}
+        </AnimatePresence>
       </div>
     </header>
   );

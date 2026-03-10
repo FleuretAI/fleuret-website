@@ -2,23 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Design system - Nouvelle DA Fleuret
- * Dégradé bleu foncé (#0f101c) → rouge foncé (#2a0404)
- * Texte: #f2f2f8 | Lufga (texte) | CMU Serif (titres)
- * Toutes les couleurs en HSL.
- */
-
 @layer base {
   :root {
     --font-sans: "Lufga", system-ui, sans-serif;
-    --font-serif: "CMU Serif", "Times New Roman", serif;
 
-    /* Dégradé principal du site */
-    --gradient-start: 234 30% 8%;   /* #0f101c bleu foncé */
-    --gradient-end: 0 82% 9%;       /* #2a0404 rouge foncé */
+    --dark-bg: #0f101c;
+    --dark-mid: #161830;
+    --dark-end: #1a0808;
+
+    /* Accent palette — vibrant blue → violet → red */
+    --accent-blue: #4f8fff;
+    --accent-violet: #8b5cf6;
+    --accent-red: #ef4444;
 
     --background: 234 30% 8%;
-    --foreground: 240 33% 96%;     /* #f2f2f8 texte blanc */
+    --foreground: 240 33% 96%;
 
     --card: 234 25% 12%;
     --card-foreground: 240 33% 96%;
@@ -28,7 +26,6 @@
 
     --primary: 240 33% 96%;
     --primary-foreground: 234 30% 8%;
-    --primary-glow: 0 50% 65%;
 
     --secondary: 240 15% 22%;
     --secondary-foreground: 240 33% 96%;
@@ -42,52 +39,11 @@
     --destructive: 0 84% 55%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 240 15% 25%;
-    --input: 240 15% 25%;
+    --border: 240 15% 20%;
+    --input: 240 15% 20%;
     --ring: 240 33% 96%;
 
     --radius: 0.75rem;
-
-    --sidebar-background: 234 25% 10%;
-    --sidebar-foreground: 240 33% 96%;
-    --sidebar-primary: 240 33% 96%;
-    --sidebar-primary-foreground: 234 30% 8%;
-    --sidebar-accent: 240 15% 22%;
-    --sidebar-accent-foreground: 240 33% 96%;
-    --sidebar-border: 240 15% 25%;
-    --sidebar-ring: 240 33% 96%;
-  }
-}
-
-@layer utilities {
-  /* Titres / accents en blanc sur fond dégradé */
-  .text-gradient {
-    @apply text-foreground;
-  }
-
-  /* Texte bleu marque sur fond clair (ex. cartes blanches) */
-  .text-brand-blue {
-    color: hsl(var(--gradient-start));
-  }
-  .text-on-light-muted {
-    color: hsl(234 12% 45%);
-  }
-
-  .glow-effect {
-    text-shadow: 0 0 20px hsl(var(--foreground) / 0.2);
-  }
-
-  .card-glow {
-    box-shadow: 0 0 30px hsl(var(--foreground) / 0.08);
-  }
-
-  .bg-site-gradient {
-    background: linear-gradient(to right, hsl(var(--gradient-start)) 0%, hsl(var(--gradient-end)) 100%);
-    background-attachment: fixed;
-  }
-
-  .hover\:pause:hover {
-    animation-play-state: paused;
   }
 }
 
@@ -96,11 +52,92 @@
     @apply border-border;
   }
 
+  html, body {
+    background-color: var(--dark-bg);
+    color: hsl(var(--foreground));
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
-    @apply text-foreground font-sans bg-site-gradient min-h-screen;
+    @apply font-sans antialiased;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-serif), ui-serif, serif;
+    font-family: var(--font-sans);
+  }
+}
+
+/* Global grid pattern on body */
+body {
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  background-attachment: fixed;
+}
+
+/* Grid pattern overlay (explicit, with fade edges) */
+.bg-grid-pattern {
+  position: relative;
+}
+.bg-grid-pattern::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Section that fades the grid out at top/bottom edges */
+.grid-fade {
+  position: relative;
+}
+.grid-fade::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    var(--dark-bg) 0%,
+    transparent 15%,
+    transparent 85%,
+    var(--dark-bg) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Section with subtle lighter dark bg */
+.section-elevated {
+  background-color: hsl(234 25% 11%);
+}
+
+/* Gradient text utility */
+.text-gradient-accent {
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-violet), var(--accent-red));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Gradient border glow for cards */
+.border-gradient-glow {
+  border-color: transparent;
+  background-image: linear-gradient(hsl(234 25% 12%), hsl(234 25% 12%)),
+    linear-gradient(135deg, var(--accent-blue), var(--accent-violet), var(--accent-red));
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+}
+
+@layer utilities {
+  .hover\:pause:hover {
+    animation-play-state: paused;
   }
 }
