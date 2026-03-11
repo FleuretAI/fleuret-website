@@ -44,7 +44,7 @@ const About = () => {
         <section className="container mx-auto px-4 text-center mb-20">
           <ScrollReveal>
             <div className="max-w-3xl mx-auto space-y-6">
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[1.1]">
+              <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[1.1]">
                 {t("about.hero.title")}{" "}
                 <span className="text-gradient-accent">
                   {t("about.hero.highlight")}
@@ -58,7 +58,7 @@ const About = () => {
         </section>
 
         {/* Mission */}
-        <section className="section-elevated grid-fade py-24 relative">
+        <section className="section-elevated grid-fade py-16 md:py-24 relative">
           <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto">
               <ScrollReveal>
@@ -76,7 +76,7 @@ const About = () => {
         </section>
 
         {/* Leadership Team */}
-        <section className="container mx-auto px-4 py-24">
+        <section className="container mx-auto px-4 py-16 md:py-24">
           <div className="max-w-5xl mx-auto">
             <ScrollReveal>
               <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-12">
@@ -123,7 +123,7 @@ const About = () => {
         </section>
 
         {/* Investors */}
-        <section className="container mx-auto px-4 pb-24">
+        <section className="container mx-auto px-4 pb-16 md:pb-24">
           <div className="max-w-5xl mx-auto">
             <ScrollReveal>
               <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-4">
@@ -162,7 +162,7 @@ const About = () => {
               </h2>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a
-                  href="https://cal.com/fr/"
+                  href="https://calendar.app.google/BCrw74tMZk8NoMU18"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center rounded-full px-8 py-3 text-sm font-medium text-white transition-all hover:opacity-90 hover:shadow-[0_0_30px_rgba(79,143,255,0.3)]"

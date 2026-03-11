@@ -21,7 +21,7 @@ const Partners = () => {
   const scrollPartners = [...partners, ...partners];
 
   return (
-    <section id="partners" className="py-20 overflow-hidden border-t border-white/5">
+    <section id="partners" className="py-12 md:py-20 overflow-hidden border-t border-white/5">
       <div className="container mx-auto px-4">
         <ScrollReveal>
           <p className="text-center text-sm font-medium uppercase tracking-widest text-white/30 mb-12">

@@ -15,13 +15,13 @@ const ComplianceSection = () => {
   const { t } = useLanguage();
 
   return (
-    <section id="compliance" className="section-elevated bg-grid-pattern grid-fade py-24 md:py-32 relative">
+    <section id="compliance" className="section-elevated bg-grid-pattern grid-fade py-16 md:py-24 lg:py-32 relative">
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-5xl mx-auto">
           {/* Header */}
           <ScrollReveal>
-            <div className="text-center space-y-4 mb-16">
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] text-white">
+            <div className="text-center space-y-4 mb-10 md:mb-16">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] text-white">
                 {t("compliance.title")}{" "}
                 <span className="text-gradient-accent">
                   {t("compliance.highlight")}

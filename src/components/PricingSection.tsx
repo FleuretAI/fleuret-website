@@ -51,7 +51,7 @@ const PricingSection = () => {
   return (
     <section
       id="pricing"
-      className="section-elevated grid-fade relative py-24 md:py-32 overflow-hidden"
+      className="section-elevated grid-fade relative py-16 md:py-24 lg:py-32 overflow-hidden"
     >
       {/* Radial accents */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-[radial-gradient(ellipse_at_top,rgba(79,143,255,0.06),transparent_70%)] pointer-events-none" />
@@ -61,8 +61,8 @@ const PricingSection = () => {
         <div className="max-w-6xl mx-auto">
           {/* Header */}
           <ScrollReveal>
-            <div className="text-center space-y-4 mb-16">
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.1]">
+            <div className="text-center space-y-4 mb-10 md:mb-16">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.1]">
                 {t("pricing.title")}{" "}
                 <span className="text-gradient-accent">
                   {t("pricing.subtitle")}
@@ -116,7 +116,7 @@ const PricingSection = () => {
                       </span>
                     )}
                     <div className="flex items-baseline gap-2">
-                      <span className="text-4xl md:text-5xl font-bold text-white tracking-tight">
+                      <span className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight">
                         {card.price}{card.unit ? '€' : ''}
                       </span>
                       {card.unit ? (
@@ -164,7 +164,7 @@ const PricingSection = () => {
 
                   {/* CTA Button */}
                   <a
-                    href="https://cal.com/fr/"
+                    href="https://calendar.app.google/BCrw74tMZk8NoMU18"
                     target="_blank"
                     rel="noopener noreferrer"
                     className={`block w-full py-3 px-6 rounded-lg text-sm font-semibold text-center transition-all duration-300 cursor-pointer ${

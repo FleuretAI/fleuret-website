@@ -34,7 +34,7 @@ const Careers = () => {
         <section className="container mx-auto px-4 text-center mb-20">
           <ScrollReveal>
             <div className="max-w-3xl mx-auto space-y-6">
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[1.1]">
+              <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[1.1]">
                 {t("careers.hero.title")}{" "}
                 <span className="text-gradient-accent">
                   {t("careers.hero.highlight")}
@@ -85,7 +85,7 @@ const Careers = () => {
         </section>
 
         {/* Values */}
-        <section className="section-elevated grid-fade py-24 relative">
+        <section className="section-elevated grid-fade py-16 md:py-24 relative">
           <div className="container mx-auto px-4">
             <div className="max-w-5xl mx-auto">
               <ScrollReveal>
@@ -123,7 +123,7 @@ const Careers = () => {
         </section>
 
         {/* Open positions */}
-        <section className="container mx-auto px-4 py-24">
+        <section className="container mx-auto px-4 py-16 md:py-24">
           <div className="max-w-3xl mx-auto">
             <ScrollReveal>
               <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-4">

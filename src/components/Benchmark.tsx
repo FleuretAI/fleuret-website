@@ -15,7 +15,7 @@ const Benchmark = () => {
   ];
 
   return (
-    <section id="platform" className="section-elevated grid-fade relative py-24 md:py-32 overflow-hidden">
+    <section id="platform" className="section-elevated grid-fade relative py-16 md:py-24 lg:py-32 overflow-hidden">
       {/* Colored radial accent */}
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[radial-gradient(ellipse_at_top_right,rgba(139,92,246,0.06),transparent_70%)] pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[radial-gradient(ellipse_at_bottom_left,rgba(79,143,255,0.04),transparent_70%)] pointer-events-none" />
@@ -23,8 +23,8 @@ const Benchmark = () => {
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-6xl mx-auto">
           <ScrollReveal>
-            <div className="text-center mb-16 space-y-4">
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1]">
+            <div className="text-center mb-10 md:mb-16 space-y-4">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1]">
                 <span className="text-white">{t("platform.main.title")}</span>{" "}
                 <span className="text-gradient-accent">{t("platform.main.highlight")}</span>
               </h2>

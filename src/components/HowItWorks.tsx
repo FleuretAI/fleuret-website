@@ -40,12 +40,12 @@ const HowItWorks = () => {
   ];
 
   return (
-    <section className="py-24 md:py-32">
+    <section className="py-16 md:py-24 lg:py-32">
       <div className="container mx-auto px-4">
         <div className="max-w-5xl mx-auto">
           <ScrollReveal>
-            <div className="text-center mb-20 space-y-4">
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white">
+            <div className="text-center mb-12 md:mb-20 space-y-4">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white">
                 {t("process.main.title")}{" "}
                 <span className="text-gradient-accent">{t("process.main.works")}</span>
               </h2>
@@ -55,13 +55,13 @@ const HowItWorks = () => {
             </div>
           </ScrollReveal>
 
-          <div className="space-y-24 md:space-y-32">
+          <div className="space-y-16 md:space-y-24 lg:space-y-32">
             {steps.map((step, i) => {
               const isEven = i % 2 === 0;
               return (
                 <div
                   key={step.number}
-                  className="grid md:grid-cols-2 gap-12 md:gap-16 items-center"
+                  className="grid md:grid-cols-2 gap-8 md:gap-16 items-center"
                 >
                   <ScrollReveal
                     variants={isEven ? slideInLeft : slideInRight}

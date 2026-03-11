@@ -15,13 +15,13 @@ const WhySection = () => {
   ];
 
   return (
-    <section id="why" className="py-24 md:py-32">
+    <section id="why" className="py-16 md:py-24 lg:py-32">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-16 items-start">
+          <div className="grid lg:grid-cols-2 gap-10 md:gap-16 items-start">
             <ScrollReveal>
               <div className="space-y-6 lg:sticky lg:top-32">
-                <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] text-white">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] text-white">
                   {t("problem.main.title")}{" "}
                   <span className="text-gradient-accent">{t("problem.main.broken")}</span>
                 </h2>

@@ -17,8 +17,8 @@ const Hero = () => {
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
-        <div className="max-w-4xl mx-auto text-center space-y-8 pt-24 pb-16">
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1]">
+        <div className="max-w-4xl mx-auto text-center space-y-6 sm:space-y-8 pt-20 sm:pt-24 pb-12 sm:pb-16">
+          <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1]">
             <motion.span
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -49,7 +49,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.8 }}
-            className="text-lg md:text-xl text-white/50 max-w-2xl mx-auto leading-relaxed"
+            className="text-base sm:text-lg md:text-xl text-white/50 max-w-2xl mx-auto leading-relaxed px-2 sm:px-0"
           >
             {t("hero.subtitle")}
           </motion.p>
@@ -61,7 +61,7 @@ const Hero = () => {
             className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4"
           >
             <a
-              href="https://cal.com/fr/"
+              href="https://calendar.app.google/BCrw74tMZk8NoMU18"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center rounded-full px-10 py-3.5 text-base font-medium text-white transition-all hover:opacity-90 hover:shadow-[0_0_30px_rgba(79,143,255,0.3)]"

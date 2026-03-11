@@ -42,20 +42,28 @@ const ComparisonTable = () => {
     );
   };
 
+  const renderCellInline = (value: string | { check: boolean }) => {
+    if (typeof value === "object") {
+      return value.check ? <CheckMark /> : <CrossMark />;
+    }
+    return <span className="text-sm text-white/50">{value}</span>;
+  };
+
   return (
-    <section id="comparison" className="py-24 md:py-32">
+    <section id="comparison" className="py-16 md:py-24 lg:py-32">
       <div className="container mx-auto px-4">
         <ScrollReveal>
-          <div className="text-center mb-16 space-y-4">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white max-w-3xl mx-auto">
+          <div className="text-center mb-10 md:mb-16 space-y-4">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white max-w-3xl mx-auto">
               {t("comparison.title")}
             </h2>
           </div>
         </ScrollReveal>
 
-        <div className="max-w-5xl mx-auto overflow-x-auto">
+        {/* Desktop table */}
+        <div className="hidden md:block max-w-5xl mx-auto">
           <StaggerGroup>
-            <table className="w-full min-w-[640px]">
+            <table className="w-full">
               <thead>
                 <motion.tr variants={staggerItem}>
                   <th className="text-left py-4 px-4 text-sm font-medium text-white/30 uppercase tracking-wider">
@@ -94,6 +102,49 @@ const ComparisonTable = () => {
                 ))}
               </tbody>
             </table>
+          </StaggerGroup>
+        </div>
+
+        {/* Mobile cards */}
+        <div className="md:hidden max-w-sm mx-auto">
+          <StaggerGroup className="space-y-3">
+            {capabilities.map((cap) => (
+              <motion.div
+                key={cap.label}
+                variants={staggerItem}
+                className="p-4 rounded-xl border border-white/8 bg-white/[0.02]"
+              >
+                <p className="text-xs font-medium text-white/40 uppercase tracking-wider mb-3">
+                  {cap.label}
+                </p>
+                <div className="grid grid-cols-3 gap-2 text-center">
+                  <div>
+                    <p className="text-[10px] text-white/25 uppercase tracking-wider mb-1.5">
+                      {t("comparison.header.traditional")}
+                    </p>
+                    {renderCellInline(cap.traditional)}
+                  </div>
+                  <div className="bg-[var(--accent-blue)]/[0.05] rounded-lg py-1.5 -my-1.5 px-1">
+                    <p className="text-[10px] text-[var(--accent-blue)] uppercase tracking-wider mb-1.5 font-semibold">
+                      Fleuret
+                    </p>
+                    <span className="text-sm font-semibold text-white">
+                      {typeof cap.fleuret === "object" ? (
+                        cap.fleuret.check ? <CheckMark /> : <CrossMark />
+                      ) : (
+                        cap.fleuret
+                      )}
+                    </span>
+                  </div>
+                  <div>
+                    <p className="text-[10px] text-white/25 uppercase tracking-wider mb-1.5">
+                      {t("comparison.header.automated")}
+                    </p>
+                    {renderCellInline(cap.automated)}
+                  </div>
+                </div>
+              </motion.div>
+            ))}
           </StaggerGroup>
         </div>
       </div>
