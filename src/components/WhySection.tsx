@@ -3,14 +3,15 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import ScrollReveal from "./motion/ScrollReveal";
 import StaggerGroup from "./motion/StaggerGroup";
 import { staggerItem } from "@/lib/animations";
+import ExposureIllustration from "./illustrations/ExposureIllustration";
 
 const WhySection = () => {
   const { t } = useLanguage();
 
   const problems = [
-    { number: "01", title: t("problem.nis2.title"), description: t("problem.nis2.desc"), color: "var(--accent-blue)" },
-    { number: "02", title: t("problem.punctual.title"), description: t("problem.punctual.desc"), color: "var(--accent-violet)" },
-    { number: "03", title: t("problem.expensive.title"), description: t("problem.expensive.desc"), color: "var(--accent-red)" },
+    { number: "01", title: t("problem.delay.title"), description: t("problem.delay.desc"), color: "var(--accent-blue)" },
+    { number: "02", title: t("problem.friction.title"), description: t("problem.friction.desc"), color: "var(--accent-violet)" },
+    { number: "03", title: t("problem.cost.title"), description: t("problem.cost.desc"), color: "var(--accent-red)" },
   ];
 
   return (
@@ -22,11 +23,28 @@ const WhySection = () => {
               <div className="space-y-6 lg:sticky lg:top-32">
                 <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] text-white">
                   {t("problem.main.title")}{" "}
-                  <span className="text-gradient-accent">{t("problem.main.overwhelmed")}</span>
+                  <span className="text-gradient-accent">{t("problem.main.broken")}</span>
                 </h2>
                 <p className="text-lg text-white/40 leading-relaxed max-w-md">
                   {t("problem.main.subtitle")}
                 </p>
+
+                {/* Exposure alert with animated illustration */}
+                <div className="pt-2">
+                  <div className="p-5 rounded-2xl border border-[var(--accent-red)]/15 bg-[var(--accent-red)]/[0.04]">
+                    <div className="flex items-center gap-3 mb-4">
+                      <motion.span
+                        className="w-2 h-2 rounded-full bg-[var(--accent-red)] shrink-0"
+                        animate={{ scale: [1, 1.3, 1], opacity: [0.6, 1, 0.6] }}
+                        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                      />
+                      <p className="text-[var(--accent-red)]/80 text-sm font-semibold uppercase tracking-wider">
+                        {t("problem.exposure")}
+                      </p>
+                    </div>
+                    <ExposureIllustration />
+                  </div>
+                </div>
               </div>
             </ScrollReveal>
 
@@ -51,15 +69,6 @@ const WhySection = () => {
                   </div>
                 </motion.div>
               ))}
-
-              <motion.div
-                variants={staggerItem}
-                className="p-6 rounded-2xl border border-[var(--accent-red)]/20 bg-[var(--accent-red)]/5"
-              >
-                <p className="text-white/60 text-lg font-medium leading-relaxed">
-                  {t("problem.exposure")}
-                </p>
-              </motion.div>
             </StaggerGroup>
           </div>
         </div>

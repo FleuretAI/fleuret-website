@@ -22,12 +22,13 @@ const ComparisonTable = () => {
   const { t } = useLanguage();
 
   const capabilities = [
-    { label: t("comparison.accuracy"), traditional: t("comparison.accuracy.traditional"), fleuret: t("comparison.accuracy.fleuret"), automated: t("comparison.accuracy.automated") },
-    { label: t("comparison.adaptability"), traditional: { check: true }, fleuret: { check: true }, automated: { check: false } },
     { label: t("comparison.depth"), traditional: t("comparison.depth.traditional"), fleuret: t("comparison.depth.fleuret"), automated: t("comparison.depth.automated") },
-    { label: t("comparison.context"), traditional: t("comparison.context.traditional"), fleuret: t("comparison.context.fleuret"), automated: t("comparison.context.automated") },
+    { label: t("comparison.speed"), traditional: t("comparison.speed.traditional"), fleuret: t("comparison.speed.fleuret"), automated: t("comparison.speed.automated") },
+    { label: t("comparison.cost"), traditional: t("comparison.cost.traditional"), fleuret: t("comparison.cost.fleuret"), automated: t("comparison.cost.automated") },
+    { label: t("comparison.falsePositives"), traditional: t("comparison.falsePositives.traditional"), fleuret: t("comparison.falsePositives.fleuret"), automated: t("comparison.falsePositives.automated") },
     { label: t("comparison.frequency"), traditional: t("comparison.frequency.traditional"), fleuret: t("comparison.frequency.fleuret"), automated: t("comparison.frequency.automated") },
-    { label: t("comparison.coverage"), traditional: t("comparison.coverage.traditional"), fleuret: t("comparison.coverage.fleuret"), automated: t("comparison.coverage.automated") },
+    { label: t("comparison.compliance"), traditional: { check: true }, fleuret: { check: true }, automated: { check: false } },
+    { label: t("comparison.adaptability"), traditional: { check: true }, fleuret: { check: true }, automated: { check: false } },
   ];
 
   const renderCell = (value: string | { check: boolean }, isFleuret = false) => {

@@ -5,6 +5,8 @@ import WhySection from "@/components/WhySection";
 import Benchmark from "@/components/Benchmark";
 import HowItWorks from "@/components/HowItWorks";
 import ComparisonTable from "@/components/ComparisonTable";
+import PricingSection from "@/components/PricingSection";
+import ComplianceSection from "@/components/ComplianceSection";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 
@@ -19,6 +21,8 @@ const Index = () => {
         <Benchmark />
         <HowItWorks />
         <ComparisonTable />
+        <PricingSection />
+        <ComplianceSection />
         <CTASection />
         <Footer />
       </main>

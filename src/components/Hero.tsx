@@ -1,10 +1,8 @@
 import { motion } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
-import EmailSignupForm from "./EmailSignupForm";
 
 const Hero = () => {
   const { t } = useLanguage();
-  const words = t("hero.title").split(" ");
 
   return (
     <section
@@ -33,21 +31,30 @@ const Hero = () => {
           </motion.div>
 
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1]">
-            {words.map((word, i) => (
-              <motion.span
-                key={i}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 0.5,
-                  delay: 0.15 + i * 0.08,
-                  ease: [0.25, 0.46, 0.45, 0.94],
-                }}
-                className="inline-block mr-[0.3em] text-white"
-              >
-                {word}
-              </motion.span>
-            ))}
+            <motion.span
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.5,
+                delay: 0.15,
+                ease: [0.25, 0.46, 0.45, 0.94],
+              }}
+              className="block text-white"
+            >
+              {t("hero.title.line1")}
+            </motion.span>
+            <motion.span
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.5,
+                delay: 0.35,
+                ease: [0.25, 0.46, 0.45, 0.94],
+              }}
+              className="block text-gradient-accent"
+            >
+              {t("hero.title.line2")}
+            </motion.span>
           </h1>
 
           <motion.p
@@ -60,13 +67,21 @@ const Hero = () => {
           </motion.p>
 
           <motion.div
-            id="waitlist"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 1.0 }}
-            className="flex justify-center pt-4 scroll-mt-32"
+            className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4"
           >
-            <EmailSignupForm />
+            <a
+              href="#pricing"
+              className="inline-flex items-center justify-center rounded-full px-10 py-3.5 text-base font-medium text-white transition-all hover:opacity-90 hover:shadow-[0_0_30px_rgba(79,143,255,0.3)]"
+              style={{
+                background:
+                  "linear-gradient(135deg, var(--accent-blue), var(--accent-violet))",
+              }}
+            >
+              {t("hero.cta")}
+            </a>
           </motion.div>
         </div>
       </div>

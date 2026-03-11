@@ -21,9 +21,9 @@ const Navbar = () => {
 
   const navItems = [
     { path: "/#home", label: t("nav.home") },
-    { path: "/#partners", label: t("nav.partners") },
-    { path: "/#why", label: t("nav.whyUs") },
-    { path: "/#comparison", label: t("comparison.header.capability") },
+    { path: "/#why", label: t("nav.problem") },
+    { path: "/#platform", label: t("nav.platform") },
+    { path: "/#pricing", label: t("nav.pricing") },
   ];
 
   return (
@@ -81,7 +81,7 @@ const Navbar = () => {
 
           <div className="hidden lg:flex items-center gap-3">
             <LanguageSwitcher />
-            <HashLink to="/#waitlist" smooth>
+            <HashLink to="/#pricing" smooth>
               <motion.button
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
@@ -90,7 +90,7 @@ const Navbar = () => {
                   background: "linear-gradient(135deg, var(--accent-blue), var(--accent-violet))",
                 }}
               >
-                {t("hero.cta.waitlist")}
+                {t("nav.cta")}
               </motion.button>
             </HashLink>
           </div>
@@ -130,12 +130,12 @@ const Navbar = () => {
                   </HashLink>
                 ))}
                 <div className="flex flex-col gap-3 px-4 pt-4 mt-2 border-t border-white/10">
-                  <HashLink to="/#waitlist" smooth onClick={() => setMobileMenuOpen(false)}>
+                  <HashLink to="/#pricing" smooth onClick={() => setMobileMenuOpen(false)}>
                     <button
                       className="w-full text-sm font-medium px-5 py-2.5 rounded-full text-white"
                       style={{ background: "linear-gradient(135deg, var(--accent-blue), var(--accent-violet))" }}
                     >
-                      {t("hero.cta.waitlist")}
+                      {t("nav.cta")}
                     </button>
                   </HashLink>
                   <div className="flex items-center justify-center pt-1">

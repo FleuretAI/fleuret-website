@@ -1,6 +1,5 @@
 import { useLanguage } from "@/contexts/LanguageContext";
 import ScrollReveal from "./motion/ScrollReveal";
-import EmailSignupForm from "./EmailSignupForm";
 
 const CTASection = () => {
   const { t } = useLanguage();
@@ -29,7 +28,15 @@ const CTASection = () => {
 
           <ScrollReveal delay={0.3}>
             <div className="flex justify-center pt-4">
-              <EmailSignupForm />
+              <a
+                href="#pricing"
+                className="inline-flex items-center justify-center px-10 py-4 text-lg font-medium rounded-full text-white transition-all hover:shadow-[0_0_30px_rgba(79,143,255,0.3)] hover:scale-[1.03] active:scale-[0.97]"
+                style={{
+                  background: "linear-gradient(135deg, var(--accent-blue), var(--accent-violet))",
+                }}
+              >
+                {t("cta.button")}
+              </a>
             </div>
           </ScrollReveal>
         </div>
