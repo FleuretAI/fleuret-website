@@ -117,7 +117,7 @@ const PricingSection = () => {
                     )}
                     <div className="flex items-baseline gap-2">
                       <span className="text-4xl md:text-5xl font-bold text-white tracking-tight">
-                        {card.price}€
+                        {card.price}{card.unit ? '€' : ''}
                       </span>
                       {card.unit ? (
                         <span className="text-sm text-white/40">
@@ -163,23 +163,38 @@ const PricingSection = () => {
                   </ul>
 
                   {/* CTA Button */}
-                  <button
-                    className={`w-full py-3 px-6 rounded-lg text-sm font-semibold transition-all duration-300 cursor-pointer ${
+                  <a
+                    href="https://cal.com/fr/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`block w-full py-3 px-6 rounded-lg text-sm font-semibold text-center transition-all duration-300 cursor-pointer ${
                       card.highlighted
                         ? "bg-gradient-to-r from-[var(--accent-blue)] to-[var(--accent-violet)] text-white hover:opacity-90"
                         : "border border-white/10 text-white/70 hover:text-white hover:border-white/20 hover:bg-white/[0.04]"
                     }`}
                   >
                     {card.cta}
-                  </button>
+                  </a>
                 </div>
               </motion.div>
             ))}
           </StaggerGroup>
 
+          {/* Guarantee */}
+          <ScrollReveal delay={0.2}>
+            <div className="mt-12 max-w-md mx-auto text-center p-6 rounded-2xl border border-[var(--accent-blue)]/20 bg-[var(--accent-blue)]/[0.04]">
+              <p className="text-xl font-bold text-white mb-1">
+                {t("pricing.guarantee")}
+              </p>
+              <p className="text-sm text-white/50">
+                {t("pricing.guarantee.desc")}
+              </p>
+            </div>
+          </ScrollReveal>
+
           {/* Anchor comparison text */}
           <ScrollReveal delay={0.3}>
-            <p className="text-center text-sm text-white/30 mt-12">
+            <p className="text-center text-sm text-white/30 mt-8">
               {t("pricing.anchor")}
             </p>
           </ScrollReveal>

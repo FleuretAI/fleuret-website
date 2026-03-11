@@ -19,7 +19,7 @@ const DeployIllustration = () => {
         r="110"
         stroke="currentColor"
         strokeWidth="1"
-        strokeOpacity="0.1"
+        strokeOpacity="0.25"
         initial={{ scale: 0.8, opacity: 0 }}
         whileInView={{ scale: 1, opacity: 1 }}
         viewport={{ once: true }}
@@ -33,7 +33,7 @@ const DeployIllustration = () => {
         r="80"
         stroke="currentColor"
         strokeWidth="1"
-        strokeOpacity="0.15"
+        strokeOpacity="0.35"
         strokeDasharray="6 8"
         initial={{ rotate: 0 }}
         whileInView={{ rotate: 360 }}
@@ -53,7 +53,7 @@ const DeployIllustration = () => {
           {...line}
           stroke="currentColor"
           strokeWidth="1.5"
-          strokeOpacity="0.25"
+          strokeOpacity="0.45"
           initial={{ pathLength: 0 }}
           whileInView={{ pathLength: 1 }}
           viewport={{ once: true }}
@@ -76,7 +76,7 @@ const DeployIllustration = () => {
             y2={node.y}
             stroke="currentColor"
             strokeWidth="1"
-            strokeOpacity="0.1"
+            strokeOpacity="0.25"
             initial={{ pathLength: 0 }}
             whileInView={{ pathLength: 1 }}
             viewport={{ once: true }}
@@ -92,7 +92,7 @@ const DeployIllustration = () => {
             cy={node.y}
             r="5"
             fill="currentColor"
-            fillOpacity="0.15"
+            fillOpacity="0.3"
             initial={{ scale: 0 }}
             whileInView={{ scale: 1 }}
             viewport={{ once: true }}
@@ -111,7 +111,7 @@ const DeployIllustration = () => {
         cy="140"
         r="18"
         fill="currentColor"
-        fillOpacity="0.08"
+        fillOpacity="0.15"
         initial={{ scale: 0 }}
         whileInView={{ scale: [0, 1.2, 1] }}
         viewport={{ once: true }}
@@ -122,7 +122,7 @@ const DeployIllustration = () => {
         cy="140"
         r="6"
         fill="currentColor"
-        fillOpacity="0.3"
+        fillOpacity="0.5"
         initial={{ scale: 0 }}
         whileInView={{ scale: 1 }}
         viewport={{ once: true }}

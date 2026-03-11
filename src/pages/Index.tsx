@@ -9,10 +9,13 @@ import PricingSection from "@/components/PricingSection";
 import ComplianceSection from "@/components/ComplianceSection";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Index = () => {
+  const { language } = useLanguage();
+
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen" key={language}>
       <Navbar />
       <main>
         <Hero />

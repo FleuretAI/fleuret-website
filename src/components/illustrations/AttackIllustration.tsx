@@ -32,8 +32,8 @@ const AttackIllustration = () => {
         {/* Target system — central rectangle representing infrastructure */}
         <motion.rect
           x="-32" y="-28" width="64" height="56" rx="6"
-          stroke="currentColor" strokeWidth="1.5" strokeOpacity="0.3"
-          fill="currentColor" fillOpacity="0.05"
+          stroke="currentColor" strokeWidth="1.5" strokeOpacity="0.5"
+          fill="currentColor" fillOpacity="0.12"
           initial={{ scale: 0.8, opacity: 0 }}
           whileInView={{ scale: 1, opacity: 1 }}
           viewport={{ once: true }}
@@ -94,13 +94,13 @@ const AttackIllustration = () => {
             >
               <rect
                 x={agent.x - 6} y={agent.y - 6} width="12" height="12" rx="2"
-                fill="currentColor" fillOpacity="0.1"
-                stroke="currentColor" strokeWidth="1" strokeOpacity="0.3"
+                fill="currentColor" fillOpacity="0.2"
+                stroke="currentColor" strokeWidth="1" strokeOpacity="0.5"
                 transform={`rotate(45,${agent.x},${agent.y})`}
               />
               <circle
                 cx={agent.x} cy={agent.y} r="2"
-                fill="currentColor" fillOpacity="0.6"
+                fill="currentColor" fillOpacity="0.8"
               />
             </motion.g>
           </g>
@@ -137,7 +137,7 @@ const AttackIllustration = () => {
         {/* Outer perimeter ring — represents the attack surface */}
         <motion.circle
           cx="0" cy="0" r="110"
-          stroke="currentColor" strokeWidth="0.5" strokeOpacity="0.06"
+          stroke="currentColor" strokeWidth="0.5" strokeOpacity="0.15"
           strokeDasharray="3 6"
           initial={{ scale: 0.8, opacity: 0 }}
           whileInView={{ scale: 1, opacity: 1 }}

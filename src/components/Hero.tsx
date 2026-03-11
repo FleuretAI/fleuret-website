@@ -24,8 +24,8 @@ const Hero = () => {
             transition={{ duration: 0.5, delay: 0.05 }}
             className="flex justify-center"
           >
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/[0.04] text-xs md:text-sm font-medium text-white/60 backdrop-blur-sm">
-              <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-blue)] animate-pulse" />
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[var(--accent-blue)]/30 bg-[var(--accent-blue)]/[0.08] text-xs md:text-sm font-medium text-white/80 backdrop-blur-sm shadow-[0_0_20px_rgba(79,143,255,0.15),0_0_40px_rgba(79,143,255,0.05)]">
+              <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-blue)] animate-pulse shadow-[0_0_6px_rgba(79,143,255,0.8)]" />
               {t("hero.badge")}
             </span>
           </motion.div>
@@ -73,7 +73,9 @@ const Hero = () => {
             className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4"
           >
             <a
-              href="#pricing"
+              href="https://cal.com/fr/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center justify-center rounded-full px-10 py-3.5 text-base font-medium text-white transition-all hover:opacity-90 hover:shadow-[0_0_30px_rgba(79,143,255,0.3)]"
               style={{
                 background:

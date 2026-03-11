@@ -17,13 +17,25 @@ const Footer = () => {
     <footer className="border-t border-white/5 py-16">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-3 gap-12 mb-12">
+          <div className="grid md:grid-cols-4 gap-12 mb-12">
             <div className="space-y-4">
               <div className="flex items-center gap-2.5">
                 <img src={logoSymbol} alt="" className="h-8 w-auto object-contain brightness-0 invert" width="34" height="59" />
                 <img src={logoWordmark} alt="Fleuret" className="h-8 w-auto object-contain brightness-0 invert" width="49" height="12" />
               </div>
               <p className="text-white/30 text-sm leading-relaxed">{t("footer.tagline")}</p>
+            </div>
+
+            <div className="space-y-4">
+              <h3 className="text-sm font-semibold text-white/50 uppercase tracking-wider font-sans">{language === "fr" ? "Entreprise" : "Company"}</h3>
+              <div className="space-y-2 text-sm">
+                <Link to="/about" className="block text-white/30 hover:text-white transition-colors">
+                  {language === "fr" ? "À propos" : "About"}
+                </Link>
+                <Link to="/careers" className="block text-white/30 hover:text-white transition-colors">
+                  {language === "fr" ? "Carrières" : "Careers"}
+                </Link>
+              </div>
             </div>
 
             <div className="space-y-4">
