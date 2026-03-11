@@ -18,18 +18,6 @@ const Hero = () => {
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-4xl mx-auto text-center space-y-8 pt-24 pb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.05 }}
-            className="flex justify-center"
-          >
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[var(--accent-blue)]/30 bg-[var(--accent-blue)]/[0.08] text-xs md:text-sm font-medium text-white/80 backdrop-blur-sm shadow-[0_0_20px_rgba(79,143,255,0.15),0_0_40px_rgba(79,143,255,0.05)]">
-              <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-blue)] animate-pulse shadow-[0_0_6px_rgba(79,143,255,0.8)]" />
-              {t("hero.badge")}
-            </span>
-          </motion.div>
-
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1]">
             <motion.span
               initial={{ opacity: 0, y: 30 }}
