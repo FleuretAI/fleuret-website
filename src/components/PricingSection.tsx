@@ -110,19 +110,19 @@ const PricingSection = () => {
 
                   {/* Price */}
                   <div className="mb-6">
+                    {card.unit && (
+                      <span className="text-sm text-white/40 uppercase tracking-wider">
+                        {t("pricing.startingAt")}
+                      </span>
+                    )}
                     <div className="flex items-baseline gap-2">
                       <span className="text-4xl md:text-5xl font-bold text-white tracking-tight">
-                        {card.price}
+                        {card.price}€
                       </span>
                       {card.unit ? (
-                        <>
-                          <span className="text-2xl font-bold text-white/60">
-                            &euro;
-                          </span>
-                          <span className="text-sm text-white/40">
-                            {card.unit}
-                          </span>
-                        </>
+                        <span className="text-sm text-white/40">
+                          {card.unit}
+                        </span>
                       ) : null}
                     </div>
                   </div>
