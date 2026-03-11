@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/motion/ScrollReveal";
 import StaggerGroup from "@/components/motion/StaggerGroup";
 import { staggerItem } from "@/lib/animations";
+import { motion } from "framer-motion";
 
 const team = [
   {
@@ -26,11 +26,6 @@ const team = [
     roleFr: "Co-fondateur & COO",
     linkedin: "https://linkedin.com/in/augustin-ponsin",
   },
-];
-
-const investors = [
-  { name: "Kima Ventures", type: "VC" },
-  { name: "Motier Ventures", type: "VC" },
 ];
 
 const About = () => {
@@ -116,37 +111,6 @@ const About = () => {
                       LinkedIn
                     </a>
                   )}
-                </motion.div>
-              ))}
-            </StaggerGroup>
-          </div>
-        </section>
-
-        {/* Investors */}
-        <section className="container mx-auto px-4 pb-16 md:pb-24">
-          <div className="max-w-5xl mx-auto">
-            <ScrollReveal>
-              <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-4">
-                {t("about.investors.title")}
-              </h2>
-              <p className="text-center text-white/40 mb-12 max-w-xl mx-auto">
-                {t("about.investors.subtitle")}
-              </p>
-            </ScrollReveal>
-
-            <StaggerGroup className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
-              {investors.map((investor) => (
-                <motion.div
-                  key={investor.name}
-                  variants={staggerItem}
-                  className="p-6 rounded-2xl border border-white/8 bg-white/[0.02] hover:bg-white/[0.04] hover:border-white/15 transition-all duration-300 text-center"
-                >
-                  <h3 className="text-lg font-bold text-white mb-1">
-                    {investor.name}
-                  </h3>
-                  <p className="text-xs text-white/30 uppercase tracking-wider">
-                    {investor.type}
-                  </p>
                 </motion.div>
               ))}
             </StaggerGroup>
