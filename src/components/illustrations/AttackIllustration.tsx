@@ -26,7 +26,7 @@ const AttackIllustration = () => {
       viewBox="0 0 280 280"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className="w-full h-full max-w-[260px] mx-auto"
+      className="w-[200px] h-[200px] md:w-full md:h-full max-w-[260px] mx-auto"
     >
       <g transform="translate(140,140)">
         {/* Target system — central rectangle representing infrastructure */}

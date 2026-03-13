@@ -15,6 +15,9 @@ const translations = {
     'nav.problem': 'Le problème',
     'nav.platform': 'Plateforme',
     'nav.pricing': 'Tarifs',
+    'nav.company': 'Entreprise',
+    'nav.about': 'À propos',
+    'nav.careers': 'Carrières',
     'nav.cta': 'Réserver une démo',
 
     // Hero
@@ -202,6 +205,9 @@ const translations = {
     'nav.problem': 'The problem',
     'nav.platform': 'Platform',
     'nav.pricing': 'Pricing',
+    'nav.company': 'Company',
+    'nav.about': 'About',
+    'nav.careers': 'Careers',
     'nav.cta': 'Book a demo',
 
     // Hero

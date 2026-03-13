@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { motion } from "framer-motion";
@@ -8,10 +9,10 @@ import StaggerGroup from "@/components/motion/StaggerGroup";
 import { staggerItem } from "@/lib/animations";
 
 const values = [
+  { icon: "⚡", key: "gsd", accent: "var(--accent-blue)" },
   { icon: "💡", key: "newIdeas", accent: "var(--accent-blue)" },
   { icon: "🎯", key: "outcomeFocused", accent: "var(--accent-violet)" },
   { icon: "🔒", key: "integrity", accent: "var(--accent-red)" },
-  { icon: "⚡", key: "gsd", accent: "var(--accent-blue)" },
 ] as const;
 
 const perks = [
@@ -25,6 +26,10 @@ const perks = [
 
 const Careers = () => {
   const { t } = useLanguage();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="min-h-screen">

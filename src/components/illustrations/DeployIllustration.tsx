@@ -10,7 +10,7 @@ const DeployIllustration = () => {
       viewBox="0 0 280 280"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className="w-full h-full max-w-[260px] mx-auto"
+      className="w-[200px] h-[200px] md:w-full md:h-full max-w-[260px] mx-auto"
     >
       {/* Outer ring — fades in and scales */}
       <motion.circle

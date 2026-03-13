@@ -26,6 +26,11 @@ const Navbar = () => {
     { path: "/#pricing", label: t("nav.pricing") },
   ];
 
+  const companyItems = [
+    { path: "/about", label: t("nav.about") },
+    { path: "/careers", label: t("nav.careers") },
+  ];
+
   return (
     <header
       className={cn(
@@ -80,6 +85,15 @@ const Navbar = () => {
           </nav>
 
           <div className="hidden lg:flex items-center gap-3">
+            {companyItems.map((item) => (
+              <Link
+                key={item.path}
+                to={item.path}
+                className="text-sm font-medium text-white/40 hover:text-white transition-colors"
+              >
+                {item.label}
+              </Link>
+            ))}
             <LanguageSwitcher />
             <a href="https://calendar.app.google/BCrw74tMZk8NoMU18" target="_blank" rel="noopener noreferrer">
               <motion.button
@@ -115,7 +129,7 @@ const Navbar = () => {
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.25, ease: "easeInOut" }}
-              className="lg:hidden overflow-hidden"
+              className="lg:hidden overflow-hidden bg-[#0f101c] border-b border-white/5"
             >
               <div className="flex flex-col gap-1 pt-6 pb-4">
                 {navItems.map((item) => (
@@ -129,6 +143,20 @@ const Navbar = () => {
                     {item.label}
                   </HashLink>
                 ))}
+                {/* Company section */}
+                <div className="px-4 pt-3 mt-2 border-t border-white/10">
+                  <p className="text-xs text-white/25 uppercase tracking-wider mb-2">{t("nav.company")}</p>
+                  {companyItems.map((item) => (
+                    <Link
+                      key={item.path}
+                      to={item.path}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="block text-sm font-medium text-white/50 hover:text-white py-2 rounded-lg transition-colors hover:bg-white/5"
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
                 <div className="flex flex-col gap-3 px-4 pt-4 mt-2 border-t border-white/10">
                   <a href="https://calendar.app.google/BCrw74tMZk8NoMU18" target="_blank" rel="noopener noreferrer" onClick={() => setMobileMenuOpen(false)}>
                     <button

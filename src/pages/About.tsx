@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import Navbar from "@/components/Navbar";
@@ -6,30 +7,35 @@ import ScrollReveal from "@/components/motion/ScrollReveal";
 import StaggerGroup from "@/components/motion/StaggerGroup";
 import { staggerItem } from "@/lib/animations";
 import { motion } from "framer-motion";
+import { partners } from "@/components/Partners";
 
 const team = [
   {
     name: "Yanis Grigy",
     role: "Co-founder & CEO",
     roleFr: "Co-fondateur & CEO",
-    linkedin: "https://linkedin.com/in/yanis-grigy",
+    linkedin: "https://www.linkedin.com/in/yanis-grigy-793635237/",
   },
   {
     name: "Pierre-Gabriel Berlureau",
     role: "Co-founder & CTO",
     roleFr: "Co-fondateur & CTO",
-    linkedin: "https://linkedin.com/in/pierre-gabriel-berlureau",
+    linkedin: "https://www.linkedin.com/in/pierre-gabriel-berlureau-427320313/",
   },
   {
     name: "Augustin Ponsin",
     role: "Co-founder & COO",
     roleFr: "Co-fondateur & COO",
-    linkedin: "https://linkedin.com/in/augustin-ponsin",
+    linkedin: "https://www.linkedin.com/in/augustinponsin/",
   },
 ];
 
 const About = () => {
   const { language, t } = useLanguage();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="min-h-screen">
@@ -114,6 +120,34 @@ const About = () => {
                 </motion.div>
               ))}
             </StaggerGroup>
+          </div>
+        </section>
+
+        {/* Alumni / Partners */}
+        <section className="section-elevated grid-fade py-16 md:py-24 relative">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto">
+              <ScrollReveal>
+                <p className="text-center text-sm font-medium uppercase tracking-widest text-white/30 mb-8 md:mb-12">
+                  {t("partners.title")}
+                </p>
+              </ScrollReveal>
+              <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10">
+                {partners.map((partner) => (
+                  <div
+                    key={partner.name}
+                    className="flex items-center justify-center"
+                  >
+                    <img
+                      src={partner.logo}
+                      alt={partner.name}
+                      className="h-8 sm:h-10 md:h-14 w-auto object-contain opacity-80 hover:opacity-100 transition-all duration-500"
+                      loading="lazy"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </section>
 

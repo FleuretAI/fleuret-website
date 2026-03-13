@@ -6,15 +6,15 @@ import { staggerItem } from "@/lib/animations";
 
 const CheckMark = () => (
   <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="mx-auto">
-    <circle cx="10" cy="10" r="10" fill="var(--accent-blue)" fillOpacity="0.2" />
-    <path d="M6 10.5L8.5 13L14 7.5" stroke="var(--accent-blue)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    <circle cx="10" cy="10" r="10" fill="#22c55e" fillOpacity="0.2" />
+    <path d="M6 10.5L8.5 13L14 7.5" stroke="#22c55e" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 );
 
 const CrossMark = () => (
   <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="mx-auto">
-    <circle cx="10" cy="10" r="10" fill="white" fillOpacity="0.05" />
-    <path d="M7 7L13 13M13 7L7 13" stroke="white" strokeOpacity="0.2" strokeWidth="2" strokeLinecap="round" />
+    <circle cx="10" cy="10" r="10" fill="#ef4444" fillOpacity="0.15" />
+    <path d="M7 7L13 13M13 7L7 13" stroke="#ef4444" strokeOpacity="0.6" strokeWidth="2" strokeLinecap="round" />
   </svg>
 );
 

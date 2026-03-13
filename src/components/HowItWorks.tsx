@@ -67,7 +67,7 @@ const HowItWorks = () => {
                     variants={isEven ? slideInLeft : slideInRight}
                     className={isEven ? "md:order-1" : "md:order-2"}
                   >
-                    <div className="flex items-center justify-center" style={{ color: step.color }}>
+                    <div className="flex items-center justify-center min-h-[200px] md:min-h-0" style={{ color: step.color }}>
                       <step.Illustration />
                     </div>
                   </ScrollReveal>
