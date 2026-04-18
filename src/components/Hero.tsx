@@ -18,8 +18,8 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
-      style={{ isolation: "isolate" }}
+      className="relative flex items-center justify-center overflow-hidden"
+      style={{ minHeight: "100dvh", isolation: "isolate" }}
     >
       {/* Ambient glows */}
       <div
@@ -73,16 +73,19 @@ const Hero = () => {
       {/* Text content */}
       <div className="container mx-auto px-4 relative" style={{ zIndex: 10 }}>
         <div
-          className="max-w-4xl mx-auto text-center"
-          style={{ paddingTop: "6rem", paddingBottom: "3rem" }}
+          className="max-w-4xl mx-auto text-center px-2"
+          style={{ paddingTop: "5rem", paddingBottom: "5rem" }}
         >
           {/* Announcement badge */}
-          <div style={{ display: "flex", justifyContent: "center", marginBottom: "2rem" }}>
+          <div style={{ display: "flex", justifyContent: "center", marginBottom: "1.75rem" }}>
             <div
+              className="max-w-[88vw] sm:max-w-none"
               style={{
                 display: "inline-flex",
+                flexWrap: "wrap",
+                justifyContent: "center",
                 alignItems: "center",
-                gap: "0.625rem",
+                gap: "0.5rem",
                 padding: "0.375rem 1rem 0.375rem 0.5rem",
                 borderRadius: "999px",
                 border: "1px solid rgba(79,143,255,0.25)",
@@ -100,11 +103,12 @@ const Hero = () => {
                   borderRadius: "999px",
                   background: "linear-gradient(135deg, var(--accent-blue), var(--accent-violet))",
                   color: "#fff",
+                  flexShrink: 0,
                 }}
               >
                 {t("hero.badge.label")}
               </span>
-              <span style={{ fontSize: "0.8125rem", color: "rgba(255,255,255,0.7)", letterSpacing: "0.01em" }}>
+              <span className="text-[0.75rem] sm:text-[0.8125rem]" style={{ color: "rgba(255,255,255,0.7)", letterSpacing: "0.01em", textAlign: "center" }}>
                 {t("hero.badge.text")}
               </span>
             </div>
@@ -112,10 +116,10 @@ const Hero = () => {
 
           <h1
             style={{
-              fontSize: "clamp(2rem, 6vw, 4.5rem)",
+              fontSize: "clamp(1.25rem, 6vw, 4.5rem)",
               fontWeight: 300,
               letterSpacing: "-0.02em",
-              lineHeight: 1.1,
+              lineHeight: 1.15,
               marginBottom: "1.75rem",
             }}
           >

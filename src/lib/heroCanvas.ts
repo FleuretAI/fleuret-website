@@ -80,8 +80,9 @@ export function mountHeroCanvas(canvas: HTMLCanvasElement): () => void {
 
   function nodePos(n: Node) {
     const cx = W * 0.5, cy = H * 0.52;
-    const rx = Math.min(W * 0.6, 880);
-    const ry = Math.min(H * 0.42, 440);
+    const isMobile = W < 640;
+    const rx = isMobile ? Math.min(W * 0.42, 200) : Math.min(W * 0.6, 880);
+    const ry = isMobile ? Math.min(H * 0.28, 160) : Math.min(H * 0.42, 440);
     return { x: cx + n.nx * rx, y: cy + n.ny * ry };
   }
 
@@ -155,7 +156,7 @@ export function mountHeroCanvas(canvas: HTMLCanvasElement): () => void {
   }
 
   function drawBackgroundDots(fade: number) {
-    const spacing = 46;
+    const spacing = W < 640 ? 72 : 46;
     const cx = W * 0.5, cy = H * 0.52;
     const rMax = Math.hypot(W, H) * 0.55;
     for (let y = spacing / 2; y < H; y += spacing) {
@@ -298,34 +299,36 @@ export function mountHeroCanvas(canvas: HTMLCanvasElement): () => void {
       cx2 += 9 + numW + 5 + ctx.measureText(label).width + 16;
     }
 
-    const status = finished ? 'FLEURET COMPLETE' : 'FLEURET SCANNING';
-    ctx.font = '500 10px ui-monospace,"SF Mono",Menlo,monospace';
-    const sw = ctx.measureText(status).width;
-    const pillX = W - padX - sw - 24, pillY = y - 24;
-    ctx.fillStyle = `rgba(255,255,255,${(0.04 * fade).toFixed(3)})`;
-    ctx.strokeStyle = `rgba(255,255,255,${(0.14 * fade).toFixed(3)})`;
-    ctx.lineWidth = 1;
-    const pw = sw + 24, ph = 22, pr = 11;
-    ctx.beginPath();
-    ctx.moveTo(pillX + pr, pillY);
-    ctx.lineTo(pillX + pw - pr, pillY);
-    ctx.arcTo(pillX + pw, pillY, pillX + pw, pillY + pr, pr);
-    ctx.lineTo(pillX + pw, pillY + ph - pr);
-    ctx.arcTo(pillX + pw, pillY + ph, pillX + pw - pr, pillY + ph, pr);
-    ctx.lineTo(pillX + pr, pillY + ph);
-    ctx.arcTo(pillX, pillY + ph, pillX, pillY + ph - pr, pr);
-    ctx.lineTo(pillX, pillY + pr);
-    ctx.arcTo(pillX, pillY, pillX + pr, pillY, pr);
-    ctx.closePath(); ctx.fill(); ctx.stroke();
+    if (W >= 640) {
+      const status = finished ? 'FLEURET COMPLETE' : 'FLEURET SCANNING';
+      ctx.font = '500 10px ui-monospace,"SF Mono",Menlo,monospace';
+      const sw = ctx.measureText(status).width;
+      const pillX = W - padX - sw - 24, pillY = y - 24;
+      ctx.fillStyle = `rgba(255,255,255,${(0.04 * fade).toFixed(3)})`;
+      ctx.strokeStyle = `rgba(255,255,255,${(0.14 * fade).toFixed(3)})`;
+      ctx.lineWidth = 1;
+      const pw = sw + 24, ph = 22, pr = 11;
+      ctx.beginPath();
+      ctx.moveTo(pillX + pr, pillY);
+      ctx.lineTo(pillX + pw - pr, pillY);
+      ctx.arcTo(pillX + pw, pillY, pillX + pw, pillY + pr, pr);
+      ctx.lineTo(pillX + pw, pillY + ph - pr);
+      ctx.arcTo(pillX + pw, pillY + ph, pillX + pw - pr, pillY + ph, pr);
+      ctx.lineTo(pillX + pr, pillY + ph);
+      ctx.arcTo(pillX, pillY + ph, pillX, pillY + ph - pr, pr);
+      ctx.lineTo(pillX, pillY + pr);
+      ctx.arcTo(pillX, pillY, pillX + pr, pillY, pr);
+      ctx.closePath(); ctx.fill(); ctx.stroke();
 
-    const dotX = pillX + 11, dotY = pillY + ph / 2;
-    const blink = finished ? 1 : (Math.sin(now / 400) * 0.35 + 0.65);
-    const dc = finished ? [139, 92, 246] : [79, 143, 255];
-    ctx.fillStyle = `rgba(${dc[0]},${dc[1]},${dc[2]},${(blink * fade).toFixed(3)})`;
-    ctx.beginPath(); ctx.arc(dotX, dotY, 2.8, 0, Math.PI * 2); ctx.fill();
-    ctx.fillStyle = `rgba(255,255,255,${(0.7 * fade).toFixed(3)})`;
-    ctx.textBaseline = 'middle';
-    ctx.fillText(status, pillX + 20, dotY + 0.5);
+      const dotX = pillX + 11, dotY = pillY + ph / 2;
+      const blink = finished ? 1 : (Math.sin(now / 400) * 0.35 + 0.65);
+      const dc = finished ? [139, 92, 246] : [79, 143, 255];
+      ctx.fillStyle = `rgba(${dc[0]},${dc[1]},${dc[2]},${(blink * fade).toFixed(3)})`;
+      ctx.beginPath(); ctx.arc(dotX, dotY, 2.8, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = `rgba(255,255,255,${(0.7 * fade).toFixed(3)})`;
+      ctx.textBaseline = 'middle';
+      ctx.fillText(status, pillX + 20, dotY + 0.5);
+    }
     ctx.restore();
   }
 
