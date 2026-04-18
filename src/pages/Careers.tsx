@@ -39,7 +39,7 @@ const Careers = () => {
         <section className="container mx-auto px-4 text-center mb-20">
           <ScrollReveal>
             <div className="max-w-3xl mx-auto space-y-6">
-              <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[1.1]">
+              <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-light tracking-tight text-white leading-[1.1]">
                 {t("careers.hero.title")}{" "}
                 <span className="text-gradient-accent">
                   {t("careers.hero.highlight")}
@@ -50,7 +50,7 @@ const Careers = () => {
               </p>
               <div className="pt-4">
                 <a
-                  href="mailto:careers@fleuret.ai"
+                  href="mailto:yanis@fleuret.ai"
                   className="inline-flex items-center justify-center rounded-full px-10 py-3.5 text-base font-medium text-white transition-all hover:opacity-90 hover:shadow-[0_0_30px_rgba(79,143,255,0.3)]"
                   style={{
                     background: "linear-gradient(135deg, var(--accent-blue), var(--accent-violet))",
@@ -67,7 +67,7 @@ const Careers = () => {
         <section className="container mx-auto px-4 mb-24">
           <div className="max-w-5xl mx-auto">
             <ScrollReveal>
-              <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-light text-white text-center mb-12">
                 {t("careers.perks.title")}
               </h2>
             </ScrollReveal>
@@ -94,7 +94,7 @@ const Careers = () => {
           <div className="container mx-auto px-4">
             <div className="max-w-5xl mx-auto">
               <ScrollReveal>
-                <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-12">
+                <h2 className="text-3xl md:text-4xl font-light text-white text-center mb-12">
                   {t("careers.values.title")}
                 </h2>
               </ScrollReveal>
@@ -110,7 +110,7 @@ const Careers = () => {
                       <div className="flex items-center gap-3">
                         <span className="text-2xl">{value.icon}</span>
                         <h3
-                          className="text-lg font-bold"
+                          className="text-lg font-medium"
                           style={{ color: value.accent }}
                         >
                           {t(`careers.values.${value.key}.title`)}
@@ -145,7 +145,7 @@ const Careers = () => {
                   {t("careers.positions.empty")}
                 </p>
                 <a
-                  href="mailto:careers@fleuret.ai"
+                  href="mailto:yanis@fleuret.ai"
                   className="text-[var(--accent-blue)] hover:underline text-sm font-medium"
                 >
                   {t("careers.positions.spontaneous")}

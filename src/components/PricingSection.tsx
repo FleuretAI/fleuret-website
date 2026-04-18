@@ -1,204 +1,125 @@
-import { motion } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
-import ScrollReveal from "./motion/ScrollReveal";
-import StaggerGroup from "./motion/StaggerGroup";
-import { staggerItem } from "@/lib/animations";
 
-interface PricingCard {
-  name: string;
-  price: string;
-  unit?: string;
-  description: string;
-  features: string[];
-  cta: string;
-  highlighted?: boolean;
-  badge?: string;
-}
+const DEMO_URL = "https://calendar.app.google/H9GMsaSvZMhwRbueA";
+
+const CheckIcon = ({ color }: { color: string }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" style={{ width: "1rem", height: "1rem", flexShrink: 0, marginTop: 2 }}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/>
+  </svg>
+);
 
 const PricingSection = () => {
   const { t } = useLanguage();
 
-  const cards: PricingCard[] = [
-    {
-      name: t("pricing.standard.name"),
-      price: t("pricing.standard.price"),
-      unit: t("pricing.standard.unit"),
-      description: t("pricing.standard.desc"),
-      features: [
-        t("pricing.standard.feature1"),
-        t("pricing.standard.feature2"),
-        t("pricing.standard.feature3"),
-        t("pricing.standard.feature4"),
-      ],
-      cta: t("pricing.cta"),
-      highlighted: true,
-    },
-    {
-      name: t("pricing.enterprise.name"),
-      price: t("pricing.enterprise.price"),
-      unit: undefined,
-      description: t("pricing.enterprise.desc"),
-      features: [
-        t("pricing.enterprise.feature1"),
-        t("pricing.enterprise.feature2"),
-        t("pricing.enterprise.feature3"),
-        t("pricing.enterprise.feature4"),
-      ],
-      cta: t("pricing.enterprise.cta"),
-    },
+  const standardFeatures = [
+    t("pricing.standard.f1"),
+    t("pricing.standard.f2"),
+    t("pricing.standard.f3"),
+    t("pricing.standard.f4"),
+  ];
+  const enterpriseFeatures = [
+    t("pricing.enterprise.f1"),
+    t("pricing.enterprise.f2"),
+    t("pricing.enterprise.f3"),
+    t("pricing.enterprise.f4"),
   ];
 
   return (
-    <section
-      id="pricing"
-      className="section-elevated grid-fade relative py-16 md:py-24 lg:py-32 overflow-hidden"
-    >
-      {/* Radial accents */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-[radial-gradient(ellipse_at_top,rgba(79,143,255,0.06),transparent_70%)] pointer-events-none" />
-      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-[radial-gradient(ellipse_at_bottom_right,rgba(139,92,246,0.04),transparent_70%)] pointer-events-none" />
+    <section id="pricing" className="section-elevated grid-fade py-16 md:py-24 lg:py-32" style={{ position: "relative", overflow: "hidden" }}>
+      <div style={{ position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)", width: 800, height: 600, background: "radial-gradient(ellipse at top, rgba(79,143,255,0.06), transparent 70%)", pointerEvents: "none" }} />
+      <div style={{ position: "absolute", bottom: 0, right: 0, width: 400, height: 400, background: "radial-gradient(ellipse at bottom right, rgba(139,92,246,0.04), transparent 70%)", pointerEvents: "none" }} />
 
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="max-w-6xl mx-auto">
-          {/* Header */}
-          <ScrollReveal>
-            <div className="text-center space-y-4 mb-10 md:mb-16">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.1]">
-                {t("pricing.title")}{" "}
-                <span className="text-gradient-accent">
-                  {t("pricing.subtitle")}
-                </span>
-              </h2>
-              <p className="text-lg text-white/40 leading-relaxed max-w-2xl mx-auto">
-                {t("pricing.description")}
-              </p>
-            </div>
-          </ScrollReveal>
-
-          {/* Pricing Cards */}
-          <StaggerGroup className="grid md:grid-cols-2 gap-6 lg:gap-8 max-w-4xl mx-auto">
-            {cards.map((card) => (
-              <motion.div
-                key={card.name}
-                variants={staggerItem}
-                className="relative"
-              >
-                {/* Gradient border for highlighted card */}
-                {card.highlighted && (
-                  <div className="absolute -inset-[1px] rounded-2xl bg-gradient-to-br from-[var(--accent-blue)] via-[var(--accent-violet)] to-[var(--accent-red)] opacity-40 blur-[1px]" />
-                )}
-
-                <div
-                  className={`relative flex flex-col h-full rounded-2xl p-8 transition-all duration-300 ${
-                    card.highlighted
-                      ? "bg-white/[0.04] border border-white/10 hover:bg-white/[0.06]"
-                      : "bg-white/[0.02] border border-white/8 hover:bg-white/[0.04]"
-                  }`}
-                >
-                  {/* Badge */}
-                  {card.badge && (
-                    <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                      <span className="inline-block px-4 py-1 text-xs font-semibold uppercase tracking-wider rounded-full bg-gradient-to-r from-[var(--accent-blue)] to-[var(--accent-violet)] text-white">
-                        {card.badge}
-                      </span>
-                    </div>
-                  )}
-
-                  {/* Plan name */}
-                  <h3 className="text-sm uppercase tracking-widest text-white/50 font-semibold mb-6">
-                    {card.name}
-                  </h3>
-
-                  {/* Price */}
-                  <div className="mb-6">
-                    {card.unit && (
-                      <span className="text-sm text-white/40 uppercase tracking-wider">
-                        {t("pricing.startingAt")}
-                      </span>
-                    )}
-                    <div className="flex items-baseline gap-2">
-                      <span className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight">
-                        {card.price}{card.unit ? '€' : ''}
-                      </span>
-                      {card.unit ? (
-                        <span className="text-sm text-white/40">
-                          {card.unit}
-                        </span>
-                      ) : null}
-                    </div>
-                  </div>
-
-                  {/* Description */}
-                  <p className="text-sm text-white/40 leading-relaxed mb-8">
-                    {card.description}
-                  </p>
-
-                  {/* Features */}
-                  <ul className="space-y-3 mb-8 flex-1">
-                    {card.features.map((feature) => (
-                      <li
-                        key={feature}
-                        className="flex items-start gap-3 text-sm text-white/60"
-                      >
-                        <svg
-                          className="w-4 h-4 mt-0.5 shrink-0"
-                          style={{
-                            color: card.highlighted
-                              ? "var(--accent-violet)"
-                              : "var(--accent-blue)",
-                          }}
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                          strokeWidth={2}
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M5 13l4 4L19 7"
-                          />
-                        </svg>
-                        <span>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  {/* CTA Button */}
-                  <a
-                    href="https://calendar.app.google/BCrw74tMZk8NoMU18"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`block w-full py-3 px-6 rounded-lg text-sm font-semibold text-center transition-all duration-300 cursor-pointer ${
-                      card.highlighted
-                        ? "bg-gradient-to-r from-[var(--accent-blue)] to-[var(--accent-violet)] text-white hover:opacity-90"
-                        : "border border-white/10 text-white/70 hover:text-white hover:border-white/20 hover:bg-white/[0.04]"
-                    }`}
-                  >
-                    {card.cta}
-                  </a>
-                </div>
-              </motion.div>
-            ))}
-          </StaggerGroup>
-
-          {/* Guarantee */}
-          <ScrollReveal delay={0.2}>
-            <div className="mt-12 max-w-md mx-auto text-center p-6 rounded-2xl border border-[var(--accent-blue)]/20 bg-[var(--accent-blue)]/[0.04]">
-              <p className="text-xl font-bold text-white mb-1">
-                {t("pricing.guarantee")}
-              </p>
-              <p className="text-sm text-white/50">
-                {t("pricing.guarantee.desc")}
-              </p>
-            </div>
-          </ScrollReveal>
-
-          {/* Anchor comparison text */}
-          <ScrollReveal delay={0.3}>
-            <p className="text-center text-sm text-white/30 mt-8">
-              {t("pricing.anchor")}
-            </p>
-          </ScrollReveal>
+      <div className="max-w-[1280px] mx-auto px-4 md:px-8" style={{ position: "relative", zIndex: 10 }}>
+        <div style={{ textAlign: "center", maxWidth: "56rem", margin: "0 auto 4rem" }}>
+          <h2 style={{ fontSize: "clamp(1.875rem, 4.5vw, 3.75rem)", fontWeight: 300, letterSpacing: "-0.02em", lineHeight: 1.1 }}>
+            {t("pricing.title.main")}{" "}
+            <span className="text-gradient-accent">{t("pricing.title.accent")}</span>
+          </h2>
+          <p style={{ fontSize: "1.125rem", color: "rgba(255,255,255,0.4)", lineHeight: 1.7, maxWidth: "42rem", margin: "1rem auto 0" }}>
+            {t("pricing.subtitle")}
+          </p>
         </div>
+
+        <div className="grid md:grid-cols-2 gap-6 md:gap-8 max-w-[56rem] mx-auto">
+          {/* Standard — highlighted with gradient border */}
+          <div style={{ position: "relative" }}>
+            {/* Animated gradient glow border */}
+            <div style={{ position: "absolute", inset: -1, borderRadius: "1rem", background: "linear-gradient(135deg, var(--accent-blue), var(--accent-violet), var(--accent-red))", opacity: 0.4, filter: "blur(1px)", zIndex: 0 }} />
+            <div
+              style={{ position: "relative", zIndex: 1, display: "flex", flexDirection: "column", height: "100%", borderRadius: "1rem", padding: "2rem", border: "1px solid rgba(255,255,255,0.1)", background: "rgba(255,255,255,0.04)", transition: "all 0.3s", cursor: "default" }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.06)"; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.04)"; }}
+            >
+              <p style={{ fontSize: "0.875rem", textTransform: "uppercase", letterSpacing: "0.2em", color: "rgba(255,255,255,0.5)", fontWeight: 600, marginBottom: "1.5rem" }}>
+                {t("pricing.standard.name")}
+              </p>
+              <div>
+                <span style={{ fontSize: "0.875rem", color: "rgba(255,255,255,0.4)", textTransform: "uppercase", letterSpacing: "0.1em", display: "block", marginBottom: "0.25rem" }}>
+                  {t("pricing.startingAt")}
+                </span>
+                <div style={{ display: "flex", alignItems: "baseline", gap: "0.5rem", marginBottom: "1.5rem" }}>
+                  <span style={{ fontSize: "clamp(1.875rem, 4vw, 3rem)", fontWeight: 300, color: "#fff", letterSpacing: "-0.02em" }}>{t("pricing.standard.price")}</span>
+                  <span style={{ fontSize: "0.875rem", color: "rgba(255,255,255,0.4)" }}>{t("pricing.standard.unit")}</span>
+                </div>
+              </div>
+              <p style={{ fontSize: "0.875rem", color: "rgba(255,255,255,0.4)", lineHeight: 1.7, marginBottom: "2rem" }}>{t("pricing.standard.desc")}</p>
+              <ul style={{ listStyle: "none", padding: 0, margin: "0 0 2rem", display: "flex", flexDirection: "column", gap: "0.75rem", flex: 1 }}>
+                {standardFeatures.map((f) => (
+                  <li key={f} style={{ display: "flex", alignItems: "flex-start", gap: "0.75rem", fontSize: "0.875rem", color: "rgba(255,255,255,0.6)" }}>
+                    <CheckIcon color="var(--accent-violet)" />{f}
+                  </li>
+                ))}
+              </ul>
+              <a
+                href={DEMO_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ display: "block", width: "100%", padding: "0.75rem 1.5rem", borderRadius: "0.5rem", fontSize: "0.875rem", fontWeight: 600, textAlign: "center", background: "linear-gradient(to right, var(--accent-blue), var(--accent-violet))", color: "#fff", transition: "opacity 0.2s" }}
+                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.opacity = "0.9"; }}
+                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.opacity = "1"; }}
+              >
+                {t("pricing.standard.cta")}
+              </a>
+            </div>
+          </div>
+
+          {/* Enterprise */}
+          <div
+            style={{ display: "flex", flexDirection: "column", height: "100%", borderRadius: "1rem", padding: "2rem", border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.02)", transition: "all 0.3s", cursor: "default" }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.04)"; }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.02)"; }}
+          >
+            <p style={{ fontSize: "0.875rem", textTransform: "uppercase", letterSpacing: "0.2em", color: "rgba(255,255,255,0.5)", fontWeight: 600, marginBottom: "1.5rem" }}>
+              {t("pricing.enterprise.name")}
+            </p>
+            <div style={{ display: "flex", alignItems: "baseline", gap: "0.5rem", marginBottom: "1.5rem" }}>
+              <span style={{ fontSize: "clamp(1.875rem, 4vw, 3rem)", fontWeight: 300, color: "#fff", letterSpacing: "-0.02em" }}>{t("pricing.enterprise.price")}</span>
+            </div>
+            <p style={{ fontSize: "0.875rem", color: "rgba(255,255,255,0.4)", lineHeight: 1.7, marginBottom: "2rem" }}>{t("pricing.enterprise.desc")}</p>
+            <ul style={{ listStyle: "none", padding: 0, margin: "0 0 2rem", display: "flex", flexDirection: "column", gap: "0.75rem", flex: 1 }}>
+              {enterpriseFeatures.map((f) => (
+                <li key={f} style={{ display: "flex", alignItems: "flex-start", gap: "0.75rem", fontSize: "0.875rem", color: "rgba(255,255,255,0.6)" }}>
+                  <CheckIcon color="var(--accent-blue)" />{f}
+                </li>
+              ))}
+            </ul>
+            <a
+              href="mailto:yanis@fleuret.ai"
+              style={{ display: "block", width: "100%", padding: "0.75rem 1.5rem", borderRadius: "0.5rem", fontSize: "0.875rem", fontWeight: 600, textAlign: "center", border: "1px solid rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.7)", transition: "all 0.3s" }}
+              onMouseEnter={(e) => { const el = e.currentTarget as HTMLElement; el.style.color = "#fff"; el.style.borderColor = "rgba(255,255,255,0.2)"; el.style.background = "rgba(255,255,255,0.04)"; }}
+              onMouseLeave={(e) => { const el = e.currentTarget as HTMLElement; el.style.color = "rgba(255,255,255,0.7)"; el.style.borderColor = "rgba(255,255,255,0.1)"; el.style.background = ""; }}
+            >
+              {t("pricing.enterprise.cta")}
+            </a>
+          </div>
+        </div>
+
+        {/* Guarantee */}
+        <div style={{ margin: "3rem auto 0", maxWidth: "28rem", textAlign: "center", padding: "1.5rem", borderRadius: "1rem", border: "1px solid rgba(79,143,255,0.2)", background: "rgba(79,143,255,0.04)" }}>
+          <p style={{ fontSize: "1.25rem", fontWeight: 400, color: "#fff", marginBottom: "0.25rem" }}>{t("pricing.guarantee.title")}</p>
+          <p style={{ fontSize: "0.875rem", color: "rgba(255,255,255,0.5)", margin: 0 }}>{t("pricing.guarantee.subtitle")}</p>
+        </div>
+        <p style={{ textAlign: "center", fontSize: "0.875rem", color: "rgba(255,255,255,0.5)", marginTop: "2rem" }}>{t("pricing.anchor")}</p>
       </div>
     </section>
   );

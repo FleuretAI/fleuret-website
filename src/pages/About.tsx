@@ -7,7 +7,9 @@ import ScrollReveal from "@/components/motion/ScrollReveal";
 import StaggerGroup from "@/components/motion/StaggerGroup";
 import { staggerItem } from "@/lib/animations";
 import { motion } from "framer-motion";
-import { partners } from "@/components/Partners";
+import yanisPhoto from "@/assets/yanis.png";
+import pierrePhoto from "@/assets/pierre-gabriel.png";
+import augustinPhoto from "@/assets/augustin.png";
 
 const team = [
   {
@@ -15,18 +17,21 @@ const team = [
     role: "Co-founder & CEO",
     roleFr: "Co-fondateur & CEO",
     linkedin: "https://www.linkedin.com/in/yanis-grigy-793635237/",
+    photo: yanisPhoto,
   },
   {
     name: "Pierre-Gabriel Berlureau",
     role: "Co-founder & CTO",
     roleFr: "Co-fondateur & CTO",
     linkedin: "https://www.linkedin.com/in/pierre-gabriel-berlureau-427320313/",
+    photo: pierrePhoto,
   },
   {
     name: "Augustin Ponsin",
     role: "Co-founder & COO",
     roleFr: "Co-fondateur & COO",
     linkedin: "https://www.linkedin.com/in/augustinponsin/",
+    photo: augustinPhoto,
   },
 ];
 
@@ -45,7 +50,7 @@ const About = () => {
         <section className="container mx-auto px-4 text-center mb-20">
           <ScrollReveal>
             <div className="max-w-3xl mx-auto space-y-6">
-              <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[1.1]">
+              <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-light tracking-tight text-white leading-[1.1]">
                 {t("about.hero.title")}{" "}
                 <span className="text-gradient-accent">
                   {t("about.hero.highlight")}
@@ -64,7 +69,7 @@ const About = () => {
             <div className="max-w-3xl mx-auto">
               <ScrollReveal>
                 <div className="p-8 rounded-2xl border border-white/8 bg-white/[0.02]">
-                  <h2 className="text-2xl font-bold text-white mb-4">
+                  <h2 className="text-2xl font-light text-white mb-4">
                     {t("about.mission.title")}
                   </h2>
                   <p className="text-white/50 leading-relaxed">
@@ -80,7 +85,7 @@ const About = () => {
         <section className="container mx-auto px-4 py-16 md:py-24">
           <div className="max-w-5xl mx-auto">
             <ScrollReveal>
-              <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-light text-white text-center mb-12">
                 {t("about.team.title")}
               </h2>
             </ScrollReveal>
@@ -92,13 +97,14 @@ const About = () => {
                   variants={staggerItem}
                   className="group p-6 rounded-2xl border border-white/8 bg-white/[0.02] hover:bg-white/[0.04] hover:border-white/15 transition-all duration-300 text-center"
                 >
-                  {/* Avatar placeholder */}
-                  <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-[var(--accent-blue)]/20 to-[var(--accent-violet)]/20 border border-white/10 flex items-center justify-center">
-                    <span className="text-2xl font-bold text-white/40">
-                      {member.name.split(" ").map((n) => n[0]).join("")}
-                    </span>
+                  <div className="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden border border-white/10">
+                    <img
+                      src={member.photo}
+                      alt={member.name}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
-                  <h3 className="text-lg font-bold text-white mb-1">
+                  <h3 className="text-lg font-medium text-white mb-1">
                     {member.name}
                   </h3>
                   <p className="text-sm text-white/40 mb-3">
@@ -123,44 +129,16 @@ const About = () => {
           </div>
         </section>
 
-        {/* Alumni / Partners */}
-        <section className="section-elevated grid-fade py-16 md:py-24 relative">
-          <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto">
-              <ScrollReveal>
-                <p className="text-center text-sm font-medium uppercase tracking-widest text-white/30 mb-8 md:mb-12">
-                  {t("partners.title")}
-                </p>
-              </ScrollReveal>
-              <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10">
-                {partners.map((partner) => (
-                  <div
-                    key={partner.name}
-                    className="flex items-center justify-center"
-                  >
-                    <img
-                      src={partner.logo}
-                      alt={partner.name}
-                      className="h-8 sm:h-10 md:h-14 w-auto object-contain opacity-80 hover:opacity-100 transition-all duration-500"
-                      loading="lazy"
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
         {/* CTA */}
         <section className="container mx-auto px-4 pb-16">
           <ScrollReveal>
             <div className="max-w-xl mx-auto text-center space-y-6">
-              <h2 className="text-2xl md:text-3xl font-bold text-white">
+              <h2 className="text-2xl md:text-3xl font-light text-white">
                 {t("about.cta.title")}
               </h2>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a
-                  href="https://calendar.app.google/BCrw74tMZk8NoMU18"
+                  href="https://calendar.app.google/H9GMsaSvZMhwRbueA"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center rounded-full px-8 py-3 text-sm font-medium text-white transition-all hover:opacity-90 hover:shadow-[0_0_30px_rgba(79,143,255,0.3)]"

@@ -1,61 +1,40 @@
-import { motion } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
-import ScrollReveal from "./motion/ScrollReveal";
-import StaggerGroup from "./motion/StaggerGroup";
-import { staggerItem } from "@/lib/animations";
 
 const Benchmark = () => {
   const { t } = useLanguage();
-
   const features = [
-    { title: t("platform.asm.title"), desc: t("platform.asm.desc"), color: "var(--accent-blue)" },
-    { title: t("platform.pentest.title"), desc: t("platform.pentest.desc"), color: "var(--accent-violet)" },
-    { title: t("platform.scanners.title"), desc: t("platform.scanners.desc"), color: "var(--accent-blue)" },
-    { title: t("platform.reports.title"), desc: t("platform.reports.desc"), color: "var(--accent-violet)" },
+    { num: "01", color: "var(--accent-blue)",   title: t("platform.asm.title"),      desc: t("platform.asm.desc") },
+    { num: "02", color: "var(--accent-violet)", title: t("platform.pentest.title"),  desc: t("platform.pentest.desc") },
+    { num: "03", color: "var(--accent-blue)",   title: t("platform.scanners.title"), desc: t("platform.scanners.desc") },
+    { num: "04", color: "var(--accent-violet)", title: t("platform.reports.title"),  desc: t("platform.reports.desc") },
   ];
-
   return (
-    <section id="platform" className="section-elevated grid-fade relative py-16 md:py-24 lg:py-32 overflow-hidden">
-      {/* Colored radial accent */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[radial-gradient(ellipse_at_top_right,rgba(139,92,246,0.06),transparent_70%)] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[radial-gradient(ellipse_at_bottom_left,rgba(79,143,255,0.04),transparent_70%)] pointer-events-none" />
-
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="max-w-6xl mx-auto">
-          <ScrollReveal>
-            <div className="text-center mb-10 md:mb-16 space-y-4">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1]">
-                <span className="text-white">{t("platform.main.title")}</span>{" "}
-                <span className="text-gradient-accent">{t("platform.main.highlight")}</span>
-              </h2>
-              <p className="text-lg text-white/40 leading-relaxed max-w-2xl mx-auto">
-                {t("platform.main.subtitle")}
-              </p>
+    <section id="platform" className="section-elevated grid-fade py-16 md:py-24 lg:py-32" style={{ position: "relative", overflow: "hidden" }}>
+      <div style={{ position: "absolute", top: 0, right: 0, width: 600, height: 600, background: "radial-gradient(ellipse at top right, rgba(139,92,246,0.06), transparent 70%)", pointerEvents: "none" }} />
+      <div style={{ position: "absolute", bottom: 0, left: 0, width: 400, height: 400, background: "radial-gradient(ellipse at bottom left, rgba(79,143,255,0.04), transparent 70%)", pointerEvents: "none" }} />
+      <div className="max-w-[1280px] mx-auto px-4 md:px-8" style={{ position: "relative", zIndex: 10 }}>
+        <div style={{ textAlign: "center", maxWidth: "56rem", margin: "0 auto 4rem" }}>
+          <h2 style={{ fontSize: "clamp(1.875rem, 4.5vw, 3.75rem)", fontWeight: 300, letterSpacing: "-0.02em", lineHeight: 1.1 }}>
+            <span style={{ color: "#fff" }}>{t("platform.main.title")}</span>{" "}
+            <span className="text-gradient-accent">{t("platform.main.highlight")}</span>
+          </h2>
+          <p style={{ fontSize: "1.125rem", color: "rgba(255,255,255,0.4)", lineHeight: 1.7, maxWidth: "42rem", margin: "1rem auto 0" }}>
+            {t("platform.main.subtitle")}
+          </p>
+        </div>
+        <div className="grid md:grid-cols-2 gap-4 max-w-[72rem] mx-auto">
+          {features.map((f) => (
+            <div key={f.num} style={{ padding: "2rem", borderRadius: "1rem", border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.02)", transition: "all 0.3s", cursor: "default" }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.04)"; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.02)"; }}>
+              <span style={{ fontSize: "1.875rem", fontWeight: 300, opacity: 0.3, display: "block", marginBottom: "1rem", lineHeight: 1, letterSpacing: "-0.02em", color: f.color }}>{f.num}</span>
+              <h3 style={{ color: "#fff", fontWeight: 400, marginBottom: "0.5rem", fontSize: "1.125rem" }}>{f.title}</h3>
+              <p style={{ fontSize: "0.875rem", color: "rgba(255,255,255,0.4)", lineHeight: 1.7, margin: 0 }}>{f.desc}</p>
             </div>
-          </ScrollReveal>
-
-          <StaggerGroup className="grid md:grid-cols-2 gap-4">
-            {features.map((feature, i) => (
-              <motion.div
-                key={feature.title}
-                variants={staggerItem}
-                className="group p-6 md:p-8 rounded-2xl border border-white/8 bg-white/[0.02] hover:bg-white/[0.04] transition"
-              >
-                <span
-                  className="text-3xl font-bold font-sans block mb-4 transition-opacity group-hover:opacity-70"
-                  style={{ color: feature.color, opacity: 0.3 }}
-                >
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <h3 className="text-white font-semibold font-sans mb-2">{feature.title}</h3>
-                <p className="text-sm text-white/40 leading-relaxed">{feature.desc}</p>
-              </motion.div>
-            ))}
-          </StaggerGroup>
+          ))}
         </div>
       </div>
     </section>
   );
 };
-
 export default Benchmark;

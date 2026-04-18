@@ -53,6 +53,8 @@
   }
 
   html, body {
+    margin: 0;
+    padding: 0;
     background-color: var(--dark-bg);
     color: hsl(var(--foreground));
   }
@@ -67,35 +69,32 @@
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-sans);
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin: 0;
   }
 }
 
-/* Global grid pattern on body */
-body {
-  background-image:
-    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-  background-size: 60px 60px;
-  background-attachment: fixed;
-}
-
-/* Grid pattern overlay (explicit, with fade edges) */
-.bg-grid-pattern {
-  position: relative;
-}
-.bg-grid-pattern::after {
+/* Ambient background — no grid, matches design spec */
+body::before {
   content: '';
-  position: absolute;
+  position: fixed;
   inset: 0;
-  background-image:
-    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-  background-size: 60px 60px;
   pointer-events: none;
-  z-index: 0;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 0%, rgba(79,143,255,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 30%, rgba(139,92,246,0.05) 0%, transparent 55%),
+    linear-gradient(180deg, var(--dark-bg) 0%, #0c0d17 60%, var(--dark-bg) 100%);
 }
 
-/* Section that fades the grid out at top/bottom edges */
+/* Section elevation: ambient radial glow only — no solid bg, prevents visible seams */
+.section-elevated {
+  background-color: transparent;
+}
+
+/* Sections with ambient glow (replaces old grid fade) */
 .grid-fade {
   position: relative;
 }
@@ -103,20 +102,14 @@ body {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to bottom,
-    var(--dark-bg) 0%,
-    transparent 15%,
-    transparent 85%,
-    var(--dark-bg) 100%
+  background: radial-gradient(
+    ellipse 70% 55% at 50% 50%,
+    rgba(255,255,255,0.025) 0%,
+    rgba(255,255,255,0.012) 45%,
+    transparent 85%
   );
   pointer-events: none;
-  z-index: 1;
-}
-
-/* Section with subtle lighter dark bg */
-.section-elevated {
-  background-color: hsl(234 25% 11%);
+  z-index: 0;
 }
 
 /* Gradient text utility */

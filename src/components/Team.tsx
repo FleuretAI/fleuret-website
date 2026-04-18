@@ -42,14 +42,6 @@ const Team = () => {
       photo: mackyPhoto,
       linkedin: "https://www.linkedin.com/in/macky-d/"
     },
-    {
-      name: t('team.anonymous.name'),
-      role: t('team.anonymous.role.main'),
-      education: t('team.anonymous.education'),
-      description: t('team.anonymous.description'),
-      photo: null,
-      linkedin: null
-    }
   ];
 
   return (
@@ -134,21 +126,15 @@ const Team = () => {
               itemType="https://schema.org/Person"
             >
               <article className="space-y-4">
-                {member.photo ? (
-                  <img 
-                    src={member.photo} 
-                    alt={`${member.name} - ${member.role} chez Fleuret AI`}
-                    className="w-20 h-20 rounded-full object-cover"
-                    itemProp="image"
-                    loading="lazy"
-                    width="80"
-                    height="80"
-                  />
-                ) : (
-                  <div className="w-20 h-20 rounded-full bg-muted flex items-center justify-center">
-                    <User className="w-10 h-10 text-on-light-muted" />
-                  </div>
-                )}
+                <img 
+                  src={member.photo} 
+                  alt={`${member.name} - ${member.role} chez Fleuret AI`}
+                  className="w-20 h-20 rounded-full object-cover"
+                  itemProp="image"
+                  loading="lazy"
+                  width="80"
+                  height="80"
+                />
                 <div>
                   <h3 className="text-xl font-semibold" itemProp="name">{member.name}</h3>
                   <p className="font-medium text-sm text-brand-blue" itemProp="jobTitle">{member.role}</p>

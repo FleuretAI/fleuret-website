@@ -1,151 +1,108 @@
-import { motion } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
-import ScrollReveal from "./motion/ScrollReveal";
-import StaggerGroup from "./motion/StaggerGroup";
-import { staggerItem } from "@/lib/animations";
 
-const CheckMark = () => (
-  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="mx-auto">
-    <circle cx="10" cy="10" r="10" fill="#22c55e" fillOpacity="0.2" />
-    <path d="M6 10.5L8.5 13L14 7.5" stroke="#22c55e" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+const Check = () => (
+  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style={{ display: "inline-block", margin: "0 auto" }}>
+    <circle cx="10" cy="10" r="10" fill="#22c55e" fillOpacity="0.2"/>
+    <path d="M6 10.5L8.5 13L14 7.5" stroke="#22c55e" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
 );
 
-const CrossMark = () => (
-  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="mx-auto">
-    <circle cx="10" cy="10" r="10" fill="#ef4444" fillOpacity="0.15" />
-    <path d="M7 7L13 13M13 7L7 13" stroke="#ef4444" strokeOpacity="0.6" strokeWidth="2" strokeLinecap="round" />
+const Cross = () => (
+  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style={{ display: "inline-block", margin: "0 auto" }}>
+    <circle cx="10" cy="10" r="10" fill="#ef4444" fillOpacity="0.15"/>
+    <path d="M7 7L13 13M13 7L7 13" stroke="#ef4444" strokeOpacity="0.6" strokeWidth="2" strokeLinecap="round"/>
   </svg>
 );
+
+type Cell = string | { check: boolean };
 
 const ComparisonTable = () => {
   const { t } = useLanguage();
 
-  const capabilities = [
-    { label: t("comparison.depth"), traditional: t("comparison.depth.traditional"), fleuret: t("comparison.depth.fleuret"), automated: t("comparison.depth.automated") },
-    { label: t("comparison.speed"), traditional: t("comparison.speed.traditional"), fleuret: t("comparison.speed.fleuret"), automated: t("comparison.speed.automated") },
-    { label: t("comparison.cost"), traditional: t("comparison.cost.traditional"), fleuret: t("comparison.cost.fleuret"), automated: t("comparison.cost.automated") },
-    { label: t("comparison.falsePositives"), traditional: t("comparison.falsePositives.traditional"), fleuret: t("comparison.falsePositives.fleuret"), automated: t("comparison.falsePositives.automated") },
-    { label: t("comparison.frequency"), traditional: t("comparison.frequency.traditional"), fleuret: t("comparison.frequency.fleuret"), automated: t("comparison.frequency.automated") },
-    { label: t("comparison.compliance"), traditional: { check: true }, fleuret: { check: true }, automated: { check: false } },
-    { label: t("comparison.adaptability"), traditional: { check: true }, fleuret: { check: true }, automated: { check: false } },
+  const rows: { label: string; manual: Cell; fleuret: Cell; automated: Cell }[] = [
+    { label: t("comparison.depth"),          manual: t("comparison.depth.traditional"),          fleuret: t("comparison.depth.fleuret"),          automated: t("comparison.depth.automated") },
+    { label: t("comparison.speed"),          manual: t("comparison.speed.traditional"),          fleuret: t("comparison.speed.fleuret"),          automated: t("comparison.speed.automated") },
+    { label: t("comparison.cost"),           manual: t("comparison.cost.traditional"),           fleuret: t("comparison.cost.fleuret"),           automated: t("comparison.cost.automated") },
+    { label: t("comparison.falsePositives"), manual: t("comparison.falsePositives.traditional"), fleuret: t("comparison.falsePositives.fleuret"), automated: t("comparison.falsePositives.automated") },
+    { label: t("comparison.frequency"),      manual: t("comparison.frequency.traditional"),      fleuret: t("comparison.frequency.fleuret"),      automated: t("comparison.frequency.automated") },
+    { label: t("comparison.compliance"),     manual: { check: true },  fleuret: { check: true },  automated: { check: false } },
+    { label: t("comparison.adaptability"),   manual: { check: true },  fleuret: { check: true },  automated: { check: false } },
   ];
 
-  const renderCell = (value: string | { check: boolean }, isFleuret = false) => {
-    if (typeof value === "object") {
-      return value.check ? <CheckMark /> : <CrossMark />;
-    }
-    return (
-      <span className={`text-sm leading-tight ${isFleuret ? "font-semibold text-white" : "text-white/35"}`}>
-        {value}
-      </span>
-    );
+  const renderCell = (v: Cell, isFleuret = false) => {
+    if (typeof v === "object") return v.check ? <Check /> : <Cross />;
+    return <span style={{ fontSize: "0.875rem", fontWeight: isFleuret ? 500 : 400, color: isFleuret ? "#fff" : "rgba(255,255,255,0.35)", lineHeight: 1.4 }}>{v}</span>;
   };
 
-  const renderCellInline = (value: string | { check: boolean }) => {
-    if (typeof value === "object") {
-      return value.check ? <CheckMark /> : <CrossMark />;
-    }
-    return <span className="text-sm text-white/50">{value}</span>;
-  };
+  // Mobile cards version
+  const renderMobileCard = (row: typeof rows[0]) => (
+    <div key={row.label} style={{ padding: "1rem", borderRadius: "0.75rem", border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.02)" }}>
+      <div style={{ fontSize: "0.75rem", fontWeight: 500, color: "rgba(255,255,255,0.4)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "0.75rem" }}>{row.label}</div>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "0.5rem", textAlign: "center" }}>
+        <div>
+          <div style={{ fontSize: 10, color: "rgba(255,255,255,0.45)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "0.375rem" }}>Manual</div>
+          {renderCell(row.manual)}
+        </div>
+        <div style={{ background: "rgba(79,143,255,0.05)", borderRadius: "0.5rem", padding: "0.375rem 0.25rem", margin: "-0.375rem 0" }}>
+          <div style={{ fontSize: 10, color: "var(--accent-blue)", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "0.375rem" }}>Fleuret</div>
+          {renderCell(row.fleuret, true)}
+        </div>
+        <div>
+          <div style={{ fontSize: 10, color: "rgba(255,255,255,0.45)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "0.375rem" }}>Scanner</div>
+          {renderCell(row.automated)}
+        </div>
+      </div>
+    </div>
+  );
 
   return (
     <section id="comparison" className="py-16 md:py-24 lg:py-32">
-      <div className="container mx-auto px-4">
-        <ScrollReveal>
-          <div className="text-center mb-10 md:mb-16 space-y-4">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white max-w-3xl mx-auto">
-              {t("comparison.title")}
-            </h2>
-          </div>
-        </ScrollReveal>
-
-        {/* Desktop table */}
-        <div className="hidden md:block max-w-5xl mx-auto">
-          <StaggerGroup>
-            <table className="w-full">
-              <thead>
-                <motion.tr variants={staggerItem}>
-                  <th className="text-left py-4 px-4 text-sm font-medium text-white/30 uppercase tracking-wider">
-                    {t("comparison.header.capability")}
-                  </th>
-                  <th className="text-center py-4 px-4 text-sm font-medium text-white/30 uppercase tracking-wider">
-                    {t("comparison.header.traditional")}
-                  </th>
-                  <th className="text-center py-4 px-4">
-                    <span
-                      className="inline-block text-sm font-bold text-white rounded-full px-4 py-1.5"
-                      style={{ background: "linear-gradient(135deg, var(--accent-blue), var(--accent-violet))" }}
-                    >
-                      {t("comparison.header.fleuret")}
-                    </span>
-                  </th>
-                  <th className="text-center py-4 px-4 text-sm font-medium text-white/30 uppercase tracking-wider">
-                    {t("comparison.header.automated")}
-                  </th>
-                </motion.tr>
-              </thead>
-              <tbody>
-                {capabilities.map((cap) => (
-                  <motion.tr
-                    key={cap.label}
-                    variants={staggerItem}
-                    className="border-t border-white/5 hover:bg-white/[0.02] transition-colors"
-                  >
-                    <td className="py-5 px-4 text-sm font-medium text-white/60">{cap.label}</td>
-                    <td className="py-5 px-4 text-center">{renderCell(cap.traditional)}</td>
-                    <td className="py-5 px-4 text-center bg-[var(--accent-blue)]/[0.03] border-x border-[var(--accent-blue)]/10">
-                      {renderCell(cap.fleuret, true)}
-                    </td>
-                    <td className="py-5 px-4 text-center">{renderCell(cap.automated)}</td>
-                  </motion.tr>
-                ))}
-              </tbody>
-            </table>
-          </StaggerGroup>
+      <div className="max-w-[1280px] mx-auto px-4 md:px-8">
+        <div style={{ textAlign: "center", maxWidth: "48rem", margin: "0 auto 4rem" }}>
+          <h2 style={{ fontSize: "clamp(1.875rem, 4vw, 3rem)", color: "#fff", fontWeight: 300, letterSpacing: "-0.02em", lineHeight: 1.1 }}>
+            {t("comparison.title")}
+          </h2>
         </div>
 
-        {/* Mobile cards */}
-        <div className="md:hidden max-w-sm mx-auto">
-          <StaggerGroup className="space-y-3">
-            {capabilities.map((cap) => (
-              <motion.div
-                key={cap.label}
-                variants={staggerItem}
-                className="p-4 rounded-xl border border-white/8 bg-white/[0.02]"
-              >
-                <p className="text-xs font-medium text-white/40 uppercase tracking-wider mb-3">
-                  {cap.label}
-                </p>
-                <div className="grid grid-cols-3 gap-2 text-center">
-                  <div>
-                    <p className="text-[10px] text-white/25 uppercase tracking-wider mb-1.5">
-                      {t("comparison.header.traditional")}
-                    </p>
-                    {renderCellInline(cap.traditional)}
-                  </div>
-                  <div className="bg-[var(--accent-blue)]/[0.05] rounded-lg py-1.5 -my-1.5 px-1">
-                    <p className="text-[10px] text-[var(--accent-blue)] uppercase tracking-wider mb-1.5 font-semibold">
-                      Fleuret
-                    </p>
-                    <span className="text-sm font-semibold text-white">
-                      {typeof cap.fleuret === "object" ? (
-                        cap.fleuret.check ? <CheckMark /> : <CrossMark />
-                      ) : (
-                        cap.fleuret
-                      )}
-                    </span>
-                  </div>
-                  <div>
-                    <p className="text-[10px] text-white/25 uppercase tracking-wider mb-1.5">
-                      {t("comparison.header.automated")}
-                    </p>
-                    {renderCellInline(cap.automated)}
-                  </div>
-                </div>
-              </motion.div>
+        {/* Desktop table */}
+        <table className="hidden md:table w-full max-w-[64rem] mx-auto" style={{ borderCollapse: "collapse" }}>
+          <thead>
+            <tr>
+              <th style={{ textAlign: "left", padding: "1rem", fontSize: "0.875rem", fontWeight: 500, color: "rgba(255,255,255,0.5)", textTransform: "uppercase", letterSpacing: "0.1em" }}>
+                {t("comparison.header.capability")}
+              </th>
+              <th style={{ textAlign: "center", padding: "1rem", fontSize: "0.875rem", fontWeight: 500, color: "rgba(255,255,255,0.5)", textTransform: "uppercase", letterSpacing: "0.1em" }}>
+                {t("comparison.header.traditional")}
+              </th>
+              <th style={{ textAlign: "center", padding: "1rem" }}>
+                <span style={{ display: "inline-block", fontSize: "0.875rem", fontWeight: 500, color: "#fff", borderRadius: "999px", padding: "0.375rem 1rem", background: "linear-gradient(135deg, var(--accent-blue), var(--accent-violet))" }}>
+                  {t("comparison.header.fleuret")}
+                </span>
+              </th>
+              <th style={{ textAlign: "center", padding: "1rem", fontSize: "0.875rem", fontWeight: 500, color: "rgba(255,255,255,0.5)", textTransform: "uppercase", letterSpacing: "0.1em" }}>
+                {t("comparison.header.automated")}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((row) => (
+              <tr key={row.label} style={{ borderTop: "1px solid rgba(255,255,255,0.05)", transition: "background 0.2s" }}
+                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.02)"; }}
+                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = ""; }}>
+                <td style={{ padding: "1.25rem 1rem", fontSize: "0.875rem", fontWeight: 500, color: "rgba(255,255,255,0.6)", textAlign: "left" }}>{row.label}</td>
+                <td style={{ padding: "1.25rem 1rem", textAlign: "center" }}>{renderCell(row.manual)}</td>
+                <td style={{ padding: "1.25rem 1rem", textAlign: "center", background: "rgba(79,143,255,0.03)", borderLeft: "1px solid rgba(79,143,255,0.1)", borderRight: "1px solid rgba(79,143,255,0.1)" }}>
+                  {renderCell(row.fleuret, true)}
+                </td>
+                <td style={{ padding: "1.25rem 1rem", textAlign: "center" }}>{renderCell(row.automated)}</td>
+              </tr>
             ))}
-          </StaggerGroup>
+          </tbody>
+        </table>
+
+        {/* Mobile cards */}
+        <div className="flex md:hidden flex-col gap-3 max-w-sm mx-auto">
+          {rows.map(renderMobileCard)}
         </div>
       </div>
     </section>

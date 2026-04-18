@@ -1,78 +1,185 @@
-import { motion } from "framer-motion";
+import { useEffect, useRef } from "react";
+import { mountHeroCanvas } from "@/lib/heroCanvas";
 import { useLanguage } from "@/contexts/LanguageContext";
+
+
+const DEMO_URL = "https://calendar.app.google/H9GMsaSvZMhwRbueA";
 
 const Hero = () => {
   const { t } = useLanguage();
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    if (!canvasRef.current) return;
+    const cleanup = mountHeroCanvas(canvasRef.current);
+    return cleanup;
+  }, []);
 
   return (
     <section
       id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      style={{ isolation: "isolate" }}
     >
-      {/* Colored radial glows */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/3 left-1/3 w-[600px] h-[600px] bg-[radial-gradient(ellipse_at_center,rgba(79,143,255,0.08),transparent_70%)]" />
-        <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-[radial-gradient(ellipse_at_center,rgba(139,92,246,0.06),transparent_70%)]" />
-        <div className="absolute top-1/2 right-1/3 w-[400px] h-[400px] bg-[radial-gradient(ellipse_at_center,rgba(239,68,68,0.05),transparent_70%)]" />
-      </div>
+      {/* Ambient glows */}
+      <div
+        className="absolute pointer-events-none"
+        style={{
+          top: "22%", left: "18%", width: 760, height: 760,
+          background: "radial-gradient(ellipse at center, rgba(79,143,255,0.09), transparent 70%)",
+          filter: "blur(10px)",
+          animation: "float1 18s ease-in-out infinite",
+        }}
+      />
+      <div
+        className="absolute pointer-events-none"
+        style={{
+          bottom: "15%", right: "14%", width: 680, height: 680,
+          background: "radial-gradient(ellipse at center, rgba(139,92,246,0.08), transparent 70%)",
+          filter: "blur(10px)",
+          animation: "float2 22s ease-in-out infinite",
+        }}
+      />
 
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="max-w-4xl mx-auto text-center space-y-6 sm:space-y-8 pt-20 sm:pt-24 pb-12 sm:pb-16">
-          <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1]">
-            <motion.span
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.5,
-                delay: 0.15,
-                ease: [0.25, 0.46, 0.45, 0.94],
+      {/* Canvas */}
+      <canvas
+        ref={canvasRef}
+        className="absolute inset-0 w-full h-full pointer-events-none"
+        style={{
+          zIndex: 2,
+          maskImage: [
+            "radial-gradient(ellipse 55% 110% at 0% 50%, #000 10%, transparent 75%)",
+            "radial-gradient(ellipse 55% 110% at 100% 50%, #000 10%, transparent 75%)",
+            "radial-gradient(ellipse 90% 65% at 50% 50%, transparent 42%, #000 82%)",
+          ].join(", "),
+          maskComposite: "add",
+          WebkitMaskImage: [
+            "radial-gradient(ellipse 55% 110% at 0% 50%, #000 10%, transparent 75%)",
+            "radial-gradient(ellipse 55% 110% at 100% 50%, #000 10%, transparent 75%)",
+            "radial-gradient(ellipse 90% 65% at 50% 50%, transparent 42%, #000 82%)",
+          ].join(", "),
+        }}
+      />
+
+      {/* Vignette behind text */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          zIndex: 3,
+          background: "radial-gradient(ellipse 42% 38% at 50% 50%, rgba(15,16,28,0.7) 0%, rgba(15,16,28,0.35) 45%, rgba(15,16,28,0) 75%)",
+        }}
+      />
+
+      {/* Text content */}
+      <div className="container mx-auto px-4 relative" style={{ zIndex: 10 }}>
+        <div
+          className="max-w-4xl mx-auto text-center"
+          style={{ paddingTop: "6rem", paddingBottom: "3rem" }}
+        >
+          {/* Announcement badge */}
+          <div style={{ display: "flex", justifyContent: "center", marginBottom: "2rem" }}>
+            <div
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.625rem",
+                padding: "0.375rem 1rem 0.375rem 0.5rem",
+                borderRadius: "999px",
+                border: "1px solid rgba(79,143,255,0.25)",
+                background: "rgba(79,143,255,0.08)",
+                backdropFilter: "blur(8px)",
               }}
-              className="block text-white"
+            >
+              <span
+                style={{
+                  fontSize: "0.65rem",
+                  fontWeight: 600,
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                  padding: "0.2rem 0.55rem",
+                  borderRadius: "999px",
+                  background: "linear-gradient(135deg, var(--accent-blue), var(--accent-violet))",
+                  color: "#fff",
+                }}
+              >
+                {t("hero.badge.label")}
+              </span>
+              <span style={{ fontSize: "0.8125rem", color: "rgba(255,255,255,0.7)", letterSpacing: "0.01em" }}>
+                {t("hero.badge.text")}
+              </span>
+            </div>
+          </div>
+
+          <h1
+            style={{
+              fontSize: "clamp(2rem, 6vw, 4.5rem)",
+              fontWeight: 300,
+              letterSpacing: "-0.02em",
+              lineHeight: 1.1,
+              marginBottom: "1.75rem",
+            }}
+          >
+            <span
+              className="block"
+              style={{
+                background: "linear-gradient(180deg, #ffffff 0%, #ffffff 35%, rgba(255,255,255,0.55) 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
             >
               {t("hero.title.line1")}
-            </motion.span>
-            <motion.span
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.5,
-                delay: 0.35,
-                ease: [0.25, 0.46, 0.45, 0.94],
+            </span>
+            <span
+              className="block"
+              style={{
+                background: "linear-gradient(135deg, #4f8fff 0%, #8b5cf6 55%, #ef4444 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
               }}
-              className="block text-gradient-accent"
             >
               {t("hero.title.line2")}
-            </motion.span>
+            </span>
           </h1>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
-            className="text-base sm:text-lg md:text-xl text-white/50 max-w-2xl mx-auto leading-relaxed px-2 sm:px-0"
+          <p
+            style={{
+              fontSize: "clamp(1rem, 1.6vw, 1.25rem)",
+              fontWeight: 300,
+              maxWidth: "42rem",
+              margin: "0 auto 2rem",
+              lineHeight: 1.7,
+              background: "linear-gradient(180deg, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.45) 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+            }}
           >
             {t("hero.subtitle")}
-          </motion.p>
+          </p>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 1.0 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4"
-          >
+          <div style={{ display: "flex", justifyContent: "center", paddingTop: "1rem" }}>
             <a
-              href="https://calendar.app.google/BCrw74tMZk8NoMU18"
+              href={DEMO_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-full px-10 py-3.5 text-base font-medium text-white transition-all hover:opacity-90 hover:shadow-[0_0_30px_rgba(79,143,255,0.3)]"
               style={{
-                background:
-                  "linear-gradient(135deg, var(--accent-blue), var(--accent-violet))",
+                fontSize: "1rem",
+                fontWeight: 500,
+                padding: "0.875rem 2.5rem",
+                borderRadius: "999px",
+                color: "#fff",
+                background: "linear-gradient(135deg, #4f8fff, #8b5cf6)",
+                transition: "box-shadow 0.2s, transform 0.15s",
+                display: "inline-block",
               }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = "0 0 20px rgba(79,143,255,0.3)"; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = ""; }}
             >
               {t("hero.cta")}
             </a>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>
