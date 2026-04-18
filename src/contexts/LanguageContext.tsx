@@ -167,19 +167,6 @@ const translations = {
     'footer.contact': 'Contact',
     'footer.rights': '© 2026 fleuret.ai. Tous droits réservés.',
 
-    // Waitlist / Email form
-    'waitlist.placeholder': 'votre@email.com',
-    'waitlist.submit': 'Réserver une démo',
-    'waitlist.submitting': 'Envoi...',
-    'waitlist.subtext': 'Aucun spam. Désinscription en un clic.',
-    'waitlist.success.title': 'Merci !',
-    'waitlist.success.description': 'Nous vous recontactons sous 24h.',
-    'waitlist.error.invalid': 'Veuillez entrer un email valide.',
-    'waitlist.error.generic': 'Une erreur est survenue. Veuillez réessayer.',
-    'waitlist.error.captcha': 'Veuillez valider le captcha avant de continuer.',
-    'hero.cta.waitlist': 'Rejoindre la liste',
-    'hero.cta.demo.secondary': 'Ou réserver une démo',
-
     // Careers
     'careers.hero.title': 'Faites le meilleur',
     'careers.hero.highlight': 'travail de votre vie.',
@@ -381,19 +368,6 @@ const translations = {
     'footer.tagline': 'AI pentesting, hosted in Europe.',
     'footer.contact': 'Contact',
     'footer.rights': '© 2026 fleuret.ai. All rights reserved.',
-
-    // Waitlist
-    'waitlist.placeholder': 'your@email.com',
-    'waitlist.submit': 'Book a demo',
-    'waitlist.submitting': 'Sending...',
-    'waitlist.subtext': 'No spam. Unsubscribe anytime.',
-    'waitlist.success.title': 'Thank you!',
-    'waitlist.success.description': 'We\'ll get back to you within 24 hours.',
-    'waitlist.error.invalid': 'Please enter a valid email.',
-    'waitlist.error.generic': 'An error occurred. Please try again.',
-    'waitlist.error.captcha': 'Please complete the captcha first.',
-    'hero.cta.waitlist': 'Join the waitlist',
-    'hero.cta.demo.secondary': 'Or book a demo',
 
     // Careers
     'careers.hero.title': 'Do the best',

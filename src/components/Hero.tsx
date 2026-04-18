@@ -1,7 +1,6 @@
 import { useEffect, useRef } from "react";
 import { mountHeroCanvas } from "@/lib/heroCanvas";
 import { useLanguage } from "@/contexts/LanguageContext";
-import EmailSignupForm from "@/components/EmailSignupForm";
 
 
 const DEMO_URL = "https://calendar.app.google/H9GMsaSvZMhwRbueA";
@@ -163,16 +162,25 @@ const Hero = () => {
             {t("hero.subtitle")}
           </p>
 
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "1rem", paddingTop: "1rem" }}>
-            <EmailSignupForm />
+          <div style={{ display: "flex", justifyContent: "center", paddingTop: "1rem" }}>
             <a
               href={DEMO_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm text-white/70 hover:text-white underline-offset-4 hover:underline transition-colors"
-              style={{ fontWeight: 400 }}
+              style={{
+                fontSize: "1rem",
+                fontWeight: 500,
+                padding: "0.875rem 2.5rem",
+                borderRadius: "999px",
+                color: "#fff",
+                background: "linear-gradient(135deg, #4f8fff, #8b5cf6)",
+                transition: "box-shadow 0.2s, transform 0.15s",
+                display: "inline-block",
+              }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = "0 0 20px rgba(79,143,255,0.3)"; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = ""; }}
             >
-              {t("hero.cta.demo.secondary")}
+              {t("hero.cta")}
             </a>
           </div>
         </div>
