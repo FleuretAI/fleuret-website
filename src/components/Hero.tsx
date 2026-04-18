@@ -77,22 +77,20 @@ const Hero = () => {
           style={{ paddingTop: "5rem", paddingBottom: "5rem" }}
         >
           {/* Announcement badge */}
-          <div style={{ display: "flex", justifyContent: "center", marginBottom: "1.75rem" }}>
+          <div style={{ display: "flex", justifyContent: "center", marginBottom: "1.75rem", padding: "0 1rem" }}>
             <div
               style={{
                 display: "inline-flex",
-                flexDirection: "column",
                 alignItems: "center",
-                gap: "0.4rem",
-                padding: "0.5rem 1.1rem",
-                borderRadius: "1rem",
+                gap: "0.5rem",
+                padding: "0.375rem 1rem 0.375rem 0.5rem",
+                borderRadius: "999px",
                 border: "1px solid rgba(79,143,255,0.25)",
                 background: "rgba(79,143,255,0.08)",
                 backdropFilter: "blur(8px)",
-                maxWidth: "min(88vw, 480px)",
-                textAlign: "center",
+                maxWidth: "100%",
+                overflow: "hidden",
               }}
-              className="sm:flex-row sm:rounded-full sm:py-[0.375rem] sm:pl-[0.5rem] sm:pr-[1rem] sm:gap-[0.625rem]"
             >
               <span
                 style={{
@@ -100,7 +98,7 @@ const Hero = () => {
                   fontWeight: 600,
                   letterSpacing: "0.12em",
                   textTransform: "uppercase",
-                  padding: "0.2rem 0.7rem",
+                  padding: "0.2rem 0.55rem",
                   borderRadius: "999px",
                   background: "linear-gradient(135deg, var(--accent-blue), var(--accent-violet))",
                   color: "#fff",
@@ -109,7 +107,7 @@ const Hero = () => {
               >
                 {t("hero.badge.label")}
               </span>
-              <span style={{ fontSize: "0.78rem", color: "rgba(255,255,255,0.7)", letterSpacing: "0.01em", lineHeight: 1.4 }}>
+              <span style={{ fontSize: "0.78rem", color: "rgba(255,255,255,0.7)", letterSpacing: "0.01em", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
                 {t("hero.badge.text")}
               </span>
             </div>
