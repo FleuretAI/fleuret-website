@@ -122,95 +122,15 @@
       }
     </script>
 
-    <!-- Google Analytics 4 (gtag.js) -->
+    <!-- Google Analytics 4 (gtag.js) — runs in consent-denied mode per the
+         gtag('consent','default') block above. GA4 still sends anonymized,
+         cookieless pings (Google Consent Mode v2) without a user-facing banner. -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-BDLDM7JEZR"></script>
     <script>
       gtag('js', new Date());
       gtag('config', 'G-BDLDM7JEZR', {
         'anonymize_ip': true,
         'cookie_flags': 'SameSite=None;Secure'
-      });
-    </script>
-
-    <!-- Axeptio Cookie Consent - couleurs DA Fleuret -->
-    <style>
-      .axeptio_widget {
-        font-family: 'Lufga', system-ui, sans-serif !important;
-      }
-
-      .axeptio_widget__container {
-        background: linear-gradient(135deg, hsl(234 30% 8%) 0%, hsl(0 82% 9%) 100%) !important;
-        border: 1px solid hsl(240 15% 25%) !important;
-        border-radius: 0.75rem !important;
-        box-shadow: 0 0 30px hsl(240 33% 96% / 0.08) !important;
-      }
-
-      .axeptio_widget__title {
-        color: hsl(240 33% 96%) !important;
-        font-family: 'CMU Serif', Georgia, serif !important;
-        font-weight: 700 !important;
-      }
-
-      .axeptio_widget__description {
-        color: hsl(240 20% 75%) !important;
-      }
-
-      .axeptio_widget__button--primary,
-      .axeptio_btn--primary {
-        background: hsl(240 33% 96%) !important;
-        color: hsl(234 30% 8%) !important;
-        border-radius: 0.5rem !important;
-        font-weight: 500 !important;
-        transition: all 0.3s ease !important;
-      }
-
-      .axeptio_widget__button--primary:hover,
-      .axeptio_btn--primary:hover {
-        box-shadow: 0 0 20px hsl(240 33% 96% / 0.3) !important;
-      }
-
-      .axeptio_widget__button--secondary,
-      .axeptio_btn--secondary {
-        background: hsl(240 15% 22%) !important;
-        color: hsl(240 33% 96%) !important;
-        border-radius: 0.5rem !important;
-        font-weight: 500 !important;
-        transition: all 0.3s ease !important;
-      }
-
-      .axeptio_widget__button--secondary:hover,
-      .axeptio_btn--secondary:hover {
-        background: hsl(240 15% 28%) !important;
-      }
-
-      .axeptio_switch__input:checked + .axeptio_switch__slider {
-        background-color: hsl(240 33% 96%) !important;
-      }
-    </style>
-
-    <script>
-      window.axeptioSettings = {
-        clientId: "692030d055e941e82e2a0500",
-        cookiesVersion: "f4ee8366-11d5-47c3-b056-f67c5fc3079b",
-      };
-
-      (function(d, s) {
-        var t = d.getElementsByTagName(s)[0], e = d.createElement(s);
-        e.async = true; e.src = "//static.axept.io/sdk.js";
-        t.parentNode.insertBefore(e, t);
-      })(document, "script");
-
-      // Gestion du consentement Axeptio pour Google Analytics
-      void 0 === window._axcb && (window._axcb = []);
-      window._axcb.push(function(axeptio) {
-        axeptio.on("cookies:complete", function(choices) {
-          if (choices.google_analytics) {
-            // L'utilisateur a accepté Google Analytics
-            gtag('consent', 'update', {
-              'analytics_storage': 'granted'
-            });
-          }
-        });
       });
     </script>
   </head>
