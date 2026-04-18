@@ -79,19 +79,20 @@ const Hero = () => {
           {/* Announcement badge */}
           <div style={{ display: "flex", justifyContent: "center", marginBottom: "1.75rem" }}>
             <div
-              className="max-w-[88vw] sm:max-w-none"
               style={{
                 display: "inline-flex",
-                flexWrap: "wrap",
-                justifyContent: "center",
+                flexDirection: "column",
                 alignItems: "center",
-                gap: "0.5rem",
-                padding: "0.375rem 1rem 0.375rem 0.5rem",
-                borderRadius: "999px",
+                gap: "0.4rem",
+                padding: "0.5rem 1.1rem",
+                borderRadius: "1rem",
                 border: "1px solid rgba(79,143,255,0.25)",
                 background: "rgba(79,143,255,0.08)",
                 backdropFilter: "blur(8px)",
+                maxWidth: "min(88vw, 480px)",
+                textAlign: "center",
               }}
+              className="sm:flex-row sm:rounded-full sm:py-[0.375rem] sm:pl-[0.5rem] sm:pr-[1rem] sm:gap-[0.625rem]"
             >
               <span
                 style={{
@@ -99,7 +100,7 @@ const Hero = () => {
                   fontWeight: 600,
                   letterSpacing: "0.12em",
                   textTransform: "uppercase",
-                  padding: "0.2rem 0.55rem",
+                  padding: "0.2rem 0.7rem",
                   borderRadius: "999px",
                   background: "linear-gradient(135deg, var(--accent-blue), var(--accent-violet))",
                   color: "#fff",
@@ -108,7 +109,7 @@ const Hero = () => {
               >
                 {t("hero.badge.label")}
               </span>
-              <span className="text-[0.75rem] sm:text-[0.8125rem]" style={{ color: "rgba(255,255,255,0.7)", letterSpacing: "0.01em", textAlign: "center" }}>
+              <span style={{ fontSize: "0.78rem", color: "rgba(255,255,255,0.7)", letterSpacing: "0.01em", lineHeight: 1.4 }}>
                 {t("hero.badge.text")}
               </span>
             </div>
