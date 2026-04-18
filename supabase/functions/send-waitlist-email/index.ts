@@ -26,7 +26,7 @@ function validateLength(value: unknown, max: number): boolean {
   return typeof value === "string" && value.length > 0 && value.length <= max;
 }
 
-const handler = async (req: Request): Promise<Response> => {
+export const handler = async (req: Request): Promise<Response> => {
   const preflight = handlePreflight(req);
   if (preflight) return preflight;
   const cors = buildCorsHeaders(req);

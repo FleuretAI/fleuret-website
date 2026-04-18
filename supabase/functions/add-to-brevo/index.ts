@@ -18,7 +18,7 @@ function jsonResponse(body: unknown, status: number, cors: Record<string, string
   });
 }
 
-const handler = async (req: Request): Promise<Response> => {
+export const handler = async (req: Request): Promise<Response> => {
   const preflight = handlePreflight(req);
   if (preflight) return preflight;
   const cors = buildCorsHeaders(req);
