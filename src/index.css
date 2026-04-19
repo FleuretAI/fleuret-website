@@ -134,30 +134,3 @@ body::before {
     animation-play-state: paused;
   }
 }
-
-/* Skip-to-content link for keyboard users. Hidden until focused. */
-.skip-to-content {
-  position: fixed;
-  top: 0.5rem;
-  left: 0.5rem;
-  padding: 0.5rem 0.75rem;
-  background: #0f101c;
-  color: #fff;
-  border: 1px solid var(--accent-blue);
-  border-radius: 0.25rem;
-  font-size: 0.875rem;
-  z-index: 9999;
-  transform: translateY(-150%);
-  transition: transform 0.15s ease;
-}
-.skip-to-content:focus {
-  transform: translateY(0);
-  outline: 2px solid var(--accent-blue);
-}
-
-/* Cross-browser font-display fallback for the remote Lufga stylesheet. */
-@font-face {
-  font-family: "Lufga";
-  font-display: swap;
-  src: local("Lufga");
-}

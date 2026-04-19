@@ -8,28 +8,14 @@ import PricingSection from "@/components/PricingSection";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 import { useLanguage } from "@/contexts/LanguageContext";
-import {
-  SEO,
-  organizationJsonLd,
-  websiteJsonLd,
-  softwareApplicationJsonLd,
-} from "@/seo/SEO";
 
 const Index = () => {
   const { language } = useLanguage();
 
   return (
     <div className="min-h-screen" key={language}>
-      <SEO
-        pageKey="home"
-        jsonLd={[
-          organizationJsonLd(),
-          websiteJsonLd(),
-          softwareApplicationJsonLd(language),
-        ]}
-      />
       <Navbar />
-      <main id="main-content">
+      <main>
         <Hero />
         <WhySection />
         <Benchmark />

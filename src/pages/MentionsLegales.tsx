@@ -1,10 +1,8 @@
 import { Link } from "react-router-dom";
-import { SEO } from "@/seo/SEO";
 
 const MentionsLegales = () => {
   return (
-    <main id="main-content" className="min-h-screen pt-32 pb-20 px-4">
-      <SEO pageKey="mentionsLegales" />
+    <main className="min-h-screen pt-32 pb-20 px-4">
       <div className="max-w-3xl mx-auto">
         <Link
           to="/"
