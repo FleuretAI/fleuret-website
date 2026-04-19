@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import CookieBanner from "./components/CookieBanner";
+import AnnouncementBanner from "./components/AnnouncementBanner";
 import ScrollToTop from "./components/ScrollToTop";
 import Index from "./pages/Index";
 
@@ -48,6 +49,7 @@ const App = () => (
       <BrowserRouter>
         <LanguageProvider>
           <ScrollToTop />
+          <AnnouncementBanner />
           <Suspense fallback={null}>
             <Routes>
               {[...APP_ROUTES, ...EN_MIRRORED].map((r) => (
