@@ -22,6 +22,12 @@ const translations = {
     'nav.careers': 'Carrières',
     'nav.cta': 'Réserver une démo',
 
+    // Announcement banner (top of site)
+    'announce.label': 'Annonce',
+    'announce.text': 'Fleuret lève 4M€ en pre-seed',
+    'announce.cta': 'Lire l’annonce',
+    'announce.dismiss': 'Fermer l’annonce',
+
     // Hero
     'hero.badge': 'Fleuret lève 4M€ pre-seed pour construire le futur de la sécurité IA',
     'hero.badge.label': 'Actualité',
@@ -296,6 +302,12 @@ const translations = {
     'nav.about': 'About',
     'nav.careers': 'Careers',
     'nav.cta': 'Book a demo',
+
+    // Announcement banner (top of site)
+    'announce.label': 'Announcement',
+    'announce.text': 'Fleuret raises 4M€ pre-seed',
+    'announce.cta': 'Read the announcement',
+    'announce.dismiss': 'Dismiss announcement',
 
     // Hero
     'hero.badge': 'Fleuret raised 4M€ pre-seed to build the future of AI security',
