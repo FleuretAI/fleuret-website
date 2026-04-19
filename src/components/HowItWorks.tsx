@@ -1,7 +1,5 @@
 import { useLanguage } from "@/contexts/LanguageContext";
 
-const DEMO_URL = "https://calendar.app.google/H9GMsaSvZMhwRbueA";
-
 const IllustrationDeploy = () => (
   <svg viewBox="0 0 280 280" fill="none" style={{ width: "100%", maxWidth: 260, height: "auto" }}>
     <circle cx="140" cy="140" r="110" stroke="currentColor" strokeWidth="1" strokeOpacity="0.25"/>

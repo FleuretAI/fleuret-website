@@ -1,9 +1,8 @@
 import { useEffect, useRef, type CSSProperties } from "react";
+import { Link } from "react-router-dom";
 import { mountHeroCanvas } from "@/lib/heroCanvas";
 import { useLanguage } from "@/contexts/LanguageContext";
-
-
-const DEMO_URL = "https://calendar.app.google/H9GMsaSvZMhwRbueA";
+import { DEMO_ROUTE } from "@/lib/routes";
 
 const badgeTextStyle: CSSProperties = {
   fontSize: "0.78rem",
@@ -175,10 +174,8 @@ const Hero = () => {
           </p>
 
           <div style={{ display: "flex", justifyContent: "center", paddingTop: "1rem" }}>
-            <a
-              href={DEMO_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              to={DEMO_ROUTE}
               style={{
                 fontSize: "1rem",
                 fontWeight: 500,
@@ -193,7 +190,7 @@ const Hero = () => {
               onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = ""; }}
             >
               {t("hero.cta")}
-            </a>
+            </Link>
           </div>
         </div>
       </div>

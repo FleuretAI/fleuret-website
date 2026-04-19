@@ -7,8 +7,7 @@ import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/motion/ScrollReveal";
 import StaggerGroup from "@/components/motion/StaggerGroup";
 import { staggerItem } from "@/lib/animations";
-
-const DEMO_URL = "https://calendar.app.google/H9GMsaSvZMhwRbueA";
+import { DEMO_ROUTE } from "@/lib/routes";
 const TOTAL_SPOTS = 5;
 const SPOTS_FILLED = 0; // EDIT: update as partners sign
 
@@ -72,15 +71,13 @@ const DesignPartners = () => {
               </p>
 
               <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
-                <a
-                  href={DEMO_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  to={DEMO_ROUTE}
                   className="inline-flex items-center justify-center rounded-full px-10 py-3.5 text-base font-medium text-white transition-all hover:opacity-90 hover:shadow-[0_0_30px_rgba(79,143,255,0.3)]"
                   style={{ background: "linear-gradient(135deg, var(--accent-blue), var(--accent-violet))" }}
                 >
                   {t("designPartners.hero.cta")}
-                </a>
+                </Link>
                 <a
                   href="#what-you-get"
                   className="text-sm text-white/70 hover:text-white underline-offset-4 hover:underline transition-colors"
@@ -237,15 +234,13 @@ const DesignPartners = () => {
               </p>
 
               <div className="pt-2">
-                <a
-                  href={DEMO_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  to={DEMO_ROUTE}
                   className="inline-flex items-center justify-center rounded-full px-10 py-3.5 text-base font-medium text-white transition-all hover:opacity-90 hover:shadow-[0_0_30px_rgba(79,143,255,0.3)]"
                   style={{ background: "linear-gradient(135deg, var(--accent-blue), var(--accent-violet))" }}
                 >
                   {t("designPartners.finalCta.cta")}
-                </a>
+                </Link>
               </div>
             </div>
           </ScrollReveal>

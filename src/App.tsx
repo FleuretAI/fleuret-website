@@ -9,6 +9,7 @@ import SecurityPolicy from "./pages/SecurityPolicy";
 import Careers from "./pages/Careers";
 import About from "./pages/About";
 import DesignPartners from "./pages/DesignPartners";
+import Demo from "./pages/Demo";
 import NotFound from "./pages/NotFound";
 import CookieBanner from "./components/CookieBanner";
 import ScrollToTop from "./components/ScrollToTop";
@@ -29,6 +30,7 @@ const App = () => (
           <Route path="/careers" element={<Careers />} />
           <Route path="/about" element={<About />} />
           <Route path="/design-partners" element={<DesignPartners />} />
+          <Route path="/demo" element={<Demo />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <CookieBanner />

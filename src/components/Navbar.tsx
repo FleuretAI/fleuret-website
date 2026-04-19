@@ -6,8 +6,7 @@ import logoSymbol from "@/assets/logo-symbol.svg";
 import logoWordmark from "@/assets/logo-wordmark.svg";
 import { useLanguage } from "@/contexts/LanguageContext";
 import LanguageSwitcher from "./LanguageSwitcher";
-
-const DEMO_URL = "https://calendar.app.google/H9GMsaSvZMhwRbueA";
+import { DEMO_ROUTE } from "@/lib/routes";
 
 const Navbar = () => {
   const { t, language } = useLanguage();
@@ -147,15 +146,13 @@ const Navbar = () => {
           {/* Desktop right zone */}
           <div className="hidden lg:flex items-center gap-3">
             <LanguageSwitcher />
-            <a
-              href={DEMO_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              to={DEMO_ROUTE}
               className="text-sm font-medium px-5 py-2.5 rounded-full text-white transition-all hover:shadow-[0_0_20px_rgba(79,143,255,0.3)] active:scale-95"
               style={{ background: "linear-gradient(135deg, var(--accent-blue), var(--accent-violet))" }}
             >
               {t("nav.cta")}
-            </a>
+            </Link>
           </div>
 
           {/* Hamburger */}
@@ -219,16 +216,14 @@ const Navbar = () => {
         <Link to="/about"   onClick={close} className="pl-8 pr-4 py-2.5 rounded-lg text-[0.9rem] text-white/55 hover:text-white hover:bg-white/4 transition-colors">{language === "fr" ? "À propos" : "About us"}</Link>
         <Link to="/careers" onClick={close} className="pl-8 pr-4 py-2.5 rounded-lg text-[0.9rem] text-white/55 hover:text-white hover:bg-white/4 transition-colors">{language === "fr" ? "Carrières" : "Careers"}</Link>
 
-        <a
-          href={DEMO_URL}
-          target="_blank"
-          rel="noopener noreferrer"
+        <Link
+          to={DEMO_ROUTE}
           onClick={close}
           className="mt-4 py-3 rounded-full font-medium text-center text-[0.9rem] text-white"
           style={{ background: "linear-gradient(135deg, var(--accent-blue), var(--accent-violet))" }}
         >
           {t("nav.cta")}
-        </a>
+        </Link>
 
         <div className="mt-4 flex justify-center">
           <LanguageSwitcher />

@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/motion/ScrollReveal";
 import StaggerGroup from "@/components/motion/StaggerGroup";
 import { staggerItem } from "@/lib/animations";
+import { DEMO_ROUTE } from "@/lib/routes";
 import { motion } from "framer-motion";
 import yanisPhoto from "@/assets/yanis.png";
 import pierrePhoto from "@/assets/pierre-gabriel.png";
@@ -137,17 +138,15 @@ const About = () => {
                 {t("about.cta.title")}
               </h2>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a
-                  href="https://calendar.app.google/H9GMsaSvZMhwRbueA"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  to={DEMO_ROUTE}
                   className="inline-flex items-center justify-center rounded-full px-8 py-3 text-sm font-medium text-white transition-all hover:opacity-90 hover:shadow-[0_0_30px_rgba(79,143,255,0.3)]"
                   style={{
                     background: "linear-gradient(135deg, var(--accent-blue), var(--accent-violet))",
                   }}
                 >
                   {t("about.cta.demo")}
-                </a>
+                </Link>
                 <Link
                   to="/careers"
                   className="inline-flex items-center justify-center rounded-full px-8 py-3 text-sm font-medium text-white/70 border border-white/10 hover:text-white hover:border-white/20 hover:bg-white/[0.04] transition-all"

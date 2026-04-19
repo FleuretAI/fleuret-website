@@ -1,6 +1,6 @@
+import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
-
-const DEMO_URL = "https://calendar.app.google/H9GMsaSvZMhwRbueA";
+import { DEMO_ROUTE } from "@/lib/routes";
 
 const CheckIcon = ({ color }: { color: string }) => (
   <svg viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" style={{ width: "1rem", height: "1rem", flexShrink: 0, marginTop: 2 }}>
@@ -25,18 +25,15 @@ const PricingSection = () => {
   ];
 
   return (
-    <section id="pricing" className="section-elevated grid-fade py-16 md:py-24 lg:py-32" style={{ position: "relative", overflow: "hidden" }}>
-      <div style={{ position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)", width: 800, height: 600, background: "radial-gradient(ellipse at top, rgba(79,143,255,0.06), transparent 70%)", pointerEvents: "none" }} />
-      <div style={{ position: "absolute", bottom: 0, right: 0, width: 400, height: 400, background: "radial-gradient(ellipse at bottom right, rgba(139,92,246,0.04), transparent 70%)", pointerEvents: "none" }} />
-
-      <div className="max-w-[1280px] mx-auto px-4 md:px-8" style={{ position: "relative", zIndex: 10 }}>
+    <section id="pricing" className="py-16 md:py-24 lg:py-32">
+      <div className="max-w-[1280px] mx-auto px-4 md:px-8">
         <div style={{ textAlign: "center", maxWidth: "56rem", margin: "0 auto 4rem" }}>
           <h2 style={{ fontSize: "clamp(1.875rem, 4.5vw, 3.75rem)", fontWeight: 300, letterSpacing: "-0.02em", lineHeight: 1.1 }}>
             {t("pricing.title.main")}{" "}
             <span className="text-gradient-accent">{t("pricing.title.accent")}</span>
           </h2>
           <p style={{ fontSize: "1.125rem", color: "rgba(255,255,255,0.4)", lineHeight: 1.7, maxWidth: "42rem", margin: "1rem auto 0" }}>
-            {t("pricing.subtitle")}
+            {t("pricing.description")}
           </p>
         </div>
 
@@ -70,16 +67,14 @@ const PricingSection = () => {
                   </li>
                 ))}
               </ul>
-              <a
-                href={DEMO_URL}
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                to={DEMO_ROUTE}
                 style={{ display: "block", width: "100%", padding: "0.75rem 1.5rem", borderRadius: "0.5rem", fontSize: "0.875rem", fontWeight: 600, textAlign: "center", background: "linear-gradient(to right, var(--accent-blue), var(--accent-violet))", color: "#fff", transition: "opacity 0.2s" }}
                 onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.opacity = "0.9"; }}
                 onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.opacity = "1"; }}
               >
                 {t("pricing.standard.cta")}
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -103,14 +98,14 @@ const PricingSection = () => {
                 </li>
               ))}
             </ul>
-            <a
-              href="mailto:yanis@fleuret.ai"
+            <Link
+              to={DEMO_ROUTE}
               style={{ display: "block", width: "100%", padding: "0.75rem 1.5rem", borderRadius: "0.5rem", fontSize: "0.875rem", fontWeight: 600, textAlign: "center", border: "1px solid rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.7)", transition: "all 0.3s" }}
               onMouseEnter={(e) => { const el = e.currentTarget as HTMLElement; el.style.color = "#fff"; el.style.borderColor = "rgba(255,255,255,0.2)"; el.style.background = "rgba(255,255,255,0.04)"; }}
               onMouseLeave={(e) => { const el = e.currentTarget as HTMLElement; el.style.color = "rgba(255,255,255,0.7)"; el.style.borderColor = "rgba(255,255,255,0.1)"; el.style.background = ""; }}
             >
               {t("pricing.enterprise.cta")}
-            </a>
+            </Link>
           </div>
         </div>
 
