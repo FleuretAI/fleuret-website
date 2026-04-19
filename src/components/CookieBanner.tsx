@@ -8,8 +8,7 @@ const STORAGE_KEY = "fleuret_cookie_consent";
 type Consent = "accepted" | "denied";
 
 const CookieBanner = () => {
-  const { language } = useLanguage();
-  const isFr = language === "fr";
+  const { t, localize } = useLanguage();
 
   const [visible, setVisible] = useState(false);
   const [entered, setEntered] = useState(false);
@@ -38,7 +37,7 @@ const CookieBanner = () => {
   return (
     <div
       role="region"
-      aria-label={isFr ? "Paramètres de confidentialité" : "Privacy settings"}
+      aria-label={t("cookie.region")}
       className="fixed inset-x-0 bottom-0 z-[60] flex justify-center pointer-events-none px-3 pb-3 sm:px-4 sm:pb-4"
     >
       <div
@@ -55,7 +54,7 @@ const CookieBanner = () => {
         <button
           type="button"
           onClick={() => record("denied")}
-          aria-label={isFr ? "Fermer" : "Close"}
+          aria-label={t("cookie.close")}
           className="absolute top-3 right-3 w-8 h-8 inline-flex items-center justify-center rounded-full text-white/40 hover:text-white hover:bg-white/5 transition-colors"
         >
           <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true">
@@ -72,27 +71,25 @@ const CookieBanner = () => {
           className="text-white font-medium tracking-[-0.01em] pr-8"
           style={{ fontSize: "1rem" }}
         >
-          {isFr ? "Paramètres de confidentialité" : "Privacy Settings"}
+          {t("cookie.title")}
         </h2>
 
         <p
           className="mt-2 text-[0.8125rem] leading-relaxed text-white/55"
         >
-          {isFr
-            ? "Ce site utilise des technologies tierces de suivi pour fournir et améliorer nos services en continu, et afficher des informations selon les centres d'intérêt des utilisateurs. J'accepte et peux révoquer ou modifier mon consentement à tout moment avec effet pour l'avenir."
-            : "This site uses third-party website tracking technologies to provide and continually improve our services, and to display information according to users' interests. I agree and may revoke or change my consent at any time with effect for the future."}
+          {t("cookie.body")}
         </p>
 
         <div className="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
-            <Link to="/privacy" className={linkStyle}>
-              {isFr ? "Politique de confidentialité" : "Privacy Policy"}
+            <Link to={localize("/privacy")} className={linkStyle}>
+              {t("cookie.privacy")}
             </Link>
             <Link to="/mentions-legales" className={linkStyle}>
-              {isFr ? "Mentions légales" : "Legal Notice"}
+              {t("cookie.legalNotice")}
             </Link>
-            <HashLink to="/privacy#cookies" smooth className={linkStyle}>
-              {isFr ? "Plus d'informations" : "More Information"}
+            <HashLink to={`${localize("/privacy")}#cookies`} smooth className={linkStyle}>
+              {t("cookie.moreInfo")}
             </HashLink>
           </div>
 
@@ -102,7 +99,7 @@ const CookieBanner = () => {
               onClick={() => record("denied")}
               className="flex-1 sm:flex-none px-5 py-2.5 rounded-full text-[0.8125rem] font-medium text-white/80 bg-white/5 border border-white/10 hover:bg-white/10 hover:text-white transition-colors"
             >
-              {isFr ? "Refuser" : "Deny"}
+              {t("cookie.deny")}
             </button>
             <button
               type="button"
@@ -113,7 +110,7 @@ const CookieBanner = () => {
                   "linear-gradient(135deg, var(--accent-blue), var(--accent-violet))",
               }}
             >
-              {isFr ? "Tout accepter" : "Accept All"}
+              {t("cookie.accept")}
             </button>
           </div>
         </div>

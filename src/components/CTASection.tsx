@@ -3,7 +3,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { DEMO_ROUTE } from "@/lib/routes";
 
 const CTASection = () => {
-  const { t } = useLanguage();
+  const { t, localize } = useLanguage();
 
   return (
     <section className="grid-fade py-16 md:py-24 lg:py-32" style={{ position: "relative", overflow: "hidden" }}>
@@ -19,7 +19,7 @@ const CTASection = () => {
           </p>
           <div style={{ display: "flex", justifyContent: "center", paddingTop: "1rem" }}>
             <Link
-              to={DEMO_ROUTE}
+              to={localize(DEMO_ROUTE)}
               style={{ fontSize: "1.125rem", fontWeight: 500, padding: "1rem 2.5rem", borderRadius: "999px", color: "#fff", background: "linear-gradient(135deg, var(--accent-blue), var(--accent-violet))", transition: "box-shadow 0.2s, transform 0.15s", display: "inline-block" }}
               onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = "0 0 30px rgba(79,143,255,0.3)"; }}
               onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = ""; }}

@@ -26,7 +26,7 @@ const perks = [
 ] as const;
 
 const Careers = () => {
-  const { t } = useLanguage();
+  const { t, localize } = useLanguage();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -161,7 +161,7 @@ const Careers = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto">
             <Link
-              to="/"
+              to={localize("/")}
               className="text-[var(--accent-blue)] hover:underline text-sm"
             >
               &larr; {t("careers.back")}

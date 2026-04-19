@@ -9,7 +9,7 @@ import LanguageSwitcher from "./LanguageSwitcher";
 import { DEMO_ROUTE } from "@/lib/routes";
 
 const Navbar = () => {
-  const { t, language } = useLanguage();
+  const { t, localize } = useLanguage();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const backdropRef = useRef<HTMLDivElement>(null);
@@ -36,11 +36,12 @@ const Navbar = () => {
 
   const close = () => setMobileOpen(false);
 
+  const homePath = localize("/");
   const navItems = [
-    { path: "/#home",     label: t("nav.home") },
-    { path: "/#why",      label: t("nav.problem") },
-    { path: "/#platform", label: t("nav.platform") },
-    { path: "/#pricing",  label: t("nav.pricing") },
+    { path: `${homePath}#home`,     label: t("nav.home") },
+    { path: `${homePath}#why`,      label: t("nav.problem") },
+    { path: `${homePath}#platform`, label: t("nav.platform") },
+    { path: `${homePath}#pricing`,  label: t("nav.pricing") },
   ];
 
   return (
@@ -58,7 +59,7 @@ const Navbar = () => {
         <div className="max-w-[1280px] mx-auto px-4 md:px-8 flex items-center justify-between gap-4">
           {/* Logo */}
           <Link
-            to="/"
+            to={homePath}
             onClick={close}
             className="flex items-center gap-2.5 hover:opacity-80 transition-opacity flex-shrink-0"
             aria-label="Fleuret AI - Home"
@@ -108,7 +109,7 @@ const Navbar = () => {
                 className="inline-flex items-center gap-1.5 text-sm font-medium text-white/50 hover:text-white px-4 py-1.5 rounded-full transition-colors group-hover:text-white group-hover:bg-white/5 group-focus-within:text-white group-focus-within:bg-white/5"
                 aria-haspopup="true"
               >
-                {language === "fr" ? "Entreprise" : "Company"}
+                {t("nav.company")}
                 <svg
                   width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"
                   className="transition-transform duration-200 opacity-70 group-hover:rotate-180 group-focus-within:rotate-180"
@@ -126,18 +127,18 @@ const Navbar = () => {
                 {/* Invisible bridge to prevent gap-close */}
                 <div className="absolute left-0 right-0 top-[-0.6rem] h-3" />
                 <Link
-                  to="/about"
+                  to={localize("/about")}
                   role="menuitem"
                   className="block px-3 py-2 rounded-lg text-sm text-white/65 hover:text-white hover:bg-white/6 transition-colors whitespace-nowrap"
                 >
-                  {language === "fr" ? "À propos" : "About us"}
+                  {t("nav.aboutUs")}
                 </Link>
                 <Link
-                  to="/careers"
+                  to={localize("/careers")}
                   role="menuitem"
                   className="block px-3 py-2 rounded-lg text-sm text-white/65 hover:text-white hover:bg-white/6 transition-colors whitespace-nowrap"
                 >
-                  {language === "fr" ? "Carrières" : "Careers"}
+                  {t("nav.careers")}
                 </Link>
               </div>
             </div>
@@ -147,7 +148,7 @@ const Navbar = () => {
           <div className="hidden lg:flex items-center gap-3">
             <LanguageSwitcher />
             <Link
-              to={DEMO_ROUTE}
+              to={localize(DEMO_ROUTE)}
               className="text-sm font-medium px-5 py-2.5 rounded-full text-white transition-all hover:shadow-[0_0_20px_rgba(79,143,255,0.3)] active:scale-95"
               style={{ background: "linear-gradient(135deg, var(--accent-blue), var(--accent-violet))" }}
             >
@@ -205,19 +206,19 @@ const Navbar = () => {
         aria-hidden={!mobileOpen}
         aria-label="Mobile navigation"
       >
-        <HashLink to="/#home"     smooth onClick={close} className="px-4 py-3.5 rounded-lg text-base text-white/70 hover:text-white hover:bg-white/4 transition-colors">Home</HashLink>
-        <HashLink to="/#why"      smooth onClick={close} className="px-4 py-3.5 rounded-lg text-base text-white/70 hover:text-white hover:bg-white/4 transition-colors">{t("nav.problem")}</HashLink>
-        <HashLink to="/#platform" smooth onClick={close} className="px-4 py-3.5 rounded-lg text-base text-white/70 hover:text-white hover:bg-white/4 transition-colors">{t("nav.platform")}</HashLink>
-        <HashLink to="/#pricing"  smooth onClick={close} className="px-4 py-3.5 rounded-lg text-base text-white/70 hover:text-white hover:bg-white/4 transition-colors">{t("nav.pricing")}</HashLink>
+        <HashLink to={`${homePath}#home`}     smooth onClick={close} className="px-4 py-3.5 rounded-lg text-base text-white/70 hover:text-white hover:bg-white/4 transition-colors">{t("nav.home")}</HashLink>
+        <HashLink to={`${homePath}#why`}      smooth onClick={close} className="px-4 py-3.5 rounded-lg text-base text-white/70 hover:text-white hover:bg-white/4 transition-colors">{t("nav.problem")}</HashLink>
+        <HashLink to={`${homePath}#platform`} smooth onClick={close} className="px-4 py-3.5 rounded-lg text-base text-white/70 hover:text-white hover:bg-white/4 transition-colors">{t("nav.platform")}</HashLink>
+        <HashLink to={`${homePath}#pricing`}  smooth onClick={close} className="px-4 py-3.5 rounded-lg text-base text-white/70 hover:text-white hover:bg-white/4 transition-colors">{t("nav.pricing")}</HashLink>
 
         <p className="text-[0.7rem] font-medium text-white/35 uppercase tracking-[0.15em] px-4 pt-4 pb-1">
-          {language === "fr" ? "Entreprise" : "Company"}
+          {t("nav.company")}
         </p>
-        <Link to="/about"   onClick={close} className="pl-8 pr-4 py-2.5 rounded-lg text-[0.9rem] text-white/55 hover:text-white hover:bg-white/4 transition-colors">{language === "fr" ? "À propos" : "About us"}</Link>
-        <Link to="/careers" onClick={close} className="pl-8 pr-4 py-2.5 rounded-lg text-[0.9rem] text-white/55 hover:text-white hover:bg-white/4 transition-colors">{language === "fr" ? "Carrières" : "Careers"}</Link>
+        <Link to={localize("/about")}   onClick={close} className="pl-8 pr-4 py-2.5 rounded-lg text-[0.9rem] text-white/55 hover:text-white hover:bg-white/4 transition-colors">{t("nav.aboutUs")}</Link>
+        <Link to={localize("/careers")} onClick={close} className="pl-8 pr-4 py-2.5 rounded-lg text-[0.9rem] text-white/55 hover:text-white hover:bg-white/4 transition-colors">{t("nav.careers")}</Link>
 
         <Link
-          to={DEMO_ROUTE}
+          to={localize(DEMO_ROUTE)}
           onClick={close}
           className="mt-4 py-3 rounded-full font-medium text-center text-[0.9rem] text-white"
           style={{ background: "linear-gradient(135deg, var(--accent-blue), var(--accent-violet))" }}
