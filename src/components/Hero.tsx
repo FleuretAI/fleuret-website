@@ -1,17 +1,8 @@
-import { useEffect, useRef, type CSSProperties } from "react";
+import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { mountHeroCanvas } from "@/lib/heroCanvas";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { DEMO_ROUTE } from "@/lib/routes";
-
-const badgeTextStyle: CSSProperties = {
-  fontSize: "0.78rem",
-  color: "rgba(255,255,255,0.7)",
-  letterSpacing: "0.01em",
-  whiteSpace: "nowrap",
-  overflow: "hidden",
-  textOverflow: "ellipsis",
-};
 
 const Hero = () => {
   const { t } = useLanguage();
@@ -84,46 +75,6 @@ const Hero = () => {
           className="max-w-4xl mx-auto text-center px-2"
           style={{ paddingTop: "5rem", paddingBottom: "5rem" }}
         >
-          {/* Announcement badge */}
-          <div style={{ display: "flex", justifyContent: "center", marginBottom: "1.75rem", padding: "0 1rem" }}>
-            <div
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "0.5rem",
-                padding: "0.375rem 1rem 0.375rem 0.5rem",
-                borderRadius: "999px",
-                border: "1px solid rgba(79,143,255,0.25)",
-                background: "rgba(79,143,255,0.08)",
-                backdropFilter: "blur(8px)",
-                maxWidth: "100%",
-                overflow: "hidden",
-              }}
-            >
-              <span
-                style={{
-                  fontSize: "0.65rem",
-                  fontWeight: 600,
-                  letterSpacing: "0.12em",
-                  textTransform: "uppercase",
-                  padding: "0.2rem 0.55rem",
-                  borderRadius: "999px",
-                  background: "linear-gradient(135deg, var(--accent-blue), var(--accent-violet))",
-                  color: "#fff",
-                  flexShrink: 0,
-                }}
-              >
-                {t("hero.badge.label")}
-              </span>
-              <span className="sm:hidden" style={badgeTextStyle}>
-                {t("hero.badge.text.short")}
-              </span>
-              <span className="hidden sm:inline" style={badgeTextStyle}>
-                {t("hero.badge.text")}
-              </span>
-            </div>
-          </div>
-
           <h1
             style={{
               fontSize: "clamp(1.375rem, 6vw, 4.5rem)",
