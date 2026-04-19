@@ -1,9 +1,9 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { createHash } from "node:crypto";
-import { applicationSchema, type ApplicationInput } from "../src/lib/designPartnerSchema.js";
-import { isQualified } from "../src/lib/designPartnerQualify.js";
-import { serverSupabase } from "./_lib/supabase.js";
-import { DEMO_SCHEDULER_SHORT_URL } from "../src/lib/routes.js";
+import { applicationSchema, type ApplicationInput } from "../src/lib/designPartnerSchema";
+import { isQualified } from "../src/lib/designPartnerQualify";
+import { serverSupabase } from "./_lib/supabase";
+import { DEMO_SCHEDULER_SHORT_URL } from "../src/lib/routes";
 
 export const config = {
   runtime: "nodejs",

@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { serverSupabase } from "./_lib/supabase.js";
+import { serverSupabase } from "./_lib/supabase";
 
 export const config = {
   runtime: "nodejs",

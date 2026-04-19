@@ -1,4 +1,4 @@
-import type { ApplicationInput, CompanySize, Role } from "./designPartnerSchema.js";
+import type { ApplicationInput, CompanySize, Role } from "./designPartnerSchema";
 
 const QUALIFIED_ROLES: ReadonlySet<Role> = new Set([
   "ciso",
