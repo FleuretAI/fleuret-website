@@ -6,10 +6,8 @@ const CTASection = () => {
   const { t } = useLanguage();
 
   return (
-    <section className="grid-fade py-16 md:py-24 lg:py-32" style={{ position: "relative", overflow: "hidden" }}>
-      <div style={{ position: "absolute", top: "33%", left: "25%", width: 500, height: 400, background: "radial-gradient(ellipse at center, rgba(79,143,255,0.06), transparent 70%)", pointerEvents: "none" }} />
-      <div style={{ position: "absolute", bottom: "33%", right: "25%", width: 500, height: 400, background: "radial-gradient(ellipse at center, rgba(139,92,246,0.05), transparent 70%)", pointerEvents: "none" }} />
-      <div className="max-w-[1280px] mx-auto px-4 md:px-8" style={{ position: "relative", zIndex: 10 }}>
+    <section className="py-16 md:py-24 lg:py-32">
+      <div className="max-w-[1280px] mx-auto px-4 md:px-8">
         <div style={{ maxWidth: "48rem", margin: "0 auto", textAlign: "center" }}>
           <h2 style={{ fontSize: "clamp(1.875rem, 4.5vw, 3.75rem)", fontWeight: 300, letterSpacing: "-0.02em", lineHeight: 1.1 }}>
             <span className="text-gradient-accent">{t("cta.title")}</span>
