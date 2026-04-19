@@ -7,6 +7,7 @@ import ScrollReveal from "@/components/motion/ScrollReveal";
 import StaggerGroup from "@/components/motion/StaggerGroup";
 import { staggerItem } from "@/lib/animations";
 import { motion } from "framer-motion";
+import { SEO } from "@/seo/SEO";
 import yanisPhoto from "@/assets/yanis.png";
 import pierrePhoto from "@/assets/pierre-gabriel.png";
 import augustinPhoto from "@/assets/augustin.png";
@@ -44,8 +45,9 @@ const About = () => {
 
   return (
     <div className="min-h-screen">
+      <SEO pageKey="about" />
       <Navbar />
-      <main className="pt-32 pb-20">
+      <main id="main-content" className="pt-32 pb-20">
         {/* Hero */}
         <section className="container mx-auto px-4 text-center mb-20">
           <ScrollReveal>

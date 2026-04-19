@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/motion/ScrollReveal";
 import StaggerGroup from "@/components/motion/StaggerGroup";
 import { staggerItem } from "@/lib/animations";
+import { SEO } from "@/seo/SEO";
 
 const values = [
   { icon: "⚡", key: "gsd", accent: "var(--accent-blue)" },
@@ -33,8 +34,9 @@ const Careers = () => {
 
   return (
     <div className="min-h-screen">
+      <SEO pageKey="careers" />
       <Navbar />
-      <main className="pt-32 pb-20">
+      <main id="main-content" className="pt-32 pb-20">
         {/* Hero */}
         <section className="container mx-auto px-4 text-center mb-20">
           <ScrollReveal>
