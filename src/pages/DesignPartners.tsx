@@ -38,7 +38,7 @@ function formatPriceEur(v: number, lang: "fr" | "en") {
 }
 
 const DesignPartners = () => {
-  const { t, language } = useLanguage();
+  const { t, language, localize } = useLanguage();
   const slots = useSlots();
 
   useEffect(() => {
@@ -297,7 +297,7 @@ const DesignPartners = () => {
         <div className="container mx-auto px-4 mt-8">
           <div className="max-w-3xl mx-auto">
             <Link
-              to="/"
+              to={localize("/")}
               className="text-[var(--accent-blue)] hover:underline text-sm"
             >
               &larr; {t("designPartners.back")}

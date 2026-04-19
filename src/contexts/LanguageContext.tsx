@@ -1,13 +1,16 @@
-import React, { createContext, useContext, useMemo } from 'react';
+import React, { createContext, useContext, useEffect, useMemo, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { detectLocaleFromPath, swapLocalePath } from '@/seo/routes';
+import { buildLocalePath, detectLocaleFromPath, swapLocalePath } from '@/seo/routes';
 
 type Language = 'fr' | 'en';
+
+const LANG_STORAGE_KEY = 'fleuret_lang';
 
 interface LanguageContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
   t: (key: string) => string;
+  localize: (basePath: string) => string;
 }
 
 const translations = {
@@ -19,8 +22,35 @@ const translations = {
     'nav.pricing': 'Tarifs',
     'nav.company': 'Entreprise',
     'nav.about': 'À propos',
+    'nav.aboutUs': 'À propos',
     'nav.careers': 'Carrières',
     'nav.cta': 'Réserver une démo',
+
+    // Common
+    'common.back': '← Retour',
+
+    // Footer (additional)
+    'footer.designPartners': 'Design Partners',
+    'footer.legal': 'Légal',
+    'footer.legal.terms': "Conditions d'utilisation",
+    'footer.legal.privacy': 'Politique de confidentialité',
+    'footer.legal.security': 'Politique de sécurité',
+    'footer.legal.mentions': 'Mentions légales',
+    'footer.about': 'À propos',
+    'footer.careers': 'Carrières',
+    'footer.askAi': "Demander à l'IA un résumé de Fleuret",
+    'footer.openIn': 'Ouvrir dans',
+
+    // Cookie banner
+    'cookie.region': 'Paramètres de confidentialité',
+    'cookie.close': 'Fermer',
+    'cookie.title': 'Paramètres de confidentialité',
+    'cookie.body': "Ce site utilise des technologies tierces de suivi pour fournir et améliorer nos services en continu, et afficher des informations selon les centres d'intérêt des utilisateurs. J'accepte et peux révoquer ou modifier mon consentement à tout moment avec effet pour l'avenir.",
+    'cookie.privacy': 'Politique de confidentialité',
+    'cookie.legalNotice': 'Mentions légales',
+    'cookie.moreInfo': "Plus d'informations",
+    'cookie.deny': 'Refuser',
+    'cookie.accept': 'Tout accepter',
 
     // Announcement banner (top of site)
     'announce.label': 'Annonce',
@@ -344,8 +374,35 @@ const translations = {
     'nav.pricing': 'Pricing',
     'nav.company': 'Company',
     'nav.about': 'About',
+    'nav.aboutUs': 'About us',
     'nav.careers': 'Careers',
     'nav.cta': 'Book a demo',
+
+    // Common
+    'common.back': '← Back',
+
+    // Footer (additional)
+    'footer.designPartners': 'Design Partners',
+    'footer.legal': 'Legal',
+    'footer.legal.terms': 'Terms of Use',
+    'footer.legal.privacy': 'Privacy Policy',
+    'footer.legal.security': 'Security Policy',
+    'footer.legal.mentions': 'Mentions légales',
+    'footer.about': 'About',
+    'footer.careers': 'Careers',
+    'footer.askAi': 'Ask AI for summary of Fleuret',
+    'footer.openIn': 'Open in',
+
+    // Cookie banner
+    'cookie.region': 'Privacy settings',
+    'cookie.close': 'Close',
+    'cookie.title': 'Privacy Settings',
+    'cookie.body': "This site uses third-party website tracking technologies to provide and continually improve our services, and to display information according to users' interests. I agree and may revoke or change my consent at any time with effect for the future.",
+    'cookie.privacy': 'Privacy Policy',
+    'cookie.legalNotice': 'Legal Notice',
+    'cookie.moreInfo': 'More Information',
+    'cookie.deny': 'Deny',
+    'cookie.accept': 'Accept All',
 
     // Announcement banner (top of site)
     'announce.label': 'Announcement',
@@ -665,20 +722,65 @@ const translations = {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
+const readStoredLang = (): Language | null => {
+  if (typeof window === 'undefined') return null;
+  try {
+    const v = window.localStorage.getItem(LANG_STORAGE_KEY);
+    return v === 'fr' || v === 'en' ? v : null;
+  } catch {
+    return null;
+  }
+};
+
+const writeStoredLang = (lang: Language) => {
+  if (typeof window === 'undefined') return;
+  try {
+    window.localStorage.setItem(LANG_STORAGE_KEY, lang);
+  } catch {
+    // ignore (private mode, quota, etc.)
+  }
+};
+
+// Paths that exist only in French (no EN mirror). Never redirect these.
+const FR_ONLY_PATHS = new Set<string>(['/mentions-legales']);
+
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const language: Language = detectLocaleFromPath(location.pathname);
+  const didInitialRedirect = useRef(false);
+
+  // One-shot: honor stored language preference, or default to EN for new visitors.
+  // Runs once per session; after first navigation, URL is the source of truth.
+  useEffect(() => {
+    if (didInitialRedirect.current) return;
+    didInitialRedirect.current = true;
+
+    if (FR_ONLY_PATHS.has(location.pathname)) return;
+
+    const stored = readStoredLang();
+    const desired: Language = stored ?? 'en';
+
+    if (desired !== language) {
+      const target = swapLocalePath(location.pathname, desired);
+      if (target !== location.pathname) {
+        navigate(target + (location.search || '') + (location.hash || ''), { replace: true });
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const value = useMemo<LanguageContextType>(() => ({
     language,
     setLanguage: (lang: Language) => {
+      writeStoredLang(lang);
       const target = swapLocalePath(location.pathname, lang);
       const search = location.search || '';
       const hash = location.hash || '';
       navigate(target + search + hash);
     },
     t: (key: string): string => translations[language][key] || key,
+    localize: (basePath: string) => buildLocalePath(basePath, language),
   }), [language, location.pathname, location.search, location.hash, navigate]);
 
   return (

@@ -38,7 +38,7 @@ const team = [
 ];
 
 const About = () => {
-  const { language, t } = useLanguage();
+  const { language, t, localize } = useLanguage();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -141,7 +141,7 @@ const About = () => {
               </h2>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link
-                  to={DEMO_ROUTE}
+                  to={localize(DEMO_ROUTE)}
                   className="inline-flex items-center justify-center rounded-full px-8 py-3 text-sm font-medium text-white transition-all hover:opacity-90 hover:shadow-[0_0_30px_rgba(79,143,255,0.3)]"
                   style={{
                     background: "linear-gradient(135deg, var(--accent-blue), var(--accent-violet))",
@@ -150,7 +150,7 @@ const About = () => {
                   {t("about.cta.demo")}
                 </Link>
                 <Link
-                  to="/careers"
+                  to={localize("/careers")}
                   className="inline-flex items-center justify-center rounded-full px-8 py-3 text-sm font-medium text-white/70 border border-white/10 hover:text-white hover:border-white/20 hover:bg-white/[0.04] transition-all"
                 >
                   {t("about.cta.careers")}
@@ -164,7 +164,7 @@ const About = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto">
             <Link
-              to="/"
+              to={localize("/")}
               className="text-[var(--accent-blue)] hover:underline text-sm"
             >
               &larr; {t("about.back")}
