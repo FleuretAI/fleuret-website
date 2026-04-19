@@ -9,10 +9,8 @@ const Benchmark = () => {
     { num: "04", color: "var(--accent-violet)", title: t("platform.reports.title"),  desc: t("platform.reports.desc") },
   ];
   return (
-    <section id="platform" className="section-elevated grid-fade py-16 md:py-24 lg:py-32" style={{ position: "relative", overflow: "hidden" }}>
-      <div style={{ position: "absolute", top: 0, right: 0, width: 600, height: 600, background: "radial-gradient(ellipse at top right, rgba(139,92,246,0.06), transparent 70%)", pointerEvents: "none" }} />
-      <div style={{ position: "absolute", bottom: 0, left: 0, width: 400, height: 400, background: "radial-gradient(ellipse at bottom left, rgba(79,143,255,0.04), transparent 70%)", pointerEvents: "none" }} />
-      <div className="max-w-[1280px] mx-auto px-4 md:px-8" style={{ position: "relative", zIndex: 10 }}>
+    <section id="platform" className="py-16 md:py-24 lg:py-32">
+      <div className="max-w-[1280px] mx-auto px-4 md:px-8">
         <div style={{ textAlign: "center", maxWidth: "56rem", margin: "0 auto 4rem" }}>
           <h2 style={{ fontSize: "clamp(1.875rem, 4.5vw, 3.75rem)", fontWeight: 300, letterSpacing: "-0.02em", lineHeight: 1.1 }}>
             <span style={{ color: "#fff" }}>{t("platform.main.title")}</span>{" "}
