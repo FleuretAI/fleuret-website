@@ -1,6 +1,6 @@
+import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
-
-const DEMO_URL = "https://calendar.app.google/H9GMsaSvZMhwRbueA";
+import { DEMO_ROUTE } from "@/lib/routes";
 
 const CTASection = () => {
   const { t } = useLanguage();
@@ -18,16 +18,14 @@ const CTASection = () => {
             {t("cta.subtitle")}
           </p>
           <div style={{ display: "flex", justifyContent: "center", paddingTop: "1rem" }}>
-            <a
-              href={DEMO_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              to={DEMO_ROUTE}
               style={{ fontSize: "1.125rem", fontWeight: 500, padding: "1rem 2.5rem", borderRadius: "999px", color: "#fff", background: "linear-gradient(135deg, var(--accent-blue), var(--accent-violet))", transition: "box-shadow 0.2s, transform 0.15s", display: "inline-block" }}
               onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = "0 0 30px rgba(79,143,255,0.3)"; }}
               onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = ""; }}
             >
               {t("cta.button")}
-            </a>
+            </Link>
           </div>
         </div>
       </div>

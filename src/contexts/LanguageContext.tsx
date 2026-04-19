@@ -263,6 +263,22 @@ const translations = {
 
     'designPartners.back': 'Retour à l\'accueil',
 
+    // Demo page
+    'demo.pageTitle': 'Réserver une démo, Fleuret',
+    'demo.pageDescription': 'Voyez Fleuret en action. Réservez un appel de 30 minutes avec notre équipe.',
+    'demo.title': 'Voyez Fleuret en action.',
+    'demo.subtitle': 'Réservez un appel de 30 minutes. On vous montre la plateforme sur votre périmètre.',
+    'demo.pullquote': 'Pentest niveau humain en heures, pas en semaines.',
+    'demo.stat1.value': '100%',
+    'demo.stat1.label': 'Niveau humain',
+    'demo.stat2.value': '100x',
+    'demo.stat2.label': 'Scalabilité',
+    'demo.stat3.value': '3x',
+    'demo.stat3.label': 'Moins cher',
+    'demo.iframe.title': 'Planificateur de démo Fleuret',
+    'demo.fallback.prefix': 'Le planificateur ne charge pas ?',
+    'demo.fallback.link': 'Réserver directement',
+
     // 404
     'notfound.title': '404',
     'notfound.subtitle': 'Page introuvable',
@@ -521,6 +537,22 @@ const translations = {
     'designPartners.finalCta.cta': 'Book a call',
 
     'designPartners.back': 'Back to home',
+
+    // Demo page
+    'demo.pageTitle': 'Book a demo, Fleuret',
+    'demo.pageDescription': 'See Fleuret in action. Book a 30-minute call with our team.',
+    'demo.title': 'See Fleuret in action.',
+    'demo.subtitle': 'Book a 30-minute call. We will show you the platform on your perimeter.',
+    'demo.pullquote': 'Human-grade pentests in hours, not weeks.',
+    'demo.stat1.value': '100%',
+    'demo.stat1.label': 'Human-grade',
+    'demo.stat2.value': '100x',
+    'demo.stat2.label': 'Scalability',
+    'demo.stat3.value': '3x',
+    'demo.stat3.label': 'Cheaper',
+    'demo.iframe.title': 'Fleuret demo booking scheduler',
+    'demo.fallback.prefix': 'Scheduler not loading?',
+    'demo.fallback.link': 'Book directly',
 
     // 404
     'notfound.title': '404',
