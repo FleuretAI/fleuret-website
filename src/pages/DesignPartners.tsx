@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/motion/ScrollReveal";
 import StaggerGroup from "@/components/motion/StaggerGroup";
 import { staggerItem } from "@/lib/animations";
+import { SEO } from "@/seo/SEO";
 
 const DEMO_URL = "https://calendar.app.google/H9GMsaSvZMhwRbueA";
 const TOTAL_SPOTS = 5;
@@ -34,15 +35,15 @@ const DesignPartners = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = `${t("designPartners.meta.title")} | Fleuret`;
-  }, [t]);
+  }, []);
 
   const spotsRemaining = TOTAL_SPOTS - SPOTS_FILLED;
 
   return (
     <div className="min-h-screen">
+      <SEO pageKey="designPartners" />
       <Navbar />
-      <main className="pt-32 pb-20">
+      <main id="main-content" className="pt-32 pb-20">
         {/* Hero */}
         <section className="container mx-auto px-4 text-center mb-20">
           <ScrollReveal>

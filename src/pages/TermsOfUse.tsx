@@ -1,12 +1,14 @@
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { SEO } from "@/seo/SEO";
 
 const TermsOfUse = () => {
   const { language } = useLanguage();
   const isFr = language === "fr";
 
   return (
-    <main className="min-h-screen pt-32 pb-20 px-4">
+    <main id="main-content" className="min-h-screen pt-32 pb-20 px-4">
+      <SEO pageKey="terms" />
       <div className="max-w-3xl mx-auto">
         <Link
           to="/"

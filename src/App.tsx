@@ -1,37 +1,61 @@
+import { lazy, Suspense } from "react";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
-import MentionsLegales from "./pages/MentionsLegales";
-import PrivacyPolicy from "./pages/PrivacyPolicy";
-import TermsOfUse from "./pages/TermsOfUse";
-import SecurityPolicy from "./pages/SecurityPolicy";
-import Careers from "./pages/Careers";
-import About from "./pages/About";
-import DesignPartners from "./pages/DesignPartners";
-import NotFound from "./pages/NotFound";
+import { LanguageProvider } from "./contexts/LanguageContext";
 import CookieBanner from "./components/CookieBanner";
 import ScrollToTop from "./components/ScrollToTop";
+import Index from "./pages/Index";
+
+const About = lazy(() => import("./pages/About"));
+const Careers = lazy(() => import("./pages/Careers"));
+const DesignPartners = lazy(() => import("./pages/DesignPartners"));
+const MentionsLegales = lazy(() => import("./pages/MentionsLegales"));
+const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
+const TermsOfUse = lazy(() => import("./pages/TermsOfUse"));
+const SecurityPolicy = lazy(() => import("./pages/SecurityPolicy"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
+
+type RouteDef = { path: string; element: JSX.Element };
+
+const APP_ROUTES: RouteDef[] = [
+  { path: "/", element: <Index /> },
+  { path: "/about", element: <About /> },
+  { path: "/careers", element: <Careers /> },
+  { path: "/design-partners", element: <DesignPartners /> },
+  { path: "/mentions-legales", element: <MentionsLegales /> },
+  { path: "/privacy", element: <PrivacyPolicy /> },
+  { path: "/terms", element: <TermsOfUse /> },
+  { path: "/security", element: <SecurityPolicy /> },
+];
+
+// Mirror every route under /en for the English locale, except
+// /mentions-legales which is French-law content with no EN translation.
+const EN_MIRRORED: RouteDef[] = APP_ROUTES
+  .filter((r) => r.path !== "/mentions-legales")
+  .map((r) => ({
+    path: r.path === "/" ? "/en" : "/en" + r.path,
+    element: r.element,
+  }));
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <BrowserRouter>
-        <ScrollToTop />
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/mentions-legales" element={<MentionsLegales />} />
-          <Route path="/privacy" element={<PrivacyPolicy />} />
-          <Route path="/terms" element={<TermsOfUse />} />
-          <Route path="/security" element={<SecurityPolicy />} />
-          <Route path="/careers" element={<Careers />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/design-partners" element={<DesignPartners />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-        <CookieBanner />
+        <LanguageProvider>
+          <ScrollToTop />
+          <Suspense fallback={null}>
+            <Routes>
+              {[...APP_ROUTES, ...EN_MIRRORED].map((r) => (
+                <Route key={r.path} path={r.path} element={r.element} />
+              ))}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
+          <CookieBanner />
+        </LanguageProvider>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
