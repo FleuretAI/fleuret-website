@@ -66,7 +66,7 @@ as "Approach C: Hybrid." User chose "Approach A: branded page + scheduler
 embed, no form" for v1. This TODO captures the v2 extension.
 
 **Depends on / blocked by:**
-- v1 /demo page shipped to prod.
+- ~~v1 /demo page shipped to prod.~~ ✅ shipped 2026-04-19 (PR #12). Hot-fix CSP `frame-src https://calendar.google.com` followed in PR #13.
 - 2+ weeks of real traffic on /demo so drop-off is measurable.
 - Decision on lead sink (Supabase table vs. HubSpot form vs. Attio API).
 - reCAPTCHA site key provisioned if form is public.
@@ -110,3 +110,36 @@ embed, no form" for v1. This TODO captures the v2 extension.
 **Context:** Flagged in Codex-adversarial review of `/plan-eng-review` on 2026-04-19 (finding #4 - CNIL compliance). Plan grants `analytics_storage` only; `ad_storage` explicitly not granted.
 
 **Depends on / blocked by:** Nothing. Can add note any time.
+
+---
+
+## 5. Pre-merge CSP audit when adding any new `<iframe>` or third-party widget
+
+**What:** Before merging any PR that introduces an `<iframe>`, embedded third-party
+script, or `connect-src` target, grep `vercel.json` for the relevant CSP directive
+(`frame-src`, `script-src`, `connect-src`, `img-src`, `font-src`, `style-src`) and
+confirm the new origin is in the allowlist. If missing, add it in the same PR.
+
+**Why:** /demo (PR #12) shipped without `https://calendar.google.com` in `frame-src`.
+Result: production CSP blocked the Google scheduler iframe. Visitors saw an empty
+white card with only the fallback link. Caught immediately by `/land-and-deploy`
+canary, hot-fixed in PR #13. Cost: ~5 minutes of broken /demo on prod + extra PR.
+Generalizes: any future widget (Calendly, Stripe Checkout, Intercom, Hotjar,
+LinkedIn Insight, etc.) will silently break the same way.
+
+**Pros:**
+- Two-line check, prevents whole class of post-deploy CSP regressions.
+- Forces reviewers to think about which third-party origins the site trusts.
+- `/review` and `/ship` should grow this check; until then it is a manual gate.
+
+**Cons:**
+- Easy to forget. Needs to be wired into `/review` checklist or a Vercel build
+  hook to be reliable.
+
+**Context:** Observed 2026-04-19 on PR #12 → PR #13. CSP from `vercel.json:12`.
+Console error verbatim: `Framing 'https://calendar.google.com/' violates the
+following Content Security Policy directive: "frame-src https://www.googletagmanager.com".`
+
+**Depends on / blocked by:** Nothing. Could be automated via a `bun run` script
+that diff-greps `<iframe src=` and `fetch('https://...')` against `vercel.json`
+on every PR.
