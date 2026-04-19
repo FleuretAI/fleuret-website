@@ -8,6 +8,7 @@ import TermsOfUse from "./pages/TermsOfUse";
 import SecurityPolicy from "./pages/SecurityPolicy";
 import Careers from "./pages/Careers";
 import About from "./pages/About";
+import DesignPartners from "./pages/DesignPartners";
 import NotFound from "./pages/NotFound";
 import CookieBanner from "./components/CookieBanner";
 
@@ -25,6 +26,7 @@ const App = () => (
           <Route path="/security" element={<SecurityPolicy />} />
           <Route path="/careers" element={<Careers />} />
           <Route path="/about" element={<About />} />
+          <Route path="/design-partners" element={<DesignPartners />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <CookieBanner />

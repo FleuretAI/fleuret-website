@@ -32,6 +32,9 @@ const Footer = () => {
             <Link to="/careers" style={{ fontSize: "0.875rem", color: "rgba(255,255,255,0.5)", transition: "color 0.2s" }} onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "#fff"; }} onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.5)"; }}>
               {language === "fr" ? "Carrières" : "Careers"}
             </Link>
+            <Link to="/design-partners" style={{ fontSize: "0.875rem", color: "rgba(255,255,255,0.5)", transition: "color 0.2s" }} onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "#fff"; }} onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.5)"; }}>
+              Design Partners
+            </Link>
           </div>
 
           {/* Contact */}
@@ -57,10 +60,11 @@ const Footer = () => {
               <Link
                 key={l.path}
                 to={l.path}
-                style={{ fontSize: "0.875rem", color: "rgba(255,255,255,0.3)", transition: "color 0.2s", pointerEvents: "none" }}
-                aria-disabled="true"
+                style={{ fontSize: "0.875rem", color: "rgba(255,255,255,0.5)", transition: "color 0.2s" }}
+                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "#fff"; }}
+                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.5)"; }}
               >
-                {l.label} — coming soon
+                {l.label}
               </Link>
             ))}
           </div>

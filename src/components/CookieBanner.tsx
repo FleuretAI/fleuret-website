@@ -100,7 +100,7 @@ const CookieBanner = () => {
             <button
               type="button"
               onClick={() => record("denied")}
-              className="flex-1 sm:flex-none px-5 py-2.5 rounded-full text-[0.8125rem] font-medium text-white/80 bg-white/5 border border-white/10 hover:bg-white/10 hover:text-white transition-colors"
+              className="flex-1 sm:flex-none px-5 py-2.5 rounded-full text-[0.8125rem] font-medium text-white bg-white/10 border border-white/30 hover:bg-white/20 hover:border-white/50 transition-colors"
             >
               {isFr ? "Refuser" : "Deny"}
             </button>
