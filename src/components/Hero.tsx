@@ -1,9 +1,18 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, type CSSProperties } from "react";
 import { mountHeroCanvas } from "@/lib/heroCanvas";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 
 const DEMO_URL = "https://calendar.app.google/H9GMsaSvZMhwRbueA";
+
+const badgeTextStyle: CSSProperties = {
+  fontSize: "0.78rem",
+  color: "rgba(255,255,255,0.7)",
+  letterSpacing: "0.01em",
+  whiteSpace: "nowrap",
+  overflow: "hidden",
+  textOverflow: "ellipsis",
+};
 
 const Hero = () => {
   const { t } = useLanguage();
@@ -107,7 +116,10 @@ const Hero = () => {
               >
                 {t("hero.badge.label")}
               </span>
-              <span style={{ fontSize: "0.78rem", color: "rgba(255,255,255,0.7)", letterSpacing: "0.01em", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+              <span className="sm:hidden" style={badgeTextStyle}>
+                {t("hero.badge.text.short")}
+              </span>
+              <span className="hidden sm:inline" style={badgeTextStyle}>
                 {t("hero.badge.text")}
               </span>
             </div>
@@ -115,7 +127,7 @@ const Hero = () => {
 
           <h1
             style={{
-              fontSize: "clamp(1.25rem, 6vw, 4.5rem)",
+              fontSize: "clamp(1.375rem, 6vw, 4.5rem)",
               fontWeight: 300,
               letterSpacing: "-0.02em",
               lineHeight: 1.15,
@@ -148,7 +160,7 @@ const Hero = () => {
 
           <p
             style={{
-              fontSize: "clamp(1rem, 1.6vw, 1.25rem)",
+              fontSize: "clamp(0.8125rem, 1.6vw, 1.25rem)",
               fontWeight: 300,
               maxWidth: "42rem",
               margin: "0 auto 2rem",
