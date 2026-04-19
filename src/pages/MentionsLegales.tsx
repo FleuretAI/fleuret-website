@@ -27,7 +27,7 @@ const MentionsLegales = () => {
           <p>SIREN : 999 515 604</p>
           <p>SIRET : 999 515 604 00018</p>
           <p>RCS Paris</p>
-          <p>Code APE : 6201Z — Programmation informatique</p>
+          <p>Code APE : 6201Z, Programmation informatique</p>
           <p>N° TVA intracommunautaire : FR83999515604</p>
           <p>Président : Yanis Grigy</p>
           <p>Directeurs Généraux : Pierre-Gabriel Berlureau, Augustin Ponsin</p>
@@ -76,9 +76,9 @@ const MentionsLegales = () => {
         </h2>
         <div className="text-white/50 leading-relaxed text-sm space-y-3">
           <p>
-            L'ensemble du contenu du site fleuret.ai — incluant, sans limitation, les textes,
+            L'ensemble du contenu du site fleuret.ai (incluant, sans limitation, les textes,
             graphismes, images, logos, icônes, logiciels, noms de domaine, marques, bases de
-            données et architecture — est la propriété exclusive de FLEURET AI ou de ses
+            données et architecture) est la propriété exclusive de FLEURET AI ou de ses
             concédants, et est protégé par les lois françaises et internationales relatives à la
             propriété intellectuelle.
           </p>
