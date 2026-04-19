@@ -75,7 +75,7 @@ const ExposureIllustration = () => {
         animate={{ opacity: [0, 1, 0.8] }}
         transition={{ delay: 1.4, duration: 0.6 }}
       >
-        EXPOSED — 3 TO 12 MONTHS
+        EXPOSED: 3 TO 12 MONTHS
       </motion.text>
 
       <motion.text

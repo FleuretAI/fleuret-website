@@ -129,9 +129,9 @@ const PrivacyPolicy = () => {
             <>
               <p>Vos données peuvent être transmises aux sous-traitants suivants, dans le cadre strict des finalités décrites ci-dessus :</p>
               <ul className="list-disc list-inside space-y-1 ml-2">
-                <li><strong className="text-white/70">Supabase Inc.</strong> — Hébergement de la base de données et authentification.</li>
-                <li><strong className="text-white/70">Vercel Inc.</strong> — Hébergement du site web et déploiement.</li>
-                <li><strong className="text-white/70">Brevo (ex-Sendinblue)</strong> — Envoi d'emails transactionnels et marketing.</li>
+                <li><strong className="text-white/70">Supabase Inc.</strong> : hébergement de la base de données et authentification.</li>
+                <li><strong className="text-white/70">Vercel Inc.</strong> : hébergement du site web et déploiement.</li>
+                <li><strong className="text-white/70">Brevo (ex-Sendinblue)</strong> : envoi d'emails transactionnels et marketing.</li>
               </ul>
               <p>
                 Nous ne vendons, ne louons et ne partageons jamais vos données personnelles avec des tiers à des fins publicitaires.
@@ -141,9 +141,9 @@ const PrivacyPolicy = () => {
             <>
               <p>Your data may be shared with the following processors, strictly for the purposes described above:</p>
               <ul className="list-disc list-inside space-y-1 ml-2">
-                <li><strong className="text-white/70">Supabase Inc.</strong> — Database hosting and authentication.</li>
-                <li><strong className="text-white/70">Vercel Inc.</strong> — Website hosting and deployment.</li>
-                <li><strong className="text-white/70">Brevo (formerly Sendinblue)</strong> — Transactional and marketing email delivery.</li>
+                <li><strong className="text-white/70">Supabase Inc.</strong>: database hosting and authentication.</li>
+                <li><strong className="text-white/70">Vercel Inc.</strong>: website hosting and deployment.</li>
+                <li><strong className="text-white/70">Brevo (formerly Sendinblue)</strong>: transactional and marketing email delivery.</li>
               </ul>
               <p>
                 We never sell, rent, or share your personal data with third parties for advertising purposes.
