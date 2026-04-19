@@ -6,6 +6,7 @@ import {
   DEMO_SCHEDULER_EMBED_URL,
   DEMO_SCHEDULER_SHORT_URL,
 } from "@/lib/routes";
+import { SEO } from "@/seo/SEO";
 
 /**
  * /demo route.
@@ -33,19 +34,9 @@ import {
 const Demo = () => {
   const { t } = useLanguage();
 
+  // Title and description are owned by <SEO pageKey="demo" /> below.
+  // Fire the demo-page-view analytics event once on mount.
   useEffect(() => {
-    const prevTitle = document.title;
-    const descMeta = document.querySelector(
-      'meta[name="description"]'
-    ) as HTMLMetaElement | null;
-    const prevDesc = descMeta?.content ?? null;
-
-    document.title = t("demo.pageTitle");
-    if (descMeta) descMeta.content = t("demo.pageDescription");
-
-    // Fire analytics event. gtag is queued under consent-denied default
-    // and dispatched only after consent is granted, so this is safe to
-    // call unconditionally (no-op when gtag is not present).
     type GtagFn = (
       command: string,
       action: string,
@@ -55,18 +46,15 @@ const Demo = () => {
     if (typeof w.gtag === "function") {
       w.gtag("event", "demo_page_view", { page_path: "/demo" });
     }
-
-    return () => {
-      document.title = prevTitle;
-      if (descMeta && prevDesc !== null) descMeta.content = prevDesc;
-    };
-  }, [t]);
+  }, []);
 
   return (
     <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+      <SEO pageKey="demo" />
       <Navbar />
 
       <main
+        id="main-content"
         className="grid-fade"
         style={{
           position: "relative",

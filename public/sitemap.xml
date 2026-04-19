@@ -1,63 +1,164 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
   <url>
-    <loc>https://www.fleuret.ai/</loc>
+    <loc>https://fleuret.ai/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://fleuret.ai/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://fleuret.ai/en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fleuret.ai/" />
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://fleuret.ai/en</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://fleuret.ai/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://fleuret.ai/en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fleuret.ai/" />
     <lastmod>2026-04-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
 
   <url>
-    <loc>https://www.fleuret.ai/design-partners</loc>
+    <loc>https://fleuret.ai/design-partners</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://fleuret.ai/design-partners" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://fleuret.ai/en/design-partners" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fleuret.ai/design-partners" />
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://fleuret.ai/en/design-partners</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://fleuret.ai/design-partners" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://fleuret.ai/en/design-partners" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fleuret.ai/design-partners" />
     <lastmod>2026-04-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://www.fleuret.ai/about</loc>
+    <loc>https://fleuret.ai/demo</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://fleuret.ai/demo" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://fleuret.ai/en/demo" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fleuret.ai/demo" />
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://fleuret.ai/en/demo</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://fleuret.ai/demo" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://fleuret.ai/en/demo" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fleuret.ai/demo" />
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <url>
+    <loc>https://fleuret.ai/about</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://fleuret.ai/about" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://fleuret.ai/en/about" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fleuret.ai/about" />
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://fleuret.ai/en/about</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://fleuret.ai/about" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://fleuret.ai/en/about" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fleuret.ai/about" />
     <lastmod>2026-04-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://www.fleuret.ai/careers</loc>
+    <loc>https://fleuret.ai/careers</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://fleuret.ai/careers" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://fleuret.ai/en/careers" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fleuret.ai/careers" />
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://fleuret.ai/en/careers</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://fleuret.ai/careers" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://fleuret.ai/en/careers" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fleuret.ai/careers" />
     <lastmod>2026-04-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://www.fleuret.ai/security</loc>
+    <loc>https://fleuret.ai/security</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://fleuret.ai/security" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://fleuret.ai/en/security" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fleuret.ai/security" />
     <lastmod>2026-04-19</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://fleuret.ai/en/security</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://fleuret.ai/security" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://fleuret.ai/en/security" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fleuret.ai/security" />
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
 
   <url>
-    <loc>https://www.fleuret.ai/privacy</loc>
+    <loc>https://fleuret.ai/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://fleuret.ai/privacy" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://fleuret.ai/en/privacy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fleuret.ai/privacy" />
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://fleuret.ai/en/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://fleuret.ai/privacy" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://fleuret.ai/en/privacy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fleuret.ai/privacy" />
     <lastmod>2026-04-19</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
 
   <url>
-    <loc>https://www.fleuret.ai/terms</loc>
+    <loc>https://fleuret.ai/terms</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://fleuret.ai/terms" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://fleuret.ai/en/terms" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fleuret.ai/terms" />
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://fleuret.ai/en/terms</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://fleuret.ai/terms" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://fleuret.ai/en/terms" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fleuret.ai/terms" />
     <lastmod>2026-04-19</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
 
   <url>
-    <loc>https://www.fleuret.ai/mentions-legales</loc>
+    <loc>https://fleuret.ai/mentions-legales</loc>
     <lastmod>2026-04-19</lastmod>
     <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
+    <priority>0.2</priority>
   </url>
 
 </urlset>
