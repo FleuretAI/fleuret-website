@@ -48,11 +48,12 @@ const Navbar = () => {
     <>
       <header
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
+          "fixed left-0 right-0 z-50 transition-all duration-500",
           scrolled
             ? "py-3 bg-[rgba(15,16,28,0.8)] backdrop-blur-xl border-b border-white/5"
             : "py-5 bg-transparent"
         )}
+        style={{ top: "var(--announce-h, 0px)" }}
         role="banner"
         id="nav"
       >

@@ -65,6 +65,16 @@
 
   body {
     @apply font-sans antialiased;
+    position: relative;
+    background-image: linear-gradient(
+      180deg,
+      #0f101c 0%,
+      #11132a 22%,
+      #15163a 45%,
+      #1a1336 70%,
+      #1a0d1c 100%
+    );
+    background-attachment: scroll;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -76,40 +86,17 @@
   }
 }
 
-/* Ambient background — no grid, matches design spec */
+/* Page-length ambient bloom — radials at gradient stops reinforce hue travel */
 body::before {
   content: '';
-  position: fixed;
+  position: absolute;
   inset: 0;
   pointer-events: none;
   z-index: -1;
   background:
-    radial-gradient(ellipse 80% 50% at 50% 0%, rgba(79,143,255,0.06) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 40% at 80% 30%, rgba(139,92,246,0.05) 0%, transparent 55%),
-    linear-gradient(180deg, var(--dark-bg) 0%, #0c0d17 60%, var(--dark-bg) 100%);
-}
-
-/* Section elevation: ambient radial glow only — no solid bg, prevents visible seams */
-.section-elevated {
-  background-color: transparent;
-}
-
-/* Sections with ambient glow (replaces old grid fade) */
-.grid-fade {
-  position: relative;
-}
-.grid-fade::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    ellipse 70% 55% at 50% 50%,
-    rgba(255,255,255,0.025) 0%,
-    rgba(255,255,255,0.012) 45%,
-    transparent 85%
-  );
-  pointer-events: none;
-  z-index: 0;
+    radial-gradient(ellipse 100% 30% at 50% 22%, rgba(79,143,255,0.09), transparent 70%),
+    radial-gradient(ellipse 100% 30% at 50% 58%, rgba(139,92,246,0.10), transparent 70%),
+    radial-gradient(ellipse 100% 30% at 50% 92%, rgba(239,68,68,0.07), transparent 70%);
 }
 
 /* Gradient text utility */
