@@ -5,7 +5,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { DEMO_ROUTE } from "@/lib/routes";
 
 const Hero = () => {
-  const { t } = useLanguage();
+  const { t, localize } = useLanguage();
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -126,7 +126,7 @@ const Hero = () => {
 
           <div style={{ display: "flex", justifyContent: "center", paddingTop: "1rem" }}>
             <Link
-              to={DEMO_ROUTE}
+              to={localize(DEMO_ROUTE)}
               style={{
                 fontSize: "1rem",
                 fontWeight: 500,

@@ -3,7 +3,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { SEO } from "@/seo/SEO";
 
 const PrivacyPolicy = () => {
-  const { language } = useLanguage();
+  const { language, localize } = useLanguage();
   const isFr = language === "fr";
 
   return (
@@ -11,7 +11,7 @@ const PrivacyPolicy = () => {
       <SEO pageKey="privacy" />
       <div className="max-w-3xl mx-auto">
         <Link
-          to="/"
+          to={localize("/")}
           className="text-[var(--accent-blue)] hover:underline text-sm inline-block mb-8"
         >
           {isFr ? "← Retour" : "← Back"}

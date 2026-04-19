@@ -6,7 +6,12 @@ All notable changes to the Fleuret website. Format based on [Keep a Changelog](h
 
 ### Changed
 
+- English is now the default language for first-time visitors. Visiting `/` with no stored preference redirects to `/en`. Stored language preference persists across sessions via `localStorage` (`fleuret_lang`). French-only `/mentions-legales` is exempt from the redirect.
 - Homepage background: single page-length linear gradient (blue → violet → red) replaces per-section radial accents. Removed `.section-elevated` and `.grid-fade` CSS utilities. Section seams eliminated between Hero / Why / Platform / HowItWorks / Comparison / Pricing / CTA / Footer. ([#16](https://github.com/FleuretAI/fleuret-website/pull/16))
+
+### Fixed
+
+- Language persistence across navigation: every internal link (Navbar, Footer, Cookie banner, Demo/Careers/About CTAs, legal back buttons) now stays on the current locale. Previously, clicking `/about` from `/en/about` silently dropped users back to French. Hardcoded `language === "fr"` ternaries replaced with `t()` keys so copy, ARIA labels, and section headings stay consistent per locale. Technical jargon (pentest, NIS2, DORA, SOC 2, Design Partners, audit-ready, PoC, ASM) remains in English inside French copy by design.
 
 ## 2026-04 — SEO + /demo launch
 

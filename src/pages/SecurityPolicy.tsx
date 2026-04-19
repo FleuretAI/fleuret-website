@@ -3,7 +3,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { SEO } from "@/seo/SEO";
 
 const SecurityPolicy = () => {
-  const { language } = useLanguage();
+  const { language, localize } = useLanguage();
   const isFr = language === "fr";
 
   return (
@@ -11,7 +11,7 @@ const SecurityPolicy = () => {
       <SEO pageKey="security" />
       <div className="max-w-3xl mx-auto">
         <Link
-          to="/"
+          to={localize("/")}
           className="text-[var(--accent-blue)] hover:underline text-sm inline-block mb-8"
         >
           {isFr ? "← Retour" : "← Back"}
@@ -119,7 +119,7 @@ const SecurityPolicy = () => {
                 </li>
                 <li>
                   <strong className="text-white/70">Conservation limitée :</strong> les données sont supprimées à l'expiration des délais de conservation définis dans notre{" "}
-                  <Link to="/privacy" className="text-[var(--accent-blue)] hover:underline">politique de confidentialité</Link>.
+                  <Link to={localize("/privacy")} className="text-[var(--accent-blue)] hover:underline">politique de confidentialité</Link>.
                 </li>
                 <li>
                   <strong className="text-white/70">Registre des traitements :</strong> nous maintenons un registre des activités de traitement conformément à l'article 30 du RGPD.
@@ -140,7 +140,7 @@ const SecurityPolicy = () => {
                 </li>
                 <li>
                   <strong className="text-white/70">Limited retention:</strong> data is deleted upon expiration of the retention periods defined in our{" "}
-                  <Link to="/privacy" className="text-[var(--accent-blue)] hover:underline">privacy policy</Link>.
+                  <Link to={localize("/privacy")} className="text-[var(--accent-blue)] hover:underline">privacy policy</Link>.
                 </li>
                 <li>
                   <strong className="text-white/70">Processing records:</strong> we maintain a record of processing activities in accordance with Article 30 of the GDPR.

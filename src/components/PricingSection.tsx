@@ -9,7 +9,7 @@ const CheckIcon = ({ color }: { color: string }) => (
 );
 
 const PricingSection = () => {
-  const { t } = useLanguage();
+  const { t, localize } = useLanguage();
 
   const standardFeatures = [
     t("pricing.standard.f1"),
@@ -68,7 +68,7 @@ const PricingSection = () => {
                 ))}
               </ul>
               <Link
-                to={DEMO_ROUTE}
+                to={localize(DEMO_ROUTE)}
                 style={{ display: "block", width: "100%", padding: "0.75rem 1.5rem", borderRadius: "0.5rem", fontSize: "0.875rem", fontWeight: 600, textAlign: "center", background: "linear-gradient(to right, var(--accent-blue), var(--accent-violet))", color: "#fff", transition: "opacity 0.2s" }}
                 onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.opacity = "0.9"; }}
                 onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.opacity = "1"; }}
@@ -99,7 +99,7 @@ const PricingSection = () => {
               ))}
             </ul>
             <Link
-              to={DEMO_ROUTE}
+              to={localize(DEMO_ROUTE)}
               style={{ display: "block", width: "100%", padding: "0.75rem 1.5rem", borderRadius: "0.5rem", fontSize: "0.875rem", fontWeight: 600, textAlign: "center", border: "1px solid rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.7)", transition: "all 0.3s" }}
               onMouseEnter={(e) => { const el = e.currentTarget as HTMLElement; el.style.color = "#fff"; el.style.borderColor = "rgba(255,255,255,0.2)"; el.style.background = "rgba(255,255,255,0.04)"; }}
               onMouseLeave={(e) => { const el = e.currentTarget as HTMLElement; el.style.color = "rgba(255,255,255,0.7)"; el.style.borderColor = "rgba(255,255,255,0.1)"; el.style.background = ""; }}

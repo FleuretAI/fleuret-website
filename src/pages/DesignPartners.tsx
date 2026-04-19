@@ -31,7 +31,7 @@ const qualifyItems = ["qualifyGeo", "qualifyIndustry", "qualifySize", "qualifyCo
 const faqs = ["q1", "q2", "q3", "q4"] as const;
 
 const DesignPartners = () => {
-  const { t } = useLanguage();
+  const { t, localize } = useLanguage();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -74,7 +74,7 @@ const DesignPartners = () => {
 
               <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
                 <Link
-                  to={DEMO_ROUTE}
+                  to={localize(DEMO_ROUTE)}
                   className="inline-flex items-center justify-center rounded-full px-10 py-3.5 text-base font-medium text-white transition-all hover:opacity-90 hover:shadow-[0_0_30px_rgba(79,143,255,0.3)]"
                   style={{ background: "linear-gradient(135deg, var(--accent-blue), var(--accent-violet))" }}
                 >
@@ -237,7 +237,7 @@ const DesignPartners = () => {
 
               <div className="pt-2">
                 <Link
-                  to={DEMO_ROUTE}
+                  to={localize(DEMO_ROUTE)}
                   className="inline-flex items-center justify-center rounded-full px-10 py-3.5 text-base font-medium text-white transition-all hover:opacity-90 hover:shadow-[0_0_30px_rgba(79,143,255,0.3)]"
                   style={{ background: "linear-gradient(135deg, var(--accent-blue), var(--accent-violet))" }}
                 >
@@ -252,7 +252,7 @@ const DesignPartners = () => {
         <div className="container mx-auto px-4 mt-8">
           <div className="max-w-3xl mx-auto">
             <Link
-              to="/"
+              to={localize("/")}
               className="text-[var(--accent-blue)] hover:underline text-sm"
             >
               &larr; {t("designPartners.back")}

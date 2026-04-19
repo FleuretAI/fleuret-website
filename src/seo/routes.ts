@@ -13,7 +13,7 @@ export type RouteKey =
   | "notFound";
 
 export const SITE_URL = "https://fleuret.ai";
-export const DEFAULT_LOCALE: Locale = "fr";
+export const DEFAULT_LOCALE: Locale = "en";
 export const LOCALES: Locale[] = ["fr", "en"];
 export const DEFAULT_OG_IMAGE = `${SITE_URL}/og-image.png`;
 
@@ -171,7 +171,7 @@ export function hreflangLinks(key: RouteKey): Array<{ hrefLang: string; href: st
   return [
     { hrefLang: "fr", href: SITE_URL + ROUTES[key].fr },
     { hrefLang: "en", href: SITE_URL + ROUTES[key].en },
-    { hrefLang: "x-default", href: SITE_URL + ROUTES[key].fr },
+    { hrefLang: "x-default", href: SITE_URL + ROUTES[key].en },
   ];
 }
 
@@ -185,6 +185,18 @@ export function altOgLocale(locale: Locale): string {
 
 export function detectLocaleFromPath(pathname: string): Locale {
   return pathname === "/en" || pathname.startsWith("/en/") ? "en" : "fr";
+}
+
+/**
+ * Prefix a FR-canonical base path with the locale prefix, so Link/navigate
+ * calls stay on the current locale. `basePath` must be the FR version
+ * (e.g. "/about"). Returns "/about" for fr, "/en/about" for en.
+ */
+export function buildLocalePath(basePath: string, locale: Locale): string {
+  if (locale !== "en") return basePath;
+  if (basePath === "/") return "/en";
+  if (basePath.startsWith("/en")) return basePath;
+  return "/en" + basePath;
 }
 
 export function swapLocalePath(pathname: string, target: Locale): string {
