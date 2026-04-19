@@ -1,4 +1,6 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useMemo } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { detectLocaleFromPath, swapLocalePath } from '@/seo/routes';
 
 type Language = 'fr' | 'en';
 
@@ -564,25 +566,23 @@ const translations = {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [language, setLanguageState] = useState<Language>(() => {
-    const saved = localStorage.getItem('language');
-    return (saved === 'en' || saved === 'fr') ? saved : 'en';
-  });
+  const location = useLocation();
+  const navigate = useNavigate();
+  const language: Language = detectLocaleFromPath(location.pathname);
 
-  useEffect(() => {
-    localStorage.setItem('language', language);
-  }, [language]);
-
-  const setLanguage = (lang: Language) => {
-    setLanguageState(lang);
-  };
-
-  const t = (key: string): string => {
-    return translations[language][key] || key;
-  };
+  const value = useMemo<LanguageContextType>(() => ({
+    language,
+    setLanguage: (lang: Language) => {
+      const target = swapLocalePath(location.pathname, lang);
+      const search = location.search || '';
+      const hash = location.hash || '';
+      navigate(target + search + hash);
+    },
+    t: (key: string): string => translations[language][key] || key,
+  }), [language, location.pathname, location.search, location.hash, navigate]);
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t }}>
+    <LanguageContext.Provider value={value}>
       {children}
     </LanguageContext.Provider>
   );
