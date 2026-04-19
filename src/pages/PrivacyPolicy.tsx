@@ -235,7 +235,7 @@ const PrivacyPolicy = () => {
         </div>
 
         {/* Section 7 */}
-        <h2 className="text-xl font-semibold text-white mb-4 mt-10">
+        <h2 id="cookies" className="text-xl font-semibold text-white mb-4 mt-10 scroll-mt-32">
           {isFr ? "7. Cookies et traceurs" : "7. Cookies and Trackers"}
         </h2>
         <div className="text-white/50 leading-relaxed text-sm space-y-3">
