@@ -133,7 +133,7 @@ const DesignPartners = () => {
         {/* Timeline — what you get, week by week */}
         <section
           id="timeline"
-          className="section-elevated grid-fade py-16 md:py-24 relative"
+          className="py-16 md:py-24 relative"
         >
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
@@ -246,7 +246,7 @@ const DesignPartners = () => {
         {/* Apply */}
         <section
           id="apply"
-          className="section-elevated py-16 md:py-24 relative scroll-mt-24"
+          className="py-16 md:py-24 relative scroll-mt-24"
         >
           <div className="container mx-auto px-4">
             <div className="max-w-2xl mx-auto space-y-6">

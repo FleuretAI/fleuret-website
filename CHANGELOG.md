@@ -4,6 +4,15 @@ All notable changes to the Fleuret website. Format based on [Keep a Changelog](h
 
 ## [Unreleased]
 
+### Added
+
+- `/design-partners` rework around a dated pilot-cohort offer: **€4,900 flat, 5 slots, 3 AI pentests in 6 weeks, NIS2 / DORA-ready report**. Cohort kickoff 2026-06-01 Europe/Paris. Page now leads with price + deliverable in the hero, a week-by-week timeline (scope, recon, webapp+API, infra, audit-ready report, review), a founder + audit-trail proof block, an inline 5-field application form, and a real countdown. Slot counter reads live from Supabase via a stale-while-revalidate serverless function pinned to `fra1`. Cohort visibility gated by `VITE_COHORT_VISIBLE` so the page can ship without dated copy if product readiness slips. Every text string lives in `designPartners.*` i18n keys (FR + EN).
+- Serverless API: `api/slots.ts` (GET, returns remaining slot count, cached 300s fresh / 24h stale, falls back to total on error) and `api/apply.ts` (POST, zod-validates a 5-field payload, honeypot + IP hash + idempotent submission via UUID, writes to Supabase, returns Google Calendar URL only to qualified applicants).
+- Supabase migration `20260420000000_design_partner_applications.sql`: new table with RLS enabled and no anon grants, `design_partner_status` enum, status index, `design_partner_slots_remaining(total)` SECURITY DEFINER function exposed to anon for the slot counter.
+- Shared library for the program: `src/lib/designPartnerConfig.ts` (price, slots, cohort ISO), `designPartnerSchema.ts` (zod), `designPartnerQualify.ts` (role + size rule), `useCountdown.ts`, `useSlots.ts`, `captureUtm.ts`. Reused by the page, the form, and the `api/apply.ts` handler.
+- vitest + @testing-library/react + jsdom as dev dependencies, a `test` script, a dedicated `tsconfig.api.json` for the serverless functions, and 21 unit tests covering schema validation, qualify branches, countdown math, and UTM capture.
+- `CLAUDE.md` at the repo root documenting product, ICP, Design Partner program parameters, and stack for any AI agent working on this repo.
+
 ### Changed
 
 - English is now the default language for first-time visitors. Visiting `/` with no stored preference redirects to `/en`. Stored language preference persists across sessions via `localStorage` (`fleuret_lang`). French-only `/mentions-legales` is exempt from the redirect.
