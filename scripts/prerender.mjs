@@ -12,7 +12,8 @@ import { spawn } from "node:child_process";
 import { mkdirSync, writeFileSync, readFileSync, rmSync, existsSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import puppeteer from "puppeteer";
+import chromium from "@sparticuz/chromium";
+import puppeteer from "puppeteer-core";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, "..");
@@ -57,6 +58,24 @@ function outputPathFor(route) {
   return join(DIST, route.replace(/^\//, ""), "index.html");
 }
 
+// Resolve a local Chrome/Chromium binary. Covers the common dev machines.
+function localChromePath() {
+  const candidates = [
+    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    "/Applications/Google Chrome Canary.app/Contents/MacOS/Google Chrome Canary",
+    "/Applications/Chromium.app/Contents/MacOS/Chromium",
+    "/usr/bin/google-chrome",
+    "/usr/bin/google-chrome-stable",
+    "/usr/bin/chromium",
+    "/usr/bin/chromium-browser",
+    "/snap/bin/chromium",
+  ];
+  for (const p of candidates) {
+    if (existsSync(p)) return p;
+  }
+  return null;
+}
+
 async function main() {
   if (!existsSync(DIST)) {
     throw new Error("dist/ missing — run `vite build` before prerender");
@@ -81,9 +100,28 @@ async function main() {
 
   try {
     await waitForServer(BASE);
+    // @sparticuz/chromium ships a Linux x64 binary. Vercel's build container
+    // is Linux, so we use it there. Locally (macOS, Linux dev) we resolve the
+    // system Chrome/Chromium path to avoid shipping Puppeteer's bundled binary
+    // that needs libnspr4.so (missing on Vercel).
+    const isServerless =
+      !!process.env.VERCEL ||
+      !!process.env.AWS_LAMBDA_FUNCTION_NAME ||
+      !!process.env.AWS_EXECUTION_ENV;
+    const executablePath = isServerless
+      ? await chromium.executablePath()
+      : process.env.CHROME_PATH || localChromePath();
+    if (!executablePath) {
+      throw new Error(
+        "No Chrome/Chromium executable found. Set CHROME_PATH env var, or install Google Chrome (macOS) / chromium (Linux).",
+      );
+    }
     const browser = await puppeteer.launch({
+      args: isServerless
+        ? [...chromium.args, "--no-sandbox", "--disable-setuid-sandbox"]
+        : ["--no-sandbox", "--disable-setuid-sandbox"],
+      executablePath,
       headless: true,
-      args: ["--no-sandbox", "--disable-setuid-sandbox"],
     });
     try {
       const page = await browser.newPage();
