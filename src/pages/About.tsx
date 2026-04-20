@@ -16,6 +16,10 @@ import hornetsecurityLogo from "@/assets/investors/hornetsecurity.png";
 import almondLogo from "@/assets/investors/almond.svg";
 import gitguardianLogo from "@/assets/investors/gitguardian.svg";
 import ovrseaLogo from "@/assets/investors/ovrsea.svg";
+import stoikLogo from "@/assets/investors/stoik.svg";
+import raiseLogo from "@/assets/investors/raise.svg";
+import aurigaLogo from "@/assets/investors/auriga.svg";
+import unitedFoundersLogo from "@/assets/investors/unitedfounders.svg";
 
 type Investor = {
   /** Primary display. For companies: wordmark text. For individuals: person's full name (personName=true). */
@@ -34,6 +38,7 @@ const investors: Investor[] = [
   {
     name: "Hornetsecurity",
     logo: hornetsecurityLogo,
+    invertLogo: true,
     subtitleFr: "via LTGR, holding fondatrice",
     subtitleEn: "via LTGR, founding holding",
     url: "https://www.hornetsecurity.com/",
@@ -55,14 +60,65 @@ const investors: Investor[] = [
     url: "https://almond.consulting/",
   },
   {
-    name: "GitGuardian",
+    name: "Eric Fourrier",
+    personName: true,
     logo: gitguardianLogo,
+    subtitleFr: "CEO de GitGuardian",
+    subtitleEn: "CEO of GitGuardian",
     url: "https://www.gitguardian.com/",
+  },
+  {
+    name: "Jules Veyrat",
+    personName: true,
+    logo: stoikLogo,
+    invertLogo: true,
+    subtitleFr: "Co-fondateur & CEO de Stoïk",
+    subtitleEn: "Co-founder & CEO of Stoïk",
+    url: "https://www.stoik.io/",
+  },
+  {
+    name: "Alexandre Andreini",
+    personName: true,
+    logo: stoikLogo,
+    invertLogo: true,
+    subtitleFr: "Chief Risk Officer chez Stoïk",
+    subtitleEn: "Chief Risk Officer at Stoïk",
+    url: "https://www.stoik.io/",
   },
   {
     name: "OVRSEA",
     logo: ovrseaLogo,
+    subtitleFr: "Équipe fondatrice",
+    subtitleEn: "Founding team",
     url: "https://www.ovrsea.com/",
+  },
+];
+
+const vcs: Investor[] = [
+  {
+    name: "RAISE",
+    logo: raiseLogo,
+    invertLogo: true,
+    url: "https://raise.co/",
+  },
+  {
+    name: "Auriga Cyber Ventures",
+    logo: aurigaLogo,
+    invertLogo: true,
+    url: "https://aurigacyber.com/",
+  },
+  {
+    name: "United Founders",
+    logo: unitedFoundersLogo,
+    url: "https://unitedfounders.vc/",
+  },
+  {
+    name: "Wind Capital",
+    url: "#",
+  },
+  {
+    name: "Better Angle",
+    url: "#",
   },
 ];
 
@@ -89,6 +145,87 @@ const team = [
     photo: augustinPhoto,
   },
 ];
+
+function renderInvestorTile(
+  inv: Investor,
+  idx: number,
+  language: "fr" | "en",
+) {
+  const subtitle = language === "fr" ? inv.subtitleFr : inv.subtitleEn;
+  const newTabLabel =
+    language === "fr" ? "ouvre un nouvel onglet" : "opens in new tab";
+  const logoClass = `w-auto object-contain opacity-70 group-hover:opacity-100 transition-opacity ${
+    inv.invertLogo ? "invert brightness-0" : ""
+  }`;
+  const hasLink = !!inv.url && inv.url !== "#";
+  const tileClass =
+    "group flex flex-col items-center justify-center gap-2.5 p-6 rounded-2xl border border-white/8 bg-white/[0.02] hover:bg-white/[0.04] hover:border-white/15 transition-all duration-300 min-h-[128px] text-center";
+
+  const inner = (
+    <>
+      {inv.personName ? (
+        <>
+          <span className="text-sm md:text-base font-light tracking-wide text-white/85 group-hover:text-white transition-colors">
+            {inv.name}
+          </span>
+          {inv.logo && (
+            <img
+              src={inv.logo}
+              alt=""
+              aria-hidden="true"
+              loading="lazy"
+              className={`h-6 md:h-7 max-w-[130px] ${logoClass}`}
+            />
+          )}
+        </>
+      ) : inv.logo ? (
+        <img
+          src={inv.logo}
+          alt={inv.name}
+          loading="lazy"
+          className={`h-10 md:h-12 max-w-[170px] ${logoClass}`}
+        />
+      ) : (
+        <span className="text-base md:text-lg font-light tracking-wide text-white/75 group-hover:text-white transition-colors">
+          {inv.name}
+        </span>
+      )}
+      {subtitle && (
+        <span className="text-[11px] text-white/40 group-hover:text-white/60 transition-colors">
+          {subtitle}
+        </span>
+      )}
+    </>
+  );
+
+  const key = `${inv.name}-${idx}`;
+
+  if (hasLink) {
+    return (
+      <motion.a
+        key={key}
+        href={inv.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`${inv.name}${subtitle ? ` — ${subtitle}` : ""} (${newTabLabel})`}
+        variants={staggerItem}
+        className={tileClass}
+      >
+        {inner}
+      </motion.a>
+    );
+  }
+  return (
+    <motion.div
+      key={key}
+      aria-label={inv.name + (subtitle ? ` — ${subtitle}` : "")}
+      variants={staggerItem}
+      className={tileClass}
+    >
+      {inner}
+    </motion.div>
+  );
+}
 
 const About = () => {
   const { language, t, localize } = useLanguage();
@@ -185,8 +322,8 @@ const About = () => {
           </div>
         </section>
 
-        {/* Investors */}
-        <section className="container mx-auto px-4 pb-16 md:pb-24">
+        {/* Business angels */}
+        <section className="container mx-auto px-4 pb-12 md:pb-16">
           <div className="max-w-5xl mx-auto">
             <ScrollReveal>
               <div className="text-center mb-12">
@@ -199,60 +336,28 @@ const About = () => {
               </div>
             </ScrollReveal>
 
+            <StaggerGroup className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {investors.map((inv, idx) => renderInvestorTile(inv, idx, language))}
+            </StaggerGroup>
+          </div>
+        </section>
+
+        {/* VCs */}
+        <section className="container mx-auto px-4 pb-16 md:pb-24">
+          <div className="max-w-5xl mx-auto">
+            <ScrollReveal>
+              <div className="text-center mb-12">
+                <h2 className="text-3xl md:text-4xl font-light text-white mb-3">
+                  {t("about.vcs.title")}
+                </h2>
+                <p className="text-white/50 text-sm md:text-base max-w-2xl mx-auto">
+                  {t("about.vcs.subtitle")}
+                </p>
+              </div>
+            </ScrollReveal>
+
             <StaggerGroup className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-              {investors.map((inv, idx) => {
-                const subtitle =
-                  language === "fr" ? inv.subtitleFr : inv.subtitleEn;
-                const newTabLabel =
-                  language === "fr" ? "ouvre un nouvel onglet" : "opens in new tab";
-                const logoClass = `w-auto object-contain opacity-70 group-hover:opacity-100 transition-opacity ${
-                  inv.invertLogo ? "invert brightness-0" : ""
-                }`;
-                return (
-                  <motion.a
-                    key={`${inv.name}-${idx}`}
-                    href={inv.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`${inv.name}${subtitle ? ` — ${subtitle}` : ""} (${newTabLabel})`}
-                    variants={staggerItem}
-                    className="group flex flex-col items-center justify-center gap-2 p-6 rounded-2xl border border-white/8 bg-white/[0.02] hover:bg-white/[0.04] hover:border-white/15 transition-all duration-300 min-h-[112px] text-center"
-                  >
-                    {inv.personName ? (
-                      <>
-                        <span className="text-sm md:text-base font-light tracking-wide text-white/75 group-hover:text-white transition-colors">
-                          {inv.name}
-                        </span>
-                        {inv.logo && (
-                          <img
-                            src={inv.logo}
-                            alt=""
-                            aria-hidden="true"
-                            loading="lazy"
-                            className={`h-4 md:h-5 max-w-[110px] ${logoClass}`}
-                          />
-                        )}
-                      </>
-                    ) : inv.logo ? (
-                      <img
-                        src={inv.logo}
-                        alt={inv.name}
-                        loading="lazy"
-                        className={`h-7 md:h-8 max-w-[150px] ${logoClass}`}
-                      />
-                    ) : (
-                      <span className="text-base md:text-lg font-light tracking-wide text-white/60 group-hover:text-white transition-colors">
-                        {inv.name}
-                      </span>
-                    )}
-                    {subtitle && (
-                      <span className="text-[11px] text-white/35 group-hover:text-white/60 transition-colors">
-                        {subtitle}
-                      </span>
-                    )}
-                  </motion.a>
-                );
-              })}
+              {vcs.map((inv, idx) => renderInvestorTile(inv, idx, language))}
             </StaggerGroup>
           </div>
         </section>
