@@ -13,28 +13,52 @@ import {
 
 type JsonLd = Record<string, unknown>;
 
+/**
+ * Two call shapes:
+ *   1. Static page: pass `pageKey`; reads META[pageKey][language].
+ *   2. Dynamic page (e.g. blog post): pass `meta` override with explicit
+ *      title/description/canonical/hreflangs. `pageKey` becomes optional.
+ * If both are passed, `meta` wins.
+ */
+interface DynamicMeta {
+  title: string;
+  description: string;
+  canonical: string;
+  hreflangs: Array<{ hrefLang: string; href: string }>;
+  ogImage?: string;
+}
+
 interface SEOProps {
-  pageKey: RouteKey;
+  pageKey?: RouteKey;
+  meta?: DynamicMeta;
   image?: string;
   jsonLd?: JsonLd | JsonLd[];
   noindex?: boolean;
 }
 
-export function SEO({ pageKey, image, jsonLd, noindex }: SEOProps) {
+export function SEO({ pageKey, meta, image, jsonLd, noindex }: SEOProps) {
   const { language } = useLanguage();
-  const meta = META[pageKey][language];
-  const canonical = canonicalUrl(pageKey, language);
-  const hreflangs = hreflangLinks(pageKey);
-  const ogImage = image ?? DEFAULT_OG_IMAGE;
+
+  if (!pageKey && !meta) {
+    throw new Error("SEO requires either pageKey or meta override.");
+  }
+
+  const title = meta?.title ?? META[pageKey!][language].title;
+  const description =
+    meta?.description ?? META[pageKey!][language].description;
+  const keywords = meta ? undefined : META[pageKey!][language].keywords;
+  const canonical = meta?.canonical ?? canonicalUrl(pageKey!, language);
+  const hreflangs = meta?.hreflangs ?? hreflangLinks(pageKey!);
+  const ogImage = image ?? meta?.ogImage ?? DEFAULT_OG_IMAGE;
   const jsonLdArray = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 
   return (
     <Helmet prioritizeSeoTags>
       <html lang={language} />
-      <title>{meta.title}</title>
-      <meta name="title" content={meta.title} />
-      <meta name="description" content={meta.description} />
-      {meta.keywords && <meta name="keywords" content={meta.keywords} />}
+      <title>{title}</title>
+      <meta name="title" content={title} />
+      <meta name="description" content={description} />
+      {keywords && <meta name="keywords" content={keywords} />}
       <meta name="robots" content={noindex ? "noindex, nofollow" : "index, follow"} />
       <link rel="canonical" href={canonical} />
       {hreflangs.map((h) => (
@@ -44,21 +68,21 @@ export function SEO({ pageKey, image, jsonLd, noindex }: SEOProps) {
       <meta property="og:type" content="website" />
       <meta property="og:site_name" content="Fleuret" />
       <meta property="og:url" content={canonical} />
-      <meta property="og:title" content={meta.title} />
-      <meta property="og:description" content={meta.description} />
+      <meta property="og:title" content={title} />
+      <meta property="og:description" content={description} />
       <meta property="og:image" content={ogImage} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
-      <meta property="og:image:alt" content={meta.title} />
+      <meta property="og:image:alt" content={title} />
       <meta property="og:locale" content={ogLocale(language)} />
       <meta property="og:locale:alternate" content={altOgLocale(language)} />
 
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:url" content={canonical} />
-      <meta name="twitter:title" content={meta.title} />
-      <meta name="twitter:description" content={meta.description} />
+      <meta name="twitter:title" content={title} />
+      <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={ogImage} />
-      <meta name="twitter:image:alt" content={meta.title} />
+      <meta name="twitter:image:alt" content={title} />
 
       {jsonLdArray.map((data, i) => (
         <script key={i} type="application/ld+json">
@@ -132,5 +156,39 @@ export function breadcrumbJsonLd(items: Array<{ name: string; url: string }>): J
       name: item.name,
       item: item.url,
     })),
+  };
+}
+
+/**
+ * Article JSON-LD for blog posts. Google uses this for article carousels +
+ * rich results. `author` is a plain string byline.
+ */
+export function articleJsonLd(params: {
+  headline: string;
+  description: string;
+  url: string;
+  author: string;
+  datePublished: string; // ISO date (YYYY-MM-DD)
+  image?: string;
+}): JsonLd {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: params.headline,
+    description: params.description,
+    url: params.url,
+    author: { "@type": "Person", name: params.author },
+    publisher: {
+      "@type": "Organization",
+      name: "Fleuret AI",
+      logo: {
+        "@type": "ImageObject",
+        url: `${SITE_URL}/favicon.png`,
+      },
+    },
+    datePublished: params.datePublished,
+    dateModified: params.datePublished,
+    image: params.image ?? DEFAULT_OG_IMAGE,
+    mainEntityOfPage: params.url,
   };
 }

@@ -5,39 +5,6 @@ When an item is picked up, move it to the corresponding PR.
 
 ---
 
-## 1. Stand up vitest + React Testing Library
-
-**What:** Install `vitest`, `@testing-library/react`, `@testing-library/jest-dom`,
-`jsdom`. Add `vitest` + `test:ui` scripts to `package.json`. Wire a minimal
-`vitest.config.ts`. Write smoke tests for `Hero.tsx`, `Demo.tsx`, and the cookie
-consent state machine.
-
-**Why:** Project has zero test coverage. Fleuret is a security vendor. Untested
-code on the marketing site is survivable today, but the same pattern on the
-product codebase would be a liability. Start the habit here where risk is lowest.
-
-**Pros:**
-- Catches the class of regression we just flagged in /plan-eng-review for the
-  /demo page CTA swap (a renamed import in one of 7 call sites would go
-  unnoticed until a customer hits a dead CTA).
-- Unblocks proper /plan-eng-review test sections on future PRs.
-- Cheap starter: one hour to stand up + one smoke test per critical component.
-
-**Cons:**
-- ~30 dev deps added (jsdom, vitest, testing-library, @types/*).
-- Small bundle-side impact (dev-only, but eslint config needs extension).
-- Ongoing maintenance cost. If nobody runs tests, they rot.
-
-**Context:** Flagged in `~/.gstack/projects/FleuretAI-fleuret-website/checkpoints/20260419-031503-mobile-polish-rgpd-ship.md`
-("Zero test coverage, flagged in /retro. Fleuret is security vendor. Start:
-`bun add -d vitest @testing-library/react`, first test on Hero.tsx + cookie
-consent state machine."). Reconfirmed in /plan-eng-review for /demo page: no
-automated regression coverage for the 7-callsite CTA swap.
-
-**Depends on / blocked by:** Nothing. Can ship any time.
-
----
-
 ## 2. v2 of /demo page: lead-capture form above scheduler
 
 **What:** Add short 3-field form above the Google scheduler iframe on `/demo`:
@@ -143,3 +110,84 @@ following Content Security Policy directive: "frame-src https://www.googletagman
 **Depends on / blocked by:** Nothing. Could be automated via a `bun run` script
 that diff-greps `<iframe src=` and `fetch('https://...')` against `vercel.json`
 on every PR.
+
+---
+
+## 6. Split `LanguageContext.tsx` translations into per-locale JSON
+
+**What:** Extract the `translations` object from `src/contexts/LanguageContext.tsx`
+(~700 lines) into `src/locales/fr.json` and `src/locales/en.json`. Load at
+build time via `import fr from '@/locales/fr.json'` + `import en from ...`.
+Keep the `t()` signature identical.
+
+**Why:** Translations are content, not code. Non-dev translators (eventually
+Fleuret marketing or a contracted translator) should edit JSON, not TS. Current
+file is already the heaviest context in the codebase and the blog PR adds ~10
+more keys. Hitting this split before it reaches 1000 lines is cheaper.
+
+**Pros:**
+- Decouples content churn from code churn. PR-sized diffs for copy tweaks.
+- Enables future tooling (lint keys, missing-key detection, automated
+  translation via gpt-4 / deepl).
+- Makes per-locale key coverage visible (today, missing FR key = silent
+  fallback to key string).
+
+**Cons:**
+- Static JSON import inflates all locales into every bundle. At ~700 lines per
+  locale, tree-shake won't help. Would want per-locale dynamic import to cut
+  the FR locale from EN users' bundle.
+- Migration is cosmetic but needs careful diff review (key ordering, escaped
+  quotes, JSX vs string).
+- `tsc` won't type-check key usage unless JSON is typed via `typescript` satisfies
+  pattern or codegen.
+
+**Context:** Flagged in `/plan-eng-review` for the /resources + blog PR
+(2026-04-20). The blog PR adds translation keys inline per the existing
+pattern, compounding the smell. Reasonable to ship this as a standalone
+refactor PR before the NEXT feature that adds >5 translation keys.
+
+**Depends on / blocked by:** Nothing. Pure refactor.
+
+---
+
+## 7. Per-post OG image generator (`@vercel/og` or Satori)
+
+**What:** Generate dynamic per-post Open Graph preview images at build time.
+Input = post frontmatter (title, author, date, optional accent color). Output =
+`dist/og/<slug>-<locale>.png` 1200×630. Referenced via `ogImage` field auto-set
+by codegen if author didn't override.
+
+**Why:** At MVP, every post shares `DEFAULT_OG_IMAGE`. On LinkedIn / X, 3 posts
+in a feed with identical thumbnails looks like content-farm SEO spam. Once
+post cadence reaches ~3-5 posts, differentiated social cards become a
+visible brand investment.
+
+**Pros:**
+- Significantly better social share click-through (industry: 2-3x vs generic OG).
+- Zero authoring burden (auto-generated from frontmatter).
+- Build-time only, no runtime cost.
+
+**Cons:**
+- Adds `@vercel/og` or `satori` + `resvg` (WASM) to build deps (~5MB install).
+- Font licensing: needs a web-safe font embedded (or self-hosted via existing
+  site fonts).
+- Design work: one template to nail the Fleuret brand (typography, accent bar,
+  logo lock-up).
+
+**Context:** Deferred in `/office-hours` + `/plan-eng-review` for the blog MVP
+PR (2026-04-20). Revisit when post count >= 3 OR when a post is specifically
+earmarked for paid social distribution.
+
+**Depends on / blocked by:** Blog MVP ships first (this TODO's input is the
+frontmatter schema established there). Design direction for the OG template
+(could be brainstormed via `/design-shotgun`).
+
+---
+
+## Completed
+
+### 1. Stand up vitest + React Testing Library
+
+**Completed:** 2026-04-20 (shipped with /resources + blog MVP)
+
+vitest + @testing-library/react + jsdom + @testing-library/jest-dom wired via `vitest.config.ts`. Setup file at `tests/setup.ts`. Scripts `test` + `test:watch` in package.json. 16 blog-related tests + 21 design-partner tests = 37 green. First real tests cover `post-schema` (Zod validation), `SEO.tsx` (pageKey regression + meta override paths), `BlogIndex` (locale routing + empty state), and codegen manifest shape.
