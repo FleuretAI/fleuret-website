@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 80" fill="none">
+  <!-- AV monogram -->
+  <g transform="translate(10 10)">
+    <path d="M 0 60 L 22 0 L 44 60 L 36 60 L 22 22 L 8 60 Z" fill="#ffffff"/>
+    <path d="M 30 0 L 52 60 L 44 60 L 38 44 L 30 0 Z" fill="#ffffff"/>
+  </g>
+  <!-- wordmark -->
+  <text x="80" y="52" font-family="Inter, system-ui, -apple-system, Helvetica, Arial, sans-serif" font-weight="600" font-size="30" fill="#ffffff" letter-spacing="0.5">Better Angle</text>
+</svg>
