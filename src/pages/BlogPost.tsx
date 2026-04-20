@@ -229,7 +229,7 @@ function PostArticle({
 
         <hr className="mb-10 border-border/40" />
 
-        <div className="prose prose-invert prose-red max-w-none prose-headings:font-semibold prose-h2:mt-14 prose-h2:text-3xl prose-h3:text-xl prose-p:leading-relaxed prose-blockquote:border-l-accent-red prose-blockquote:bg-card/40 prose-blockquote:py-2 prose-blockquote:px-4 prose-blockquote:rounded-sm prose-a:text-accent-red prose-a:no-underline hover:prose-a:underline prose-code:text-accent-red prose-code:bg-muted prose-code:rounded-sm prose-code:px-1 prose-code:py-0.5 prose-code:before:content-none prose-code:after:content-none prose-img:rounded-md">
+        <div className="prose prose-invert font-sans max-w-none prose-headings:font-semibold prose-headings:font-sans prose-h2:mt-14 prose-h2:text-3xl prose-h3:text-xl prose-p:leading-relaxed prose-blockquote:border-l-accent-red prose-blockquote:bg-card/40 prose-blockquote:py-2 prose-blockquote:px-4 prose-blockquote:rounded-sm prose-a:text-accent-red prose-a:no-underline hover:prose-a:underline prose-code:text-accent-red prose-code:bg-muted prose-code:rounded-sm prose-code:px-1 prose-code:py-0.5 prose-code:before:content-none prose-code:after:content-none prose-img:rounded-md">
           <MdxComponent />
         </div>
 

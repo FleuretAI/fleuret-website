@@ -18,7 +18,10 @@ import gitguardianLogo from "@/assets/investors/gitguardian.svg";
 import ovrseaLogo from "@/assets/investors/ovrsea.svg";
 
 type Investor = {
+  /** Primary display. For companies: wordmark text. For individuals: person's full name (personName=true). */
   name: string;
+  /** Set true to render name as headline and logo as small brand mark beneath. */
+  personName?: boolean;
   logo?: string;
   /** When true, invert logo colors so dark-on-light artwork reads on dark bg. */
   invertLogo?: boolean;
@@ -36,8 +39,19 @@ const investors: Investor[] = [
     url: "https://www.hornetsecurity.com/",
   },
   {
-    name: "Almond",
+    name: "Olivier Pantaleo",
+    personName: true,
     logo: almondLogo,
+    subtitleFr: "Co-fondateur Almond",
+    subtitleEn: "Co-founder Almond",
+    url: "https://almond.consulting/",
+  },
+  {
+    name: "Jean-François Aliotti",
+    personName: true,
+    logo: almondLogo,
+    subtitleFr: "Co-fondateur Almond",
+    subtitleEn: "Co-founder Almond",
     url: "https://almond.consulting/",
   },
   {
@@ -185,15 +199,18 @@ const About = () => {
               </div>
             </ScrollReveal>
 
-            <StaggerGroup className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {investors.map((inv) => {
+            <StaggerGroup className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+              {investors.map((inv, idx) => {
                 const subtitle =
                   language === "fr" ? inv.subtitleFr : inv.subtitleEn;
                 const newTabLabel =
                   language === "fr" ? "ouvre un nouvel onglet" : "opens in new tab";
+                const logoClass = `w-auto object-contain opacity-70 group-hover:opacity-100 transition-opacity ${
+                  inv.invertLogo ? "invert brightness-0" : ""
+                }`;
                 return (
                   <motion.a
-                    key={inv.name}
+                    key={`${inv.name}-${idx}`}
                     href={inv.url}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -201,14 +218,27 @@ const About = () => {
                     variants={staggerItem}
                     className="group flex flex-col items-center justify-center gap-2 p-6 rounded-2xl border border-white/8 bg-white/[0.02] hover:bg-white/[0.04] hover:border-white/15 transition-all duration-300 min-h-[112px] text-center"
                   >
-                    {inv.logo ? (
+                    {inv.personName ? (
+                      <>
+                        <span className="text-sm md:text-base font-light tracking-wide text-white/75 group-hover:text-white transition-colors">
+                          {inv.name}
+                        </span>
+                        {inv.logo && (
+                          <img
+                            src={inv.logo}
+                            alt=""
+                            aria-hidden="true"
+                            loading="lazy"
+                            className={`h-4 md:h-5 max-w-[110px] ${logoClass}`}
+                          />
+                        )}
+                      </>
+                    ) : inv.logo ? (
                       <img
                         src={inv.logo}
                         alt={inv.name}
                         loading="lazy"
-                        className={`h-7 md:h-8 w-auto max-w-[150px] object-contain opacity-70 group-hover:opacity-100 transition-opacity ${
-                          inv.invertLogo ? "invert brightness-0" : ""
-                        }`}
+                        className={`h-7 md:h-8 max-w-[150px] ${logoClass}`}
                       />
                     ) : (
                       <span className="text-base md:text-lg font-light tracking-wide text-white/60 group-hover:text-white transition-colors">
