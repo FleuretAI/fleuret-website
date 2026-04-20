@@ -4,6 +4,10 @@ All notable changes to the Fleuret website. Format based on [Keep a Changelog](h
 
 ## [Unreleased]
 
+### Changed
+
+- Branding hygiene: add production `public/og-image.png` (1200×630) so every route's social preview renders a real Fleuret card instead of 404. SVG source in `scripts/og-image.svg`. Remove stale `public/placeholder.svg` (Lovable default), drop `lovable-tagger` dev dependency + plugin, scrub the `lovableproject.com` reference in `.env.local.example`.
+
 ### Added
 
 - **`/resources` hub + MDX blog.** New routes `/resources`, `/en/resources` (content hub) and `/blog`, `/en/blog` (editorial index) plus `/blog/:slug`, `/en/blog/:slug` for individual posts. Blog index uses an editorial row layout (date, title, excerpt, reading time, hairline dividers), not a SaaS card grid. First post ships bilingual: "Pentest continu par IA agentique : pourquoi NIS2 change la donne" / "Continuous AI pentesting: why NIS2 changes the game". Resources link added to Navbar (desktop + mobile) and Footer. Brand accent for blog surfaces is the existing `--accent-red` token (`#ef4444`), used for links, breadcrumb separator, focus ring, and LinkedIn share button. Accessibility: `<article>` wrapping post body, `<nav aria-label="Breadcrumb">`, `<time dateTime>`, visible focus rings, 44px touch targets, visited-link color shift. Post images restricted to `public/blog/<slug>/*` so CSP `img-src 'self'` stays unchanged.

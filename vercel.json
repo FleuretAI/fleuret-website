@@ -3,21 +3,9 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "functions": {
-    "api/slots.ts": {
-      "maxDuration": 10,
-      "memory": 1024
-    },
-    "api/apply.ts": {
-      "maxDuration": 10,
-      "memory": 1024
-    }
+    "api/slots.ts": { "maxDuration": 10, "memory": 1024 },
+    "api/apply.ts": { "maxDuration": 10, "memory": 1024 }
   },
-  "rewrites": [
-    {
-      "source": "/((?!api/).*)",
-      "destination": "/index.html"
-    }
-  ],
   "headers": [
     {
       "source": "/(.*)",
@@ -51,27 +39,15 @@
     {
       "source": "/sitemap.xml",
       "headers": [
-        {
-          "key": "Content-Type",
-          "value": "application/xml; charset=utf-8"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=3600"
-        }
+        { "key": "Content-Type", "value": "application/xml; charset=utf-8" },
+        { "key": "Cache-Control", "value": "public, max-age=3600" }
       ]
     },
     {
       "source": "/robots.txt",
       "headers": [
-        {
-          "key": "Content-Type",
-          "value": "text/plain; charset=utf-8"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=3600"
-        }
+        { "key": "Content-Type", "value": "text/plain; charset=utf-8" },
+        { "key": "Cache-Control", "value": "public, max-age=3600" }
       ]
     }
   ]
