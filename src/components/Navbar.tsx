@@ -38,8 +38,6 @@ const Navbar = () => {
 
   const homePath = localize("/");
   const navItems = [
-    { path: `${homePath}#home`,     label: t("nav.home") },
-    { path: `${homePath}#why`,      label: t("nav.problem") },
     { path: `${homePath}#platform`, label: t("nav.platform") },
     { path: `${homePath}#pricing`,  label: t("nav.pricing") },
   ];
@@ -216,8 +214,6 @@ const Navbar = () => {
         aria-hidden={!mobileOpen}
         aria-label="Mobile navigation"
       >
-        <HashLink to={`${homePath}#home`}     smooth onClick={close} className="px-4 py-3.5 rounded-lg text-base text-white/70 hover:text-white hover:bg-white/4 transition-colors">{t("nav.home")}</HashLink>
-        <HashLink to={`${homePath}#why`}      smooth onClick={close} className="px-4 py-3.5 rounded-lg text-base text-white/70 hover:text-white hover:bg-white/4 transition-colors">{t("nav.problem")}</HashLink>
         <HashLink to={`${homePath}#platform`} smooth onClick={close} className="px-4 py-3.5 rounded-lg text-base text-white/70 hover:text-white hover:bg-white/4 transition-colors">{t("nav.platform")}</HashLink>
         <HashLink to={`${homePath}#pricing`}  smooth onClick={close} className="px-4 py-3.5 rounded-lg text-base text-white/70 hover:text-white hover:bg-white/4 transition-colors">{t("nav.pricing")}</HashLink>
         <Link to={localize("/resources")} onClick={close} className="px-4 py-3.5 rounded-lg text-base text-white/70 hover:text-white hover:bg-white/4 transition-colors">{t("nav.resources")}</Link>
