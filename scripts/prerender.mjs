@@ -153,33 +153,56 @@ async function main() {
       const page = await browser.newPage();
       await page.setViewport({ width: 1280, height: 800 });
 
+      // Collect per-route failures so one broken route doesn't lose all others.
+      // Vercel build treats silent skips better than a full crash; we log each
+      // miss loudly so deploy logs surface the problem.
+      const failed = [];
       for (const route of ROUTES) {
         const url = `${BASE}${route}`;
-        await page.goto(url, { waitUntil: "networkidle2", timeout: 30_000 });
-        if (isBlogPostPath(route)) {
-          // Blog route: wait for MDX to finish lazy-loading and flip the
-          // rendered flag. Prevents shipping the Suspense skeleton.
-          await page.waitForFunction(
-            () =>
-              !!document.querySelector(
-                'article[data-post-slug][data-rendered="true"]',
-              ),
-            { timeout: 15_000 },
+        console.log(`[prerender] -> ${route}`);
+        try {
+          await page.goto(url, { waitUntil: "networkidle2", timeout: 30_000 });
+          if (isBlogPostPath(route)) {
+            // Blog route: wait for MDX to finish lazy-loading and flip the
+            // rendered flag. Prevents shipping the Suspense skeleton.
+            await page.waitForFunction(
+              () =>
+                !!document.querySelector(
+                  'article[data-post-slug][data-rendered="true"]',
+                ),
+              { timeout: 15_000 },
+            );
+          } else {
+            await page.waitForFunction(
+              () => {
+                const root = document.getElementById("root");
+                return !!root && root.children.length > 0;
+              },
+              { timeout: 15_000 },
+            );
+          }
+          const html = await page.content();
+          const out = outputPathFor(route);
+          mkdirSync(dirname(out), { recursive: true });
+          writeFileSync(out, html, "utf8");
+          console.log(`prerendered ${route} -> ${out.replace(ROOT + "/", "")}`);
+        } catch (err) {
+          console.error(
+            `[prerender] FAILED ${route}: ${(err && err.message) || err}`,
           );
-        } else {
-          await page.waitForFunction(
-            () => {
-              const root = document.getElementById("root");
-              return !!root && root.children.length > 0;
-            },
-            { timeout: 15_000 },
-          );
+          failed.push(route);
         }
-        const html = await page.content();
-        const out = outputPathFor(route);
-        mkdirSync(dirname(out), { recursive: true });
-        writeFileSync(out, html, "utf8");
-        console.log(`prerendered ${route} -> ${out.replace(ROOT + "/", "")}`);
+      }
+      if (failed.length > 0) {
+        console.error(
+          `[prerender] ${failed.length} route(s) failed (non-fatal): ${failed.join(", ")}`,
+        );
+        console.error(
+          `[prerender] SPA rewrite in vercel.json catches missing routes; ` +
+            `user still sees the page but SEO degrades to client-render for those URLs.`,
+        );
+        // Non-fatal: vercel.json rewrites /(!api/).* -> /index.html so the SPA
+        // renders any route that failed to prerender. Ship what we have.
       }
 
       // Vercel default: /404.html at output root is served as the 404 body.
