@@ -17,17 +17,19 @@ import { getPost } from "@/content/posts.generated";
 import { PostMeta } from "@/components/blog/PostMeta";
 
 /**
- * BlogPost is EAGER-imported from App.tsx (see design doc premise #10): prerender
- * Puppeteer otherwise captures an empty Suspense frame before the lazy chunk
- * resolves and ships blank HTML. Inside this component, the MDX component is
- * lazy-loaded per slug (registry entries expose `load: () => import(...)`), so
- * the main bundle stays flat regardless of post count.
+ * BlogPost is EAGER-imported from App.tsx (see design doc premise #10):
+ * prerender Puppeteer otherwise captures an empty Suspense frame before
+ * the lazy chunk resolves and ships blank HTML. Inside this component,
+ * the MDX component is lazy-loaded per slug (registry entries expose
+ * `load: () => import(...)`), so the main bundle stays flat regardless
+ * of post count.
  *
- * Puppeteer contract: `scripts/prerender.mjs` waits for
- *   article[data-post-slug][data-rendered="true"]
- * before snapshotting. `data-rendered` flips to "true" inside an effect that
- * fires after the lazy MDX child mounts.
+ * Typography: header + meta row follow About.tsx / Careers.tsx — font-light
+ * H1 with gradient highlight, white/50 subtitle, container-based spacing.
+ * Prose body uses `font-sans` (Lufga) with a minimal accent color set so
+ * the article reads as part of the site, not a bolted-on blog.
  */
+
 /**
  * Module-scoped cache: one `React.lazy` wrapper per (locale, slug).
  *
@@ -59,33 +61,36 @@ const BlogPost = () => {
     : null;
 
   if (!entry || !MdxComponent) {
-    // Stale link or tombstoned slug. Emit noindex meta so Google deindexes the
-    // URL even if Vercel still serves a cached 200. Edge rewrites (see
-    // tombstones) provide the canonical 301/permanent-redirect path.
-    //
-    // We inline the 404 body rather than import NotFound (static import would
-    // defeat NotFound's lazy chunk from App.tsx).
+    // Stale link or tombstoned slug. Emit noindex meta so Google deindexes
+    // the URL even if Vercel still serves a cached 200. We inline the 404
+    // body rather than importing NotFound (a static import would defeat
+    // NotFound's lazy chunk from App.tsx).
     return (
       <>
         <SEO pageKey="notFound" noindex />
         <Navbar />
-        <main className="min-h-screen pt-32 pb-24 px-6 md:px-10 flex items-center justify-center">
-          <div className="max-w-[560px] text-center">
-            <p className="text-xs uppercase tracking-widest text-accent-red mb-4">
-              404
-            </p>
-            <h1 className="text-3xl md:text-4xl font-semibold mb-4">
-              {t("notfound.subtitle")}
-            </h1>
-            <p className="text-muted-foreground mb-8">
-              {t("blog.empty")}
-            </p>
-            <Link
-              to={localize("/blog")}
-              className="inline-flex items-center gap-2 text-sm font-medium text-accent-red hover:underline"
-            >
-              ← {t("nav.blog")}
-            </Link>
+        <main
+          id="main-content"
+          className="pt-32 pb-20 min-h-[60vh] flex items-center justify-center"
+        >
+          <div className="container mx-auto px-4 text-center">
+            <div className="max-w-xl mx-auto space-y-6">
+              <p className="text-xs uppercase tracking-widest text-white/40">
+                404
+              </p>
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-light tracking-tight text-white leading-[1.1]">
+                {t("notfound.subtitle")}
+              </h1>
+              <p className="text-lg font-light text-white/50 leading-relaxed">
+                {t("blog.empty")}
+              </p>
+              <Link
+                to={localize("/blog")}
+                className="inline-flex items-center gap-2 text-sm font-medium text-white/75 hover:text-white transition-colors"
+              >
+                <span aria-hidden="true">←</span> {t("nav.blog")}
+              </Link>
+            </div>
           </div>
         </main>
         <Footer />
@@ -99,8 +104,7 @@ const BlogPost = () => {
     { name: t("nav.home"), url: SITE_URL + (language === "fr" ? "/" : "/en") },
     {
       name: t("nav.blog"),
-      url:
-        SITE_URL + (language === "fr" ? "/blog" : "/en/blog"),
+      url: SITE_URL + (language === "fr" ? "/blog" : "/en/blog"),
     },
     { name: entry.meta.title, url: canonical },
   ];
@@ -139,20 +143,22 @@ const BlogPost = () => {
 
 function PostSkeleton() {
   return (
-    <main className="min-h-[60vh] pt-32 pb-24 px-6 md:px-10">
-      <div className="max-w-[720px] mx-auto animate-pulse">
-        <div className="h-3 w-32 bg-muted rounded mb-6" />
-        <div className="h-10 w-3/4 bg-muted rounded mb-4" />
-        <div className="h-10 w-2/3 bg-muted rounded mb-10" />
-        <div className="space-y-3">
-          <div className="h-4 w-full bg-muted rounded" />
-          <div className="h-4 w-full bg-muted rounded" />
-          <div className="h-4 w-5/6 bg-muted rounded" />
-          <div className="h-4 w-4/6 bg-muted rounded" />
-          <div className="h-4 w-full bg-muted rounded" />
-          <div className="h-4 w-3/4 bg-muted rounded" />
-          <div className="h-4 w-full bg-muted rounded" />
-          <div className="h-4 w-5/6 bg-muted rounded" />
+    <main id="main-content" className="pt-32 pb-20 min-h-[60vh]">
+      <div className="container mx-auto px-4">
+        <div className="max-w-3xl mx-auto animate-pulse">
+          <div className="h-3 w-32 bg-white/5 rounded mb-6" />
+          <div className="h-12 w-3/4 bg-white/5 rounded mb-4" />
+          <div className="h-12 w-2/3 bg-white/5 rounded mb-10" />
+          <div className="space-y-3">
+            <div className="h-4 w-full bg-white/5 rounded" />
+            <div className="h-4 w-full bg-white/5 rounded" />
+            <div className="h-4 w-5/6 bg-white/5 rounded" />
+            <div className="h-4 w-4/6 bg-white/5 rounded" />
+            <div className="h-4 w-full bg-white/5 rounded" />
+            <div className="h-4 w-3/4 bg-white/5 rounded" />
+            <div className="h-4 w-full bg-white/5 rounded" />
+            <div className="h-4 w-5/6 bg-white/5 rounded" />
+          </div>
         </div>
       </div>
     </main>
@@ -178,72 +184,93 @@ function PostArticle({
   }, []);
 
   const shareUrl = encodeURIComponent(SITE_URL + meta.path);
-  const shareTitle = encodeURIComponent(meta.title);
   const linkedInHref = `https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`;
 
   return (
-    <main className="min-h-screen pt-32 pb-24 px-6 md:px-10">
+    <main id="main-content" className="pt-32 pb-20">
       <article
         ref={ref}
         data-post-slug={meta.slug}
         data-rendered={rendered ? "true" : "false"}
-        className="max-w-[720px] mx-auto"
+        className="container mx-auto px-4"
       >
-        <nav aria-label="Breadcrumb" className="mb-8 text-sm text-muted-foreground">
+        {/* Breadcrumb */}
+        <nav
+          aria-label="Breadcrumb"
+          className="max-w-3xl mx-auto mb-8 text-sm font-light text-white/50"
+        >
           <ol className="flex flex-wrap items-center gap-2">
             <li>
               <Link
                 to={localize("/")}
-                className="hover:text-foreground transition-colors"
+                className="hover:text-white transition-colors"
               >
                 {t("nav.home")}
               </Link>
             </li>
-            <li aria-hidden="true" className="text-accent-red">/</li>
+            <li aria-hidden="true" className="text-white/20">/</li>
             <li>
               <Link
                 to={localize("/blog")}
-                className="hover:text-foreground transition-colors"
+                className="hover:text-white transition-colors"
               >
                 {t("nav.blog")}
               </Link>
             </li>
-            <li aria-hidden="true" className="text-accent-red">/</li>
-            <li aria-current="page" className="text-foreground line-clamp-1">
+            <li aria-hidden="true" className="text-white/20">/</li>
+            <li aria-current="page" className="text-white/70 line-clamp-1">
               {meta.title}
             </li>
           </ol>
         </nav>
 
-        <header className="mb-10">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight leading-tight">
+        {/* Header: font-light H1 to match About/Careers */}
+        <header className="max-w-3xl mx-auto mb-10 text-center">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light tracking-tight text-white leading-[1.1]">
             {meta.title}
           </h1>
           <PostMeta
-            className="mt-6"
+            className="mt-6 justify-center"
             date={meta.date}
             author={meta.author}
             readingTimeMinutes={meta.readingTimeMinutes}
           />
         </header>
 
-        <hr className="mb-10 border-border/40" />
+        <hr className="max-w-3xl mx-auto mb-10 border-white/10" />
 
-        <div className="prose prose-invert font-sans max-w-none prose-headings:font-semibold prose-headings:font-sans prose-h2:mt-14 prose-h2:text-3xl prose-h3:text-xl prose-p:leading-relaxed prose-blockquote:border-l-accent-red prose-blockquote:bg-card/40 prose-blockquote:py-2 prose-blockquote:px-4 prose-blockquote:rounded-sm prose-a:text-accent-red prose-a:no-underline hover:prose-a:underline prose-code:text-accent-red prose-code:bg-muted prose-code:rounded-sm prose-code:px-1 prose-code:py-0.5 prose-code:before:content-none prose-code:after:content-none prose-img:rounded-md">
+        {/* Article body */}
+        <div className="max-w-3xl mx-auto prose prose-invert font-sans prose-headings:font-light prose-headings:font-sans prose-headings:text-white prose-h2:mt-14 prose-h2:text-2xl md:prose-h2:text-3xl prose-h3:text-lg md:prose-h3:text-xl prose-p:font-light prose-p:leading-relaxed prose-p:text-white/75 prose-li:font-light prose-li:text-white/75 prose-strong:text-white prose-strong:font-medium prose-blockquote:border-l-[color:var(--accent-blue)] prose-blockquote:bg-white/[0.02] prose-blockquote:py-2 prose-blockquote:px-4 prose-blockquote:rounded-sm prose-blockquote:font-light prose-blockquote:text-white/80 prose-a:text-[color:var(--accent-blue)] prose-a:no-underline hover:prose-a:underline prose-code:text-[color:var(--accent-blue)] prose-code:bg-white/[0.05] prose-code:rounded-sm prose-code:px-1 prose-code:py-0.5 prose-code:before:content-none prose-code:after:content-none prose-img:rounded-md max-w-none">
           <MdxComponent />
         </div>
 
-        <hr className="my-14 border-border/40" />
+        <hr className="max-w-3xl mx-auto my-14 border-white/10" />
 
-        <section aria-label={t("blog.share.label")} className="flex flex-wrap items-center gap-4">
-          <span className="text-sm text-muted-foreground">{t("blog.share.prompt")}</span>
+        {/* Share */}
+        <section
+          aria-label={t("blog.share.label")}
+          className="max-w-3xl mx-auto flex flex-wrap items-center gap-4"
+        >
+          <span className="text-sm font-light text-white/60">
+            {t("blog.share.prompt")}
+          </span>
           <a
             href={linkedInHref}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-accent-red text-white text-sm font-medium transition-transform hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-red focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-medium text-white transition-all hover:opacity-90 hover:shadow-[0_0_30px_rgba(79,143,255,0.3)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--accent-blue)] focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            style={{
+              background:
+                "linear-gradient(135deg, var(--accent-blue), var(--accent-violet))",
+            }}
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              aria-hidden="true"
+            >
               <path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z" />
             </svg>
             {t("blog.share.linkedIn")}
@@ -259,10 +286,18 @@ function PostArticle({
                   .catch(() => {});
               }
             }}
-            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-red focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-full px-3 py-2"
+            className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-light text-white/60 border border-white/10 transition-colors hover:text-white hover:border-white/20 hover:bg-white/[0.04] focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--accent-blue)] focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             aria-label={t("blog.share.copyLink")}
           >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              aria-hidden="true"
+            >
               <path d="M10 13a5 5 0 007.07 0l3-3a5 5 0 00-7.07-7.07l-1 1" />
               <path d="M14 11a5 5 0 00-7.07 0l-3 3a5 5 0 007.07 7.07l1-1" />
             </svg>

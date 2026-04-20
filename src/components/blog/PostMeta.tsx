@@ -1,8 +1,10 @@
 import { useLanguage } from "@/contexts/LanguageContext";
 
 /**
- * Compact meta row for post pages and index rows.
- * Renders: date · author · reading time (separator dots dimmed).
+ * Compact meta row for post pages: date - author - reading time. Uses
+ * white-alpha color scale (same as About/Careers subtitles) instead of
+ * shadcn muted-foreground, so the meta reads as continuous with the rest
+ * of the site. Separator dots dimmed at white/20.
  */
 export function PostMeta({
   date,
@@ -23,14 +25,14 @@ export function PostMeta({
   );
   return (
     <div
-      className={`flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground uppercase tracking-wide ${className}`}
+      className={`flex flex-wrap items-center gap-x-3 gap-y-1 text-sm font-light text-white/50 ${className}`}
     >
       <time dateTime={date}>{formatted}</time>
-      <span aria-hidden="true" className="text-muted-foreground/40">
+      <span aria-hidden="true" className="text-white/20">
         ·
       </span>
       <span>{author}</span>
-      <span aria-hidden="true" className="text-muted-foreground/40">
+      <span aria-hidden="true" className="text-white/20">
         ·
       </span>
       <span>
