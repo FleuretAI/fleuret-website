@@ -4,6 +4,10 @@ All notable changes to the Fleuret website. Format based on [Keep a Changelog](h
 
 ## [Unreleased]
 
+### Changed
+
+- Branding hygiene: add production `public/og-image.png` (1200×630) so every route's social preview renders a real Fleuret card instead of 404. SVG source in `scripts/og-image.svg`. Remove stale `public/placeholder.svg` (Lovable default), drop `lovable-tagger` dev dependency + plugin, scrub the `lovableproject.com` reference in `.env.local.example`.
+
 ### Added
 
 - `/design-partners` rework around a dated pilot-cohort offer: **€4,900 flat, 5 slots, 3 AI pentests in 6 weeks, NIS2 / DORA-ready report**. Cohort kickoff 2026-06-01 Europe/Paris. Page now leads with price + deliverable in the hero, a week-by-week timeline (scope, recon, webapp+API, infra, audit-ready report, review), a founder + audit-trail proof block, an inline 5-field application form, and a real countdown. Slot counter reads live from Supabase via a stale-while-revalidate serverless function pinned to `fra1`. Cohort visibility gated by `VITE_COHORT_VISIBLE` so the page can ship without dated copy if product readiness slips. Every text string lives in `designPartners.*` i18n keys (FR + EN).
