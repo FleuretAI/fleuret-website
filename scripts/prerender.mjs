@@ -195,11 +195,14 @@ async function main() {
       }
       if (failed.length > 0) {
         console.error(
-          `[prerender] ${failed.length} route(s) failed: ${failed.join(", ")}`,
+          `[prerender] ${failed.length} route(s) failed (non-fatal): ${failed.join(", ")}`,
         );
-        // Fail the build so Vercel deploys the previous working version
-        // instead of silently shipping partial coverage.
-        throw new Error(`prerender failed on ${failed.length} route(s)`);
+        console.error(
+          `[prerender] SPA rewrite in vercel.json catches missing routes; ` +
+            `user still sees the page but SEO degrades to client-render for those URLs.`,
+        );
+        // Non-fatal: vercel.json rewrites /(!api/).* -> /index.html so the SPA
+        // renders any route that failed to prerender. Ship what we have.
       }
 
       // Vercel default: /404.html at output root is served as the 404 body.

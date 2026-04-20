@@ -9,6 +9,12 @@
     "api/slots.ts": { "maxDuration": 10, "memory": 1024 },
     "api/apply.ts": { "maxDuration": 10, "memory": 1024 }
   },
+  "rewrites": [
+    {
+      "source": "/((?!api/).*)",
+      "destination": "/index.html"
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
