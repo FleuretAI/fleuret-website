@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "bun run build:posts && vite",
-    "build": "bun run build:posts -- --strict && vite build && bun run build:sitemap && node scripts/prerender.mjs",
+    "build": "bun run build:posts -- --strict && vite build && bun run build:sitemap",
     "build:dev": "bun run build:posts && vite build --mode development",
     "build:no-prerender": "bun run build:posts && vite build",
     "build:posts": "bun scripts/build-post-registry.ts",
@@ -15,7 +15,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "build:prerender": "bun run build:posts -- --strict && vite build && bun run build:sitemap && node scripts/prerender.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
