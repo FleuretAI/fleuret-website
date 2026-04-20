@@ -160,6 +160,102 @@ export function breadcrumbJsonLd(items: Array<{ name: string; url: string }>): J
 }
 
 /**
+ * Design Partner cohort JSON-LD. Emits a `Product` with an `Offer` and a
+ * companion `Event` for the cohort kickoff. Google rich results consume the
+ * Offer (price, availability, slot count via inventoryLevel) and the Event
+ * (start/end dates, location). All values come from `designPartnerConfig.ts`
+ * so a config edit propagates here without touching the schema.
+ *
+ * `availability` flips to `SoldOut` when `slotsRemaining <= 0`; this lets the
+ * counter on /api/slots drive the rich result without a redeploy.
+ */
+export function designPartnerOfferJsonLd(params: {
+  priceEur: number;
+  totalSlots: number;
+  slotsRemaining: number;
+  pentestsIncluded: number;
+  pilotWeeks: number;
+  cohortStartIso: string;
+  url: string;
+  locale: "fr" | "en";
+}): JsonLd[] {
+  const cohortEndIso = new Date(
+    new Date(params.cohortStartIso).getTime() +
+      params.pilotWeeks * 7 * 24 * 60 * 60 * 1000,
+  ).toISOString();
+  const availability =
+    params.slotsRemaining > 0
+      ? "https://schema.org/LimitedAvailability"
+      : "https://schema.org/SoldOut";
+  const productName =
+    params.locale === "fr"
+      ? "Programme Design Partners Fleuret"
+      : "Fleuret Design Partner Cohort";
+  const productDescription =
+    params.locale === "fr"
+      ? `${params.pentestsIncluded} pentests par IA agentique en ${params.pilotWeeks} semaines, livrable conforme NIS2/DORA.`
+      : `${params.pentestsIncluded} agentic AI pentests in ${params.pilotWeeks} weeks, NIS2/DORA-ready report.`;
+
+  const product: JsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: productName,
+    description: productDescription,
+    brand: { "@type": "Brand", name: "Fleuret AI" },
+    offers: {
+      "@type": "Offer",
+      url: params.url,
+      price: String(params.priceEur),
+      priceCurrency: "EUR",
+      availability,
+      inventoryLevel: {
+        "@type": "QuantitativeValue",
+        value: params.slotsRemaining,
+        maxValue: params.totalSlots,
+        unitText: "slots",
+      },
+      validFrom: new Date().toISOString().slice(0, 10),
+      priceValidUntil: params.cohortStartIso.slice(0, 10),
+      seller: { "@type": "Organization", name: "Fleuret AI", url: SITE_URL },
+    },
+  };
+
+  const event: JsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    name:
+      params.locale === "fr"
+        ? "Kickoff cohort Design Partners Fleuret"
+        : "Fleuret Design Partner Cohort Kickoff",
+    startDate: params.cohortStartIso,
+    endDate: cohortEndIso,
+    eventAttendanceMode: "https://schema.org/OnlineEventAttendanceMode",
+    eventStatus: "https://schema.org/EventScheduled",
+    location: {
+      "@type": "VirtualLocation",
+      url: params.url,
+    },
+    organizer: {
+      "@type": "Organization",
+      name: "Fleuret AI",
+      url: SITE_URL,
+    },
+    offers: {
+      "@type": "Offer",
+      url: params.url,
+      price: String(params.priceEur),
+      priceCurrency: "EUR",
+      availability,
+      validFrom: new Date().toISOString().slice(0, 10),
+    },
+    maximumAttendeeCapacity: params.totalSlots,
+    remainingAttendeeCapacity: params.slotsRemaining,
+  };
+
+  return [product, event];
+}
+
+/**
  * Article JSON-LD for blog posts. Google uses this for article carousels +
  * rich results. `author` is a plain string byline.
  */
