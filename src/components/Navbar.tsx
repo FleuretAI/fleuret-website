@@ -103,7 +103,7 @@ const Navbar = () => {
             <Link
               to={localize("/resources")}
               onClick={close}
-              className="text-sm font-medium text-white/50 hover:text-white px-4 py-1.5 rounded-full transition-colors hover:bg-white/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[--accent-red]"
+              className="text-sm font-medium text-white/50 hover:text-white px-4 py-1.5 rounded-full transition-colors hover:bg-white/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--accent-blue)]"
             >
               {t("nav.resources")}
             </Link>
