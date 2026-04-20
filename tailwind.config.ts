@@ -48,6 +48,9 @@ export default {
         accent: {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
+          blue: "var(--accent-blue)",
+          violet: "var(--accent-violet)",
+          red: "var(--accent-red)",
         },
         popover: {
           DEFAULT: "hsl(var(--popover))",
@@ -77,6 +80,32 @@ export default {
         "scroll-x": "scroll-x 30s linear infinite",
         "fade-up": "fade-up 0.6s ease-out forwards",
       },
+      typography: () => ({
+        // `prose-invert` is the theme blog posts use on the dark background.
+        // Pin Lufga as the prose font (the typography plugin otherwise
+        // injects its own Georgia-ish stack) and wire the Fleuret red accent
+        // into links, blockquote bar, and inline code.
+        invert: {
+          css: {
+            "--tw-prose-invert-body": "hsl(var(--foreground))",
+            "--tw-prose-invert-headings": "hsl(var(--foreground))",
+            "--tw-prose-invert-links": "var(--accent-red)",
+            "--tw-prose-invert-bold": "hsl(var(--foreground))",
+            "--tw-prose-invert-counters": "hsl(var(--muted-foreground))",
+            "--tw-prose-invert-bullets": "hsl(var(--muted-foreground))",
+            "--tw-prose-invert-hr": "hsl(var(--border))",
+            "--tw-prose-invert-quotes": "hsl(var(--foreground))",
+            "--tw-prose-invert-quote-borders": "var(--accent-red)",
+            "--tw-prose-invert-captions": "hsl(var(--muted-foreground))",
+            "--tw-prose-invert-code": "var(--accent-red)",
+            "--tw-prose-invert-pre-code": "hsl(var(--foreground))",
+            "--tw-prose-invert-pre-bg": "hsl(var(--card))",
+            "--tw-prose-invert-th-borders": "hsl(var(--border))",
+            "--tw-prose-invert-td-borders": "hsl(var(--border))",
+            fontFamily: "var(--font-sans)",
+          },
+        },
+      }),
     },
   },
   plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],

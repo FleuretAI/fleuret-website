@@ -28,18 +28,18 @@ const Resources = () => {
 
           <Link
             to={localize("/blog")}
-            className="group block border border-border/60 rounded-xl p-8 md:p-10 transition-colors hover:border-[--accent-red]/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-[--accent-red] focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            className="group block border border-border/60 rounded-xl p-8 md:p-10 transition-colors hover:border-accent-red/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-red focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           >
-            <div className="text-xs uppercase tracking-widest text-[--accent-red] mb-4">
+            <div className="text-xs uppercase tracking-widest text-accent-red mb-4">
               {t("resources.blog.label")}
             </div>
-            <h2 className="text-2xl md:text-3xl font-semibold mb-3 transition-colors group-hover:text-[--accent-red]">
+            <h2 className="text-2xl md:text-3xl font-semibold mb-3 transition-colors group-hover:text-accent-red">
               {t("resources.blog.title")}
             </h2>
             <p className="text-base text-muted-foreground max-w-xl mb-6">
               {t("resources.blog.description")}
             </p>
-            <span className="inline-flex items-center gap-2 text-sm font-medium text-[--accent-red] transition-transform group-hover:translate-x-1">
+            <span className="inline-flex items-center gap-2 text-sm font-medium text-accent-red transition-transform group-hover:translate-x-1">
               {t("resources.blog.cta")} →
             </span>
           </Link>

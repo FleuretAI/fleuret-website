@@ -23,14 +23,14 @@ export function PostRow({ post }: { post: PostMeta }) {
   return (
     <Link
       to={post.path}
-      className="group block border-t border-border/40 py-8 focus:outline-none focus-visible:ring-2 focus-visible:ring-[--accent-red] focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+      className="group block border-t border-border/40 py-8 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-red focus-visible:ring-offset-2 focus-visible:ring-offset-background"
     >
       <div className="grid gap-3 md:grid-cols-[90px_1fr_80px] md:gap-6">
         <div className="text-xs uppercase tracking-wider text-muted-foreground md:pt-1">
           <time dateTime={post.date}>{shortDate}</time>
         </div>
         <div>
-          <h2 className="text-xl md:text-2xl font-semibold leading-snug text-foreground transition-colors group-hover:text-[--accent-red]">
+          <h2 className="text-xl md:text-2xl font-semibold leading-snug text-foreground transition-colors group-hover:text-accent-red">
             {post.title}
           </h2>
           <p className="mt-2 text-base text-muted-foreground line-clamp-2">
