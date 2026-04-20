@@ -20,6 +20,8 @@ const translations = {
     'nav.problem': 'Le problème',
     'nav.platform': 'Plateforme',
     'nav.pricing': 'Tarifs',
+    'nav.resources': 'Ressources',
+    'nav.blog': 'Blog',
     'nav.company': 'Entreprise',
     'nav.about': 'À propos',
     'nav.aboutUs': 'À propos',
@@ -363,6 +365,24 @@ const translations = {
     'demo.fallback.prefix': 'Le planificateur ne charge pas ?',
     'demo.fallback.link': 'Réserver directement',
 
+    // Resources hub
+    'resources.hero.title': 'Ressources',
+    'resources.hero.subtitle': 'Analyses et retours d\'expérience sur le pentest continu par IA agentique, la conformité européenne et la sécurité offensive.',
+    'resources.blog.label': 'Blog',
+    'resources.blog.title': 'Dernières analyses',
+    'resources.blog.description': 'Nos équipes partagent leur travail sur le pentest automatisé, NIS2, DORA, et l\'IA agentique appliquée à la sécurité offensive.',
+    'resources.blog.cta': 'Voir tous les articles',
+
+    // Blog
+    'blog.hero.title': 'Blog',
+    'blog.hero.subtitle': 'Analyses et retours d\'expérience sur le pentest continu par IA agentique et la conformité européenne.',
+    'blog.empty': 'Pas encore d\'articles. Repassez bientôt.',
+    'blog.readingTime': 'min de lecture',
+    'blog.share.prompt': 'Partager cet article',
+    'blog.share.label': 'Partager',
+    'blog.share.linkedIn': 'Partager sur LinkedIn',
+    'blog.share.copyLink': 'Copier le lien',
+
     // 404
     'notfound.title': '404',
     'notfound.subtitle': 'Page introuvable',
@@ -374,6 +394,8 @@ const translations = {
     'nav.problem': 'The problem',
     'nav.platform': 'Platform',
     'nav.pricing': 'Pricing',
+    'nav.resources': 'Resources',
+    'nav.blog': 'Blog',
     'nav.company': 'Company',
     'nav.about': 'About',
     'nav.aboutUs': 'About us',
@@ -716,6 +738,24 @@ const translations = {
     'demo.iframe.title': 'Fleuret demo booking scheduler',
     'demo.fallback.prefix': 'Scheduler not loading?',
     'demo.fallback.link': 'Book directly',
+
+    // Resources hub
+    'resources.hero.title': 'Resources',
+    'resources.hero.subtitle': 'Insights and field notes on continuous AI pentesting, European compliance and offensive security.',
+    'resources.blog.label': 'Blog',
+    'resources.blog.title': 'Latest insights',
+    'resources.blog.description': 'Our team shares work on automated pentesting, NIS2, DORA, and agentic AI applied to offensive security.',
+    'resources.blog.cta': 'See all posts',
+
+    // Blog
+    'blog.hero.title': 'Blog',
+    'blog.hero.subtitle': 'Insights and field notes on continuous AI pentesting and European compliance.',
+    'blog.empty': 'No posts yet. Check back soon.',
+    'blog.readingTime': 'min read',
+    'blog.share.prompt': 'Share this post',
+    'blog.share.label': 'Share',
+    'blog.share.linkedIn': 'Share on LinkedIn',
+    'blog.share.copyLink': 'Copy link',
 
     // 404
     'notfound.title': '404',

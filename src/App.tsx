@@ -7,6 +7,10 @@ import CookieBanner from "./components/CookieBanner";
 import AnnouncementBanner from "./components/AnnouncementBanner";
 import ScrollToTop from "./components/ScrollToTop";
 import Index from "./pages/Index";
+// BlogPost is EAGER-imported (not React.lazy). Prerender Puppeteer waits for
+// `article[data-post-slug][data-rendered="true"]`; a lazy route would render
+// the Suspense fallback before the chunk resolves and ship empty HTML.
+import BlogPost from "./pages/BlogPost";
 
 const About = lazy(() => import("./pages/About"));
 const Careers = lazy(() => import("./pages/Careers"));
@@ -16,6 +20,8 @@ const MentionsLegales = lazy(() => import("./pages/MentionsLegales"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const TermsOfUse = lazy(() => import("./pages/TermsOfUse"));
 const SecurityPolicy = lazy(() => import("./pages/SecurityPolicy"));
+const Resources = lazy(() => import("./pages/Resources"));
+const BlogIndex = lazy(() => import("./pages/BlogIndex"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
@@ -32,6 +38,9 @@ const APP_ROUTES: RouteDef[] = [
   { path: "/privacy", element: <PrivacyPolicy /> },
   { path: "/terms", element: <TermsOfUse /> },
   { path: "/security", element: <SecurityPolicy /> },
+  { path: "/resources", element: <Resources /> },
+  { path: "/blog", element: <BlogIndex /> },
+  { path: "/blog/:slug", element: <BlogPost /> },
 ];
 
 // Mirror every route under /en for the English locale, except

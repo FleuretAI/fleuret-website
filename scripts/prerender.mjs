@@ -7,6 +7,14 @@
  *
  * Helmet-async mutates <head> synchronously on mount, so the captured HTML
  * already contains per-route <title>/meta/canonical/JSON-LD before we save it.
+ *
+ * Blog-route invariant:
+ *   /blog/:slug (and /en/blog/:slug) render an MDX body lazy-loaded inside
+ *   BlogPost.tsx. The root `<div id="root">` has children immediately (the
+ *   BlogPost scaffold), but the MDX chunk resolves asynchronously. To avoid
+ *   shipping the Suspense fallback, we wait for
+ *     article[data-post-slug][data-rendered="true"]
+ *   which BlogPost sets after the MDX child mounts.
  */
 import { spawn } from "node:child_process";
 import { mkdirSync, writeFileSync, readFileSync, rmSync, existsSync } from "node:fs";
@@ -31,12 +39,29 @@ const FR_PATHS = [
   "/privacy",
   "/terms",
   "/security",
+  "/resources",
+  "/blog",
 ];
 const EN_PATHS = FR_PATHS
   .filter((p) => p !== "/mentions-legales")
   .map((p) => (p === "/" ? "/en" : `/en${p}`));
 const EXTRA_PATHS = ["/404"];
-const ROUTES = [...FR_PATHS, ...EN_PATHS, ...EXTRA_PATHS];
+
+// Load dynamic post paths from the codegen manifest. Build step ordering:
+//   build:posts -> vite build -> build:sitemap -> prerender
+// The manifest sits at dist/post-manifest.json by the time we get here.
+const MANIFEST_PATH = join(DIST, "post-manifest.json");
+let POST_PATHS = [];
+if (existsSync(MANIFEST_PATH)) {
+  const manifest = JSON.parse(readFileSync(MANIFEST_PATH, "utf8"));
+  POST_PATHS = manifest.map((m) => m.path);
+}
+
+const ROUTES = [...FR_PATHS, ...EN_PATHS, ...EXTRA_PATHS, ...POST_PATHS];
+
+function isBlogPostPath(route) {
+  return /^(\/en)?\/blog\/.+/.test(route);
+}
 
 function wait(ms) {
   return new Promise((r) => setTimeout(r, ms));
@@ -131,13 +156,25 @@ async function main() {
       for (const route of ROUTES) {
         const url = `${BASE}${route}`;
         await page.goto(url, { waitUntil: "networkidle2", timeout: 30_000 });
-        await page.waitForFunction(
-          () => {
-            const root = document.getElementById("root");
-            return !!root && root.children.length > 0;
-          },
-          { timeout: 15_000 },
-        );
+        if (isBlogPostPath(route)) {
+          // Blog route: wait for MDX to finish lazy-loading and flip the
+          // rendered flag. Prevents shipping the Suspense skeleton.
+          await page.waitForFunction(
+            () =>
+              !!document.querySelector(
+                'article[data-post-slug][data-rendered="true"]',
+              ),
+            { timeout: 15_000 },
+          );
+        } else {
+          await page.waitForFunction(
+            () => {
+              const root = document.getElementById("root");
+              return !!root && root.children.length > 0;
+            },
+            { timeout: 15_000 },
+          );
+        }
         const html = await page.content();
         const out = outputPathFor(route);
         mkdirSync(dirname(out), { recursive: true });
