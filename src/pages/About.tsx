@@ -12,6 +12,45 @@ import { SEO } from "@/seo/SEO";
 import yanisPhoto from "@/assets/yanis.png";
 import pierrePhoto from "@/assets/pierre-gabriel.png";
 import augustinPhoto from "@/assets/augustin.png";
+import hornetsecurityLogo from "@/assets/investors/hornetsecurity.png";
+import almondLogo from "@/assets/investors/almond.svg";
+import gitguardianLogo from "@/assets/investors/gitguardian.svg";
+import ovrseaLogo from "@/assets/investors/ovrsea.svg";
+
+type Investor = {
+  name: string;
+  logo?: string;
+  /** When true, invert logo colors so dark-on-light artwork reads on dark bg. */
+  invertLogo?: boolean;
+  subtitleFr?: string;
+  subtitleEn?: string;
+  url: string;
+};
+
+const investors: Investor[] = [
+  {
+    name: "Hornetsecurity",
+    logo: hornetsecurityLogo,
+    subtitleFr: "via LTGR, holding fondatrice",
+    subtitleEn: "via LTGR, founding holding",
+    url: "https://www.hornetsecurity.com/",
+  },
+  {
+    name: "Almond",
+    logo: almondLogo,
+    url: "https://almond.consulting/",
+  },
+  {
+    name: "GitGuardian",
+    logo: gitguardianLogo,
+    url: "https://www.gitguardian.com/",
+  },
+  {
+    name: "OVRSEA",
+    logo: ovrseaLogo,
+    url: "https://www.ovrsea.com/",
+  },
+];
 
 const team = [
   {
@@ -128,6 +167,62 @@ const About = () => {
                   )}
                 </motion.div>
               ))}
+            </StaggerGroup>
+          </div>
+        </section>
+
+        {/* Investors */}
+        <section className="container mx-auto px-4 pb-16 md:pb-24">
+          <div className="max-w-5xl mx-auto">
+            <ScrollReveal>
+              <div className="text-center mb-12">
+                <h2 className="text-3xl md:text-4xl font-light text-white mb-3">
+                  {t("about.investors.title")}
+                </h2>
+                <p className="text-white/50 text-sm md:text-base max-w-2xl mx-auto">
+                  {t("about.investors.subtitle")}
+                </p>
+              </div>
+            </ScrollReveal>
+
+            <StaggerGroup className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {investors.map((inv) => {
+                const subtitle =
+                  language === "fr" ? inv.subtitleFr : inv.subtitleEn;
+                const newTabLabel =
+                  language === "fr" ? "ouvre un nouvel onglet" : "opens in new tab";
+                return (
+                  <motion.a
+                    key={inv.name}
+                    href={inv.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${inv.name}${subtitle ? ` — ${subtitle}` : ""} (${newTabLabel})`}
+                    variants={staggerItem}
+                    className="group flex flex-col items-center justify-center gap-2 p-6 rounded-2xl border border-white/8 bg-white/[0.02] hover:bg-white/[0.04] hover:border-white/15 transition-all duration-300 min-h-[112px] text-center"
+                  >
+                    {inv.logo ? (
+                      <img
+                        src={inv.logo}
+                        alt={inv.name}
+                        loading="lazy"
+                        className={`h-7 md:h-8 w-auto max-w-[150px] object-contain opacity-70 group-hover:opacity-100 transition-opacity ${
+                          inv.invertLogo ? "invert brightness-0" : ""
+                        }`}
+                      />
+                    ) : (
+                      <span className="text-base md:text-lg font-light tracking-wide text-white/60 group-hover:text-white transition-colors">
+                        {inv.name}
+                      </span>
+                    )}
+                    {subtitle && (
+                      <span className="text-[11px] text-white/35 group-hover:text-white/60 transition-colors">
+                        {subtitle}
+                      </span>
+                    )}
+                  </motion.a>
+                );
+              })}
             </StaggerGroup>
           </div>
         </section>
