@@ -1,4 +1,4 @@
-import { useId, useMemo, useRef, useState } from "react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { captureUtm } from "@/lib/captureUtm";
 import {
@@ -7,6 +7,15 @@ import {
   type Role,
   type CompanySize,
 } from "@/lib/designPartnerSchema";
+import {
+  trackApplyBooked,
+  trackApplyError,
+  trackApplyFormView,
+  trackApplyQualified,
+  trackApplyStarted,
+  trackApplySubmitted,
+  trackApplyUnqualified,
+} from "@/lib/designPartnerTrack";
 
 type FormStatus =
   | { kind: "idle" }
@@ -41,6 +50,23 @@ export function ApplyForm() {
   const [primaryAsset, setPrimaryAsset] = useState("");
   const [consent, setConsent] = useState(false);
   const [touched, setTouched] = useState(false);
+  const startedRef = useRef(false);
+  const viewedRef = useRef(false);
+
+  // Fire `apply_form_view` once per mount lifecycle. React 18 StrictMode
+  // double-invokes mount effects in dev; the ref guard makes the second call
+  // a no-op so GA only sees one view per real mount.
+  useEffect(() => {
+    if (viewedRef.current) return;
+    viewedRef.current = true;
+    trackApplyFormView();
+  }, []);
+
+  function fireStartedOnce() {
+    if (startedRef.current) return;
+    startedRef.current = true;
+    trackApplyStarted();
+  }
 
   const emailInvalid = touched && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email);
   const assetInvalid = touched && primaryAsset.trim().length < 3;
@@ -57,7 +83,10 @@ export function ApplyForm() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setTouched(true);
-    if (emailInvalid || assetInvalid || consentInvalid) return;
+    if (emailInvalid || assetInvalid || consentInvalid) {
+      trackApplyError("validation");
+      return;
+    }
     setStatus({ kind: "submitting" });
 
     try {
@@ -80,18 +109,23 @@ export function ApplyForm() {
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
+        trackApplyError(res.status === 400 ? "validation" : "server", res.status);
         setStatus({
           kind: "error",
           message: t(`designPartners.apply.error.${res.status === 400 ? "validation" : "server"}`),
         });
         return;
       }
+      trackApplySubmitted(role, companySize);
       if (data?.qualified) {
+        trackApplyQualified(role, companySize);
         setStatus({ kind: "qualified", calendarUrl: data.calendarUrl });
       } else {
+        trackApplyUnqualified(role, companySize);
         setStatus({ kind: "unqualified" });
       }
     } catch {
+      trackApplyError("network");
       setStatus({ kind: "error", message: t("designPartners.apply.error.network") });
     }
   }
@@ -113,6 +147,7 @@ export function ApplyForm() {
           href={status.calendarUrl}
           target="_blank"
           rel="noreferrer"
+          onClick={() => trackApplyBooked()}
           className="inline-flex items-center justify-center rounded-full px-6 py-2.5 text-sm font-medium text-white"
           style={{
             background:
@@ -145,6 +180,8 @@ export function ApplyForm() {
   return (
     <form
       onSubmit={handleSubmit}
+      onFocus={fireStartedOnce}
+      onInput={fireStartedOnce}
       noValidate
       className="space-y-4 p-6 rounded-2xl border border-white/10 bg-white/[0.02]"
       aria-describedby={status.kind === "error" ? `${formId}-formerr` : undefined}
