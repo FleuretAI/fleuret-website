@@ -10,6 +10,8 @@ export type RouteKey =
   | "privacy"
   | "terms"
   | "security"
+  | "resources"
+  | "blog"
   | "notFound";
 
 export const SITE_URL = "https://fleuret.ai";
@@ -29,6 +31,8 @@ export const ROUTES: Record<RouteKey, LocalePath> = {
   privacy: { fr: "/privacy", en: "/en/privacy" },
   terms: { fr: "/terms", en: "/en/terms" },
   security: { fr: "/security", en: "/en/security" },
+  resources: { fr: "/resources", en: "/en/resources" },
+  blog: { fr: "/blog", en: "/en/blog" },
   notFound: { fr: "/404", en: "/en/404" },
 };
 
@@ -151,6 +155,34 @@ export const META: Record<RouteKey, Record<Locale, MetaEntry>> = {
         "Fleuret AI security policy. Vulnerability disclosure, responsible reporting program and protection measures.",
     },
   },
+  resources: {
+    fr: {
+      title: "Ressources | Fleuret",
+      description:
+        "Analyses, études de cas et guides sur le pentest automatisé par IA agentique, la conformité NIS2/DORA et la sécurité offensive.",
+      keywords:
+        "ressources fleuret, blog pentest, analyses cybersécurité, NIS2, DORA, IA agentique",
+    },
+    en: {
+      title: "Resources | Fleuret",
+      description:
+        "Insights, case studies and guides on AI-powered pentesting, NIS2/DORA compliance and offensive security.",
+      keywords:
+        "fleuret resources, pentest blog, cybersecurity insights, NIS2, DORA, agentic AI",
+    },
+  },
+  blog: {
+    fr: {
+      title: "Blog | Fleuret",
+      description:
+        "Nos dernières analyses sur le pentest continu par IA agentique, la conformité européenne et la sécurité offensive.",
+    },
+    en: {
+      title: "Blog | Fleuret",
+      description:
+        "Our latest insights on continuous AI pentesting, European compliance and offensive security.",
+    },
+  },
   notFound: {
     fr: {
       title: "Page introuvable | Fleuret",
@@ -211,3 +243,22 @@ export function swapLocalePath(pathname: string, target: Locale): string {
 }
 
 export const ALL_PRERENDER_PATHS: string[] = Object.values(ROUTES).flatMap((r) => [r.fr, r.en]);
+
+/**
+ * Build an hreflang pair list for an arbitrary URL. Used by the dynamic SEO
+ * override path (e.g. blog post pages) where `RouteKey` doesn't apply.
+ */
+export function hreflangLinksFor(
+  path: string,
+  hreflangPath: string,
+  defaultLocale: Locale = "en",
+): Array<{ hrefLang: string; href: string }> {
+  const frUrl = path.startsWith("/en") ? SITE_URL + hreflangPath : SITE_URL + path;
+  const enUrl = path.startsWith("/en") ? SITE_URL + path : SITE_URL + hreflangPath;
+  const xDefault = defaultLocale === "en" ? enUrl : frUrl;
+  return [
+    { hrefLang: "fr", href: frUrl },
+    { hrefLang: "en", href: enUrl },
+    { hrefLang: "x-default", href: xDefault },
+  ];
+}
