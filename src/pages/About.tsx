@@ -55,8 +55,11 @@ const investors: Investor[] = [
     url: "https://almond.consulting/",
   },
   {
-    name: "GitGuardian",
+    name: "Eric Fourrier",
+    personName: true,
     logo: gitguardianLogo,
+    subtitleFr: "CEO de GitGuardian",
+    subtitleEn: "CEO of GitGuardian",
     url: "https://www.gitguardian.com/",
   },
   {
