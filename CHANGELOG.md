@@ -4,6 +4,10 @@ All notable changes to the Fleuret website. Format based on [Keep a Changelog](h
 
 ## [Unreleased]
 
+### Added
+
+- **`/design-partners` rich result + funnel telemetry.** Cohort page now emits a `Product` (with €4,900 `Offer`, `LimitedAvailability` flipping to `SoldOut` when slots hit zero, slot inventory + `priceValidUntil` pinned to kickoff) plus a companion `Event` (kickoff date + 6-week endDate + virtual location). Schema sources every value from `designPartnerConfig.ts`, so cohort changes propagate to Google rich results without redeploys, and the live counter at `/api/slots` controls availability without code changes. New GA4 funnel: `apply_form_view`, `apply_started`, `apply_submitted`, `apply_qualified`, `apply_unqualified`, `apply_error` (with HTTP status), `apply_booked`. Events include `role` + `company_size` on the qualified branches so conversion can be segmented by ICP fit. Built on a new shared `src/lib/gtag.ts` wrapper extracted from `Demo.tsx` that guards `window` + missing-gtag + thrown-gtag (extension corruption), so every event is a no-op under the prerender pipeline (puppeteer + `@sparticuz/chromium`) and when Consent Mode is denied. 28 new tests cover the JSON-LD schema, all 7 funnel events, and the prerender / consent-denied / extension-throws paths.
+
 ### Changed
 
 - Branding hygiene: add production `public/og-image.png` (1200×630) so every route's social preview renders a real Fleuret card instead of 404. SVG source in `scripts/og-image.svg`. Remove stale `public/placeholder.svg` (Lovable default), drop `lovable-tagger` dev dependency + plugin, scrub the `lovableproject.com` reference in `.env.local.example`.

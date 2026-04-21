@@ -7,11 +7,13 @@ import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/motion/ScrollReveal";
 import StaggerGroup from "@/components/motion/StaggerGroup";
 import { staggerItem } from "@/lib/animations";
-import { SEO } from "@/seo/SEO";
+import { SEO, designPartnerOfferJsonLd } from "@/seo/SEO";
+import { SITE_URL } from "@/seo/routes";
 import { CohortCountdown } from "@/components/designPartners/CohortCountdown";
 import { ApplyForm } from "@/components/designPartners/ApplyForm";
 import { useSlots } from "@/lib/useSlots";
 import {
+  DP_COHORT_START_ISO,
   DP_COHORT_VISIBLE,
   DP_PENTESTS_INCLUDED,
   DP_PILOT_WEEKS,
@@ -54,9 +56,20 @@ const DesignPartners = () => {
 
   const priceLabel = formatPriceEur(DP_PRICE_EUR, language);
 
+  const offerJsonLd = designPartnerOfferJsonLd({
+    priceEur: DP_PRICE_EUR,
+    totalSlots: DP_TOTAL_SLOTS,
+    slotsRemaining: slots.remaining,
+    pentestsIncluded: DP_PENTESTS_INCLUDED,
+    pilotWeeks: DP_PILOT_WEEKS,
+    cohortStartIso: DP_COHORT_START_ISO,
+    url: `${SITE_URL}${language === "fr" ? "/design-partners" : "/en/design-partners"}`,
+    locale: language,
+  });
+
   return (
     <div className="min-h-screen">
-      <SEO pageKey="designPartners" />
+      <SEO pageKey="designPartners" jsonLd={offerJsonLd} />
       <Navbar />
       <main id="main-content" className="pt-32 pb-20">
         {/* Hero */}

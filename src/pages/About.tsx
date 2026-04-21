@@ -20,6 +20,8 @@ import stoikLogo from "@/assets/investors/stoik.svg";
 import raiseLogo from "@/assets/investors/raise.svg";
 import aurigaLogo from "@/assets/investors/auriga.svg";
 import unitedFoundersLogo from "@/assets/investors/unitedfounders.svg";
+import windLogo from "@/assets/investors/wind.svg";
+import betterAngleLogo from "@/assets/investors/betterangle.svg";
 
 type Investor = {
   /** Primary display. For companies: wordmark text. For individuals: person's full name (personName=true). */
@@ -47,6 +49,7 @@ const investors: Investor[] = [
     name: "Olivier Pantaleo",
     personName: true,
     logo: almondLogo,
+    invertLogo: true,
     subtitleFr: "Co-fondateur Almond",
     subtitleEn: "Co-founder Almond",
     url: "https://almond.consulting/",
@@ -55,6 +58,7 @@ const investors: Investor[] = [
     name: "Jean-François Aliotti",
     personName: true,
     logo: almondLogo,
+    invertLogo: true,
     subtitleFr: "Co-fondateur Almond",
     subtitleEn: "Co-founder Almond",
     url: "https://almond.consulting/",
@@ -114,10 +118,12 @@ const vcs: Investor[] = [
   },
   {
     name: "Wind Capital",
+    logo: windLogo,
     url: "#",
   },
   {
     name: "Better Angle",
+    logo: betterAngleLogo,
     url: "#",
   },
 ];
@@ -238,9 +244,9 @@ const About = () => {
     <div className="min-h-screen">
       <SEO pageKey="about" />
       <Navbar />
-      <main id="main-content" className="pt-32 pb-20">
+      <main id="main-content" className="pt-24 md:pt-28 pb-20">
         {/* Hero */}
-        <section className="container mx-auto px-4 text-center mb-20">
+        <section className="container mx-auto px-4 text-center mb-10 md:mb-12">
           <ScrollReveal>
             <div className="max-w-3xl mx-auto space-y-6">
               <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-light tracking-tight text-white leading-[1.1]">
@@ -257,7 +263,7 @@ const About = () => {
         </section>
 
         {/* Mission */}
-        <section className="section-elevated grid-fade py-16 md:py-24 relative">
+        <section className="section-elevated grid-fade py-10 md:py-14 relative">
           <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto">
               <ScrollReveal>
@@ -275,7 +281,7 @@ const About = () => {
         </section>
 
         {/* Leadership Team */}
-        <section className="container mx-auto px-4 py-16 md:py-24">
+        <section className="container mx-auto px-4 py-10 md:py-14">
           <div className="max-w-5xl mx-auto">
             <ScrollReveal>
               <h2 className="text-3xl md:text-4xl font-light text-white text-center mb-12">

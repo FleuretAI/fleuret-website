@@ -7,6 +7,7 @@ import {
   DEMO_SCHEDULER_SHORT_URL,
 } from "@/lib/routes";
 import { SEO } from "@/seo/SEO";
+import { trackEvent } from "@/lib/gtag";
 
 /**
  * /demo route.
@@ -37,15 +38,7 @@ const Demo = () => {
   // Title and description are owned by <SEO pageKey="demo" /> below.
   // Fire the demo-page-view analytics event once on mount.
   useEffect(() => {
-    type GtagFn = (
-      command: string,
-      action: string,
-      params?: Record<string, unknown>
-    ) => void;
-    const w = window as typeof window & { gtag?: GtagFn };
-    if (typeof w.gtag === "function") {
-      w.gtag("event", "demo_page_view", { page_path: "/demo" });
-    }
+    trackEvent("demo_page_view", { page_path: "/demo" });
   }, []);
 
   return (
