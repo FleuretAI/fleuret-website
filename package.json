@@ -16,7 +16,8 @@
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
-    "build:prerender": "bun run build:posts -- --strict && vite build && bun run build:sitemap && node scripts/prerender.mjs"
+    "build:prerender": "bun run build:posts -- --strict && vite build && bun run build:sitemap && bun run build:ensure-fallback && node scripts/prerender.mjs",
+    "build:ensure-fallback": "node scripts/ensure-fallback-shells.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
