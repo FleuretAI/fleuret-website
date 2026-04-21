@@ -15,6 +15,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { getPost } from "@/content/posts.generated";
 import { PostMeta } from "@/components/blog/PostMeta";
+import { PostAiSummarize } from "@/components/blog/PostAiSummarize";
 
 /**
  * BlogPost is EAGER-imported from App.tsx (see design doc premise #10):
@@ -236,6 +237,13 @@ function PostArticle({
             readingTimeMinutes={meta.readingTimeMinutes}
           />
         </header>
+
+        {/* TL;DR — mandatory on every post, deep-links to 5 AI providers */}
+        <PostAiSummarize
+          className="max-w-3xl mx-auto mb-10"
+          title={meta.title}
+          path={meta.path}
+        />
 
         <hr className="max-w-3xl mx-auto mb-10 border-white/10" />
 
