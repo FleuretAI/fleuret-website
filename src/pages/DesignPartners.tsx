@@ -75,7 +75,7 @@ const DesignPartners = () => {
         {/* Hero */}
         <section className="container mx-auto px-4 text-center mb-20">
           <ScrollReveal>
-            <div className="max-w-3xl mx-auto space-y-6">
+            <div className="max-w-5xl mx-auto space-y-6">
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[var(--accent-blue)]/25 bg-[var(--accent-blue)]/[0.08] backdrop-blur">
                 <span
                   className="text-[0.65rem] font-semibold tracking-[0.12em] uppercase px-2 py-0.5 rounded-full text-white"
@@ -149,7 +149,7 @@ const DesignPartners = () => {
           className="py-16 md:py-24 relative"
         >
           <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto">
+            <div className="max-w-6xl mx-auto">
               <ScrollReveal>
                 <h2 className="text-3xl md:text-4xl font-light text-white text-center mb-3">
                   {t("designPartners.timeline.title")}
@@ -184,7 +184,7 @@ const DesignPartners = () => {
 
         {/* Proof — founder + audit-trail */}
         <section className="container mx-auto px-4 py-16 md:py-24">
-          <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-8 md:gap-12 items-start">
+          <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8 md:gap-12 items-start">
             <ScrollReveal>
               <h2 className="text-2xl md:text-3xl font-light text-white mb-3">
                 {t("designPartners.proof.title")}
@@ -227,7 +227,7 @@ const DesignPartners = () => {
 
         {/* Who qualifies */}
         <section className="container mx-auto px-4 py-10 md:py-16">
-          <div className="max-w-3xl mx-auto">
+          <div className="max-w-5xl mx-auto">
             <ScrollReveal>
               <h2 className="text-2xl md:text-3xl font-light text-white text-center mb-8">
                 {t("designPartners.qualify.title")}
@@ -262,7 +262,7 @@ const DesignPartners = () => {
           className="py-16 md:py-24 relative scroll-mt-24"
         >
           <div className="container mx-auto px-4">
-            <div className="max-w-2xl mx-auto space-y-6">
+            <div className="max-w-3xl mx-auto space-y-6">
               <ScrollReveal>
                 <h2 className="text-3xl md:text-4xl font-light text-white text-center mb-3">
                   {slots.remaining === 0
@@ -284,7 +284,7 @@ const DesignPartners = () => {
 
         {/* FAQ */}
         <section className="container mx-auto px-4 py-16 md:py-24">
-          <div className="max-w-3xl mx-auto">
+          <div className="max-w-5xl mx-auto">
             <ScrollReveal>
               <h2 className="text-3xl md:text-4xl font-light text-white text-center mb-10">
                 {t("designPartners.faq.title")}
@@ -308,7 +308,7 @@ const DesignPartners = () => {
         </section>
 
         <div className="container mx-auto px-4 mt-8">
-          <div className="max-w-3xl mx-auto">
+          <div className="max-w-5xl mx-auto">
             <Link
               to={localize("/")}
               className="text-[var(--accent-blue)] hover:underline text-sm"
