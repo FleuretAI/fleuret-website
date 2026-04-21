@@ -120,14 +120,7 @@ const DesignPartners = () => {
               )}
 
               <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
-                <a
-                  href="#apply"
-                  className="inline-flex items-center justify-center rounded-full px-10 py-3.5 text-base font-medium text-white transition-all hover:opacity-90 hover:shadow-[0_0_30px_rgba(79,143,255,0.3)]"
-                  style={{
-                    background:
-                      "linear-gradient(135deg, var(--accent-blue), var(--accent-violet))",
-                  }}
-                >
+                <a href="#apply" className="btn-cta btn-cta--lg">
                   {slots.remaining === 0
                     ? t("designPartners.hero.ctaWaitlist")
                     : t("designPartners.hero.cta")}

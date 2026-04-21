@@ -122,6 +122,39 @@ body::before {
   }
 }
 
+/* Primary CTA button — editorial, desaturated red→blue.
+   Replaces the prior blue→violet gradient pill pattern. */
+.btn-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2rem;
+  border-radius: 6px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1.2;
+  color: #fff;
+  border: 0;
+  cursor: pointer;
+  background: linear-gradient(135deg, #7a1f24 0%, #1c2d4a 100%);
+  transition: filter 0.15s ease, transform 0.15s ease;
+  text-decoration: none;
+}
+.btn-cta:hover { filter: brightness(1.12); }
+.btn-cta:active { transform: translateY(1px); }
+.btn-cta:focus-visible {
+  outline: 2px solid var(--accent-blue);
+  outline-offset: 2px;
+}
+.btn-cta:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.btn-cta--lg { padding: 1rem 2.5rem; font-size: 1rem; }
+.btn-cta--sm { padding: 0.5rem 1.25rem; font-size: 0.8125rem; }
+.btn-cta--block { display: flex; width: 100%; }
+
 /* Skip-to-content link for keyboard users. Hidden until focused. */
 .skip-to-content {
   position: fixed;

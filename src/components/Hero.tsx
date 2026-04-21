@@ -125,21 +125,7 @@ const Hero = () => {
           </p>
 
           <div style={{ display: "flex", justifyContent: "center", paddingTop: "1rem" }}>
-            <Link
-              to={localize(DEMO_ROUTE)}
-              style={{
-                fontSize: "1rem",
-                fontWeight: 500,
-                padding: "0.875rem 2.5rem",
-                borderRadius: "999px",
-                color: "#fff",
-                background: "linear-gradient(135deg, #4f8fff, #8b5cf6)",
-                transition: "box-shadow 0.2s, transform 0.15s",
-                display: "inline-block",
-              }}
-              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = "0 0 20px rgba(79,143,255,0.3)"; }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = ""; }}
-            >
+            <Link to={localize(DEMO_ROUTE)} className="btn-cta btn-cta--lg">
               {t("hero.cta")}
             </Link>
           </div>

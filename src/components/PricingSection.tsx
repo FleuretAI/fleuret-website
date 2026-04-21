@@ -67,12 +67,7 @@ const PricingSection = () => {
                   </li>
                 ))}
               </ul>
-              <Link
-                to={localize(DEMO_ROUTE)}
-                style={{ display: "block", width: "100%", padding: "0.75rem 1.5rem", borderRadius: "0.5rem", fontSize: "0.875rem", fontWeight: 600, textAlign: "center", background: "linear-gradient(to right, var(--accent-blue), var(--accent-violet))", color: "#fff", transition: "opacity 0.2s" }}
-                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.opacity = "0.9"; }}
-                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.opacity = "1"; }}
-              >
+              <Link to={localize(DEMO_ROUTE)} className="btn-cta btn-cta--block">
                 {t("pricing.standard.cta")}
               </Link>
             </div>
