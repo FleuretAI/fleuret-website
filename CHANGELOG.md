@@ -4,6 +4,14 @@ All notable changes to the Fleuret website. Format based on [Keep a Changelog](h
 
 ## [Unreleased]
 
+### Changed
+
+- `/design-partners` page now uses wider inner wrappers (hero, timeline, proof, qualify, FAQ, back-link) so the page occupies more of the container. Apply form kept at a narrower width for readability. Font sizes untouched. Tailwind container still caps at 1400px so nothing escapes the page gutter.
+
+### Fixed
+
+- Pre-existing vitest failures on main: `scripts/build-post-registry.test.ts` referenced `dist/post-manifest.json` but the codegen writes `.post-manifest.json` at repo root. Updated the test path. Added a `pretest` npm hook so `build:posts` runs before vitest (guarantees the manifest exists when codegen smoke tests read it). Stubbed `IntersectionObserver` in `tests/setup.ts` so framer-motion's `whileInView` no longer throws under jsdom in `BlogIndex` tests.
+
 ### Added
 
 - **`/design-partners` rich result + funnel telemetry.** Cohort page now emits a `Product` (with €4,900 `Offer`, `LimitedAvailability` flipping to `SoldOut` when slots hit zero, slot inventory + `priceValidUntil` pinned to kickoff) plus a companion `Event` (kickoff date + 6-week endDate + virtual location). Schema sources every value from `designPartnerConfig.ts`, so cohort changes propagate to Google rich results without redeploys, and the live counter at `/api/slots` controls availability without code changes. New GA4 funnel: `apply_form_view`, `apply_started`, `apply_submitted`, `apply_qualified`, `apply_unqualified`, `apply_error` (with HTTP status), `apply_booked`. Events include `role` + `company_size` on the qualified branches so conversion can be segmented by ICP fit. Built on a new shared `src/lib/gtag.ts` wrapper extracted from `Demo.tsx` that guards `window` + missing-gtag + thrown-gtag (extension corruption), so every event is a no-op under the prerender pipeline (puppeteer + `@sparticuz/chromium`) and when Consent Mode is denied. 28 new tests cover the JSON-LD schema, all 7 funnel events, and the prerender / consent-denied / extension-throws paths.
