@@ -148,11 +148,7 @@ export function ApplyForm() {
           target="_blank"
           rel="noreferrer"
           onClick={() => trackApplyBooked()}
-          className="inline-flex items-center justify-center rounded-full px-6 py-2.5 text-sm font-medium text-white"
-          style={{
-            background:
-              "linear-gradient(135deg, var(--accent-blue), var(--accent-violet))",
-          }}
+          className="btn-cta"
         >
           {t("designPartners.apply.qualifiedCta")}
         </a>
@@ -340,10 +336,7 @@ export function ApplyForm() {
       <button
         type="submit"
         disabled={submitting}
-        className="inline-flex items-center justify-center w-full sm:w-auto rounded-full px-8 py-3 text-base font-medium text-white transition-opacity disabled:opacity-60"
-        style={{
-          background: "linear-gradient(135deg, var(--accent-blue), var(--accent-violet))",
-        }}
+        className="btn-cta w-full sm:w-auto"
       >
         {submitting
           ? t("designPartners.apply.submitting")

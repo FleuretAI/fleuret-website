@@ -376,18 +376,12 @@ const About = () => {
                 {t("about.cta.title")}
               </h2>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link
-                  to={localize(DEMO_ROUTE)}
-                  className="inline-flex items-center justify-center rounded-full px-8 py-3 text-sm font-medium text-white transition-all hover:opacity-90 hover:shadow-[0_0_30px_rgba(79,143,255,0.3)]"
-                  style={{
-                    background: "linear-gradient(135deg, var(--accent-blue), var(--accent-violet))",
-                  }}
-                >
+                <Link to={localize(DEMO_ROUTE)} className="btn-cta">
                   {t("about.cta.demo")}
                 </Link>
                 <Link
                   to={localize("/careers")}
-                  className="inline-flex items-center justify-center rounded-full px-8 py-3 text-sm font-medium text-white/70 border border-white/10 hover:text-white hover:border-white/20 hover:bg-white/[0.04] transition-all"
+                  className="inline-flex items-center justify-center rounded-[6px] px-8 py-3 text-sm font-medium text-white/70 border border-white/10 hover:text-white hover:border-white/20 hover:bg-white/[0.04] transition-all"
                 >
                   {t("about.cta.careers")}
                 </Link>

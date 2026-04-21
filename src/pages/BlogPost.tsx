@@ -266,11 +266,7 @@ function PostArticle({
             href={linkedInHref}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-medium text-white transition-all hover:opacity-90 hover:shadow-[0_0_30px_rgba(79,143,255,0.3)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--accent-blue)] focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-            style={{
-              background:
-                "linear-gradient(135deg, var(--accent-blue), var(--accent-violet))",
-            }}
+            className="btn-cta btn-cta--sm"
           >
             <svg
               width="16"

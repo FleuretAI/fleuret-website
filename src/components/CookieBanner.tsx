@@ -104,11 +104,7 @@ const CookieBanner = () => {
             <button
               type="button"
               onClick={() => record("accepted")}
-              className="flex-1 sm:flex-none px-5 py-2.5 rounded-full text-[0.8125rem] font-medium text-white transition-all hover:shadow-[0_0_20px_rgba(79,143,255,0.35)] active:scale-[0.98]"
-              style={{
-                background:
-                  "linear-gradient(135deg, var(--accent-blue), var(--accent-violet))",
-              }}
+              className="btn-cta btn-cta--sm flex-1 sm:flex-none"
             >
               {t("cookie.accept")}
             </button>

@@ -6,6 +6,7 @@ All notable changes to the Fleuret website. Format based on [Keep a Changelog](h
 
 ### Changed
 
+- **Primary buttons redesigned to kill the AI-slop signature.** Every primary CTA (Hero, Navbar, Pricing, CTASection, DesignPartners, Careers, About, BlogPost share, ApplyForm, CookieBanner) used the same inline `linear-gradient(135deg, #4f8fff, #8b5cf6)` 999px pill with a blue glow on hover. The pattern read as generative-AI boilerplate and undermined the offensive-security positioning. Replaced with a single `.btn-cta` class in `src/index.css`: desaturated red → blue diagonal fade (`#7a1f24` → `#1c2d4a`), 6px radius, brightness-only hover, press-state translate, no glow, no scale. Size modifiers `.btn-cta--lg`, `.btn-cta--sm`, `.btn-cta--block`. Red + blue ties to offensive / defensive (red-team / blue-team) positioning without neon. Decorative gradients kept: headline text, cohort badge pill, qualify bullet dots, comparison-table badge, pricing card outer glow ring. Unused `hero` variant removed from `button.tsx` (same AI-slop pattern: scale-105 + glow, zero call sites).
 - `/design-partners` page now uses wider inner wrappers (hero, timeline, proof, qualify, FAQ, back-link) so the page occupies more of the container. Apply form kept at a narrower width for readability. Font sizes untouched. Tailwind container still caps at 1400px so nothing escapes the page gutter.
 
 ### Fixed
