@@ -300,34 +300,54 @@ export function mountHeroCanvas(canvas: HTMLCanvasElement): () => void {
     }
 
     if (W >= 640) {
-      const status = finished ? 'FLEURET COMPLETE' : 'FLEURET SCANNING';
       ctx.font = '500 10px ui-monospace,"SF Mono",Menlo,monospace';
-      const sw = ctx.measureText(status).width;
-      const pillX = W - padX - sw - 24, pillY = y - 24;
-      ctx.fillStyle = `rgba(255,255,255,${(0.04 * fade).toFixed(3)})`;
-      ctx.strokeStyle = `rgba(255,255,255,${(0.14 * fade).toFixed(3)})`;
-      ctx.lineWidth = 1;
-      const pw = sw + 24, ph = 22, pr = 11;
-      ctx.beginPath();
-      ctx.moveTo(pillX + pr, pillY);
-      ctx.lineTo(pillX + pw - pr, pillY);
-      ctx.arcTo(pillX + pw, pillY, pillX + pw, pillY + pr, pr);
-      ctx.lineTo(pillX + pw, pillY + ph - pr);
-      ctx.arcTo(pillX + pw, pillY + ph, pillX + pw - pr, pillY + ph, pr);
-      ctx.lineTo(pillX + pr, pillY + ph);
-      ctx.arcTo(pillX, pillY + ph, pillX, pillY + ph - pr, pr);
-      ctx.lineTo(pillX, pillY + pr);
-      ctx.arcTo(pillX, pillY, pillX + pr, pillY, pr);
-      ctx.closePath(); ctx.fill(); ctx.stroke();
+      ctx.textBaseline = 'alphabetic';
 
-      const dotX = pillX + 11, dotY = pillY + ph / 2;
-      const blink = finished ? 1 : (Math.sin(now / 400) * 0.35 + 0.65);
-      const dc = finished ? [139, 92, 246] : [79, 143, 255];
-      ctx.fillStyle = `rgba(${dc[0]},${dc[1]},${dc[2]},${(blink * fade).toFixed(3)})`;
-      ctx.beginPath(); ctx.arc(dotX, dotY, 2.8, 0, Math.PI * 2); ctx.fill();
-      ctx.fillStyle = `rgba(255,255,255,${(0.7 * fade).toFixed(3)})`;
-      ctx.textBaseline = 'middle';
-      ctx.fillText(status, pillX + 20, dotY + 0.5);
+      const scanPool = [
+        '[+] 443/tcp open',
+        '[+] /api/v2 discovered',
+        '[+] jwt alg=none accepted',
+        '[+] cors wildcard origin',
+        '[+] s3 bucket public-read',
+        '[+] 8 endpoints mapped',
+        '[+] admin panel reachable',
+        '[!] idor /user/{id}',
+        '[!] sqli /search?q=',
+        '[!] xss reflected',
+        '[!] auth bypass /admin',
+        '[+] ssrf /fetch?url=',
+      ];
+      const totalFindings = Math.round(
+        hudVulnsEased.critical + hudVulnsEased.high + hudVulnsEased.medium + hudVulnsEased.low,
+      );
+      const sealedLines = [
+        '[+] scan complete',
+        `[+] ${totalFindings} findings recorded`,
+        '[\u2713] report sealed',
+      ];
+
+      const lines: string[] = [];
+      if (finished) {
+        lines.push(sealedLines[0], sealedLines[1], sealedLines[2]);
+      } else {
+        const step = Math.floor(now / 1100);
+        for (let i = 0; i < 3; i++) {
+          lines.push(scanPool[(step + i) % scanPool.length]);
+        }
+      }
+
+      for (let i = 0; i < 3; i++) {
+        const line = lines[i];
+        const age = 0.35 + i * 0.3;
+        const sev = line.startsWith('[!]');
+        const ok = line.startsWith('[\u2713]');
+        const col = sev ? [239, 68, 68] : ok ? [139, 92, 246] : [180, 195, 230];
+        ctx.fillStyle = `rgba(${col[0]},${col[1]},${col[2]},${(age * fade).toFixed(3)})`;
+        const lineW = ctx.measureText(line).width;
+        const lineX = W - padX - lineW;
+        const lineY = y - 36 + i * 15;
+        ctx.fillText(line, lineX, lineY);
+      }
     }
     ctx.restore();
   }
