@@ -2,19 +2,18 @@ import { defineConfig } from "vitest/config";
 import react from "@vitejs/plugin-react-swc";
 import mdx from "@mdx-js/rollup";
 import remarkGfm from "remark-gfm";
+import remarkFrontmatter from "remark-frontmatter";
 import rehypeSlug from "rehype-slug";
 import path from "node:path";
 
-// MDX plugin is loaded even for tests because some component tests exercise
-// the blog post rendering path; BlogIndex tests mock the registry so they
-// don't touch MDX, but keeping the plugin active avoids branching configs.
-// If test runtime grows painful, drop the MDX plugin and mark MDX-touching
-// tests as integration-only.
+// Mirror vite.config.ts plugin set so tests see identical MDX output.
+// remark-frontmatter strips YAML from the MDX AST (codegen reads it via
+// gray-matter separately).
 export default defineConfig({
   plugins: [
     mdx({
       providerImportSource: "@mdx-js/react",
-      remarkPlugins: [remarkGfm],
+      remarkPlugins: [[remarkFrontmatter, ["yaml"]], remarkGfm],
       rehypePlugins: [rehypeSlug],
     }),
     react(),

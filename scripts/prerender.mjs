@@ -197,12 +197,44 @@ async function main() {
         console.error(
           `[prerender] ${failed.length} route(s) failed (non-fatal): ${failed.join(", ")}`,
         );
-        console.error(
-          `[prerender] SPA rewrite in vercel.json catches missing routes; ` +
-            `user still sees the page but SEO degrades to client-render for those URLs.`,
-        );
-        // Non-fatal: vercel.json rewrites /(!api/).* -> /index.html so the SPA
-        // renders any route that failed to prerender. Ship what we have.
+      }
+
+      // Belt-and-suspenders: for every route we INTENDED to prerender, make
+      // sure a real file exists at that path. If prerender succeeded the
+      // file already exists (no-op). If it failed OR if Vercel's deploy
+      // pipeline drops the nested directory for some reason, this copies
+      // dist/index.html as a fallback so Vercel still serves a real static
+      // file and React hydrates client-side from there.
+      //
+      // We explicitly write to both the cleanUrls-friendly paths
+      // (`dist/<route>.html`) AND the nested-index form
+      // (`dist/<route>/index.html`) so whichever one Vercel's edge prefers
+      // resolves.
+      const rootIndex = join(DIST, "index.html");
+      if (existsSync(rootIndex)) {
+        const rootHtml = readFileSync(rootIndex, "utf8");
+        for (const route of ROUTES) {
+          if (route === "/" || route === "/404") continue;
+          const nested = outputPathFor(route);
+          const flat = join(DIST, route.replace(/^\//, "") + ".html");
+          try {
+            if (!existsSync(nested)) {
+              mkdirSync(dirname(nested), { recursive: true });
+              writeFileSync(nested, rootHtml, "utf8");
+              console.log(
+                `[prerender] ensure ${route} -> ${nested.replace(ROOT + "/", "")}`,
+              );
+            }
+            if (!existsSync(flat)) {
+              mkdirSync(dirname(flat), { recursive: true });
+              writeFileSync(flat, rootHtml, "utf8");
+            }
+          } catch (err) {
+            console.error(
+              `[prerender] ensure-fallback FAILED for ${route}: ${(err && err.message) || err}`,
+            );
+          }
+        }
       }
 
       // Vercel default: /404.html at output root is served as the 404 body.

@@ -384,6 +384,9 @@ const translations = {
     'blog.share.label': 'Partager',
     'blog.share.linkedIn': 'Partager sur LinkedIn',
     'blog.share.copyLink': 'Copier le lien',
+    'blog.askAi.aria': 'Résumer cet article avec une IA',
+    'blog.askAi.tldr': 'Trop long ?',
+    'blog.askAi.prompt': 'Demandez à une IA de résumer cet article.',
 
     // 404
     'notfound.title': '404',
@@ -760,6 +763,9 @@ const translations = {
     'blog.share.label': 'Share',
     'blog.share.linkedIn': 'Share on LinkedIn',
     'blog.share.copyLink': 'Copy link',
+    'blog.askAi.aria': 'Summarize this post with AI',
+    'blog.askAi.tldr': 'Too long?',
+    'blog.askAi.prompt': 'Ask an AI to summarize this article.',
 
     // 404
     'notfound.title': '404',
