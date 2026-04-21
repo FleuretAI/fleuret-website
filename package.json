@@ -14,6 +14,7 @@
     "smoke": "bun scripts/smoke.mjs",
     "lint": "eslint .",
     "preview": "vite preview",
+    "pretest": "bun run build:posts",
     "test": "vitest run",
     "test:watch": "vitest",
     "build:prerender": "bun run build:posts -- --strict && vite build && bun run build:sitemap && node scripts/prerender.mjs"
