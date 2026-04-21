@@ -1,4 +1,7 @@
-import type { ApplicationInput, CompanySize, Role } from "./designPartnerSchema";
+// Explicit `.js` extension: @vercel/node pulls this file in through
+// api/apply.ts and compiles with moduleResolution=node16, which requires
+// extensions on relative imports. Same reason as api/apply.ts imports.
+import type { ApplicationInput, CompanySize, Role } from "./designPartnerSchema.js";
 
 const QUALIFIED_ROLES: ReadonlySet<Role> = new Set([
   "ciso",

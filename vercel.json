@@ -7,12 +7,10 @@
   "trailingSlash": false,
   "functions": {
     "api/slots.ts": {
-      "maxDuration": 10,
-      "memory": 1024
+      "maxDuration": 10
     },
     "api/apply.ts": {
-      "maxDuration": 10,
-      "memory": 1024
+      "maxDuration": 10
     }
   },
   "rewrites": [
