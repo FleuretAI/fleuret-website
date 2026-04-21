@@ -71,17 +71,17 @@ const DesignPartners = () => {
     <div className="min-h-screen">
       <SEO pageKey="designPartners" jsonLd={offerJsonLd} />
       <Navbar />
-      <main id="main-content" className="pt-32 pb-20">
+      <main id="main-content" className="pt-40 md:pt-48 pb-20">
         {/* Hero */}
-        <section className="container mx-auto px-4 text-center mb-20">
+        <section className="container mx-auto px-4 text-center mb-24 md:mb-32">
           <ScrollReveal>
-            <div className="max-w-5xl mx-auto space-y-6">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[var(--accent-blue)]/25 bg-[var(--accent-blue)]/[0.08] backdrop-blur">
+            <div className="max-w-5xl mx-auto space-y-8 md:space-y-10">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md border border-white/10 bg-white/[0.03] backdrop-blur">
                 <span
-                  className="text-[0.65rem] font-semibold tracking-[0.12em] uppercase px-2 py-0.5 rounded-full text-white"
+                  className="text-[0.65rem] font-semibold tracking-[0.12em] uppercase px-2 py-0.5 rounded text-white"
                   style={{
                     background:
-                      "linear-gradient(135deg, var(--accent-blue), var(--accent-violet))",
+                      "linear-gradient(135deg, #7a1f24 0%, #1c2d4a 100%)",
                   }}
                 >
                   {t("designPartners.hero.badge.label")}
@@ -95,7 +95,7 @@ const DesignPartners = () => {
                 </span>
               </div>
 
-              <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-light tracking-tight text-white leading-[1.1]">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light tracking-tight text-white leading-[1.15] text-balance">
                 {t("designPartners.hero.title")}{" "}
                 <span className="text-gradient-accent">
                   {t("designPartners.hero.highlight")}
