@@ -4,6 +4,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 const HIDE_THRESHOLD_PX = 40;
 // Optional external link; set to "" to hide CTA.
 const ANNOUNCE_HREF = "";
+const BANNER_HEIGHT_PX = 64;
 
 const AnnouncementBanner = () => {
   const { t } = useLanguage();
@@ -21,7 +22,7 @@ const AnnouncementBanner = () => {
     if (hidden) {
       root.style.removeProperty("--announce-h");
     } else {
-      root.style.setProperty("--announce-h", "40px");
+      root.style.setProperty("--announce-h", `${BANNER_HEIGHT_PX}px`);
     }
     return () => { root.style.removeProperty("--announce-h"); };
   }, [hidden]);
@@ -33,8 +34,8 @@ const AnnouncementBanner = () => {
       aria-hidden={hidden}
       className="fixed top-0 left-0 right-0 z-[60] flex items-center justify-center"
       style={{
-        height: "40px",
-        background: "linear-gradient(90deg, rgba(79,143,255,0.18), rgba(139,92,246,0.18))",
+        height: `${BANNER_HEIGHT_PX}px`,
+        background: "linear-gradient(90deg, rgba(79,143,255,0.22), rgba(139,92,246,0.22))",
         borderBottom: "1px solid rgba(255,255,255,0.08)",
         backdropFilter: "blur(12px)",
         WebkitBackdropFilter: "blur(12px)",
@@ -45,37 +46,35 @@ const AnnouncementBanner = () => {
         willChange: "transform",
       }}
     >
-      <div className="max-w-[1280px] w-full mx-auto px-4 md:px-8 flex items-center justify-center gap-3">
+      <div className="max-w-[1280px] w-full mx-auto px-4 md:px-8 flex items-center justify-center gap-3 md:gap-4">
         <span
           aria-hidden="true"
           className="announce-dot"
           style={{
             position: "relative",
             display: "inline-block",
-            width: 8,
-            height: 8,
+            width: 10,
+            height: 10,
             borderRadius: "50%",
             background: "#ff9603",
             flexShrink: 0,
           }}
         />
         <span
-          className="hidden sm:inline text-white/75"
-          style={{ fontSize: "0.72rem", fontWeight: 600, letterSpacing: "0.14em", textTransform: "uppercase" }}
-        >
-          {t("announce.label")}
-        </span>
-        <span
-          className="text-white/90 truncate"
-          style={{ fontSize: "0.85rem", letterSpacing: "0.01em" }}
+          className="text-white truncate"
+          style={{
+            fontSize: "clamp(0.95rem, 1.6vw, 1.25rem)",
+            fontWeight: 700,
+            letterSpacing: "-0.01em",
+          }}
         >
           {t("announce.text")}
         </span>
         {ANNOUNCE_HREF && (
           <a
             href={ANNOUNCE_HREF}
-            className="hidden sm:inline text-white/90 hover:text-white underline underline-offset-2 decoration-white/30 hover:decoration-white"
-            style={{ fontSize: "0.82rem" }}
+            className="hidden sm:inline text-white/90 hover:text-white underline underline-offset-4 decoration-white/40 hover:decoration-white"
+            style={{ fontSize: "clamp(0.85rem, 1.3vw, 1rem)", fontWeight: 500 }}
           >
             {t("announce.cta")}
           </a>
@@ -92,8 +91,8 @@ const AnnouncementBanner = () => {
           position: absolute;
           top: 50%;
           left: 50%;
-          width: 8px;
-          height: 8px;
+          width: 10px;
+          height: 10px;
           border-radius: 50%;
           background: #ff9603;
           animation: announce-pulse 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
