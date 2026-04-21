@@ -11,7 +11,7 @@ import { resolve } from "node:path";
  */
 
 const ROOT = resolve(__dirname, "..");
-const MANIFEST = resolve(ROOT, "dist/post-manifest.json");
+const MANIFEST = resolve(ROOT, ".post-manifest.json");
 const REGISTRY = resolve(ROOT, "src/content/posts.generated.ts");
 
 describe("build-post-registry output", () => {
