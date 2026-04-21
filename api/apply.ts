@@ -1,9 +1,13 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { createHash } from "node:crypto";
-import { applicationSchema, type ApplicationInput } from "../src/lib/designPartnerSchema";
-import { isQualified } from "../src/lib/designPartnerQualify";
-import { serverSupabase } from "./_lib/supabase";
-import { DEMO_SCHEDULER_SHORT_URL } from "../src/lib/routes";
+// Explicit `.js` extensions on relative imports: @vercel/node compiles this
+// file with moduleResolution=node16/nodenext which REQUIRES extensions, even
+// though tsconfig.api.json declares `bundler`. TS emits files as `.js`, so
+// we import with `.js` regardless of source extension.
+import { applicationSchema, type ApplicationInput } from "../src/lib/designPartnerSchema.js";
+import { isQualified } from "../src/lib/designPartnerQualify.js";
+import { serverSupabase } from "./_lib/supabase.js";
+import { DEMO_SCHEDULER_SHORT_URL } from "../src/lib/routes.js";
 
 export const config = {
   runtime: "nodejs",

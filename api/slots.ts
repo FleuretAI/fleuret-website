@@ -1,5 +1,7 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { serverSupabase } from "./_lib/supabase";
+// Explicit `.js` extension: see note in api/apply.ts. @vercel/node compiles
+// with moduleResolution=node16 which requires extensions on relative imports.
+import { serverSupabase } from "./_lib/supabase.js";
 
 export const config = {
   runtime: "nodejs",
