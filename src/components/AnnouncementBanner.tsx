@@ -4,7 +4,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 const HIDE_THRESHOLD_PX = 40;
 // Optional external link; set to "" to hide CTA.
 const ANNOUNCE_HREF = "";
-const BANNER_HEIGHT_PX = 64;
+const BANNER_HEIGHT_PX = 48;
 
 const AnnouncementBanner = () => {
   const { t } = useLanguage();
