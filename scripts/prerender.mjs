@@ -197,12 +197,35 @@ async function main() {
         console.error(
           `[prerender] ${failed.length} route(s) failed (non-fatal): ${failed.join(", ")}`,
         );
-        console.error(
-          `[prerender] SPA rewrite in vercel.json catches missing routes; ` +
-            `user still sees the page but SEO degrades to client-render for those URLs.`,
-        );
-        // Non-fatal: vercel.json rewrites /(!api/).* -> /index.html so the SPA
-        // renders any route that failed to prerender. Ship what we have.
+        // Fallback: copy dist/index.html into the missing route's directory
+        // so Vercel serves a real file at that path. cleanUrls + SPA rewrite
+        // cascade has proven unreliable on the edge for specific path shapes,
+        // so we bypass that entirely and guarantee every expected URL maps
+        // to a real static file. Content renders client-side once React
+        // hydrates; SEO meta comes back via SPA-hydration (degraded vs a
+        // puppeteer snapshot but still crawlable by modern Googlebot).
+        const rootIndex = join(DIST, "index.html");
+        if (existsSync(rootIndex)) {
+          const rootHtml = readFileSync(rootIndex, "utf8");
+          for (const route of failed) {
+            try {
+              const out = outputPathFor(route);
+              mkdirSync(dirname(out), { recursive: true });
+              writeFileSync(out, rootHtml, "utf8");
+              console.log(
+                `[prerender] fallback-copy index.html -> ${out.replace(ROOT + "/", "")}`,
+              );
+            } catch (err) {
+              console.error(
+                `[prerender] fallback-copy FAILED for ${route}: ${(err && err.message) || err}`,
+              );
+            }
+          }
+        } else {
+          console.error(
+            `[prerender] cannot fallback-copy — dist/index.html missing`,
+          );
+        }
       }
 
       // Vercel default: /404.html at output root is served as the 404 body.
