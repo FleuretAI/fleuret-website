@@ -197,34 +197,43 @@ async function main() {
         console.error(
           `[prerender] ${failed.length} route(s) failed (non-fatal): ${failed.join(", ")}`,
         );
-        // Fallback: copy dist/index.html into the missing route's directory
-        // so Vercel serves a real file at that path. cleanUrls + SPA rewrite
-        // cascade has proven unreliable on the edge for specific path shapes,
-        // so we bypass that entirely and guarantee every expected URL maps
-        // to a real static file. Content renders client-side once React
-        // hydrates; SEO meta comes back via SPA-hydration (degraded vs a
-        // puppeteer snapshot but still crawlable by modern Googlebot).
-        const rootIndex = join(DIST, "index.html");
-        if (existsSync(rootIndex)) {
-          const rootHtml = readFileSync(rootIndex, "utf8");
-          for (const route of failed) {
-            try {
-              const out = outputPathFor(route);
-              mkdirSync(dirname(out), { recursive: true });
-              writeFileSync(out, rootHtml, "utf8");
+      }
+
+      // Belt-and-suspenders: for every route we INTENDED to prerender, make
+      // sure a real file exists at that path. If prerender succeeded the
+      // file already exists (no-op). If it failed OR if Vercel's deploy
+      // pipeline drops the nested directory for some reason, this copies
+      // dist/index.html as a fallback so Vercel still serves a real static
+      // file and React hydrates client-side from there.
+      //
+      // We explicitly write to both the cleanUrls-friendly paths
+      // (`dist/<route>.html`) AND the nested-index form
+      // (`dist/<route>/index.html`) so whichever one Vercel's edge prefers
+      // resolves.
+      const rootIndex = join(DIST, "index.html");
+      if (existsSync(rootIndex)) {
+        const rootHtml = readFileSync(rootIndex, "utf8");
+        for (const route of ROUTES) {
+          if (route === "/" || route === "/404") continue;
+          const nested = outputPathFor(route);
+          const flat = join(DIST, route.replace(/^\//, "") + ".html");
+          try {
+            if (!existsSync(nested)) {
+              mkdirSync(dirname(nested), { recursive: true });
+              writeFileSync(nested, rootHtml, "utf8");
               console.log(
-                `[prerender] fallback-copy index.html -> ${out.replace(ROOT + "/", "")}`,
-              );
-            } catch (err) {
-              console.error(
-                `[prerender] fallback-copy FAILED for ${route}: ${(err && err.message) || err}`,
+                `[prerender] ensure ${route} -> ${nested.replace(ROOT + "/", "")}`,
               );
             }
+            if (!existsSync(flat)) {
+              mkdirSync(dirname(flat), { recursive: true });
+              writeFileSync(flat, rootHtml, "utf8");
+            }
+          } catch (err) {
+            console.error(
+              `[prerender] ensure-fallback FAILED for ${route}: ${(err && err.message) || err}`,
+            );
           }
-        } else {
-          console.error(
-            `[prerender] cannot fallback-copy — dist/index.html missing`,
-          );
         }
       }
 
