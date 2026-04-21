@@ -10,6 +10,7 @@ All notable changes to the Fleuret website. Format based on [Keep a Changelog](h
 
 ### Changed
 
+- Announcement banner (fundraise) scaled up Nevis-style: 40px → 64px tall, headline bolded and enlarged to clamp(0.95rem, 1.6vw, 1.25rem) font-weight 700, uppercase "Annonce/Announcement" label dropped so the main line gets the space, dot pulse bumped 8px → 10px, gradient alpha 0.18 → 0.22 for slightly more presence. Navbar offset follows automatically via the `--announce-h` CSS var.
 - Branding hygiene: add production `public/og-image.png` (1200×630) so every route's social preview renders a real Fleuret card instead of 404. SVG source in `scripts/og-image.svg`. Remove stale `public/placeholder.svg` (Lovable default), drop `lovable-tagger` dev dependency + plugin, scrub the `lovableproject.com` reference in `.env.local.example`.
 
 ### Added
