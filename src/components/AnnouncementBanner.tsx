@@ -76,7 +76,7 @@ const AnnouncementBanner = () => {
           className="text-white truncate"
           style={{
             fontSize: "clamp(0.95rem, 1.6vw, 1.25rem)",
-            fontWeight: 700,
+            fontWeight: 400,
             letterSpacing: "-0.01em",
           }}
         >
