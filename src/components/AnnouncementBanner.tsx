@@ -61,6 +61,18 @@ const AnnouncementBanner = () => {
           }}
         />
         <span
+          style={{
+            fontSize: "clamp(0.7rem, 1vw, 0.78rem)",
+            fontWeight: 500,
+            letterSpacing: "0.14em",
+            textTransform: "uppercase",
+            color: "#fbbf24",
+            flexShrink: 0,
+          }}
+        >
+          {t("announce.label")}
+        </span>
+        <span
           className="text-white truncate"
           style={{
             fontSize: "clamp(0.95rem, 1.6vw, 1.25rem)",
