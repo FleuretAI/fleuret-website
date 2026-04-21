@@ -155,11 +155,7 @@ const Navbar = () => {
           {/* Desktop right zone */}
           <div className="hidden lg:flex items-center gap-3">
             <LanguageSwitcher />
-            <Link
-              to={localize(DEMO_ROUTE)}
-              className="text-sm font-medium px-5 py-2.5 rounded-full text-white transition-all hover:shadow-[0_0_20px_rgba(79,143,255,0.3)] active:scale-95"
-              style={{ background: "linear-gradient(135deg, var(--accent-blue), var(--accent-violet))" }}
-            >
+            <Link to={localize(DEMO_ROUTE)} className="btn-cta btn-cta--sm">
               {t("nav.cta")}
             </Link>
           </div>
@@ -227,8 +223,7 @@ const Navbar = () => {
         <Link
           to={localize(DEMO_ROUTE)}
           onClick={close}
-          className="mt-4 py-3 rounded-full font-medium text-center text-[0.9rem] text-white"
-          style={{ background: "linear-gradient(135deg, var(--accent-blue), var(--accent-violet))" }}
+          className="btn-cta btn-cta--block mt-4"
         >
           {t("nav.cta")}
         </Link>
