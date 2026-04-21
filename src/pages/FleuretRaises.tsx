@@ -50,8 +50,6 @@ const copy: Record<Lang, {
   vcsP: string;
   angelsH: string;
   angelsP: string;
-  bpiH: string;
-  bpiP: string;
   complianceH: string;
   complianceP: string;
   teamH: string;
@@ -92,8 +90,6 @@ const copy: Record<Lang, {
     vcsP: "RAISE Capital mène le tour. Auriga Cyber Ventures, Wind Capital et United Founders co-investissent.",
     angelsH: "Business angels",
     angelsP: "Des opérateurs qui ont construit la cybersécurité européenne : fondateurs d'Almond, GitGuardian, Stoïk, OVRSEA et Hornetsecurity. Leur réseau client, leur expertise produit et leur vécu opérationnel nous font gagner des années.",
-    bpiH: "Prêt amorçage Bpifrance",
-    bpiP: "700 k€ de prêt amorçage innovation, non dilutif. Marqueur de confiance de l'écosystème public français dans notre thèse technique.",
     complianceH: "NIS2, DORA, ISO 27001",
     complianceP: "Chaque rapport Fleuret cartographie les findings vers les référentiels attendus par vos auditeurs. La directive NIS2 et le règlement DORA imposent des tests d'intrusion réguliers. Fleuret en fait une opération continue, pas un projet annuel.",
     teamH: "L'équipe fondatrice",
@@ -134,8 +130,6 @@ const copy: Record<Lang, {
     vcsP: "RAISE Capital leads. Auriga Cyber Ventures, Wind Capital and United Founders co-invest.",
     angelsH: "Business angels",
     angelsP: "Operators who built European cybersecurity: founders of Almond, GitGuardian, Stoïk, OVRSEA and Hornetsecurity. Their customer network, product expertise and operator experience compress years of learning for us.",
-    bpiH: "Bpifrance innovation loan",
-    bpiP: "€700k non-dilutive innovation loan. A mark of trust from the French public innovation ecosystem in our technical thesis.",
     complianceH: "NIS2, DORA, ISO 27001",
     complianceP: "Every Fleuret report maps findings to the frameworks your auditors expect. NIS2 directive and DORA regulation require recurring penetration tests. Fleuret makes it a continuous operation, not a yearly project.",
     teamH: "The founding team",
@@ -316,7 +310,7 @@ const FleuretRaises = () => {
         noindex
       />
       <Navbar />
-      <main id="main-content" className="pt-24 md:pt-28 pb-20">
+      <main id="main-content" className="pt-40 md:pt-48 pb-20">
         {/* Hero */}
         <section className="container mx-auto px-4 mb-10 md:mb-14">
           <ScrollReveal>
@@ -416,16 +410,6 @@ const FleuretRaises = () => {
                 <InvestorTile key={inv.name} inv={inv} lang={language} idx={idx} />
               ))}
             </StaggerGroup>
-          </div>
-        </section>
-
-        {/* BPI */}
-        <section className="container mx-auto px-4 pb-12 md:pb-16">
-          <div className="max-w-3xl mx-auto p-8 rounded-2xl border border-white/10 bg-white/[0.03]">
-            <ScrollReveal>
-              <h2 className="text-xl md:text-2xl font-light text-white mb-3">{c.bpiH}</h2>
-              <p className="text-white/65 leading-relaxed">{c.bpiP}</p>
-            </ScrollReveal>
           </div>
         </section>
 
