@@ -35,9 +35,11 @@ export const applicationSchema = z.object({
   company: z.string().trim().max(200).optional(),
   companySize: z.enum(COMPANY_SIZE_VALUES),
   primaryAsset: z.string().trim().min(3).max(280),
-  consent: z.literal(true, {
-    errorMap: () => ({ message: "consent_required" }),
-  }),
+  // Zod v4: `z.literal(true, ...)` dropped `errorMap`. Use the plain
+  // `message` option. The API handler already validates consent before
+  // calling Supabase, so the error text only needs to be a stable
+  // sentinel ("consent_required") for the client.
+  consent: z.literal(true, { message: "consent_required" }),
   submissionId: z.string().uuid(),
   locale: z.enum(["fr", "en"]).optional(),
   utm: utmSchema,
