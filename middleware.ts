@@ -25,6 +25,9 @@ const KNOWN_PATHS = new Set<string>([
   "/privacy",
   "/terms",
   "/security",
+  "/resources",
+  "/blog",
+  "/news/fleuret-raises-3-5m",
   "/en",
   "/en/about",
   "/en/careers",
@@ -33,7 +36,14 @@ const KNOWN_PATHS = new Set<string>([
   "/en/privacy",
   "/en/terms",
   "/en/security",
+  "/en/resources",
+  "/en/blog",
+  "/en/news/fleuret-raises-3-5m",
 ]);
+
+// Dynamic blog post paths: /blog/:slug and /en/blog/:slug. Slugs are
+// alphanumeric + hyphens, must have >=1 char, no extra path segments.
+const BLOG_POST_RE = /^(?:\/en)?\/blog\/[a-z0-9][a-z0-9-]*$/;
 
 export default function middleware(request: Request): Response {
   const url = new URL(request.url);
@@ -44,7 +54,7 @@ export default function middleware(request: Request): Response {
     return Response.redirect(url.toString(), 301);
   }
 
-  if (KNOWN_PATHS.has(url.pathname)) {
+  if (KNOWN_PATHS.has(url.pathname) || BLOG_POST_RE.test(url.pathname)) {
     return next();
   }
 
