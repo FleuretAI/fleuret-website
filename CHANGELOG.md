@@ -18,6 +18,7 @@ All notable changes to the Fleuret website. Format based on [Keep a Changelog](h
 
 ### Fixed
 
+- **Production 404s on `/resources`, `/blog`, `/news/fleuret-raises-3-5m` (+ `/en` mirrors) and `/blog/:slug`.** Edge middleware (`middleware.ts`) kept a hardcoded `KNOWN_PATHS` allowlist that was not updated when these routes were added. Anything not in the set was rewritten to `/404.html` with a 404 status before Vercel could serve the prerendered static files. Added the missing paths (`/resources`, `/blog`, `/news/fleuret-raises-3-5m`, and their `/en` mirrors) and a `BLOG_POST_RE` regex (`/^(?:\/en)?\/blog\/[a-z0-9][a-z0-9-]*$/`) so every `/blog/:slug` is recognized. Previous fix attempts (removing the SPA catch-all rewrite, ensure-fallback-shells writing both flat and nested index.html) were correct but neutralized by the middleware gate upstream of static file resolution.
 - Pre-existing vitest failures on main: `scripts/build-post-registry.test.ts` referenced `dist/post-manifest.json` but the codegen writes `.post-manifest.json` at repo root. Updated the test path. Added a `pretest` npm hook so `build:posts` runs before vitest (guarantees the manifest exists when codegen smoke tests read it). Stubbed `IntersectionObserver` in `tests/setup.ts` so framer-motion's `whileInView` no longer throws under jsdom in `BlogIndex` tests.
 
 ### Added
