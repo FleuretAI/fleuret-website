@@ -193,8 +193,8 @@ export function designPartnerOfferJsonLd(params: {
       : "Fleuret Design Partner Cohort";
   const productDescription =
     params.locale === "fr"
-      ? `${params.pentestsIncluded} pentests par IA agentique en ${params.pilotWeeks} semaines, livrable conforme NIS2/DORA.`
-      : `${params.pentestsIncluded} agentic AI pentests in ${params.pilotWeeks} weeks, NIS2/DORA-ready report.`;
+      ? `${params.pentestsIncluded} pentests par IA agentique en ${params.pilotWeeks} semaines, livrable Compliance ready.`
+      : `${params.pentestsIncluded} agentic AI pentests in ${params.pilotWeeks} weeks, Compliance-ready report.`;
 
   const product: JsonLd = {
     "@context": "https://schema.org",
