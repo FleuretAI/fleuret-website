@@ -244,7 +244,7 @@ const About = () => {
     <div className="min-h-screen">
       <SEO pageKey="about" />
       <Navbar />
-      <main id="main-content" className="pt-24 md:pt-28 pb-20">
+      <main id="main-content" className="pt-40 md:pt-48 pb-20">
         {/* Hero */}
         <section className="container mx-auto px-4 text-center mb-10 md:mb-12">
           <ScrollReveal>

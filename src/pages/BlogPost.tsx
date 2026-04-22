@@ -72,7 +72,7 @@ const BlogPost = () => {
         <Navbar />
         <main
           id="main-content"
-          className="pt-32 pb-20 min-h-[60vh] flex items-center justify-center"
+          className="pt-40 md:pt-48 pb-20 min-h-[60vh] flex items-center justify-center"
         >
           <div className="container mx-auto px-4 text-center">
             <div className="max-w-xl mx-auto space-y-6">
@@ -144,7 +144,7 @@ const BlogPost = () => {
 
 function PostSkeleton() {
   return (
-    <main id="main-content" className="pt-32 pb-20 min-h-[60vh]">
+    <main id="main-content" className="pt-40 md:pt-48 pb-20 min-h-[60vh]">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto animate-pulse">
           <div className="h-3 w-32 bg-white/5 rounded mb-6" />
@@ -188,7 +188,7 @@ function PostArticle({
   const linkedInHref = `https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`;
 
   return (
-    <main id="main-content" className="pt-32 pb-20">
+    <main id="main-content" className="pt-40 md:pt-48 pb-20">
       <article
         ref={ref}
         data-post-slug={meta.slug}
