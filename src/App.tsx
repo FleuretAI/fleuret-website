@@ -62,7 +62,7 @@ const App = () => (
       <BrowserRouter>
         <LanguageProvider>
           <ScrollToTop />
-          <AnnouncementBanner />
+          {import.meta.env.VITE_ANNOUNCE_VISIBLE !== "false" && <AnnouncementBanner />}
           <Suspense fallback={null}>
             <Routes>
               {[...APP_ROUTES, ...EN_MIRRORED].map((r) => (
