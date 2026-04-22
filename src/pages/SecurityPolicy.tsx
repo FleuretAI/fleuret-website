@@ -7,7 +7,7 @@ const SecurityPolicy = () => {
   const isFr = language === "fr";
 
   return (
-    <main id="main-content" className="min-h-screen pt-32 pb-20 px-4">
+    <main id="main-content" className="min-h-screen pt-40 md:pt-48 pb-20 px-4">
       <SEO pageKey="security" />
       <div className="max-w-3xl mx-auto">
         <Link

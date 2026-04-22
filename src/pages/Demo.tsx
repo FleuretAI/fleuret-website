@@ -52,7 +52,7 @@ const Demo = () => {
         style={{
           position: "relative",
           overflow: "hidden",
-          paddingTop: "8rem",
+          paddingTop: "12rem",
           paddingBottom: "6rem",
           flex: 1,
         }}

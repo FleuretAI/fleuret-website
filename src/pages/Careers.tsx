@@ -36,7 +36,7 @@ const Careers = () => {
     <div className="min-h-screen">
       <SEO pageKey="careers" />
       <Navbar />
-      <main id="main-content" className="pt-32 pb-20">
+      <main id="main-content" className="pt-40 md:pt-48 pb-20">
         {/* Hero */}
         <section className="container mx-auto px-4 text-center mb-20">
           <ScrollReveal>

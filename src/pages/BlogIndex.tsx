@@ -19,7 +19,7 @@ const BlogIndex = () => {
     <>
       <SEO pageKey="blog" />
       <Navbar />
-      <main id="main-content" className="pt-32 pb-20">
+      <main id="main-content" className="pt-40 md:pt-48 pb-20">
         <section className="container mx-auto px-4 text-center mb-16 md:mb-20">
           <ScrollReveal>
             <div className="max-w-3xl mx-auto space-y-6">
