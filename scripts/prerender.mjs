@@ -41,6 +41,7 @@ const FR_PATHS = [
   "/security",
   "/resources",
   "/blog",
+  "/news/fleuret-raises-3-5m",
 ];
 const EN_PATHS = FR_PATHS
   .filter((p) => p !== "/mentions-legales")

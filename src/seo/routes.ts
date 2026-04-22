@@ -12,6 +12,7 @@ export type RouteKey =
   | "security"
   | "resources"
   | "blog"
+  | "fundraise"
   | "notFound";
 
 export const SITE_URL = "https://fleuret.ai";
@@ -33,6 +34,7 @@ export const ROUTES: Record<RouteKey, LocalePath> = {
   security: { fr: "/security", en: "/en/security" },
   resources: { fr: "/resources", en: "/en/resources" },
   blog: { fr: "/blog", en: "/en/blog" },
+  fundraise: { fr: "/news/fleuret-raises-3-5m", en: "/en/news/fleuret-raises-3-5m" },
   notFound: { fr: "/404", en: "/en/404" },
 };
 
@@ -181,6 +183,22 @@ export const META: Record<RouteKey, Record<Locale, MetaEntry>> = {
       title: "Blog | Fleuret",
       description:
         "Our latest insights on continuous AI pentesting, European compliance and offensive security.",
+    },
+  },
+  fundraise: {
+    fr: {
+      title: "Fleuret lève 3,5 M€ pour industrialiser le pentest par IA agentique",
+      description:
+        "Fleuret lève 3,5 M€ (équity + prêt amorçage Bpifrance) pour accélérer le pentest par IA agentique en Europe. Tour mené par RAISE Capital avec Auriga, Wind et United Founders.",
+      keywords:
+        "Fleuret, levée de fonds, seed, pentest IA, cybersécurité, RAISE Capital, Auriga, Bpifrance, NIS2, DORA",
+    },
+    en: {
+      title: "Fleuret raises €3.5M to industrialize agentic AI pentesting",
+      description:
+        "Fleuret raises €3.5M (equity + Bpifrance innovation loan) to accelerate agentic AI pentesting in Europe. Round led by RAISE Capital with Auriga, Wind and United Founders.",
+      keywords:
+        "Fleuret, seed round, funding, agentic AI pentesting, cybersecurity, RAISE Capital, Auriga, Bpifrance, NIS2, DORA",
     },
   },
   notFound: {

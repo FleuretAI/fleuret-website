@@ -8,7 +8,6 @@ import ScrollReveal from "@/components/motion/ScrollReveal";
 import StaggerGroup from "@/components/motion/StaggerGroup";
 import { staggerItem } from "@/lib/animations";
 import { SEO } from "@/seo/SEO";
-import { SITE_URL } from "@/seo/routes";
 import { DEMO_ROUTE } from "@/lib/routes";
 import yanisPhoto from "@/assets/yanis.png";
 import pierrePhoto from "@/assets/pierre-gabriel.png";
@@ -26,12 +25,7 @@ import stoikLogo from "@/assets/investors/stoik.svg";
 
 type Lang = "fr" | "en";
 
-const PATH_FR = "/news/fleuret-raises-3-5m";
-const PATH_EN = "/en/news/fleuret-raises-3-5m";
-
 const copy: Record<Lang, {
-  metaTitle: string;
-  metaDesc: string;
   date: string;
   byline: string;
   heroKicker: string;
@@ -61,8 +55,6 @@ const copy: Record<Lang, {
   back: string;
 }> = {
   fr: {
-    metaTitle: "Fleuret lève 3,5 M€ pour industrialiser le pentest par IA agentique",
-    metaDesc: "Fleuret lève 3,5 M€ (équity + prêt amorçage BPI) pour accélérer le pentest par IA agentique en Europe. Tour mené par RAISE Capital avec Auriga, Wind et United Founders.",
     date: "21 avril 2026",
     byline: "Yanis Grigy, Augustin Ponsin et Pierre-Gabriel Berlureau, équipe fondatrice",
     heroKicker: "Annonce",
@@ -101,8 +93,6 @@ const copy: Record<Lang, {
     back: "← Retour à l'accueil",
   },
   en: {
-    metaTitle: "Fleuret raises €3.5M to industrialize agentic AI pentesting",
-    metaDesc: "Fleuret raises €3.5M (equity + Bpifrance innovation loan) to accelerate agentic AI pentesting in Europe. Round led by RAISE Capital with Auriga, Wind and United Founders.",
     date: "April 21, 2026",
     byline: "Yanis Grigy, Augustin Ponsin and Pierre-Gabriel Berlureau, founding team",
     heroKicker: "Announcement",
@@ -292,23 +282,9 @@ const FleuretRaises = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  const canonical = SITE_URL + (language === "fr" ? PATH_FR : PATH_EN);
-
   return (
     <div className="min-h-screen">
-      <SEO
-        meta={{
-          title: c.metaTitle,
-          description: c.metaDesc,
-          canonical,
-          hreflangs: [
-            { hrefLang: "fr", href: SITE_URL + PATH_FR },
-            { hrefLang: "en", href: SITE_URL + PATH_EN },
-            { hrefLang: "x-default", href: SITE_URL + PATH_EN },
-          ],
-        }}
-        noindex
-      />
+      <SEO pageKey="fundraise" />
       <Navbar />
       <main id="main-content" className="pt-40 md:pt-48 pb-20">
         {/* Hero */}
