@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import CookieBanner from "./components/CookieBanner";
 import AnnouncementBanner from "./components/AnnouncementBanner";
+import Analytics from "./components/Analytics";
 import ScrollToTop from "./components/ScrollToTop";
 import Index from "./pages/Index";
 // BlogPost is EAGER-imported (not React.lazy). Prerender Puppeteer waits for
@@ -62,6 +63,7 @@ const App = () => (
       <BrowserRouter>
         <LanguageProvider>
           <ScrollToTop />
+          <Analytics />
           {import.meta.env.VITE_ANNOUNCE_VISIBLE !== "false" && <AnnouncementBanner />}
           <Suspense fallback={null}>
             <Routes>

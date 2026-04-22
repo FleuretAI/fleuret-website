@@ -41,9 +41,11 @@
     <link rel="preconnect" href="https://fonts.cdnfonts.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/lufga" />
 
-    <!-- Google Analytics 4 (gtag.js) runs in consent-denied mode per the
-         gtag('consent','default') block above. GA4 still sends anonymized,
-         cookieless pings (Google Consent Mode v2) without a user-facing banner. -->
+    <!-- Google Analytics 4 (gtag.js). Boots with analytics_storage=denied per the
+         gtag('consent','default') block above. src/components/Analytics.tsx
+         bridges the cookie banner: on accept it fires consent 'update' to
+         granted; before that GA4 sends anonymized, cookieless pings (Consent
+         Mode v2). Analytics.tsx also emits SPA page_view on route change. -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-BDLDM7JEZR"></script>
     <script>
       gtag('js', new Date());

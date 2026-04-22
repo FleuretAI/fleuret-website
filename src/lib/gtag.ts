@@ -34,3 +34,49 @@ export function trackEvent(
     // Never let analytics throw into product code.
   }
 }
+
+/**
+ * Upgrade GA4 Consent Mode v2 from the default "denied" state to "granted" for
+ * analytics. Called after the user accepts the cookie banner. GA4 backfills any
+ * buffered pings from the pre-consent window once this fires.
+ */
+export function grantAnalyticsConsent(): void {
+  if (!isGtagAvailable()) return;
+  try {
+    (window as WindowWithGtag).gtag!("consent", "update", {
+      analytics_storage: "granted",
+    });
+  } catch {
+    // no-op
+  }
+}
+
+/** Revoke analytics consent back to denied. Called when the user clicks Refuse. */
+export function denyAnalyticsConsent(): void {
+  if (!isGtagAvailable()) return;
+  try {
+    (window as WindowWithGtag).gtag!("consent", "update", {
+      analytics_storage: "denied",
+    });
+  } catch {
+    // no-op
+  }
+}
+
+/**
+ * Fire a GA4 `page_view` for SPA route transitions. React Router does not
+ * trigger one automatically; without this, only the initial HTML load is
+ * counted and every subsequent client-side navigation is invisible to GA4.
+ */
+export function trackPageView(path: string, title?: string): void {
+  if (!isGtagAvailable()) return;
+  try {
+    (window as WindowWithGtag).gtag!("event", "page_view", {
+      page_path: path,
+      page_location: window.location.href,
+      page_title: title ?? document.title,
+    });
+  } catch {
+    // no-op
+  }
+}
