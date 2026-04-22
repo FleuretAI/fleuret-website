@@ -4,6 +4,10 @@ All notable changes to the Fleuret website. Format based on [Keep a Changelog](h
 
 ## [Unreleased]
 
+### Added
+
+- **Hidden fundraise announcement page at `/news/fleuret-raises-3-5m`** (+ `/en` mirror). Bilingual FR/EN announcement of the €3.5M seed (€2.8M equity led by RAISE Capital with Auriga Cyber Ventures, Wind Capital and United Founders, plus a €700k Bpifrance innovation loan). Page renders Fleuret-native editorial: hero + byline (Yanis Grigy, Augustin Ponsin, Pierre-Gabriel Berlureau), use-of-funds breakdown (product / team / distribution), investor + angel grids sourced from the public About page roster, NIS2/DORA commitment section, founding-team photos, closing CTA to `/demo`. The page is intentionally unlinked: not in Navbar, Footer, AnnouncementBanner, sitemap, or prerender route list. SEO ships `<meta robots="noindex, nofollow">` via the existing SEO component override. URL resolves client-side only. Launch flip (documented in the design doc) toggles `noindex` off, adds the route to `scripts/prerender.mjs` and the sitemap generator, and points `ANNOUNCE_HREF` in `AnnouncementBanner.tsx` at the page when press embargo drops.
+
 ### Changed
 
 - **Hero telemetry pill replaced with rolling log tail.** The `FLEURET SCANNING` / `FLEURET COMPLETE` pill at the bottom-right of the hero canvas read as generic SaaS loading state and put the brand name inside its own telemetry. Replaced with a 3-line monospace log stream cycling real-pentest-shaped findings (`[+] 443/tcp open`, `[!] idor /user/{id}`, etc.) while scanning, freezing to `[+] scan complete / [+] N findings recorded / [✓] report sealed` when the graph fills. Finding count is computed live from the HUD vuln counters so the sealed state never contradicts the numbers on the left. Severity coloring: neutral for `[+]`, red for `[!]`, violet for `[✓]`. Desktop gate (`W >= 640`) and intro-fade handling preserved. Reduced-motion path still jumps straight to sealed.

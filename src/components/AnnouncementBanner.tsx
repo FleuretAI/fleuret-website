@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const HIDE_THRESHOLD_PX = 40;
-// Optional external link; set to "" to hide CTA.
-const ANNOUNCE_HREF = "";
+// Internal SPA route; set to "" to hide CTA.
+const ANNOUNCE_HREF = "/news/fleuret-raises-3-5m";
 const BANNER_HEIGHT_PX = 48;
 
 const AnnouncementBanner = () => {
-  const { t } = useLanguage();
+  const { t, localize } = useLanguage();
   const [hidden, setHidden] = useState(false);
 
   useEffect(() => {
@@ -84,7 +84,7 @@ const AnnouncementBanner = () => {
         </span>
         {ANNOUNCE_HREF && (
           <a
-            href={ANNOUNCE_HREF}
+            href={localize(ANNOUNCE_HREF)}
             className="hidden sm:inline text-white/90 hover:text-white underline underline-offset-4 decoration-white/40 hover:decoration-white"
             style={{ fontSize: "clamp(0.85rem, 1.3vw, 1rem)", fontWeight: 500 }}
           >
