@@ -37,7 +37,7 @@ const PrivacyPolicy = () => {
               </p>
               <p><strong className="text-white/70">FLEURET AI</strong>, SAS immatriculée au RCS de Paris sous le numéro 999 515 604.</p>
               <p>Siège social : 60 Rue François 1er, 75008 Paris, France</p>
-              <p>Email : <a href="mailto:contact@fleuret.ai" className="text-[var(--accent-blue)] hover:underline">contact@fleuret.ai</a></p>
+              <p>Email : <a href="mailto:yanis@fleuret.ai" className="text-[var(--accent-blue)] hover:underline">yanis@fleuret.ai</a></p>
             </>
           ) : (
             <>
@@ -47,7 +47,7 @@ const PrivacyPolicy = () => {
               </p>
               <p><strong className="text-white/70">FLEURET AI</strong>, a French SAS registered with the Paris Trade and Companies Register under number 999 515 604.</p>
               <p>Registered office: 60 Rue François 1er, 75008 Paris, France</p>
-              <p>Email: <a href="mailto:contact@fleuret.ai" className="text-[var(--accent-blue)] hover:underline">contact@fleuret.ai</a></p>
+              <p>Email: <a href="mailto:yanis@fleuret.ai" className="text-[var(--accent-blue)] hover:underline">yanis@fleuret.ai</a></p>
             </>
           )}
         </div>
@@ -202,7 +202,7 @@ const PrivacyPolicy = () => {
               </ul>
               <p>
                 Pour exercer ces droits, contactez-nous à{" "}
-                <a href="mailto:contact@fleuret.ai" className="text-[var(--accent-blue)] hover:underline">contact@fleuret.ai</a>.
+                <a href="mailto:yanis@fleuret.ai" className="text-[var(--accent-blue)] hover:underline">yanis@fleuret.ai</a>.
                 Nous répondrons dans un délai de 30 jours.
               </p>
               <p>
@@ -225,7 +225,7 @@ const PrivacyPolicy = () => {
               </ul>
               <p>
                 To exercise these rights, contact us at{" "}
-                <a href="mailto:contact@fleuret.ai" className="text-[var(--accent-blue)] hover:underline">contact@fleuret.ai</a>.
+                <a href="mailto:yanis@fleuret.ai" className="text-[var(--accent-blue)] hover:underline">yanis@fleuret.ai</a>.
                 We will respond within 30 days.
               </p>
               <p>
@@ -330,7 +330,7 @@ const PrivacyPolicy = () => {
               </p>
               <p>
                 Délégué à la protection des données (DPO) :{" "}
-                <a href="mailto:contact@fleuret.ai" className="text-[var(--accent-blue)] hover:underline">contact@fleuret.ai</a>
+                <a href="mailto:yanis@fleuret.ai" className="text-[var(--accent-blue)] hover:underline">yanis@fleuret.ai</a>
               </p>
               <p>
                 Autorité de contrôle : CNIL —{" "}
@@ -344,7 +344,7 @@ const PrivacyPolicy = () => {
               </p>
               <p>
                 Data Protection Officer (DPO):{" "}
-                <a href="mailto:contact@fleuret.ai" className="text-[var(--accent-blue)] hover:underline">contact@fleuret.ai</a>
+                <a href="mailto:yanis@fleuret.ai" className="text-[var(--accent-blue)] hover:underline">yanis@fleuret.ai</a>
               </p>
               <p>
                 Supervisory authority: CNIL —{" "}
