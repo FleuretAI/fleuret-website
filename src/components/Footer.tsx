@@ -32,8 +32,8 @@ const Footer = () => {
           {/* Brand */}
           <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "0.625rem" }}>
-              <img src={logoSymbol} alt="" className="brightness-0 invert" style={{ height: 32, width: "auto", objectFit: "contain" }} width="34" height="59" />
-              <img src={logoWordmark} alt="Fleuret" className="brightness-0 invert" style={{ height: 32, width: "auto", objectFit: "contain" }} width="49" height="12" />
+              <img src={logoSymbol} alt="" className="brightness-0 invert" style={{ height: 32, width: "auto", objectFit: "contain" }} width="59" height="111" />
+              <img src={logoWordmark} alt="Fleuret" className="brightness-0 invert" style={{ height: 32, width: "auto", objectFit: "contain" }} width="454" height="111" />
             </div>
             <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.875rem", lineHeight: 1.7, margin: 0 }}>
               {t("footer.tagline")}

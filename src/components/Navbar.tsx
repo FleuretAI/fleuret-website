@@ -70,7 +70,7 @@ const Navbar = () => {
                 "w-auto object-contain transition-all duration-300 brightness-0 invert",
                 scrolled ? "h-8" : "h-10"
               )}
-              width="34" height="59"
+              width="59" height="111"
             />
             <img
               src={logoWordmark}
@@ -79,7 +79,7 @@ const Navbar = () => {
                 "w-auto object-contain transition-all duration-300 brightness-0 invert",
                 scrolled ? "h-8" : "h-10"
               )}
-              width="49" height="12"
+              width="454" height="111"
             />
           </Link>
 
