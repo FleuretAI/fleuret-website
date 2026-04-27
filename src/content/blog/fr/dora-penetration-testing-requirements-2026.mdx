@@ -1,0 +1,57 @@
+---
+title: "Tests d'intrusion et DORA : ce que les entités financières doivent faire en 2026"
+description: "DORA est en vigueur depuis janvier 2025. Voici ce que ses règles de tests d'intrusion attendent vraiment des banques européennes, des assureurs et de leurs fournisseurs."
+date: "2026-04-27"
+author: "Yanis Grigy, CEO"
+tags: ["DORA", "Conformité", "Secteur financier"]
+locale: "fr"
+slug: "dora-penetration-testing-requirements-2026"
+---
+
+## DORA en un paragraphe
+
+Le règlement DORA (Digital Operational Resilience Act) est entré en vigueur le 17 janvier 2025. Il s'applique à toute entité financière européenne (banques, assureurs, gérants d'actifs, prestataires de paiement, prestataires d'actifs numériques) et à un large spectre de leurs fournisseurs ICT critiques. Les tests d'intrusion ne sont plus une ligne de "bonne pratique" dans la politique sécurité. C'est une obligation réglementaire, avec des périmètres, des cadences et des preuves nommées.
+
+## Ce que le règlement exige réellement
+
+Deux niveaux, souvent confondus.
+
+**Niveau 1 : pentests réguliers sur les systèmes ICT supportant des fonctions critiques ou importantes.** L'article 24 impose un programme de tests documenté, proportionné à la taille, au profil de risque et à la complexité. En pratique, les superviseurs nationaux (ACPR en France, BaFin en Allemagne, CNMV en Espagne) lisent cela comme "annuel a minima, avec couverture continue des changements." Pas optionnel. Pas "l'année prochaine".
+
+**Niveau 2 : Threat-Led Penetration Testing (TLPT) tous les trois ans pour les entités significatives.** Inspiré de TIBER-EU. Obligatoire pour les institutions d'importance systémique. Périmètre red team, mené sur intelligence ciblée, plusieurs semaines, coûteux. C'est la règle la plus visible, mais c'est le niveau 1 que la plupart des RSSI sous-estiment.
+
+> Si votre organisation est sous DORA mais hors TLPT, vous devez quand même des pentests réguliers et probants sur chaque application web critique, chaque API, chaque surface externe.
+
+## Les preuves attendues par le superviseur
+
+Un PDF ne suffit plus. Les superviseurs européens attendent :
+
+1. **Traçabilité du périmètre.** Quels actifs ont été testés, lesquels exclus, pourquoi.
+2. **Findings reproductibles.** Chaque vulnérabilité documentée par une preuve d'exploitation que l'auditeur peut vérifier.
+3. **Mapping de sévérité.** CVSS et notation d'impact métier sur le registre de risques de l'établissement.
+4. **Calendrier de remédiation.** Tickets, responsables, dates cibles, preuve de retest.
+5. **Indépendance.** Le testeur doit être opérationnellement indépendant de l'équipe qui a construit le système.
+
+La plupart des cabinets boutique livrent les points 1, 3 et 4. Les points 2 et 5 sont là où le pentest automatisé apporte un avantage : chaque PoC est reproductible par construction, et l'agent de test est structurellement indépendant.
+
+## Les fournisseurs sont aussi concernés
+
+C'est la pièce que la plupart des équipes produit oublient. Si vous vendez du SaaS à une banque française, vous êtes "fournisseur ICT tiers" au sens de DORA. L'auditeur de la banque demandera vos preuves de pentest. "Faites-nous confiance, on a un SOC 2" ne suffit pas.
+
+C'est pourquoi nous voyons des éditeurs logiciels demander des pentests trimestriels : leurs clients financiers répercutent l'obligation. Le modèle de coût du pentest classique ne tient pas cette cadence.
+
+## Ce qui se durcit en 2026
+
+Trois choses se resserrent cette année.
+
+1. **Le cadre TLPT finalisé.** L'ESMA, l'EBA et l'EIOPA ont publié les RTS conjoints fin 2025. Les autorités nationales opérationnalisent le scoping et l'accréditation des red teams en 2026.
+2. **Registre des sous-traitants.** Les entités financières doivent maintenir un registre de leurs tiers ICT avec preuves de pentest nommées. Cases vides égalent un constat d'audit.
+3. **Le test continu comme nouveau plancher.** Les superviseurs lisent de plus en plus "régulier" comme "continu pour les systèmes à forte criticité." L'annuel devient un plafond, plus un minimum.
+
+## Comment Fleuret s'inscrit
+
+Fleuret réalise des pentests autonomes par IA sur les applications web, les API REST et GraphQL, et l'infrastructure externe. Six heures entre la demande et le rapport. Chaque finding inclut un PoC reproductible. Les rapports sont mappés sur les familles de contrôles DORA et signés pour vérification offline par l'auditeur en Ed25519, pas une confiance contrôlée par le fournisseur.
+
+À 2 500 € par pentest en prix catalogue, contre une norme de marché à 10 000 / 30 000 €, le coût de la conformité change. Le continu devient soutenable. L'annuel cesse d'être un exercice budgétaire.
+
+Si votre organisation est dans le périmètre DORA et que votre cadence actuelle ne suit pas, [parlons-en](/demo).
