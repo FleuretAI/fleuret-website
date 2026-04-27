@@ -4,6 +4,10 @@ All notable changes to the Fleuret website. Format based on [Keep a Changelog](h
 
 ## [Unreleased]
 
+### Removed
+
+- **`/design-partners` "Apply to the pilot" form section.** Removed the inline 5-field application form (`<ApplyForm />`) and the entire `#apply` section that wrapped it. The hero CTA now points to `/demo` directly via the same `Link to={localize(DEMO_ROUTE)}` pattern used by the home page hero, displaying the standard "Book a demo" / "Réserver une démo" copy (`t("hero.cta")`). The remaining-slots badge in the hero badge row is also gone (`useSlots()` no longer called on this page); the slot-availability narrative is now communicated via the static cohort countdown only. The page keeps timeline, proof, qualify, and FAQ sections unchanged. `ApplyForm`, `useSlots`, and the `slot.remaining`-driven conditional copy are still exported from their modules and remain wired into the Supabase apply pipeline (`api/apply.ts`, `api/slots.ts`) for any future reactivation, but no page renders them today.
+
 ### Changed
 
 - **SEO heading copy on home, /about, /resources, plus pricing and "How it works" sections (FR + EN).** The site previously ranked only for "Fleuret" branded queries because most non-hero H1/H2s were brand voice with zero target keywords. Rewrote 8 i18n keys in `src/contexts/LanguageContext.tsx` to embed `pentest`, `pentest IA`, `pentest automatisé`, `AI pentesting`, `souverain` / `sovereign`, `conformité` / `compliance` into the highest-traffic headings. Hero H1 left untouched per founder direction (brand voice retained). Touched: `process.main.title` (FR/EN — adds "pentest automatisé" / "automated AI pentesting"), `pricing.title.main` FR / `pricing.title.accent` EN (adds "pentest"), `about.hero.highlight` FR/EN (adds "IA souverain" / "sovereign AI"), `resources.hero.title` FR/EN (full keyword H1). Added a regression test at `tests/seo/headings.test.ts` (14 cases) that asserts each rewritten key is present in both locales and contains the required keywords, plus exported `translations` from `LanguageContext.tsx` so tests can reach it without rendering the full provider.
