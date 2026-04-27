@@ -21,25 +21,11 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, "..");
 const DIST = join(ROOT, "dist");
 
-// Static FR + EN routes. Mirror of scripts/prerender.mjs route list.
-const FR_PATHS = [
-  "/",
-  "/about",
-  "/careers",
-  "/design-partners",
-  "/demo",
-  "/mentions-legales",
-  "/privacy",
-  "/terms",
-  "/security",
-  "/resources",
-  "/blog",
-  "/news/fleuret-raises-3-5m",
-];
-const EN_PATHS = FR_PATHS
-  .filter((p) => p !== "/mentions-legales")
-  .map((p) => (p === "/" ? "/en" : `/en${p}`));
-const EXTRA_PATHS = ["/404"];
+import {
+  STATIC_FR_PATHS as FR_PATHS,
+  STATIC_EN_PATHS as EN_PATHS,
+  BUILD_ONLY_PATHS as EXTRA_PATHS,
+} from "./site-routes.mjs";
 
 // Dynamic post paths from the codegen manifest written by
 // scripts/build-post-registry.ts and copied into dist/ by build-sitemap.
