@@ -13,7 +13,7 @@ interface LanguageContextType {
   localize: (basePath: string) => string;
 }
 
-const translations = {
+export const translations = {
   fr: {
     // Navbar
     'nav.home': 'Accueil',
@@ -113,7 +113,7 @@ const translations = {
     'platform.reports.desc': 'PDF accepté par vos auditeurs (ISO 27001, SOC 2, NIS2, DORA). Dashboard temps réel. PoC pour chaque finding. Remédiation priorisée.',
 
     // How it Works
-    'process.main.title': 'Comment ça',
+    'process.main.title': 'Pentest automatisé. Comment ça',
     'process.main.works': 'fonctionne',
     'process.main.subtitle': 'De votre périmètre au rapport signé. Pas de cabinet. Pas d\'appel d\'offres.',
     'process.deploy.title': 'Connectez votre périmètre',
@@ -161,7 +161,7 @@ const translations = {
     // Pricing
     'pricing.title': 'Pricing',
     'pricing.subtitle': 'transparent',
-    'pricing.title.main': 'Tarification',
+    'pricing.title.main': 'Tarification pentest',
     'pricing.title.accent': 'transparente',
     'pricing.description': 'Des résultats de niveau pentest, sans la facture de cabinet.',
     'pricing.standard.name': 'Standard',
@@ -250,7 +250,7 @@ const translations = {
 
     // About
     'about.hero.title': 'On construit le futur',
-    'about.hero.highlight': 'du pentest.',
+    'about.hero.highlight': 'du pentest IA souverain.',
     'about.hero.subtitle': 'Fleuret AI combine intelligence artificielle et expertise offensive pour rendre le pentest accessible, continu et souverain.',
     'about.mission.title': 'Notre mission',
     'about.mission.desc': 'Le pentest traditionnel est lent, cher et ponctuel. On croit qu\'il devrait être rapide, abordable et continu. Fleuret utilise l\'IA agentique pour simuler de vraies attaques sur vos systèmes, avec la même rigueur qu\'un pentester humain, mais en heures, pas en semaines.',
@@ -381,7 +381,7 @@ const translations = {
     'demo.fallback.link': 'Réserver directement',
 
     // Resources hub
-    'resources.hero.title': 'Ressources',
+    'resources.hero.title': 'Ressources pentest IA & conformité',
     'resources.hero.subtitle': 'Analyses et retours d\'expérience sur le pentest continu par IA agentique, la conformité européenne et la sécurité offensive.',
     'resources.blog.label': 'Blog',
     'resources.blog.title': 'Dernières analyses',
@@ -505,7 +505,7 @@ const translations = {
     'platform.reports.desc': 'PDF your auditor accepts (ISO 27001, SOC 2, NIS2, DORA). Real-time dashboard. PoC for every finding. Prioritized remediation.',
 
     // How it Works
-    'process.main.title': 'How it',
+    'process.main.title': 'How automated AI pentesting',
     'process.main.works': 'works',
     'process.main.subtitle': 'From your perimeter to a signed report. No firm. No procurement call.',
     'process.deploy.title': 'Connect your perimeter',
@@ -554,7 +554,7 @@ const translations = {
     'pricing.title': 'Transparent',
     'pricing.subtitle': 'pricing',
     'pricing.title.main': 'Transparent',
-    'pricing.title.accent': 'pricing',
+    'pricing.title.accent': 'pentest pricing',
     'pricing.description': 'Pentest-grade results without a firm-grade invoice.',
     'pricing.standard.name': 'Standard',
     'pricing.startingAt': 'Starting at',
@@ -642,7 +642,7 @@ const translations = {
 
     // About
     'about.hero.title': 'Building the future',
-    'about.hero.highlight': 'of pentesting.',
+    'about.hero.highlight': 'of sovereign AI pentesting.',
     'about.hero.subtitle': 'Fleuret AI combines artificial intelligence and offensive expertise to make pentesting accessible, continuous, and sovereign.',
     'about.mission.title': 'Our mission',
     'about.mission.desc': 'Traditional pentesting is slow, expensive, and infrequent. We believe it should be fast, affordable, and continuous. Fleuret uses agentic AI to simulate real attacks on your systems, with the same rigor as a human pentester, but in hours, not weeks.',
@@ -773,7 +773,7 @@ const translations = {
     'demo.fallback.link': 'Book directly',
 
     // Resources hub
-    'resources.hero.title': 'Resources',
+    'resources.hero.title': 'AI pentest & compliance resources',
     'resources.hero.subtitle': 'Insights and field notes on continuous AI pentesting, European compliance and offensive security.',
     'resources.blog.label': 'Blog',
     'resources.blog.title': 'Latest insights',
