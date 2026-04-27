@@ -4,6 +4,10 @@ All notable changes to the Fleuret website. Format based on [Keep a Changelog](h
 
 ## [Unreleased]
 
+### Fixed
+
+- **`/changelog` rendered blank in production (`TypeError: t.split is not a function`).** `@mdx-js/rollup` defaults to processing both `.mdx` and `.md` files, so it intercepted `CHANGELOG.md` before Vite's `?raw` query handler could return the raw source string. The bundled chunk shipped a JSX component instead of a string, and `parseChangelog(raw)` crashed on the first `.split()`. Fixed in `vite.config.ts` by passing `mdExtensions: []` to `mdx()`, restricting MDX to `.mdx` files only. All blog posts are `.mdx`, so this has no impact on existing routes; it just frees `.md` for raw imports. Verified by inspecting the post-build chunk (`const A='# Changelog\\n...'` instead of an MDX component function).
+
 ### Added
 
 - **Public `/changelog` page (and `/en/changelog` mirror).** Renders this CHANGELOG.md as a typed, version-grouped page on fleuret.ai. Lazy-loaded from `App.tsx`, registered in middleware allowlist + prerender list + Footer, SEO meta in FR + EN. The page imports CHANGELOG.md via Vite `?raw`, parses it with a tiny deterministic markdown subset (`src/lib/parseChangelog.ts` — no new dep, just bold + code + strike + http links + soft-wrap bullets), and renders Added / Changed / Fixed / Removed sections per version with stable anchor ids. The motivation: visible shipping velocity needs a single URL we can point investors and customers at without forcing them to read GitHub. Every merge from now on lands here on the next deploy.
