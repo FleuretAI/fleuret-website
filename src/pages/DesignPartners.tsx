@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { HashLink } from "react-router-hash-link";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
 import Navbar from "@/components/Navbar";
@@ -120,17 +121,18 @@ const DesignPartners = () => {
               )}
 
               <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
-                <a href="#apply" className="btn-cta btn-cta--lg">
+                <HashLink to="#apply" smooth className="btn-cta btn-cta--lg">
                   {slots.remaining === 0
                     ? t("designPartners.hero.ctaWaitlist")
                     : t("designPartners.hero.cta")}
-                </a>
-                <a
-                  href="#timeline"
+                </HashLink>
+                <HashLink
+                  to="#timeline"
+                  smooth
                   className="text-sm text-white/70 hover:text-white underline-offset-4 hover:underline transition-colors"
                 >
                   {t("designPartners.hero.cta.secondary")}
-                </a>
+                </HashLink>
               </div>
             </div>
           </ScrollReveal>
