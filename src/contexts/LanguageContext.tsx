@@ -31,6 +31,9 @@ const translations = {
     // Common
     'common.back': '← Retour',
 
+    // Clients band
+    'clients.title': 'Ils nous font confiance',
+
     // Footer (additional)
     'footer.designPartners': 'Design Partners',
     'footer.legal': 'Légal',
@@ -409,6 +412,9 @@ const translations = {
 
     // Common
     'common.back': '← Back',
+
+    // Clients band
+    'clients.title': 'Trusted by',
 
     // Footer (additional)
     'footer.designPartners': 'Design Partners',
