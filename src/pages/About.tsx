@@ -10,7 +10,6 @@ import { DEMO_ROUTE } from "@/lib/routes";
 import { motion } from "framer-motion";
 import { SEO } from "@/seo/SEO";
 import yanisPhoto from "@/assets/yanis.png";
-import pierrePhoto from "@/assets/pierre-gabriel.png";
 import augustinPhoto from "@/assets/augustin.png";
 import hornetsecurityLogo from "@/assets/investors/hornetsecurity.png";
 import almondLogo from "@/assets/investors/almond.svg";
@@ -135,13 +134,6 @@ const team = [
     roleFr: "Co-fondateur & CEO",
     linkedin: "https://www.linkedin.com/in/yanis-grigy-793635237/",
     photo: yanisPhoto,
-  },
-  {
-    name: "Pierre-Gabriel Berlureau",
-    role: "Co-founder & CTO",
-    roleFr: "Co-fondateur & CTO",
-    linkedin: "https://www.linkedin.com/in/pierre-gabriel-berlureau-427320313/",
-    photo: pierrePhoto,
   },
   {
     name: "Augustin Ponsin",

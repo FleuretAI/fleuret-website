@@ -10,7 +10,6 @@ import { staggerItem } from "@/lib/animations";
 import { SEO } from "@/seo/SEO";
 import { DEMO_ROUTE } from "@/lib/routes";
 import yanisPhoto from "@/assets/yanis.png";
-import pierrePhoto from "@/assets/pierre-gabriel.png";
 import augustinPhoto from "@/assets/augustin.png";
 import raiseLogo from "@/assets/investors/raise.svg";
 import aurigaLogo from "@/assets/investors/auriga.svg";
@@ -56,7 +55,7 @@ const copy: Record<Lang, {
 }> = {
   fr: {
     date: "21 avril 2026",
-    byline: "Yanis Grigy, Augustin Ponsin et Pierre-Gabriel Berlureau, équipe fondatrice",
+    byline: "Yanis Grigy et Augustin Ponsin, équipe fondatrice",
     heroKicker: "Annonce",
     heroTitle: "Fleuret lève 3,5 M€ pour industrialiser le pentest par IA agentique",
     heroSub: "Un tour d'amorçage européen pour rendre le pentest continu, rapide et abordable. Webapp, API, infra externe aujourd'hui. Cloud, Active Directory et mobile dès 2026.",
@@ -85,7 +84,7 @@ const copy: Record<Lang, {
     complianceH: "NIS2, DORA, ISO 27001",
     complianceP: "Chaque rapport Fleuret cartographie les findings vers les référentiels attendus par vos auditeurs. La directive NIS2 et le règlement DORA imposent des tests d'intrusion réguliers. Fleuret en fait une opération continue, pas un projet annuel.",
     teamH: "L'équipe fondatrice",
-    teamP: "Trois co-fondateurs, une conviction : le pentest doit être aussi rapide que vos déploiements.",
+    teamP: "Deux co-fondateurs, une conviction : le pentest doit être aussi rapide que vos déploiements.",
     closingH: "Ce n'est qu'un début",
     closingP: "Si vous êtes RSSI, CTO, DPO ou dirigeant d'une entreprise européenne de 50 à 1 000 collaborateurs, nous voulons vous parler. Réservez une démo de 30 minutes avec un fondateur.",
     ctaDemo: "Réserver une démo",
@@ -94,7 +93,7 @@ const copy: Record<Lang, {
   },
   en: {
     date: "April 21, 2026",
-    byline: "Yanis Grigy, Augustin Ponsin and Pierre-Gabriel Berlureau, founding team",
+    byline: "Yanis Grigy and Augustin Ponsin, founding team",
     heroKicker: "Announcement",
     heroTitle: "Fleuret raises €3.5M to industrialize agentic AI pentesting",
     heroSub: "A European seed round to make pentesting continuous, fast and affordable. Webapp, API and external infrastructure today. Cloud, Active Directory and mobile coming in 2026.",
@@ -123,7 +122,7 @@ const copy: Record<Lang, {
     complianceH: "NIS2, DORA, ISO 27001",
     complianceP: "Every Fleuret report maps findings to the frameworks your auditors expect. NIS2 directive and DORA regulation require recurring penetration tests. Fleuret makes it a continuous operation, not a yearly project.",
     teamH: "The founding team",
-    teamP: "Three co-founders, one conviction: pentesting has to move as fast as your deployments.",
+    teamP: "Two co-founders, one conviction: pentesting has to move as fast as your deployments.",
     closingH: "Just the beginning",
     closingP: "If you're a CISO, CTO, DPO or executive at a European company of 50 to 1,000 employees, we want to talk. Book a 30-minute demo with a founder.",
     ctaDemo: "Book a demo",
@@ -215,7 +214,6 @@ const angels: InvestorTile[] = [
 const team = [
   { name: "Yanis Grigy", roleFr: "Co-fondateur & CEO", roleEn: "Co-founder & CEO", photo: yanisPhoto, linkedin: "https://www.linkedin.com/in/yanis-grigy-793635237/" },
   { name: "Augustin Ponsin", roleFr: "Co-fondateur & COO", roleEn: "Co-founder & COO", photo: augustinPhoto, linkedin: "https://www.linkedin.com/in/augustinponsin/" },
-  { name: "Pierre-Gabriel Berlureau", roleFr: "Co-fondateur & CTO", roleEn: "Co-founder & CTO", photo: pierrePhoto, linkedin: "https://www.linkedin.com/in/pierre-gabriel-berlureau-427320313/" },
 ];
 
 function InvestorTile({ inv, lang, idx }: { inv: InvestorTile; lang: Lang; idx: number }) {
