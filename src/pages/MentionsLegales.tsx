@@ -32,7 +32,7 @@ const MentionsLegales = () => {
           <p>Code APE : 6201Z, Programmation informatique</p>
           <p>N° TVA intracommunautaire : FR83999515604</p>
           <p>Président : Yanis Grigy</p>
-          <p>Directeurs Généraux : Pierre-Gabriel Berlureau, Augustin Ponsin</p>
+          <p>Directeur Général : Augustin Ponsin</p>
           <p className="mt-3">
             Email :{" "}
             <a
