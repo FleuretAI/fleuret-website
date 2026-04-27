@@ -3,6 +3,21 @@ import { Link } from "react-router-dom";
 import { mountHeroCanvas } from "@/lib/heroCanvas";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { DEMO_ROUTE } from "@/lib/routes";
+import stoikLogo from "@/assets/investors/stoik.svg";
+
+type TrustLogo = {
+  name: string;
+  logo: string;
+  href: string;
+  /** Set true to invert dark-on-light artwork so it reads on the dark hero. */
+  invert?: boolean;
+  /** Visual height in px at the largest breakpoint. */
+  heightPx?: number;
+};
+
+const TRUST_LOGOS: TrustLogo[] = [
+  { name: "Stoïk", logo: stoikLogo, href: "https://www.stoik.io/", invert: true, heightPx: 22 },
+];
 
 const Hero = () => {
   const { t, localize } = useLanguage();
@@ -129,6 +144,41 @@ const Hero = () => {
               {t("hero.cta")}
             </Link>
           </div>
+
+          {TRUST_LOGOS.length > 0 && (
+            <div
+              aria-label={t("clients.title")}
+              className="mt-12 sm:mt-14 flex flex-col items-center gap-4 sm:gap-5"
+            >
+              <span
+                className="text-[10px] sm:text-[11px] font-medium uppercase tracking-[0.22em] text-white/40"
+              >
+                {t("clients.title")}
+              </span>
+              <ul className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4 sm:gap-x-14">
+                {TRUST_LOGOS.map((c) => (
+                  <li key={c.name}>
+                    <a
+                      href={c.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={c.name}
+                      className="block opacity-60 transition-opacity duration-300 hover:opacity-95 focus-visible:opacity-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-400 rounded-sm"
+                    >
+                      <img
+                        src={c.logo}
+                        alt={c.name}
+                        loading="lazy"
+                        decoding="async"
+                        style={{ height: `${c.heightPx ?? 22}px` }}
+                        className={`w-auto select-none ${c.invert ? "invert brightness-0" : ""}`}
+                      />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       </div>
     </section>

@@ -233,6 +233,10 @@ function renderInvestorTile(
   );
 }
 
+// Hide investor wall while we're not actively fundraising. Flip to `true`
+// to restore Business Angels + Funds sections on /about.
+const SHOW_INVESTORS = false;
+
 const About = () => {
   const { language, t, localize } = useLanguage();
 
@@ -328,45 +332,48 @@ const About = () => {
           </div>
         </section>
 
-        {/* Business angels */}
-        <section className="container mx-auto px-4 pb-12 md:pb-16">
-          <div className="max-w-5xl mx-auto">
-            <ScrollReveal>
-              <div className="text-center mb-12">
-                <h2 className="text-3xl md:text-4xl font-light text-white mb-3">
-                  {t("about.investors.title")}
-                </h2>
-                <p className="text-white/50 text-sm md:text-base max-w-2xl mx-auto">
-                  {t("about.investors.subtitle")}
-                </p>
+        {/* Business angels + Funds — hidden via SHOW_INVESTORS while not raising. */}
+        {SHOW_INVESTORS && (
+          <>
+            <section className="container mx-auto px-4 pb-12 md:pb-16">
+              <div className="max-w-5xl mx-auto">
+                <ScrollReveal>
+                  <div className="text-center mb-12">
+                    <h2 className="text-3xl md:text-4xl font-light text-white mb-3">
+                      {t("about.investors.title")}
+                    </h2>
+                    <p className="text-white/50 text-sm md:text-base max-w-2xl mx-auto">
+                      {t("about.investors.subtitle")}
+                    </p>
+                  </div>
+                </ScrollReveal>
+
+                <StaggerGroup className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                  {investors.map((inv, idx) => renderInvestorTile(inv, idx, language))}
+                </StaggerGroup>
               </div>
-            </ScrollReveal>
+            </section>
 
-            <StaggerGroup className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {investors.map((inv, idx) => renderInvestorTile(inv, idx, language))}
-            </StaggerGroup>
-          </div>
-        </section>
+            <section className="container mx-auto px-4 pb-16 md:pb-24">
+              <div className="max-w-5xl mx-auto">
+                <ScrollReveal>
+                  <div className="text-center mb-12">
+                    <h2 className="text-3xl md:text-4xl font-light text-white mb-3">
+                      {t("about.vcs.title")}
+                    </h2>
+                    <p className="text-white/50 text-sm md:text-base max-w-2xl mx-auto">
+                      {t("about.vcs.subtitle")}
+                    </p>
+                  </div>
+                </ScrollReveal>
 
-        {/* VCs */}
-        <section className="container mx-auto px-4 pb-16 md:pb-24">
-          <div className="max-w-5xl mx-auto">
-            <ScrollReveal>
-              <div className="text-center mb-12">
-                <h2 className="text-3xl md:text-4xl font-light text-white mb-3">
-                  {t("about.vcs.title")}
-                </h2>
-                <p className="text-white/50 text-sm md:text-base max-w-2xl mx-auto">
-                  {t("about.vcs.subtitle")}
-                </p>
+                <StaggerGroup className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                  {vcs.map((inv, idx) => renderInvestorTile(inv, idx, language))}
+                </StaggerGroup>
               </div>
-            </ScrollReveal>
-
-            <StaggerGroup className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-              {vcs.map((inv, idx) => renderInvestorTile(inv, idx, language))}
-            </StaggerGroup>
-          </div>
-        </section>
+            </section>
+          </>
+        )}
 
         {/* CTA */}
         <section className="container mx-auto px-4 pb-16">
