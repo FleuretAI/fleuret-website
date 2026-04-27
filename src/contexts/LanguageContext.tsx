@@ -34,6 +34,16 @@ const translations = {
     // Clients band
     'clients.title': 'Ils nous font confiance',
 
+    // Changelog page
+    'changelog.title': 'Journal des changements',
+    'changelog.subtitle': 'Toutes les améliorations Fleuret, livrées en continu. Chaque version, chaque correctif, chaque nouvelle capacité, en clair.',
+    'changelog.empty': 'Aucune entrée pour le moment.',
+    'changelog.source': 'Source brute :',
+    'changelog.kind.added': 'Ajouts',
+    'changelog.kind.changed': 'Changements',
+    'changelog.kind.fixed': 'Corrections',
+    'changelog.kind.removed': 'Suppressions',
+
     // Footer (additional)
     'footer.designPartners': 'Design Partners',
     'footer.legal': 'Légal',
@@ -415,6 +425,16 @@ const translations = {
 
     // Clients band
     'clients.title': 'Trusted by',
+
+    // Changelog page
+    'changelog.title': 'Changelog',
+    'changelog.subtitle': "Every Fleuret improvement, shipped continuously. Each release, each fix, each new capability, in the open.",
+    'changelog.empty': 'No entries yet.',
+    'changelog.source': 'Source:',
+    'changelog.kind.added': 'Added',
+    'changelog.kind.changed': 'Changed',
+    'changelog.kind.fixed': 'Fixed',
+    'changelog.kind.removed': 'Removed',
 
     // Footer (additional)
     'footer.designPartners': 'Design Partners',
