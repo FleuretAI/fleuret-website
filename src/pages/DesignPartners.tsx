@@ -11,8 +11,7 @@ import { staggerItem } from "@/lib/animations";
 import { SEO, designPartnerOfferJsonLd } from "@/seo/SEO";
 import { SITE_URL } from "@/seo/routes";
 import { CohortCountdown } from "@/components/designPartners/CohortCountdown";
-import { ApplyForm } from "@/components/designPartners/ApplyForm";
-import { useSlots } from "@/lib/useSlots";
+import { DEMO_ROUTE } from "@/lib/routes";
 import {
   DP_COHORT_START_ISO,
   DP_COHORT_VISIBLE,
@@ -42,25 +41,17 @@ function formatPriceEur(v: number, lang: "fr" | "en") {
 
 const DesignPartners = () => {
   const { t, language, localize } = useLanguage();
-  const slots = useSlots();
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-
-  const remainingLabel =
-    slots.remaining === 0
-      ? t("designPartners.hero.full")
-      : t("designPartners.hero.remaining")
-          .replace("{remaining}", String(slots.remaining))
-          .replace("{total}", String(slots.total));
 
   const priceLabel = formatPriceEur(DP_PRICE_EUR, language);
 
   const offerJsonLd = designPartnerOfferJsonLd({
     priceEur: DP_PRICE_EUR,
     totalSlots: DP_TOTAL_SLOTS,
-    slotsRemaining: slots.remaining,
+    slotsRemaining: DP_TOTAL_SLOTS,
     pentestsIncluded: DP_PENTESTS_INCLUDED,
     pilotWeeks: DP_PILOT_WEEKS,
     cohortStartIso: DP_COHORT_START_ISO,
@@ -86,13 +77,6 @@ const DesignPartners = () => {
                   }}
                 >
                   {t("designPartners.hero.badge.label")}
-                </span>
-                <span
-                  className="text-xs text-white/70"
-                  aria-live="polite"
-                  aria-atomic="true"
-                >
-                  {remainingLabel}
                 </span>
               </div>
 
@@ -121,11 +105,9 @@ const DesignPartners = () => {
               )}
 
               <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
-                <HashLink to="#apply" smooth className="btn-cta btn-cta--lg">
-                  {slots.remaining === 0
-                    ? t("designPartners.hero.ctaWaitlist")
-                    : t("designPartners.hero.cta")}
-                </HashLink>
+                <Link to={localize(DEMO_ROUTE)} className="btn-cta btn-cta--lg">
+                  {t("hero.cta")}
+                </Link>
                 <HashLink
                   to="#timeline"
                   smooth
@@ -248,32 +230,6 @@ const DesignPartners = () => {
                 ))}
               </ul>
             </ScrollReveal>
-          </div>
-        </section>
-
-        {/* Apply */}
-        <section
-          id="apply"
-          className="py-16 md:py-24 relative scroll-mt-24"
-        >
-          <div className="container mx-auto px-4">
-            <div className="max-w-3xl mx-auto space-y-6">
-              <ScrollReveal>
-                <h2 className="text-3xl md:text-4xl font-light text-white text-center mb-3">
-                  {slots.remaining === 0
-                    ? t("designPartners.apply.waitlistTitle")
-                    : t("designPartners.apply.title")}
-                </h2>
-                <p className="text-center text-white/55 mb-8">
-                  {slots.remaining === 0
-                    ? t("designPartners.apply.waitlistSubtitle")
-                    : t("designPartners.apply.subtitle")}
-                </p>
-              </ScrollReveal>
-              <ScrollReveal delay={0.1}>
-                <ApplyForm />
-              </ScrollReveal>
-            </div>
           </div>
         </section>
 
