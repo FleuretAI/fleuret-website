@@ -1,0 +1,57 @@
+---
+title: "DORA penetration testing requirements: what financial entities must do in 2026"
+description: "DORA has been live since January 2025. Here is what its threat-led penetration testing rules really demand from EU banks, insurers, and their suppliers."
+date: "2026-04-27"
+author: "Yanis Grigy, CEO"
+tags: ["DORA", "Compliance", "Financial sector"]
+locale: "en"
+slug: "dora-penetration-testing-requirements-2026"
+---
+
+## DORA in one paragraph
+
+The Digital Operational Resilience Act (DORA) entered into force on 17 January 2025. It binds every EU financial entity (banks, insurers, asset managers, payment institutions, crypto-asset providers) and a wide swath of their critical ICT third-party providers. Penetration testing is no longer a best-effort line in the security policy. It is a regulatory obligation with named scopes, named cadences, and named evidence.
+
+## What the regulation actually requires
+
+Two layers, often confused.
+
+**Layer 1: regular pentests on ICT systems supporting critical or important functions.** Article 24 of DORA requires a documented testing program proportionate to size, risk profile, and complexity. In practice national supervisors (ACPR in France, BaFin in Germany, CNMV in Spain) read this as "at minimum annual, with continuous coverage of changes." Not optional. Not "next year."
+
+**Layer 2: Threat-Led Penetration Testing (TLPT) every three years for significant entities.** Modeled on TIBER-EU. Mandatory for systemically important institutions. Red-team scope, intelligence-driven, multi-week, expensive. This is the headline rule, but Layer 1 is the one most CISOs underestimate.
+
+> If your organisation falls under DORA but not TLPT, you still owe regular, evidence-bearing pentests on every critical web app, API, and external surface.
+
+## Evidence the supervisor expects
+
+A PDF report is no longer enough. EU supervisors expect:
+
+1. **Scope traceability.** Which assets were tested, which were excluded, and why.
+2. **Reproducible findings.** Every vulnerability ships with a proof of concept the auditor can verify.
+3. **Severity mapping.** CVSS plus business-impact rating against the institution's risk register.
+4. **Remediation timeline.** Tickets, owners, target close dates, retest evidence.
+5. **Independence.** The tester must be operationally independent from the team that built the system.
+
+Most boutique pentest firms produce items 1, 3, and 4. Items 2 and 5 are where automated pentest helps: every PoC is reproducible by design, and the test agent is structurally independent.
+
+## Suppliers are in scope too
+
+The piece most product teams miss. If you sell SaaS to a French bank, you are an "ICT third-party provider" under DORA. The bank's auditor will ask for your pentest evidence. "Trust us, we have a SOC 2" is not enough.
+
+This is why we see software vendors requesting pentests every quarter: their financial customers are pushing the obligation downstream. The cost structure of traditional pentest does not survive that cadence.
+
+## What changes in 2026
+
+Three things tighten this year.
+
+1. **TLPT framework finalised.** ESMA, EBA, and EIOPA published Joint RTS in late 2025. National authorities are operationalising scoping and red-team accreditation in 2026.
+2. **Subcontractor register.** Financial entities must maintain a register of ICT third parties with named pentest evidence. Empty fields equal an audit finding.
+3. **Continuous testing as the new floor.** Supervisors increasingly read "regular" as "continuous for high-criticality systems." Annual is now a ceiling, not a minimum.
+
+## How Fleuret fits
+
+Fleuret runs autonomous AI pentests on web apps, REST and GraphQL APIs, and external infrastructure. Six hours from request to report. Every finding includes a reproducible PoC. Reports are mapped to DORA control families and signed for offline auditor verification with Ed25519, not vendor-controlled trust.
+
+At €2,500 per pentest list price, against a market norm of €10,000 to €30,000, the cost structure of compliance changes. Continuous becomes affordable. Annual stops being a budget exercise.
+
+If your organisation is in DORA scope and your current pentest cadence cannot keep up, [let's talk](/en/demo).
