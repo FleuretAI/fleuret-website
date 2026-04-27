@@ -27,6 +27,7 @@ const KNOWN_PATHS = new Set<string>([
   "/security",
   "/resources",
   "/blog",
+  "/changelog",
   "/news/fleuret-raises-3-5m",
   "/en",
   "/en/about",
@@ -38,6 +39,7 @@ const KNOWN_PATHS = new Set<string>([
   "/en/security",
   "/en/resources",
   "/en/blog",
+  "/en/changelog",
   "/en/news/fleuret-raises-3-5m",
 ]);
 

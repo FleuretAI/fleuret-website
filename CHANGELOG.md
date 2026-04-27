@@ -4,6 +4,10 @@ All notable changes to the Fleuret website. Format based on [Keep a Changelog](h
 
 ## [Unreleased]
 
+### Added
+
+- **Public `/changelog` page (and `/en/changelog` mirror).** Renders this CHANGELOG.md as a typed, version-grouped page on fleuret.ai. Lazy-loaded from `App.tsx`, registered in middleware allowlist + prerender list + Footer, SEO meta in FR + EN. The page imports CHANGELOG.md via Vite `?raw`, parses it with a tiny deterministic markdown subset (`src/lib/parseChangelog.ts` — no new dep, just bold + code + strike + http links + soft-wrap bullets), and renders Added / Changed / Fixed / Removed sections per version with stable anchor ids. The motivation: visible shipping velocity needs a single URL we can point investors and customers at without forcing them to read GitHub. Every merge from now on lands here on the next deploy.
+
 ### Fixed
 
 - **CSP blocked GA4 Consent Mode v2 pings to `https://www.google.com/g/collect`.** `connect-src` in `vercel.json` (mirrored in `nginx.conf`) allowed `*.google-analytics.com`, `*.analytics.google.com`, and `stats.g.doubleclick.net` but not `www.google.com`, so every pageview emitted a CSP violation in the console and EU Consent Mode v2 signals never reached Google. Added `https://www.google.com` to the `connect-src` directive in both configs. No other directives changed.
