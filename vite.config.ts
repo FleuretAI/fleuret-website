@@ -14,6 +14,14 @@ import path from "path";
 // never renders as body text. Codegen (`scripts/build-post-registry.ts`)
 // reads frontmatter via gray-matter separately; the MDX module only needs
 // the body.
+//
+// `mdExtensions: []` removes the default `.md`/`.markdown` from MDX's match
+// list so plain Markdown files are NOT processed as MDX. Without this, the
+// plugin intercepts CHANGELOG.md before Vite's `?raw` query handler can
+// return its source as a string. All blog posts use `.mdx`, which `mdx()`
+// still matches via its default `mdxExtensions: ['.mdx']` — so this change
+// has no impact on existing routes; it just frees `.md` (CHANGELOG.md and
+// any future plain-markdown doc) for raw imports.
 export default defineConfig(() => ({
   server: {
     host: "::",
@@ -22,6 +30,7 @@ export default defineConfig(() => ({
   plugins: [
     mdx({
       providerImportSource: "@mdx-js/react",
+      mdExtensions: [],
       remarkPlugins: [[remarkFrontmatter, ["yaml"]], remarkGfm],
       rehypePlugins: [rehypeSlug],
     }),
