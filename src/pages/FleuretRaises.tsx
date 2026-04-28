@@ -410,7 +410,7 @@ const FleuretRaises = () => {
                 <p className="text-white/50 text-sm md:text-base max-w-2xl mx-auto">{c.teamP}</p>
               </div>
             </ScrollReveal>
-            <StaggerGroup className="grid md:grid-cols-3 gap-6">
+            <StaggerGroup className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
               {team.map((m) => (
                 <motion.div
                   key={m.name}
