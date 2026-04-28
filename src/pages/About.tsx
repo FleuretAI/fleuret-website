@@ -285,7 +285,7 @@ const About = () => {
               </h2>
             </ScrollReveal>
 
-            <StaggerGroup className="grid md:grid-cols-3 gap-6">
+            <StaggerGroup className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
               {team.map((member) => (
                 <motion.div
                   key={member.name}
