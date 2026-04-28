@@ -5,6 +5,7 @@ export type RouteKey =
   | "about"
   | "careers"
   | "designPartners"
+  | "partners"
   | "demo"
   | "mentionsLegales"
   | "privacy"
@@ -29,6 +30,7 @@ export const ROUTES: Record<RouteKey, LocalePath> = {
   about: { fr: "/about", en: "/en/about" },
   careers: { fr: "/careers", en: "/en/careers" },
   designPartners: { fr: "/design-partners", en: "/en/design-partners" },
+  partners: { fr: "/partners", en: "/en/partners" },
   demo: { fr: "/demo", en: "/en/demo" },
   mentionsLegales: { fr: "/mentions-legales", en: "/en/mentions-legales" },
   privacy: { fr: "/privacy", en: "/en/privacy" },
@@ -99,6 +101,22 @@ export const META: Record<RouteKey, Record<Locale, MetaEntry>> = {
       title: "Design Partners Program | Fleuret",
       description:
         "Join the Fleuret Design Partners program. 50% off pentests for 12 months, direct founder access, priority product input.",
+    },
+  },
+  partners: {
+    fr: {
+      title: "Partenaires canal | Fleuret",
+      description:
+        "Plateforme GRC ou marketplace pentest ? Revendez Fleuret en marque blanche. Wholesale 50% sur Recurring, 60% sur POC. Souverain EU, prêt DORA / NIS2.",
+      keywords:
+        "partenaires Fleuret, GRC, Vanta, Sprinto, Drata, marketplace pentest, white label, wholesale, NIS2, DORA",
+    },
+    en: {
+      title: "Channel Partners | Fleuret",
+      description:
+        "GRC platform or pentest marketplace? Resell Fleuret under your brand. 50% wholesale on Recurring, 60% on POC. Sovereign EU, DORA / NIS2 ready.",
+      keywords:
+        "Fleuret partners, GRC, Vanta, Sprinto, Drata, pentest marketplace, white label, wholesale, NIS2, DORA",
     },
   },
   demo: {

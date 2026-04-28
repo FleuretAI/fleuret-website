@@ -16,6 +16,7 @@ import BlogPost from "./pages/BlogPost";
 const About = lazy(() => import("./pages/About"));
 const Careers = lazy(() => import("./pages/Careers"));
 const DesignPartners = lazy(() => import("./pages/DesignPartners"));
+const Partners = lazy(() => import("./pages/Partners"));
 const Demo = lazy(() => import("./pages/Demo"));
 const MentionsLegales = lazy(() => import("./pages/MentionsLegales"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
@@ -39,6 +40,7 @@ const APP_ROUTES: RouteDef[] = [
   { path: "/about", element: <About /> },
   { path: "/careers", element: <Careers /> },
   { path: "/design-partners", element: <DesignPartners /> },
+  { path: "/partners", element: <Partners /> },
   { path: "/demo", element: <Demo /> },
   { path: "/mentions-legales", element: <MentionsLegales /> },
   { path: "/privacy", element: <PrivacyPolicy /> },
