@@ -43,4 +43,21 @@ describe("PostFrontmatterSchema", () => {
     const r = PostFrontmatterSchema.safeParse({ ...valid, draft: true });
     expect(r.success).toBe(true);
   });
+
+  it("defaults audience to 'direct' when missing", () => {
+    const r = PostFrontmatterSchema.safeParse(valid);
+    expect(r.success).toBe(true);
+    if (r.success) expect(r.data.audience).toBe("direct");
+  });
+
+  it("accepts audience='partner'", () => {
+    const r = PostFrontmatterSchema.safeParse({ ...valid, audience: "partner" });
+    expect(r.success).toBe(true);
+    if (r.success) expect(r.data.audience).toBe("partner");
+  });
+
+  it("rejects invalid audience value (e.g. 'enterprise')", () => {
+    const r = PostFrontmatterSchema.safeParse({ ...valid, audience: "enterprise" });
+    expect(r.success).toBe(false);
+  });
 });
