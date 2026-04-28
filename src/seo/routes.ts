@@ -10,6 +10,7 @@ export type RouteKey =
   | "privacy"
   | "terms"
   | "security"
+  | "subProcessors"
   | "resources"
   | "blog"
   | "changelog"
@@ -33,6 +34,7 @@ export const ROUTES: Record<RouteKey, LocalePath> = {
   privacy: { fr: "/privacy", en: "/en/privacy" },
   terms: { fr: "/terms", en: "/en/terms" },
   security: { fr: "/security", en: "/en/security" },
+  subProcessors: { fr: "/sub-processors", en: "/en/sub-processors" },
   resources: { fr: "/resources", en: "/en/resources" },
   blog: { fr: "/blog", en: "/en/blog" },
   changelog: { fr: "/changelog", en: "/en/changelog" },
@@ -157,6 +159,22 @@ export const META: Record<RouteKey, Record<Locale, MetaEntry>> = {
       title: "Security Policy | Fleuret",
       description:
         "Fleuret AI security policy. Vulnerability disclosure, responsible reporting program and protection measures.",
+    },
+  },
+  subProcessors: {
+    fr: {
+      title: "Sous-processeurs | Fleuret",
+      description:
+        "Liste exhaustive des sous-processeurs Fleuret AI. Hébergement Scaleway France, base Supabase UE, inférence LLM open-weight 100% Europe. Conforme RGPD art. 28 et DPA partenaires.",
+      keywords:
+        "sous-processeurs, RGPD, DPA, hébergement Europe, Scaleway, souveraineté, conformité, NIS2, DORA",
+    },
+    en: {
+      title: "Sub-processors | Fleuret",
+      description:
+        "Full list of Fleuret AI sub-processors. Scaleway France hosting, Supabase EU database, open-weight LLM inference 100% in Europe. GDPR art. 28 and partner DPA compliant.",
+      keywords:
+        "sub-processors, GDPR, DPA, EU hosting, Scaleway, sovereignty, compliance, NIS2, DORA",
     },
   },
   resources: {

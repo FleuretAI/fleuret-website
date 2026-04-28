@@ -80,6 +80,7 @@ const Footer = () => {
               { path: localize("/terms"),   label: t("footer.legal.terms") },
               { path: localize("/privacy"), label: t("footer.legal.privacy") },
               { path: localize("/security"),label: t("footer.legal.security") },
+              { path: localize("/sub-processors"), label: t("footer.legal.subProcessors") },
               { path: "/mentions-legales",  label: t("footer.legal.mentions") },
             ].map((l) => (
               <Link
