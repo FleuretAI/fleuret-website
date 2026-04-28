@@ -16,6 +16,9 @@ import { z } from "zod";
 export const LOCALES = ["fr", "en"] as const;
 export type Locale = (typeof LOCALES)[number];
 
+export const AUDIENCES = ["direct", "partner"] as const;
+export type Audience = (typeof AUDIENCES)[number];
+
 export const PostFrontmatterSchema = z.object({
   title: z.string().min(1),
   description: z.string().min(1),
@@ -29,6 +32,10 @@ export const PostFrontmatterSchema = z.object({
     .min(1),
   draft: z.boolean().default(false).optional(),
   ogImage: z.string().optional(),
+  // GEO program (2026-04-29): tag who the article speaks to. Default 'direct'
+  // keeps existing 16 articles valid without edits. 'partner' is for GRC
+  // platform managers (Vanta, Drata, Sprinto) who buy wholesale.
+  audience: z.enum(AUDIENCES).default("direct"),
 });
 
 export type PostFrontmatter = z.infer<typeof PostFrontmatterSchema>;

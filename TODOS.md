@@ -184,6 +184,48 @@ frontmatter schema established there). Design direction for the OG template
 
 ---
 
+## 3. GSC export for GEO program keyword backlog
+
+**What:** Export Google Search Console data for fleuret.ai for the last 90 days (top 200 queries + impressions + clicks + position) and drop the CSV at `~/.gstack/projects/fleuret/geo-2026-04-28/baseline/gsc-export-{date}.csv`. Then update `02-keywords-backlog.csv` Volume + Difficulty columns from "Estimated" to real GSC numbers for the 16 retrofit articles.
+
+**Why:** The GEO keyword backlog landed today with estimated volumes. Real GSC data turns guesswork into prioritisation. Without it, retrofit order is wrong and we waste effort on low-impact articles.
+
+**Pros:**
+- Unlocks evidence-based retrofit priority for the 16 existing articles.
+- Catches keywords already ranking we can defend instead of new ones we have to fight for.
+- 5-minute Yanis task, blocks W2 retrofit ship.
+
+**Cons:**
+- Yanis-only credentials (GSC login). No way to delegate.
+- Stale within ~30 days, will need a re-pull mid-sprint.
+
+**Context:** Surfaced by /plan-eng-review on 2026-04-29 reviewing the GEO program at `~/.gstack/projects/fleuret/geo-2026-04-28/`. Owner: Yanis. P0. Blocks the W2 ship of the cluster-batched retrofit PRs.
+
+**Depends on:** Nothing. 5 minutes solo work.
+
+---
+
+## 4. Refine.ai free-audit signup for multi-LLM citation tracker
+
+**What:** Sign up for Refine.ai free audit (refine.ai). Run all 50 prompts from `~/.gstack/projects/fleuret/geo-2026-04-28/05-prompt-universe.csv` across ChatGPT + Claude + Gemini + Perplexity. Save baseline screenshots to `~/.gstack/projects/fleuret/geo-2026-04-28/baseline/2026-04-29/`. Update the 50 rows of `05-prompt-universe.csv` with `Brand Cited`, `Top Competitor Cited`, `Top Source Cited` columns.
+
+**Why:** Pre-GEO baseline is the only way to claim "we got cited in ChatGPT" later. Without it, every citation claim is unverifiable and the GEO program ROI is un-measurable.
+
+**Pros:**
+- Mandatory prerequisite from the design doc assignment.
+- Refine free tier covers the 50-prompt × 4-LLM weekly load.
+- Reciprocal goodwill move with Robin (Refine's founder) — see citation tracker Tier 4 entry for case-study collab.
+
+**Cons:**
+- 10-minute Yanis signup + ~30 minute baseline run = 40 min of his day.
+- Refine is a pre-Series-A friend's startup; pricing or availability could shift later. Acceptable for free tier; revisit if upgrading.
+
+**Context:** Surfaced by /plan-eng-review on 2026-04-29. Decision 1D in `~/.gstack/projects/fleuret/geo-2026-04-28/00-README.md` chose this over paid Refine and over an in-house scraper. Owner: Yanis. P0. Blocks W1 baseline ship.
+
+**Depends on:** Nothing. Solo work.
+
+---
+
 ## Completed
 
 ### 1. Stand up vitest + React Testing Library
