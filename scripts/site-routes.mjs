@@ -21,6 +21,7 @@ export const STATIC_FR_PATHS = [
   "/privacy",
   "/terms",
   "/security",
+  "/sub-processors",
   "/resources",
   "/blog",
   "/changelog",

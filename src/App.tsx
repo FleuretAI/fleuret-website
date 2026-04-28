@@ -21,6 +21,7 @@ const MentionsLegales = lazy(() => import("./pages/MentionsLegales"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const TermsOfUse = lazy(() => import("./pages/TermsOfUse"));
 const SecurityPolicy = lazy(() => import("./pages/SecurityPolicy"));
+const SubProcessors = lazy(() => import("./pages/SubProcessors"));
 const Resources = lazy(() => import("./pages/Resources"));
 const BlogIndex = lazy(() => import("./pages/BlogIndex"));
 const Changelog = lazy(() => import("./pages/Changelog"));
@@ -43,6 +44,7 @@ const APP_ROUTES: RouteDef[] = [
   { path: "/privacy", element: <PrivacyPolicy /> },
   { path: "/terms", element: <TermsOfUse /> },
   { path: "/security", element: <SecurityPolicy /> },
+  { path: "/sub-processors", element: <SubProcessors /> },
   { path: "/resources", element: <Resources /> },
   { path: "/blog", element: <BlogIndex /> },
   { path: "/blog/:slug", element: <BlogPost /> },
