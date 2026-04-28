@@ -1,4 +1,5 @@
 import { next, rewrite } from "@vercel/edge";
+import { KNOWN_PATHS, BLOG_POST_RE } from "./scripts/site-routes.mjs";
 
 /**
  * Edge middleware. Strips trailing slashes and returns a true HTTP 404 for
@@ -8,44 +9,15 @@ import { next, rewrite } from "@vercel/edge";
  * owned by the Vercel dashboard (Domains -> primary = fleuret.ai). Doing it
  * here too caused a redirect loop when the dashboard and middleware
  * disagreed on the canonical host. The dashboard is the source of truth.
+ *
+ * Route lists (KNOWN_PATHS, BLOG_POST_RE) come from scripts/site-routes.mjs
+ * so middleware, prerender, and fallback-shells stay in sync.
  */
 
 export const config = {
   matcher:
     "/((?!_next|_vercel|assets|favicon\\.ico|favicon\\.png|favicon\\.svg|robots\\.txt|sitemap\\.xml|.*\\.[a-z0-9]+$).*)",
 };
-
-const KNOWN_PATHS = new Set<string>([
-  "/",
-  "/about",
-  "/careers",
-  "/design-partners",
-  "/demo",
-  "/mentions-legales",
-  "/privacy",
-  "/terms",
-  "/security",
-  "/resources",
-  "/blog",
-  "/changelog",
-  "/news/fleuret-raises-3-5m",
-  "/en",
-  "/en/about",
-  "/en/careers",
-  "/en/design-partners",
-  "/en/demo",
-  "/en/privacy",
-  "/en/terms",
-  "/en/security",
-  "/en/resources",
-  "/en/blog",
-  "/en/changelog",
-  "/en/news/fleuret-raises-3-5m",
-]);
-
-// Dynamic blog post paths: /blog/:slug and /en/blog/:slug. Slugs are
-// alphanumeric + hyphens, must have >=1 char, no extra path segments.
-const BLOG_POST_RE = /^(?:\/en)?\/blog\/[a-z0-9][a-z0-9-]*$/;
 
 export default function middleware(request: Request): Response {
   const url = new URL(request.url);
