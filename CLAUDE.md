@@ -17,8 +17,18 @@ Public homepage messaging (source of truth, kept in `src/contexts/LanguageContex
   security. Infinite scalability."
 - Value prop: "Fleuret combine IA agentique et expertise offensive pour délivrer
   des pentests de niveau humain en heures, pas en semaines."
-- Standard pricing anchor: **€2,500 per pentest** (list). Traditional pentests
-  usually cost €10k+.
+- Pricing (two SKUs, single source of truth in `src/lib/pricingConfig.ts`):
+  - **POC**: €3,000 / webapp upfront, one-time, delivered in 2 weeks. Land SKU.
+  - **Recurring**: €30,000 / year (1yr) or €27,000 / year (3yr lock, 10% discount).
+    Strategic SKU, where the moat lives (Jira tickets, Ed25519-signed audit PDF,
+    weekly automated rescan, board-deck export). Anchor vs €25,000+ yearly
+    consulting-firm pentest.
+  - **POC → Recurring upgrade credit**: POC fee credits in full toward year 1
+    of Recurring if customer upgrades within 6 months. See
+    `docs/sales/poc-to-recurring-process.md` for the upsell motion.
+  - **Channel wholesale**: 50% off Recurring for SaaS GRC partners (Vanta,
+    Sprinto, Drata, etc.); 60% off POC for marketplace partners (Yogosha,
+    etc.). Helpers in `pricingConfig.ts`.
 - Scopes covered today: webapp, REST / GraphQL API, external infrastructure.
   Cloud / Active Directory / mobile scanners are on the roadmap and design
   partners access them in alpha.
@@ -51,6 +61,17 @@ region, serverless functions pinned to Europe).
 Single source of truth lives in `src/lib/designPartnerConfig.ts`. Never hardcode
 price, slot count, cohort date, or pilot duration in a component — import from
 that module so a single edit propagates to copy, countdown, form, and schema.
+
+The DP cohort (€4,900 / 5 slots / kickoff 2026-06-01) coexists with the standard
+two-SKU pricing (POC + Recurring): the cohort is a time-limited promo, the
+standard pricing is the steady state. Both pages cross-link. After 2026-06-01
+flip `VITE_COHORT_VISIBLE=false` to hide cohort UI on `/design-partners` while
+keeping the page reachable for case-study purposes.
+
+Cross-config invariant: `DP_RETAIL_EQUIVALENT_EUR` (in `designPartnerConfig.ts`)
+must equal `DP_PENTESTS_INCLUDED * POC_PRICE_EUR` (3 × 3000 = 9000). The DP
+banner copy in `LanguageContext.tsx` (`pricing.dpBanner.subtitle`) anchors
+"vs €9,000 at POC list" against this invariant. Tests enforce it.
 
 Current cohort (April 2026):
 

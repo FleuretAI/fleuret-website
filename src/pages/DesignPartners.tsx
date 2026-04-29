@@ -258,6 +258,29 @@ const DesignPartners = () => {
           </div>
         </section>
 
+        {/* Cross-link banner: route post-cohort buyers to the standard pricing page. */}
+        <section className="container mx-auto px-4 mt-12">
+          <div className="max-w-3xl mx-auto">
+            <Link
+              to={localize("/#pricing")}
+              data-testid="dp-pricing-banner"
+              style={{ display: "block", padding: "1.25rem 1.5rem", borderRadius: "1rem", border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.02)", textDecoration: "none", transition: "all 0.3s" }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.18)"; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.08)"; }}
+            >
+              <p style={{ fontSize: "0.95rem", fontWeight: 500, color: "#fff", margin: 0, marginBottom: "0.25rem" }}>
+                {t("designPartners.pricingBanner.title")}
+              </p>
+              <p style={{ fontSize: "0.85rem", color: "rgba(255,255,255,0.55)", margin: 0, marginBottom: "0.4rem" }}>
+                {t("designPartners.pricingBanner.subtitle")}
+              </p>
+              <span style={{ fontSize: "0.85rem", fontWeight: 600, color: "rgba(79,143,255,0.95)" }}>
+                {t("designPartners.pricingBanner.cta")} →
+              </span>
+            </Link>
+          </div>
+        </section>
+
         <div className="container mx-auto px-4 mt-8">
           <div className="max-w-5xl mx-auto">
             <Link
