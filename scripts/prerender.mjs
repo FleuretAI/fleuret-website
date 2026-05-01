@@ -224,6 +224,16 @@ async function main() {
         const out = outputPathFor(route);
         mkdirSync(dirname(out), { recursive: true });
         writeFileSync(out, html, "utf8");
+        // Also overwrite the flat `dist/<route>.html` form. Vercel's
+        // `cleanUrls: true` picks `<route>.html` over `<route>/index.html`,
+        // and ensure-fallback-shells seeds BOTH paths with a metadata-less
+        // FR shell before prerender runs. If we only overwrite the nested
+        // form, Vercel keeps serving the seed shell at every nested URL.
+        if (route !== "/" && route !== "/404") {
+          const flat = join(DIST, route.replace(/^\//, "") + ".html");
+          mkdirSync(dirname(flat), { recursive: true });
+          writeFileSync(flat, html, "utf8");
+        }
       }
 
       const failed = [];
