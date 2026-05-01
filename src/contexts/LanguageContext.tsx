@@ -832,8 +832,11 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const language: Language = detectLocaleFromPath(location.pathname);
   const didInitialRedirect = useRef(false);
 
-  // One-shot: honor stored language preference, or default to EN for new visitors.
-  // Runs once per session; after first navigation, URL is the source of truth.
+  // One-shot: honor a stored language preference for returning visitors.
+  // URL is the source of truth when no preference is stored — never auto-redirect
+  // on first visit. Prerender (Puppeteer) has no localStorage, so any default-driven
+  // redirect would bake the wrong locale into every static HTML and point its
+  // canonical at the other locale, deindexing the FR home from Google.
   useEffect(() => {
     if (didInitialRedirect.current) return;
     didInitialRedirect.current = true;
@@ -841,13 +844,11 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     if (FR_ONLY_PATHS.has(location.pathname)) return;
 
     const stored = readStoredLang();
-    const desired: Language = stored ?? 'en';
+    if (!stored || stored === language) return;
 
-    if (desired !== language) {
-      const target = swapLocalePath(location.pathname, desired);
-      if (target !== location.pathname) {
-        navigate(target + (location.search || '') + (location.hash || ''), { replace: true });
-      }
+    const target = swapLocalePath(location.pathname, stored);
+    if (target !== location.pathname) {
+      navigate(target + (location.search || '') + (location.hash || ''), { replace: true });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
