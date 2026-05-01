@@ -141,15 +141,49 @@ async function main() {
       const page = await browser.newPage();
       await page.setViewport({ width: 1280, height: 800 });
 
-      // Collect per-route failures so one broken route doesn't lose all others.
-      // Vercel build treats silent skips better than a full crash; we log each
-      // miss loudly so deploy logs surface the problem.
+      // Block third-party trackers and external assets during prerender.
+      // GTM/GA/DoubleClick/cdnfonts hold connections open via heartbeat or
+      // long-poll, which makes `waitUntil: "networkidle2"` hang on Vercel
+      // (locally these are sometimes blocked by host firewall/extensions, so
+      // the hang only manifests in production builds and silently drops every
+      // route except the first to a failure case). Helmet runs from the React
+      // bundle, not from any of these — blocking them is safe.
+      const BLOCKED_HOSTS = [
+        "googletagmanager.com",
+        "google-analytics.com",
+        "analytics.google.com",
+        "doubleclick.net",
+        "g.doubleclick.net",
+        "cdnfonts.com",
+        "fonts.cdnfonts.com",
+      ];
+      await page.setRequestInterception(true);
+      page.on("request", (req) => {
+        const reqUrl = req.url();
+        if (BLOCKED_HOSTS.some((h) => reqUrl.includes(h))) {
+          req.abort();
+        } else {
+          req.continue();
+        }
+      });
+
+      // Per-route failures are FATAL. Silent fallback shells were shipping to
+      // prod with no Helmet metadata (no canonical, no title, no description),
+      // which deindexed every non-root route from Google. We'd rather fail the
+      // build loudly than ship soft-200 shells.
       const failed = [];
       for (const route of ROUTES) {
         const url = `${BASE}${route}`;
         console.log(`[prerender] -> ${route}`);
         try {
-          await page.goto(url, { waitUntil: "networkidle2", timeout: 30_000 });
+          // Use `domcontentloaded` instead of `networkidle2`: react-helmet-async
+          // mutates <head> synchronously on mount, so we can capture the SEO
+          // tags as soon as Helmet has run. Waiting for network idle is both
+          // unnecessary and a known hang source on Vercel build containers.
+          await page.goto(url, {
+            waitUntil: "domcontentloaded",
+            timeout: 30_000,
+          });
           if (isBlogPostPath(route)) {
             // Blog route: wait for MDX to finish lazy-loading and flip the
             // rendered flag. Prevents shipping the Suspense skeleton.
@@ -161,15 +195,28 @@ async function main() {
               { timeout: 15_000 },
             );
           } else {
+            // Wait for React mount AND Helmet to flush its <head> mutations.
+            // `data-rh="true"` is the marker react-helmet-async stamps on
+            // every tag it owns; if it's not present after 15s, Helmet never
+            // ran and we'd ship a metadata-less shell.
             await page.waitForFunction(
               () => {
                 const root = document.getElementById("root");
-                return !!root && root.children.length > 0;
+                if (!root || root.children.length === 0) return false;
+                return !!document.querySelector('[data-rh="true"]');
               },
               { timeout: 15_000 },
             );
           }
           const html = await page.content();
+          // Verify Helmet actually mutated <head>. If `data-rh="true"` is
+          // missing, Helmet never ran and we're about to ship a shell with
+          // no per-route metadata. Treat as a render failure.
+          if (!html.includes('data-rh="true"')) {
+            throw new Error(
+              `Helmet output missing (no data-rh="true" attribute in HTML)`,
+            );
+          }
           const out = outputPathFor(route);
           mkdirSync(dirname(out), { recursive: true });
           writeFileSync(out, html, "utf8");
@@ -178,13 +225,17 @@ async function main() {
           console.error(
             `[prerender] FAILED ${route}: ${(err && err.message) || err}`,
           );
-          failed.push(route);
+          failed.push({ route, error: (err && err.message) || String(err) });
         }
       }
       if (failed.length > 0) {
         console.error(
-          `[prerender] ${failed.length} route(s) failed (non-fatal): ${failed.join(", ")}`,
+          `[prerender] ${failed.length} route(s) failed:\n` +
+            failed.map((f) => `  - ${f.route}: ${f.error}`).join("\n"),
         );
+        await browser.close();
+        cleanup();
+        process.exit(1);
       }
 
       // Belt-and-suspenders: for every route we INTENDED to prerender, make
