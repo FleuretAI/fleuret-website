@@ -1,6 +1,9 @@
-<svg width="59" height="111" viewBox="0 0 59 111" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="128" height="128" fill="#000000"/>
+<g transform="translate(37.45 14.05) scale(0.9)">
 <path d="M31 0C46.464 0 59 12.536 59 28V68H58C43.0883 68 31 55.9117 31 41V0Z" fill="#F2F2F8"/>
 <path d="M28 0C12.536 0 0 12.536 0 28V68H1C15.9117 68 28 55.9117 28 41V0Z" fill="#F2F2F8"/>
 <path d="M31 111C46.464 111 59 98.464 59 83V71H45C37.268 71 31 77.268 31 85V111Z" fill="#F2F2F8"/>
 <path d="M28 111C12.536 111 0 98.464 0 83V71H14C21.732 71 28 77.268 28 85V111Z" fill="#F2F2F8"/>
+</g>
 </svg>
