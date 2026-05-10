@@ -1,108 +1,206 @@
 import { useLanguage } from "@/contexts/LanguageContext";
 
-const Check = () => (
-  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style={{ display: "inline-block", margin: "0 auto" }}>
-    <circle cx="10" cy="10" r="10" fill="#22c55e" fillOpacity="0.2"/>
-    <path d="M6 10.5L8.5 13L14 7.5" stroke="#22c55e" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+type RowKey = "depth" | "fp" | "speed" | "cost" | "frequency" | "compliance" | "adapt";
+type Band = "rigor" | "economics" | "fit";
+
+type Row = {
+  key: RowKey;
+  band: Band;
+  label: string;
+  firm: string;
+  fleuret: string;
+  scanner: string;
+};
+
+const isFleuretWin = (k: RowKey) => k === "cost" || k === "fp" || k === "frequency" || k === "compliance" || k === "adapt";
+
+const Tick = () => (
+  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden style={{ display: "inline-block", verticalAlign: "-2px", marginLeft: 6 }}>
+    <circle cx="7" cy="7" r="6.5" stroke="rgba(124,205,124,0.7)" strokeWidth="1" fill="rgba(124,205,124,0.16)" />
+    <path d="M4 7L6 9.2L10 4.6" stroke="rgba(124,205,124,1)" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" fill="none" />
   </svg>
 );
-
-const Cross = () => (
-  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style={{ display: "inline-block", margin: "0 auto" }}>
-    <circle cx="10" cy="10" r="10" fill="#ef4444" fillOpacity="0.15"/>
-    <path d="M7 7L13 13M13 7L7 13" stroke="#ef4444" strokeOpacity="0.6" strokeWidth="2" strokeLinecap="round"/>
-  </svg>
-);
-
-type Cell = string | { check: boolean };
 
 const ComparisonTable = () => {
   const { t } = useLanguage();
 
-  const rows: { label: string; manual: Cell; fleuret: Cell; automated: Cell }[] = [
-    { label: t("comparison.depth"),          manual: t("comparison.depth.traditional"),          fleuret: t("comparison.depth.fleuret"),          automated: t("comparison.depth.automated") },
-    { label: t("comparison.speed"),          manual: t("comparison.speed.traditional"),          fleuret: t("comparison.speed.fleuret"),          automated: t("comparison.speed.automated") },
-    { label: t("comparison.cost"),           manual: t("comparison.cost.traditional"),           fleuret: t("comparison.cost.fleuret"),           automated: t("comparison.cost.automated") },
-    { label: t("comparison.falsePositives"), manual: t("comparison.falsePositives.traditional"), fleuret: t("comparison.falsePositives.fleuret"), automated: t("comparison.falsePositives.automated") },
-    { label: t("comparison.frequency"),      manual: t("comparison.frequency.traditional"),      fleuret: t("comparison.frequency.fleuret"),      automated: t("comparison.frequency.automated") },
-    { label: t("comparison.compliance"),     manual: { check: true },  fleuret: { check: true },  automated: { check: false } },
-    { label: t("comparison.adaptability"),   manual: { check: true },  fleuret: { check: true },  automated: { check: false } },
+  const rows: Row[] = [
+    { key: "depth",      band: "rigor",     label: t("comparison.depth"),          firm: t("comparison.depth.traditional"),          fleuret: t("comparison.depth.fleuret"),          scanner: t("comparison.depth.automated") },
+    { key: "fp",         band: "rigor",     label: t("comparison.falsePositives"), firm: t("comparison.falsePositives.traditional"), fleuret: t("comparison.falsePositives.fleuret"), scanner: t("comparison.falsePositives.automated") },
+    { key: "speed",      band: "economics", label: t("comparison.speed"),          firm: t("comparison.speed.traditional"),          fleuret: t("comparison.speed.fleuret"),          scanner: t("comparison.speed.automated") },
+    { key: "cost",       band: "economics", label: t("comparison.cost"),           firm: t("comparison.cost.traditional"),           fleuret: t("comparison.cost.fleuret"),           scanner: t("comparison.cost.automated") },
+    { key: "frequency",  band: "economics", label: t("comparison.frequency"),      firm: t("comparison.frequency.traditional"),      fleuret: t("comparison.frequency.fleuret"),      scanner: t("comparison.frequency.automated") },
+    { key: "compliance", band: "fit",       label: t("comparison.compliance"),     firm: "✓",                                        fleuret: "✓",                                    scanner: "—" },
+    { key: "adapt",      band: "fit",       label: t("comparison.adaptability"),   firm: "✓",                                        fleuret: "✓",                                    scanner: "—" },
   ];
 
-  const renderCell = (v: Cell, isFleuret = false) => {
-    if (typeof v === "object") return v.check ? <Check /> : <Cross />;
-    return <span style={{ fontSize: "0.875rem", fontWeight: isFleuret ? 500 : 400, color: isFleuret ? "#fff" : "rgba(255,255,255,0.35)", lineHeight: 1.4 }}>{v}</span>;
+  const bands: { key: Band; labelKey: string }[] = [
+    { key: "rigor",     labelKey: "comparison.band.rigor" },
+    { key: "economics", labelKey: "comparison.band.economics" },
+    { key: "fit",       labelKey: "comparison.band.fit" },
+  ];
+
+  type PosterMeta = {
+    id: "firm" | "fleuret" | "scanner";
+    eyebrowKey: string;
+    eyebrowColor: string;
+    rgb: string;
+    label: string;
+    verdictKey: string;
+    raised: boolean;
   };
 
-  // Mobile cards version
-  const renderMobileCard = (row: typeof rows[0]) => (
-    <div key={row.label} style={{ padding: "1rem", borderRadius: "0.75rem", border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.02)" }}>
-      <div style={{ fontSize: "0.75rem", fontWeight: 500, color: "rgba(255,255,255,0.4)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "0.75rem" }}>{row.label}</div>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "0.5rem", textAlign: "center" }}>
-        <div>
-          <div style={{ fontSize: 10, color: "rgba(255,255,255,0.45)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "0.375rem" }}>Manual</div>
-          {renderCell(row.manual)}
-        </div>
-        <div style={{ background: "rgba(79,143,255,0.05)", borderRadius: "0.5rem", padding: "0.375rem 0.25rem", margin: "-0.375rem 0" }}>
-          <div style={{ fontSize: 10, color: "var(--accent-blue)", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "0.375rem" }}>Fleuret</div>
-          {renderCell(row.fleuret, true)}
-        </div>
-        <div>
-          <div style={{ fontSize: 10, color: "rgba(255,255,255,0.45)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "0.375rem" }}>Scanner</div>
-          {renderCell(row.automated)}
-        </div>
+  const posters: PosterMeta[] = [
+    { id: "firm",    eyebrowKey: "comparison.poster.firm",    eyebrowColor: "rgba(255,255,255,0.55)", rgb: "255,255,255", label: t("comparison.header.traditional"), verdictKey: "comparison.verdict.firm",    raised: false },
+    { id: "fleuret", eyebrowKey: "comparison.poster.fleuret", eyebrowColor: "var(--fl-violet)",       rgb: "139,92,246",  label: t("comparison.header.fleuret"),     verdictKey: "comparison.verdict.fleuret", raised: true },
+    { id: "scanner", eyebrowKey: "comparison.poster.scanner", eyebrowColor: "rgba(255,255,255,0.55)", rgb: "255,255,255", label: t("comparison.header.automated"),   verdictKey: "comparison.verdict.scanner", raised: false },
+  ];
+
+  const cellFor = (row: Row, p: PosterMeta) => {
+    const v = p.id === "firm" ? row.firm : p.id === "fleuret" ? row.fleuret : row.scanner;
+    const isFleuret = p.id === "fleuret";
+    return (
+      <div
+        style={{
+          padding: "1rem 1.1rem",
+          borderTop: "1px dashed rgba(255,255,255,0.08)",
+          fontSize: "0.875rem",
+          color: isFleuret ? "#fff" : "rgba(255,255,255,0.65)",
+          lineHeight: 1.5,
+          minHeight: 62,
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+        <span>{v}{isFleuret && isFleuretWin(row.key) && <Tick />}</span>
       </div>
-    </div>
-  );
+    );
+  };
 
   return (
-    <section id="comparison" className="py-16 md:py-24 lg:py-32">
-      <div className="max-w-[1280px] mx-auto px-4 md:px-8">
-        <div style={{ textAlign: "center", maxWidth: "48rem", margin: "0 auto 4rem" }}>
-          <h2 style={{ fontSize: "clamp(1.875rem, 4vw, 3rem)", color: "#fff", fontWeight: 300, letterSpacing: "-0.02em", lineHeight: 1.1 }}>
+    <section id="comparison" className="fl-section" style={{ padding: "7rem 0 8rem", position: "relative", overflow: "hidden" }}>
+      <div className="max-w-[1280px] mx-auto px-4 md:px-8" style={{ position: "relative", zIndex: 1 }}>
+        {/* Header */}
+        <div style={{ maxWidth: "44rem", margin: "0 auto 3.5rem", textAlign: "center" }}>
+          <p className="fl-eyebrow" style={{ display: "inline-flex", alignItems: "center", gap: "0.6rem", margin: "0 0 1.25rem" }}>
+            <span className="fl-dot" style={{ background: "var(--fl-violet)" }} />
+            {t("comparison.eyebrow")}
+          </p>
+          <h2 style={{ fontSize: "clamp(36px, 4.4vw, 64px)", fontWeight: 300, letterSpacing: "-0.02em", lineHeight: 1.08, color: "#fff", margin: 0 }}>
             {t("comparison.title")}
           </h2>
         </div>
 
-        {/* Desktop table */}
-        <table className="hidden md:table w-full max-w-[64rem] mx-auto" style={{ borderCollapse: "collapse" }}>
-          <thead>
-            <tr>
-              <th style={{ textAlign: "left", padding: "1rem", fontSize: "0.875rem", fontWeight: 500, color: "rgba(255,255,255,0.5)", textTransform: "uppercase", letterSpacing: "0.1em" }}>
-                {t("comparison.header.capability")}
-              </th>
-              <th style={{ textAlign: "center", padding: "1rem", fontSize: "0.875rem", fontWeight: 500, color: "rgba(255,255,255,0.5)", textTransform: "uppercase", letterSpacing: "0.1em" }}>
-                {t("comparison.header.traditional")}
-              </th>
-              <th style={{ textAlign: "center", padding: "1rem" }}>
-                <span style={{ display: "inline-block", fontSize: "0.875rem", fontWeight: 500, color: "#fff", borderRadius: "999px", padding: "0.375rem 1rem", background: "linear-gradient(135deg, var(--accent-blue), var(--accent-violet))" }}>
-                  {t("comparison.header.fleuret")}
-                </span>
-              </th>
-              <th style={{ textAlign: "center", padding: "1rem", fontSize: "0.875rem", fontWeight: 500, color: "rgba(255,255,255,0.5)", textTransform: "uppercase", letterSpacing: "0.1em" }}>
-                {t("comparison.header.automated")}
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((row) => (
-              <tr key={row.label} style={{ borderTop: "1px solid rgba(255,255,255,0.05)", transition: "background 0.2s" }}
-                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.02)"; }}
-                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = ""; }}>
-                <td style={{ padding: "1.25rem 1rem", fontSize: "0.875rem", fontWeight: 500, color: "rgba(255,255,255,0.6)", textAlign: "left" }}>{row.label}</td>
-                <td style={{ padding: "1.25rem 1rem", textAlign: "center" }}>{renderCell(row.manual)}</td>
-                <td style={{ padding: "1.25rem 1rem", textAlign: "center", background: "rgba(79,143,255,0.03)", borderLeft: "1px solid rgba(79,143,255,0.1)", borderRight: "1px solid rgba(79,143,255,0.1)" }}>
-                  {renderCell(row.fleuret, true)}
-                </td>
-                <td style={{ padding: "1.25rem 1rem", textAlign: "center" }}>{renderCell(row.automated)}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        {/* Posters */}
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.05fr_1fr]" style={{ gap: "1.25rem", alignItems: "stretch" }}>
+          {posters.map((p) => {
+            const inner = (
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  height: "100%",
+                  background: p.id === "fleuret" ? "rgba(11,12,20,0.85)" : "rgba(255,255,255,0.02)",
+                  border: p.id === "fleuret" ? "none" : "1px solid rgba(255,255,255,0.08)",
+                  borderRadius: 6,
+                  overflow: "hidden",
+                }}
+              >
+                {/* Eyebrow strip */}
+                <div
+                  className="fl-mono"
+                  style={{
+                    padding: "0.85rem 1.1rem",
+                    fontSize: "0.65rem",
+                    letterSpacing: "0.24em",
+                    color: p.eyebrowColor,
+                    borderBottom: "1px solid rgba(255,255,255,0.08)",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  {t(p.eyebrowKey)}
+                </div>
 
-        {/* Mobile cards */}
-        <div className="flex md:hidden flex-col gap-3 max-w-sm mx-auto">
-          {rows.map(renderMobileCard)}
+                {/* Column label */}
+                <div style={{ padding: "1.5rem 1.1rem 1.25rem", display: "flex", justifyContent: p.id === "fleuret" ? "center" : "flex-start" }}>
+                  {p.id === "fleuret" ? (
+                    <span className="fl-pill">{p.label}</span>
+                  ) : (
+                    <span style={{ fontSize: "1.0625rem", color: "rgba(255,255,255,0.85)", fontWeight: 400 }}>{p.label}</span>
+                  )}
+                </div>
+
+                {/* Bands of criteria */}
+                {bands.map((b) => {
+                  const bandRows = rows.filter((r) => r.band === b.key);
+                  return (
+                    <div key={b.key} style={{ padding: "0 0 0.4rem" }}>
+                      <div
+                        className="fl-mono"
+                        style={{
+                          padding: "0.55rem 1.1rem",
+                          fontSize: "0.6rem",
+                          letterSpacing: "0.24em",
+                          color: "rgba(255,255,255,0.4)",
+                          textTransform: "uppercase",
+                          background: "rgba(255,255,255,0.025)",
+                          borderTop: "1px solid rgba(255,255,255,0.06)",
+                        }}
+                      >
+                        {t(b.labelKey)}
+                      </div>
+                      {bandRows.map((row) => (
+                        <div key={row.key}>
+                          {p.id === "firm" && (
+                            <div
+                              className="fl-mono"
+                              style={{
+                                padding: "0.45rem 1.1rem 0",
+                                fontSize: "0.62rem",
+                                letterSpacing: "0.2em",
+                                color: "rgba(255,255,255,0.35)",
+                                textTransform: "uppercase",
+                              }}
+                            >
+                              {row.label}
+                            </div>
+                          )}
+                          {cellFor(row, p)}
+                        </div>
+                      ))}
+                    </div>
+                  );
+                })}
+
+                {/* Verdict */}
+                <div
+                  style={{
+                    marginTop: "auto",
+                    padding: "1rem 1.1rem 1.25rem",
+                    borderTop: "1px dashed rgba(255,255,255,0.1)",
+                    fontSize: "0.9375rem",
+                    color: p.id === "fleuret" ? "#fff" : "rgba(255,255,255,0.6)",
+                    fontWeight: p.id === "fleuret" ? 500 : 400,
+                    lineHeight: 1.5,
+                  }}
+                >
+                  {t(p.verdictKey)}
+                </div>
+              </div>
+            );
+
+            return (
+              <div
+                key={p.id}
+                style={{
+                  transform: p.raised ? "translateY(-12px)" : undefined,
+                }}
+                className={p.raised ? "fl-gradient-frame" : undefined}
+              >
+                {inner}
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

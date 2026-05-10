@@ -1,135 +1,285 @@
 import { useLanguage } from "@/contexts/LanguageContext";
 
-const IllustrationDeploy = () => (
-  <svg viewBox="0 0 280 280" fill="none" style={{ width: "100%", maxWidth: 260, height: "auto" }}>
-    <circle cx="140" cy="140" r="110" stroke="currentColor" strokeWidth="1" strokeOpacity="0.25"/>
-    <circle cx="140" cy="140" r="80" stroke="currentColor" strokeWidth="1" strokeOpacity="0.35" strokeDasharray="6 8">
-      <animateTransform attributeName="transform" type="rotate" from="0 140 140" to="360 140 140" dur="30s" repeatCount="indefinite"/>
-    </circle>
-    <line x1="140" y1="30" x2="140" y2="90" stroke="currentColor" strokeWidth="1.5" strokeOpacity="0.45"/>
-    <line x1="140" y1="190" x2="140" y2="250" stroke="currentColor" strokeWidth="1.5" strokeOpacity="0.45"/>
-    <line x1="30" y1="140" x2="90" y2="140" stroke="currentColor" strokeWidth="1.5" strokeOpacity="0.45"/>
-    <line x1="190" y1="140" x2="250" y2="140" stroke="currentColor" strokeWidth="1.5" strokeOpacity="0.45"/>
-    <line x1="140" y1="140" x2="60" y2="60" stroke="currentColor" strokeWidth="1" strokeOpacity="0.25"/>
-    <line x1="140" y1="140" x2="220" y2="60" stroke="currentColor" strokeWidth="1" strokeOpacity="0.25"/>
-    <line x1="140" y1="140" x2="60" y2="220" stroke="currentColor" strokeWidth="1" strokeOpacity="0.25"/>
-    <line x1="140" y1="140" x2="220" y2="220" stroke="currentColor" strokeWidth="1" strokeOpacity="0.25"/>
-    <circle cx="60" cy="60" r="5" fill="currentColor" fillOpacity="0.3"/>
-    <circle cx="220" cy="60" r="5" fill="currentColor" fillOpacity="0.3"/>
-    <circle cx="60" cy="220" r="5" fill="currentColor" fillOpacity="0.3"/>
-    <circle cx="220" cy="220" r="5" fill="currentColor" fillOpacity="0.3"/>
-    <circle cx="140" cy="140" r="18" fill="currentColor" fillOpacity="0.15"/>
-    <circle cx="140" cy="140" r="6" fill="currentColor" fillOpacity="0.5"/>
-    <circle cx="140" cy="140" r="18" stroke="currentColor" strokeWidth="1" fill="none" opacity="0.3">
-      <animate attributeName="r" values="18;45" dur="2s" repeatCount="indefinite"/>
-      <animate attributeName="opacity" values="0.3;0" dur="2s" repeatCount="indefinite"/>
-    </circle>
-  </svg>
-);
-
-const IllustrationAttack = () => (
-  <svg viewBox="0 0 280 280" fill="none" style={{ width: "100%", maxWidth: 260, height: "auto" }}>
-    <g transform="translate(140,140)">
-      <rect x="-32" y="-28" width="64" height="56" rx="6" stroke="currentColor" strokeWidth="1.5" strokeOpacity="0.5" fill="currentColor" fillOpacity="0.12"/>
-      <line x1="-20" y1="-12" x2="20" y2="-12" stroke="currentColor" strokeWidth="1" strokeOpacity="0.1"/>
-      <line x1="-20" y1="0"   x2="20" y2="0"   stroke="currentColor" strokeWidth="1" strokeOpacity="0.1"/>
-      <line x1="-20" y1="12"  x2="20" y2="12"  stroke="currentColor" strokeWidth="1" strokeOpacity="0.1"/>
-      <g stroke="currentColor" strokeWidth="1" strokeDasharray="4 4" strokeOpacity="0.15">
-        <line x1="-80" y1="-60" x2="0" y2="0"/><line x1="70" y1="-75" x2="0" y2="0"/>
-        <line x1="-90" y1="30"  x2="0" y2="0"/><line x1="85" y1="45"  x2="0" y2="0"/>
-        <line x1="-30" y1="-90" x2="0" y2="0"/><line x1="40" y1="80"  x2="0" y2="0"/>
-      </g>
-      <g>
-        <rect x="-86" y="-66" width="12" height="12" rx="2" fill="currentColor" fillOpacity="0.2" stroke="currentColor" strokeWidth="1" strokeOpacity="0.5" transform="rotate(45 -80 -60)"/>
-        <circle cx="-80" cy="-60" r="2" fill="currentColor" fillOpacity="0.8"/>
-        <rect x="64" y="-81" width="12" height="12" rx="2" fill="currentColor" fillOpacity="0.2" stroke="currentColor" strokeWidth="1" strokeOpacity="0.5" transform="rotate(45 70 -75)"/>
-        <circle cx="70" cy="-75" r="2" fill="currentColor" fillOpacity="0.8"/>
-        <rect x="-96" y="24" width="12" height="12" rx="2" fill="currentColor" fillOpacity="0.2" stroke="currentColor" strokeWidth="1" strokeOpacity="0.5" transform="rotate(45 -90 30)"/>
-        <circle cx="-90" cy="30" r="2" fill="currentColor" fillOpacity="0.8"/>
-        <rect x="79" y="39" width="12" height="12" rx="2" fill="currentColor" fillOpacity="0.2" stroke="currentColor" strokeWidth="1" strokeOpacity="0.5" transform="rotate(45 85 45)"/>
-        <circle cx="85" cy="45" r="2" fill="currentColor" fillOpacity="0.8"/>
-      </g>
-      <circle cx="-18" cy="-22" r="3" fill="currentColor" fillOpacity="0.4"/>
-      <circle cx="20"  cy="-10" r="3" fill="currentColor" fillOpacity="0.4"/>
-      <circle cx="-8"  cy="18"  r="3" fill="currentColor" fillOpacity="0.4"/>
-      <circle cx="0" cy="0" r="110" stroke="currentColor" strokeWidth="0.5" strokeOpacity="0.15" strokeDasharray="3 6"/>
-    </g>
-  </svg>
-);
-
-const IllustrationReport = () => (
-  <svg viewBox="0 0 280 280" fill="none" style={{ width: "100%", maxWidth: 260, height: "auto" }}>
-    <rect x="65" y="40" width="150" height="200" rx="8" stroke="currentColor" strokeWidth="1.5" strokeOpacity="0.6" fill="currentColor" fillOpacity="0.2"/>
-    <rect x="85" y="60" width="60" height="8" rx="4" fill="currentColor" fillOpacity="0.25"/>
-    <rect x="85" y="75" width="100" height="4" rx="2" fill="currentColor" fillOpacity="0.08"/>
-    {[95,115,135,155,175].map((y) => (
-      <g key={y}>
-        <rect x="105" y={y} width={[90,70,80,60,75][Math.floor((y-95)/20)]} height="4" rx="2" fill="currentColor" fillOpacity="0.2"/>
-        <circle cx="90" cy={y+2} r="6" fill="currentColor" fillOpacity="0.2"/>
-        <path d={`M86 ${y+2} L89 ${y+5} L94 ${y-1}`} stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" strokeOpacity="0.7" fill="none"/>
+const ArtifactASM = () => (
+  <svg viewBox="0 0 320 220" fill="none" style={{ display: "block", width: "100%", height: "auto", color: "var(--fl-blue)" }} role="img" aria-label="External attack-surface map">
+    <defs>
+      <radialGradient id="hiw-asm-glow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stopColor="currentColor" stopOpacity="0.25" />
+        <stop offset="100%" stopColor="currentColor" stopOpacity="0" />
+      </radialGradient>
+    </defs>
+    <circle cx="160" cy="110" r="80" fill="url(#hiw-asm-glow)" />
+    <circle cx="160" cy="110" r="6"  fill="currentColor" />
+    {[
+      [70, 38], [240, 50], [40, 130], [275, 90], [110, 188], [220, 175], [150, 30], [60, 80], [260, 160], [40, 60], [285, 130], [180, 200]
+    ].map(([x, y], i) => (
+      <g key={i}>
+        <line x1="160" y1="110" x2={x} y2={y} stroke="currentColor" strokeOpacity="0.18" strokeWidth="0.8" strokeDasharray="2 3" />
+        <circle cx={x} cy={y} r="3" fill="currentColor" fillOpacity="0.65" />
       </g>
     ))}
-    <g>
-      <circle cx="195" cy="220" r="22" fill="currentColor" fillOpacity="0.12"/>
-      <circle cx="195" cy="220" r="22" stroke="currentColor" strokeWidth="1.5" strokeOpacity="0.25" fill="none"/>
-      <path d="M195 206 L206 211 L206 222 C206 228 201 233 195 235 C189 233 184 228 184 222 L184 211 Z" stroke="currentColor" strokeWidth="1.5" strokeOpacity="0.6" fill="currentColor" fillOpacity="0.08"/>
-      <path d="M189 221 L193 225 L201 216" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" strokeOpacity="0.6" fill="none"/>
-    </g>
+    <circle cx="160" cy="110" r="80" stroke="currentColor" strokeOpacity="0.18" strokeWidth="1" strokeDasharray="3 5" />
+    <circle cx="160" cy="110" r="40" stroke="currentColor" strokeOpacity="0.3"  strokeWidth="1" />
   </svg>
 );
+
+const TERMINAL_LINES = [
+  { c: "rgba(255,255,255,0.45)", t: "$ fleuret-agent --target=api.acme.io --mode=exploit-chain" },
+  { c: "rgba(245,196,81,0.85)",  t: "[recon] discovered 47 routes, 12 auth-flows" },
+  { c: "rgba(255,255,255,0.6)",  t: "[chain] testing: idor → oauth-replay → token-leak" },
+  { c: "rgba(245,196,81,0.85)",  t: "[hit] /v1/users/:id  PII exposed (idor)" },
+  { c: "rgba(229,72,77,0.95)",   t: "[exploit] valid PoC captured — severity HIGH" },
+  { c: "rgba(255,255,255,0.6)",  t: "[chain] testing: redis-cache-poisoning" },
+  { c: "rgba(245,196,81,0.85)",  t: "[hit] /admin/* token replay (8h window)" },
+  { c: "rgba(229,72,77,0.95)",   t: "[exploit] privilege escalation confirmed" },
+  { c: "rgba(255,255,255,0.6)",  t: "[validate] re-running PoCs, capturing artifacts…" },
+  { c: "rgba(124,205,124,0.85)", t: "[ok] 7 PoCs validated · 0 false-pos · ready for triage" },
+];
+
+const ArtifactTerminal = () => (
+  <div style={{ border: "1px solid rgba(229,72,77,0.25)", borderRadius: 6, background: "rgba(11,12,20,0.85)", padding: "0.85rem 1rem", fontFamily: "var(--fl-mono)", fontSize: "0.7rem", lineHeight: 1.6, position: "relative" }}>
+    <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: "0.6rem" }}>
+      <span style={{ width: 8, height: 8, borderRadius: "50%", background: "rgba(229,72,77,0.7)" }} />
+      <span style={{ width: 8, height: 8, borderRadius: "50%", background: "rgba(245,196,81,0.7)" }} />
+      <span style={{ width: 8, height: 8, borderRadius: "50%", background: "rgba(124,205,124,0.7)" }} />
+      <span style={{ marginLeft: "auto", fontSize: "0.6rem", letterSpacing: "0.18em", color: "rgba(255,255,255,0.4)" }}>FLEURET · AGENT-RUN</span>
+    </div>
+    {TERMINAL_LINES.map((l, i) => (
+      <div key={i} style={{ color: l.c, whiteSpace: "pre-wrap" }}>{l.t}</div>
+    ))}
+    <div style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>
+      <span style={{ color: "rgba(255,255,255,0.4)" }}>$</span>
+      <span className="fl-blink" style={{ display: "inline-block", width: 6, height: 12, background: "var(--fl-red)" }} />
+    </div>
+  </div>
+);
+
+const ArtifactReport = () => (
+  <div style={{ border: "1px solid rgba(139,92,246,0.25)", borderRadius: 6, background: "rgba(11,12,20,0.8)", padding: "1rem 1.1rem", color: "var(--fl-violet)" }}>
+    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.6rem" }}>
+      <span className="fl-mono" style={{ fontSize: "0.65rem", letterSpacing: "0.22em", color: "rgba(139,92,246,0.85)" }}>FLEURET REPORT · v.2026.05</span>
+      <span className="fl-mono" style={{ fontSize: "0.6rem", letterSpacing: "0.18em", color: "rgba(255,255,255,0.45)" }}>PDF · 14 PAGES</span>
+    </div>
+    <div style={{ borderTop: "1px dashed rgba(139,92,246,0.2)", margin: "0 0 0.75rem" }} />
+    {[
+      { sev: "HIGH", color: "rgba(229,72,77,0.85)", title: "IDOR · /v1/users/:id", impact: "PII exposure across 12,400 users" },
+      { sev: "HIGH", color: "rgba(229,72,77,0.85)", title: "Token replay · /admin/*", impact: "Privilege escalation, 8h window" },
+      { sev: "MED",  color: "rgba(245,196,81,0.85)", title: "Cache poisoning · redis-l1", impact: "Session bleed cross-tenant" },
+      { sev: "MED",  color: "rgba(245,196,81,0.85)", title: "Misconfig · S3 bucket public", impact: "Read access to logs" },
+      { sev: "LOW",  color: "rgba(124,205,124,0.7)", title: "Stale dep · openssl 1.1.1", impact: "Theoretical, not exploitable" },
+    ].map((f, i) => (
+      <div key={i} style={{ display: "grid", gridTemplateColumns: "60px 1fr 140px", gap: "0.75rem", padding: "0.4rem 0", fontSize: "0.72rem", color: "rgba(255,255,255,0.85)", borderBottom: i < 4 ? "1px dashed rgba(255,255,255,0.06)" : 0 }}>
+        <span className="fl-mono" style={{ color: f.color, letterSpacing: "0.16em" }}>{f.sev}</span>
+        <span style={{ color: "#fff" }}>{f.title}</span>
+        <span style={{ color: "rgba(255,255,255,0.55)", fontSize: "0.68rem" }}>{f.impact}</span>
+      </div>
+    ))}
+    <div style={{ marginTop: "0.75rem", padding: "0.5rem 0 0", borderTop: "1px dashed rgba(139,92,246,0.2)", display: "flex", justifyContent: "space-between" }}>
+      <span className="fl-mono" style={{ fontSize: "0.6rem", letterSpacing: "0.22em", color: "rgba(139,92,246,0.85)" }}>SIGNED · TIMESTAMPED · NIS2-MAPPED</span>
+      <span className="fl-mono" style={{ fontSize: "0.6rem", letterSpacing: "0.18em", color: "rgba(255,255,255,0.5)" }}>0 false-positives</span>
+    </div>
+  </div>
+);
+
+type Stage = {
+  num: "01" | "02" | "03";
+  color: string;
+  rgb: string;
+  timestamp: string;
+  durationKey: string;
+  titleKey: string;
+  descKey: string;
+  stats: string[];
+  Artifact: () => JSX.Element;
+};
 
 const HowItWorks = () => {
   const { t } = useLanguage();
 
-  const steps = [
-    { num: "01", color: "var(--accent-blue)",   Illus: IllustrationDeploy, title: t("process.deploy.title"),   desc: t("process.deploy.desc"),   reverse: false },
-    { num: "02", color: "var(--accent-red)",    Illus: IllustrationAttack, title: t("process.attack.title"),   desc: t("process.attack.desc"),   reverse: true },
-    { num: "03", color: "var(--accent-violet)", Illus: IllustrationReport, title: t("process.exploits.title"), desc: t("process.exploits.desc"), reverse: false },
+  const stages: Stage[] = [
+    {
+      num: "01",
+      color: "var(--fl-blue)",
+      rgb: "79,143,255",
+      timestamp: "T+00:00",
+      durationKey: "process.deploy.duration",
+      titleKey: "process.deploy.title",
+      descKey: "process.deploy.desc",
+      stats: [t("process.deploy.stat1"), t("process.deploy.stat2"), t("process.deploy.duration")],
+      Artifact: ArtifactASM,
+    },
+    {
+      num: "02",
+      color: "var(--fl-red)",
+      rgb: "229,72,77",
+      timestamp: "T+00:04",
+      durationKey: "process.attack.duration",
+      titleKey: "process.attack.title",
+      descKey: "process.attack.desc",
+      stats: [t("process.attack.stat1"), t("process.attack.stat2"), t("process.attack.duration")],
+      Artifact: ArtifactTerminal,
+    },
+    {
+      num: "03",
+      color: "var(--fl-violet)",
+      rgb: "139,92,246",
+      timestamp: "T+02:18",
+      durationKey: "process.exploits.duration",
+      titleKey: "process.exploits.title",
+      descKey: "process.exploits.desc",
+      stats: [t("process.exploits.stat1"), t("process.exploits.stat2"), t("process.exploits.duration")],
+      Artifact: ArtifactReport,
+    },
   ];
 
   return (
-    <section className="py-16 md:py-24 lg:py-32">
-      <div className="max-w-[1280px] mx-auto px-4 md:px-8">
-        <div style={{ textAlign: "center", maxWidth: "56rem", margin: "0 auto 5rem" }}>
-          <h2 style={{ fontSize: "clamp(1.875rem, 4.5vw, 3.75rem)", fontWeight: 300, letterSpacing: "-0.02em", lineHeight: 1.1, color: "#fff" }}>
+    <section className="fl-section" style={{ padding: "7rem 0 8rem", position: "relative", overflow: "hidden" }}>
+      <div className="max-w-[1280px] mx-auto px-4 md:px-8" style={{ position: "relative", zIndex: 1 }}>
+        {/* Header */}
+        <div style={{ maxWidth: "44rem", marginBottom: "3.5rem" }}>
+          <p className="fl-eyebrow" style={{ display: "inline-flex", alignItems: "center", gap: "0.6rem", margin: "0 0 1.25rem" }}>
+            <span className="fl-dot" style={{ background: "var(--fl-blue)" }} />
+            {t("process.eyebrow")}
+          </p>
+          <h2
+            style={{
+              fontSize: "clamp(36px, 4.4vw, 64px)",
+              fontWeight: 300,
+              letterSpacing: "-0.02em",
+              lineHeight: 1.08,
+              color: "#fff",
+              margin: 0,
+            }}
+          >
             {t("process.main.title")}{" "}
-            <span className="text-gradient-accent">{t("process.main.works")}</span>
+            <span className="fl-text-gradient">{t("process.main.works")}</span>
           </h2>
-          <p style={{ fontSize: "1.125rem", color: "rgba(255,255,255,0.4)", maxWidth: "36rem", margin: "1rem auto 0", lineHeight: 1.7 }}>
+          <p style={{ fontSize: "1.0625rem", color: "rgba(255,255,255,0.6)", lineHeight: 1.6, maxWidth: "36rem", margin: "1.25rem 0 0" }}>
             {t("process.main.subtitle")}
           </p>
         </div>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: "6rem", maxWidth: "64rem", margin: "0 auto" }}>
-          {steps.map((step) => (
-            <div
-              key={step.num}
-              className="grid md:grid-cols-2 gap-8 md:gap-16 items-center"
-            >
-              <div
-                className="flex items-center justify-center"
-                style={{ color: step.color, minHeight: 200, order: step.reverse ? 2 : 1 }}
-              >
-                <step.Illus />
-              </div>
-              <div style={{ order: step.reverse ? 1 : 2 }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "1rem" }}>
-                  <span style={{ fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.2em", color: step.color }}>
-                    {step.num}
+        {/* Timeline */}
+        <div style={{ position: "relative", paddingLeft: 0 }}>
+          <div className="hiw-rail" />
+
+          <div style={{ display: "flex", flexDirection: "column", gap: "4rem", position: "relative", zIndex: 1 }}>
+            {stages.map((s) => (
+              <div key={s.num} style={{ display: "grid", gridTemplateColumns: "112px 1fr", gap: "1.25rem", alignItems: "start" }}>
+                {/* Rail node + timestamp */}
+                <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "0.5rem", position: "relative" }}>
+                  <div style={{ position: "relative", width: 24, height: 24 }}>
+                    <span
+                      style={{
+                        position: "absolute",
+                        inset: 0,
+                        borderRadius: "50%",
+                        border: `1px solid ${s.color}`,
+                        opacity: 0.6,
+                      }}
+                    />
+                    <span
+                      style={{
+                        position: "absolute",
+                        top: 8,
+                        left: 8,
+                        width: 8,
+                        height: 8,
+                        borderRadius: "50%",
+                        background: s.color,
+                        boxShadow: `0 0 0 6px rgba(${s.rgb}, 0.18)`,
+                      }}
+                    />
+                  </div>
+                  <span className="fl-mono" style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.6)", letterSpacing: "0.12em" }}>{s.timestamp}</span>
+                  <span
+                    className="fl-mono"
+                    style={{
+                      fontSize: "0.65rem",
+                      letterSpacing: "0.22em",
+                      padding: "3px 8px",
+                      border: `1px solid ${s.color}`,
+                      color: s.color,
+                      borderRadius: 3,
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    {t(s.durationKey)}
                   </span>
-                  <span style={{ flex: 1, height: 1, background: "rgba(255,255,255,0.1)" }} />
                 </div>
-                <h3 style={{ fontSize: "clamp(1.5rem, 2.5vw, 1.875rem)", fontWeight: 300, letterSpacing: "-0.02em", color: "#fff", marginBottom: "1rem" }}>
-                  {step.title}
-                </h3>
-                <p style={{ color: "rgba(255,255,255,0.4)", lineHeight: 1.7, fontSize: "1.125rem", margin: 0 }}>
-                  {step.desc}
-                </p>
+
+                {/* Card */}
+                <div className="grid grid-cols-1 lg:grid-cols-2" style={{ gap: "1.25rem", alignItems: "stretch" }}>
+                  <div
+                    style={{
+                      border: `1px solid rgba(${s.rgb}, 0.25)`,
+                      background: `rgba(${s.rgb}, 0.03)`,
+                      borderRadius: 6,
+                      padding: "1.5rem 1.5rem 1.25rem",
+                      display: "flex",
+                      flexDirection: "column",
+                    }}
+                  >
+                    <span className="fl-mono" style={{ fontSize: "0.875rem", color: s.color, letterSpacing: "0.18em", marginBottom: "0.75rem" }}>{s.num}</span>
+                    <h3 style={{ fontSize: "clamp(1.25rem, 2vw, 1.625rem)", fontWeight: 400, color: "#fff", margin: "0 0 0.65rem", letterSpacing: "-0.01em" }}>{t(s.titleKey)}</h3>
+                    <p style={{ color: "rgba(255,255,255,0.6)", lineHeight: 1.55, margin: 0, fontSize: "0.9375rem" }}>{t(s.descKey)}</p>
+                    <div
+                      className="fl-mono"
+                      style={{
+                        display: "grid",
+                        gridTemplateColumns: "1fr 1fr 1fr",
+                        gap: "0.5rem",
+                        marginTop: "auto",
+                        paddingTop: "1.25rem",
+                        borderTop: `1px dashed rgba(${s.rgb}, 0.25)`,
+                        fontSize: "0.65rem",
+                        letterSpacing: "0.18em",
+                        color: "rgba(255,255,255,0.65)",
+                      }}
+                    >
+                      {s.stats.map((st, i) => (
+                        <span key={i} style={{ textAlign: i === 1 ? "center" : i === 2 ? "right" : "left" }}>{st}</span>
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <s.Artifact />
+                  </div>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
+        </div>
+
+        {/* Elapsed bar */}
+        <div style={{ marginTop: "4rem" }}>
+          <div className="fl-mono" style={{ display: "flex", justifyContent: "space-between", fontSize: "0.65rem", letterSpacing: "0.22em", color: "rgba(255,255,255,0.55)", marginBottom: "0.5rem" }}>
+            <span>{t("process.elapsed.perimeter")} · 1.5%</span>
+            <span>{t("process.elapsed.engagement")} · 90%</span>
+            <span>{t("process.elapsed.report")} · 8.5%</span>
+          </div>
+          <div style={{ display: "flex", height: 10, borderRadius: 2, overflow: "hidden", border: "1px solid rgba(255,255,255,0.08)" }}>
+            <div style={{ width: "1.5%", background: "var(--fl-blue)" }} />
+            <div style={{ width: "90%",  background: "var(--fl-red)", opacity: 0.85 }} />
+            <div style={{ width: "8.5%", background: "var(--fl-violet)" }} />
+          </div>
+          <p className="fl-mono" style={{ fontSize: "0.65rem", letterSpacing: "0.22em", color: "rgba(255,255,255,0.45)", margin: "0.65rem 0 0", textAlign: "center" }}>
+            {t("process.elapsed.label")}
+          </p>
         </div>
       </div>
+
+      <style>{`
+        .hiw-rail {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 11px;
+          width: 1px;
+          background: linear-gradient(180deg, var(--fl-blue) 0%, var(--fl-red) 55%, var(--fl-violet) 100%);
+          opacity: 0.7;
+        }
+      `}</style>
     </section>
   );
 };
