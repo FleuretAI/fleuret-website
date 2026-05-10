@@ -20,7 +20,7 @@ const PricingSection = () => {
   const { t, localize } = useLanguage();
 
   return (
-    <section id="pricing" className="fl-section" style={{ padding: "7rem 0 8rem", position: "relative", overflow: "hidden" }}>
+    <section id="pricing" className="fl-section fl-section--solid" style={{ padding: "5rem 0 6rem", position: "relative", overflow: "hidden", scrollMarginTop: "5rem" }}>
       <div className="max-w-[1280px] mx-auto px-4 md:px-8" style={{ position: "relative", zIndex: 1 }}>
         {/* Header */}
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: "1rem", marginBottom: "3.5rem" }}>
@@ -31,10 +31,10 @@ const PricingSection = () => {
             </p>
             <h2
               style={{
-                fontSize: "clamp(36px, 4.4vw, 64px)",
-                fontWeight: 300,
+                fontSize: "clamp(26px, 2.9vw, 42px)",
+                fontWeight: 400,
                 letterSpacing: "-0.02em",
-                lineHeight: 1.08,
+                lineHeight: 1.1,
                 color: "#fff",
                 margin: 0,
               }}
@@ -83,19 +83,20 @@ const PricingSection = () => {
               </div>
 
               {/* Hero price echo */}
-              <div style={{ display: "flex", alignItems: "baseline", gap: "0.75rem", margin: "1.75rem 0 0.75rem", flexWrap: "wrap" }}>
+              <div style={{ display: "flex", alignItems: "baseline", gap: "0.75rem", margin: "1.5rem 0 0.5rem", flexWrap: "wrap" }}>
                 <span
+                  className="fl-mono"
                   style={{
-                    fontSize: "clamp(54px, 6.4vw, 92px)",
-                    fontWeight: 300,
-                    letterSpacing: "-0.03em",
+                    fontSize: "clamp(44px, 4.7vw, 68px)",
+                    fontWeight: 400,
+                    letterSpacing: "-0.025em",
                     color: "#fff",
                     lineHeight: 1,
                   }}
                 >
                   {t("pricing.standard.price")}
                 </span>
-                <span className="fl-mono" style={{ fontSize: "0.8125rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(255,255,255,0.5)" }}>
+                <span className="fl-mono" style={{ fontSize: "0.75rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(255,255,255,0.5)" }}>
                   {t("pricing.standard.unit")}
                 </span>
               </div>
@@ -162,13 +163,14 @@ const PricingSection = () => {
                 <span className="fl-mono" style={{ fontSize: "0.875rem", color: "rgba(229,72,77,0.85)" }}>{t("pricing.anchor.price")}</span>
               </div>
 
-              <div style={{ display: "flex", alignItems: "baseline", gap: "0.75rem", margin: "1.75rem 0 0.75rem", flexWrap: "wrap" }}>
+              <div style={{ display: "flex", alignItems: "baseline", gap: "0.75rem", margin: "1.5rem 0 0.5rem", flexWrap: "wrap" }}>
                 <s
+                  className="fl-mono"
                   aria-label={t("pricing.anchor")}
                   style={{
-                    fontSize: "clamp(54px, 6.4vw, 92px)",
-                    fontWeight: 300,
-                    letterSpacing: "-0.03em",
+                    fontSize: "clamp(44px, 4.7vw, 68px)",
+                    fontWeight: 400,
+                    letterSpacing: "-0.025em",
                     color: "rgba(255,255,255,0.55)",
                     lineHeight: 1,
                     textDecoration: "line-through",

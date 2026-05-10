@@ -7,8 +7,8 @@ const CTASection = () => {
 
   return (
     <section
-      className="fl-section"
-      style={{ position: "relative", overflow: "hidden", padding: "12rem 0 13rem", minHeight: "min(80vh, 760px)" }}
+      className="fl-section fl-section--solid"
+      style={{ position: "relative", overflow: "hidden", padding: "8rem 0 9rem", minHeight: "min(70vh, 660px)" }}
     >
       <div
         aria-hidden
@@ -45,10 +45,10 @@ const CTASection = () => {
 
           <h2
             style={{
-              fontSize: "clamp(48px, 6vw, 96px)",
+              fontSize: "clamp(36px, 4.4vw, 64px)",
               fontWeight: 300,
-              letterSpacing: "-0.03em",
-              lineHeight: 1.04,
+              letterSpacing: "-0.025em",
+              lineHeight: 1.06,
               color: "#fff",
               margin: 0,
               textWrap: "balance" as React.CSSProperties["textWrap"],
