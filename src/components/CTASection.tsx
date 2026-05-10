@@ -6,22 +6,98 @@ const CTASection = () => {
   const { t, localize } = useLanguage();
 
   return (
-    <section className="py-16 md:py-24 lg:py-32">
-      <div className="max-w-[1280px] mx-auto px-4 md:px-8">
-        <div style={{ maxWidth: "48rem", margin: "0 auto", textAlign: "center" }}>
-          <h2 style={{ fontSize: "clamp(1.875rem, 4.5vw, 3.75rem)", fontWeight: 300, letterSpacing: "-0.02em", lineHeight: 1.1 }}>
-            <span className="text-gradient-accent">{t("cta.title")}</span>
+    <section
+      className="fl-section fl-section--solid"
+      style={{ position: "relative", overflow: "hidden", padding: "8rem 0 9rem", minHeight: "min(70vh, 660px)" }}
+    >
+      <div
+        aria-hidden
+        className="fl-crosshair"
+        style={{ position: "absolute", inset: 0, pointerEvents: "none", opacity: 1, zIndex: 0 }}
+      />
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          inset: 0,
+          pointerEvents: "none",
+          zIndex: 0,
+          background:
+            "radial-gradient(ellipse 70% 40% at 50% 0%, rgba(79,143,255,0.18), transparent 70%), radial-gradient(ellipse 70% 40% at 50% 100%, rgba(229,72,77,0.10), transparent 75%)",
+        }}
+      />
+
+      <div className="max-w-[1280px] mx-auto px-4 md:px-8" style={{ position: "relative", zIndex: 1 }}>
+        <div style={{ maxWidth: "62rem", margin: "0 auto", textAlign: "center" }}>
+          <p
+            className="fl-eyebrow"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.6rem",
+              justifyContent: "center",
+              margin: "0 0 2rem",
+            }}
+          >
+            <span className="fl-dot" style={{ background: "var(--fl-blue)" }} />
+            {t("cta.eyebrow")}
+          </p>
+
+          <h2
+            style={{
+              fontSize: "clamp(36px, 4.4vw, 64px)",
+              fontWeight: 300,
+              letterSpacing: "-0.025em",
+              lineHeight: 1.06,
+              color: "#fff",
+              margin: 0,
+              textWrap: "balance" as React.CSSProperties["textWrap"],
+            }}
+          >
+            {t("cta.titleA")}{" "}
+            <span className="fl-text-gradient">{t("cta.titleB")}</span>
+            <span style={{ color: "#fff" }}>.</span>
           </h2>
-          <p style={{ fontSize: "clamp(1rem, 1.5vw, 1.125rem)", color: "rgba(255,255,255,0.4)", maxWidth: "36rem", margin: "1.5rem auto 2rem", lineHeight: 1.7 }}>
+
+          <p
+            style={{
+              fontSize: "clamp(16px, 1.5vw, 18px)",
+              color: "rgba(255,255,255,0.6)",
+              lineHeight: 1.6,
+              maxWidth: "620px",
+              margin: "1.75rem auto 2.5rem",
+            }}
+          >
             {t("cta.subtitle")}
           </p>
-          <div style={{ display: "flex", justifyContent: "center", paddingTop: "1rem" }}>
-            <Link to={localize(DEMO_ROUTE)} className="btn-cta btn-cta--lg">
+
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <Link to={localize(DEMO_ROUTE)} className="fl-cta">
               {t("cta.button")}
+              <span aria-hidden>→</span>
             </Link>
           </div>
         </div>
       </div>
+
+      <p
+        className="fl-eyebrow fl-mono"
+        style={{
+          position: "absolute",
+          left: 0,
+          right: 0,
+          bottom: 26,
+          margin: 0,
+          textAlign: "center",
+          fontSize: 10,
+          letterSpacing: "0.32em",
+          color: "rgba(255,255,255,0.32)",
+          zIndex: 1,
+          pointerEvents: "none",
+        }}
+      >
+        {t("cta.ambient")}
+      </p>
     </section>
   );
 };
