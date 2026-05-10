@@ -255,6 +255,9 @@ export const translations = {
     'comparison.verdict.firm': 'Profond, mais lent et cher.',
     'comparison.verdict.fleuret': 'Les deux. À chaque release.',
     'comparison.verdict.scanner': 'Rapide et bon marché. Mais superficiel et bruyant.',
+    'comparison.chrome.criteria': '7 CRITÈRES · 3 PRESTATAIRES',
+    'comparison.chrome.wins': 'FLEURET GAGNE 4 / 7',
+    'comparison.win': 'GAGNE',
 
     // Redesign 2026-05-09 — Pricing receipt
     'pricing.eyebrow': 'TARIFS · 02 OFFRES',
@@ -709,7 +712,10 @@ export const translations = {
     'comparison.poster.scanner': 'NOT A SCANNER',
     'comparison.verdict.firm': 'Deep, but slow and expensive.',
     'comparison.verdict.fleuret': 'Both. On every release.',
-    'comparison.verdict.scanner': 'Fast and cheap. But shallow and noisy.',
+    'comparison.verdict.scanner': 'Fast, but shallow and noisy.',
+    'comparison.chrome.criteria': '7 CRITERIA · 3 PROVIDERS',
+    'comparison.chrome.wins': 'FLEURET WINS 4 / 7',
+    'comparison.win': 'WIN',
 
     // Redesign 2026-05-09 — Pricing receipt
     'pricing.eyebrow': 'PRICING · 02 TIERS',

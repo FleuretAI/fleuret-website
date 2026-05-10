@@ -7,38 +7,56 @@ type Row = {
   key: RowKey;
   band: Band;
   label: string;
-  firm: string;
-  fleuret: string;
-  scanner: string;
+  firm: string | "__yes__" | "__no__";
+  fleuret: string | "__yes__" | "__no__";
+  scanner: string | "__yes__" | "__no__";
+  win: boolean;
 };
 
-const isFleuretWin = (k: RowKey) => k === "cost" || k === "fp" || k === "frequency" || k === "compliance" || k === "adapt";
-
 const Tick = () => (
-  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden style={{ display: "inline-block", verticalAlign: "-2px", marginLeft: 6 }}>
-    <circle cx="7" cy="7" r="6.5" stroke="rgba(124,205,124,0.7)" strokeWidth="1" fill="rgba(124,205,124,0.16)" />
-    <path d="M4 7L6 9.2L10 4.6" stroke="rgba(124,205,124,1)" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden style={{ display: "inline-block" }}>
+    <circle cx="9" cy="9" r="8.5" fill="rgb(34,197,94)" fillOpacity="0.18" stroke="rgb(34,197,94)" strokeOpacity="0.7" strokeWidth="1" />
+    <path d="M5.5 9.2L8 11.6L12.6 6.6" stroke="rgb(34,197,94)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
   </svg>
 );
 
-const NoMark = ({ label }: { label: string }) => (
-  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" role="img" aria-label={label} style={{ display: "inline-block", verticalAlign: "-2px" }}>
-    <circle cx="7" cy="7" r="6.5" stroke="rgba(229,72,77,0.55)" strokeWidth="1" fill="rgba(229,72,77,0.1)" />
-    <path d="M4.5 4.5L9.5 9.5M9.5 4.5L4.5 9.5" stroke="rgba(229,72,77,0.85)" strokeWidth="1.4" strokeLinecap="round" />
+const Cross = () => (
+  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden style={{ display: "inline-block" }}>
+    <circle cx="9" cy="9" r="8.5" fill="rgb(239,68,68)" fillOpacity="0.15" stroke="rgb(239,68,68)" strokeOpacity="0.6" strokeWidth="1" />
+    <path d="M6 6L12 12M12 6L6 12" stroke="rgb(239,68,68)" strokeWidth="2" strokeLinecap="round" />
   </svg>
+);
+
+const WinBadge = ({ label }: { label: string }) => (
+  <span
+    className="fl-mono"
+    style={{
+      display: "inline-block",
+      padding: "2px 6px",
+      border: "1px solid rgba(79,143,255,0.4)",
+      borderRadius: 2,
+      fontSize: 9,
+      letterSpacing: "0.18em",
+      color: "rgba(180,200,255,0.85)",
+      marginLeft: 10,
+      lineHeight: 1.45,
+    }}
+  >
+    {label}
+  </span>
 );
 
 const ComparisonTable = () => {
   const { t } = useLanguage();
 
   const rows: Row[] = [
-    { key: "depth",      band: "rigor",     label: t("comparison.depth"),          firm: t("comparison.depth.traditional"),          fleuret: t("comparison.depth.fleuret"),          scanner: t("comparison.depth.automated") },
-    { key: "fp",         band: "rigor",     label: t("comparison.falsePositives"), firm: t("comparison.falsePositives.traditional"), fleuret: t("comparison.falsePositives.fleuret"), scanner: t("comparison.falsePositives.automated") },
-    { key: "speed",      band: "economics", label: t("comparison.speed"),          firm: t("comparison.speed.traditional"),          fleuret: t("comparison.speed.fleuret"),          scanner: t("comparison.speed.automated") },
-    { key: "cost",       band: "economics", label: t("comparison.cost"),           firm: t("comparison.cost.traditional"),           fleuret: t("comparison.cost.fleuret"),           scanner: t("comparison.cost.automated") },
-    { key: "frequency",  band: "economics", label: t("comparison.frequency"),      firm: t("comparison.frequency.traditional"),      fleuret: t("comparison.frequency.fleuret"),      scanner: t("comparison.frequency.automated") },
-    { key: "compliance", band: "fit",       label: t("comparison.compliance"),     firm: "__yes__",                                  fleuret: "__yes__",                              scanner: "__no__" },
-    { key: "adapt",      band: "fit",       label: t("comparison.adaptability"),   firm: "__yes__",                                  fleuret: "__yes__",                              scanner: "__no__" },
+    { key: "depth",      band: "rigor",     label: t("comparison.depth"),          firm: t("comparison.depth.traditional"),          fleuret: t("comparison.depth.fleuret"),          scanner: t("comparison.depth.automated"),          win: false },
+    { key: "fp",         band: "rigor",     label: t("comparison.falsePositives"), firm: t("comparison.falsePositives.traditional"), fleuret: t("comparison.falsePositives.fleuret"), scanner: t("comparison.falsePositives.automated"), win: true },
+    { key: "speed",      band: "economics", label: t("comparison.speed"),          firm: t("comparison.speed.traditional"),          fleuret: t("comparison.speed.fleuret"),          scanner: t("comparison.speed.automated"),          win: false },
+    { key: "cost",       band: "economics", label: t("comparison.cost"),           firm: t("comparison.cost.traditional"),           fleuret: t("comparison.cost.fleuret"),           scanner: t("comparison.cost.automated"),           win: true },
+    { key: "frequency",  band: "economics", label: t("comparison.frequency"),      firm: t("comparison.frequency.traditional"),      fleuret: t("comparison.frequency.fleuret"),      scanner: t("comparison.frequency.automated"),      win: true },
+    { key: "compliance", band: "fit",       label: t("comparison.compliance"),     firm: "__yes__",                                  fleuret: "__yes__",                              scanner: "__no__",                                 win: false },
+    { key: "adapt",      band: "fit",       label: t("comparison.adaptability"),   firm: "__yes__",                                  fleuret: "__yes__",                              scanner: "__no__",                                 win: false },
   ];
 
   const bands: { key: Band; labelKey: string }[] = [
@@ -47,171 +65,221 @@ const ComparisonTable = () => {
     { key: "fit",       labelKey: "comparison.band.fit" },
   ];
 
-  type PosterMeta = {
-    id: "firm" | "fleuret" | "scanner";
-    eyebrowKey: string;
-    eyebrowColor: string;
-    rgb: string;
-    label: string;
-    verdictKey: string;
-    raised: boolean;
-  };
+  type Col = "firm" | "fleuret" | "scanner";
 
-  const posters: PosterMeta[] = [
-    { id: "firm",    eyebrowKey: "comparison.poster.firm",    eyebrowColor: "rgba(255,255,255,0.55)", rgb: "255,255,255", label: t("comparison.header.traditional"), verdictKey: "comparison.verdict.firm",    raised: false },
-    { id: "fleuret", eyebrowKey: "comparison.poster.fleuret", eyebrowColor: "var(--fl-violet)",       rgb: "139,92,246",  label: t("comparison.header.fleuret"),     verdictKey: "comparison.verdict.fleuret", raised: true },
-    { id: "scanner", eyebrowKey: "comparison.poster.scanner", eyebrowColor: "rgba(255,255,255,0.55)", rgb: "255,255,255", label: t("comparison.header.automated"),   verdictKey: "comparison.verdict.scanner", raised: false },
-  ];
+  const renderCell = (row: Row, col: Col) => {
+    const v = row[col];
+    const isFleuret = col === "fleuret";
+    let body: React.ReactNode;
+    if (v === "__yes__") body = <Tick />;
+    else if (v === "__no__") body = <Cross />;
+    else body = (
+      <span style={{ color: isFleuret ? "#fff" : "rgba(255,255,255,0.45)", fontWeight: isFleuret ? 500 : 400 }}>
+        {v}
+      </span>
+    );
 
-  const cellFor = (row: Row, p: PosterMeta) => {
-    const v = p.id === "firm" ? row.firm : p.id === "fleuret" ? row.fleuret : row.scanner;
-    const isFleuret = p.id === "fleuret";
-    const content =
-      v === "__yes__" ? <Tick /> :
-      v === "__no__"  ? <NoMark label="Not supported" /> :
-      v === "✓"       ? <Tick /> :
-      <span>{v}</span>;
     return (
       <div
+        key={col}
         style={{
-          padding: "1rem 1.1rem",
-          borderTop: "1px dashed rgba(255,255,255,0.08)",
-          fontSize: "0.875rem",
-          color: isFleuret ? "#fff" : "rgba(255,255,255,0.65)",
-          lineHeight: 1.5,
-          minHeight: 62,
+          padding: "16px 26px",
+          minHeight: row.band === "fit" ? 68 : 70,
+          fontSize: 14.5,
+          lineHeight: "20.3px",
+          borderTop: "1px solid rgba(255,255,255,0.04)",
+          borderRight: col === "firm" ? "1px solid rgba(255,255,255,0.04)" : "none",
+          borderLeft: col === "scanner" ? "1px solid rgba(255,255,255,0.04)" : "none",
+          position: "relative",
+          zIndex: 1,
           display: "flex",
-          alignItems: "center",
+          flexDirection: "column",
+          justifyContent: "center",
         }}
       >
-        <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
-          {content}
-          {isFleuret && isFleuretWin(row.key) && typeof v === "string" && v !== "__yes__" && v !== "__no__" && <Tick />}
-        </span>
+        <p className="fl-mono" style={{ margin: "0 0 6px", fontSize: 9.5, letterSpacing: "0.19em", color: "rgba(255,255,255,0.32)", textTransform: "uppercase" }}>
+          {row.label}
+        </p>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          {body}
+          {isFleuret && row.win && <WinBadge label={t("comparison.win")} />}
+        </div>
       </div>
     );
   };
 
+  const renderHeaderCell = (col: Col) => {
+    const isFleuret = col === "fleuret";
+    const eyebrow =
+      col === "firm" ? t("comparison.poster.firm") :
+      col === "fleuret" ? t("comparison.poster.fleuret") :
+      t("comparison.poster.scanner");
+    const eyebrowColor =
+      col === "fleuret" ? "rgba(180,200,255,0.95)" : "rgba(255,255,255,0.42)";
+    return (
+      <div
+        key={col}
+        style={{
+          padding: "24px 26px 22px",
+          minHeight: 98,
+          borderBottom: "1px solid rgba(255,255,255,0.06)",
+          borderRight: col === "firm" ? "1px solid rgba(255,255,255,0.04)" : "none",
+          borderLeft: col === "scanner" ? "1px solid rgba(255,255,255,0.04)" : "none",
+          position: "relative",
+          zIndex: 1,
+        }}
+      >
+        <p className="fl-mono" style={{ margin: "0 0 10px", fontSize: 10, letterSpacing: "0.22em", color: eyebrowColor }}>
+          {eyebrow}
+        </p>
+        {isFleuret ? (
+          <span
+            style={{
+              display: "inline-block",
+              padding: "6px 16px",
+              borderRadius: 999,
+              background: "linear-gradient(135deg, #4F8FFF 0%, #8B5CF6 100%)",
+              color: "#fff",
+              fontSize: 14,
+              fontWeight: 500,
+              letterSpacing: "0.02em",
+            }}
+          >
+            {t("comparison.header.fleuret")}
+          </span>
+        ) : (
+          <span style={{ fontSize: 22, fontWeight: 400, color: "rgba(255,255,255,0.85)", letterSpacing: "-0.01em" }}>
+            {col === "firm" ? t("comparison.header.traditional") : t("comparison.header.automated")}
+          </span>
+        )}
+      </div>
+    );
+  };
+
+  const renderBandStrip = (labelKey: string, key: string) => (
+    <div
+      key={key}
+      style={{
+        gridColumn: "1 / -1",
+        padding: "14px 26px 6px",
+        background: "rgba(255,255,255,0.016)",
+        borderTop: "1px solid rgba(255,255,255,0.06)",
+        position: "relative",
+        zIndex: 1,
+      }}
+    >
+      <span className="fl-mono" style={{ fontSize: 9.5, letterSpacing: "0.22em", color: "rgba(255,255,255,0.32)", textTransform: "uppercase" }}>
+        {t(labelKey)}
+      </span>
+    </div>
+  );
+
+  const renderVerdictCell = (col: Col) => {
+    const isFleuret = col === "fleuret";
+    const verdictKey =
+      col === "firm" ? "comparison.verdict.firm" :
+      col === "fleuret" ? "comparison.verdict.fleuret" :
+      "comparison.verdict.scanner";
+    return (
+      <div
+        key={col}
+        style={{
+          padding: "20px 26px 22px",
+          borderTop: "1px solid rgba(255,255,255,0.06)",
+          borderRight: col === "firm" ? "1px solid rgba(255,255,255,0.04)" : "none",
+          borderLeft: col === "scanner" ? "1px solid rgba(255,255,255,0.04)" : "none",
+          position: "relative",
+          zIndex: 1,
+          fontSize: 14,
+          lineHeight: "21px",
+          color: isFleuret ? "#fff" : "rgba(255,255,255,0.5)",
+          fontWeight: isFleuret ? 500 : 300,
+        }}
+      >
+        {t(verdictKey)}
+      </div>
+    );
+  };
+
+  const cols: Col[] = ["firm", "fleuret", "scanner"];
+
   return (
     <section id="comparison" className="fl-section fl-section--solid" style={{ padding: "5rem 0 6rem", position: "relative", overflow: "hidden", scrollMarginTop: "5rem" }}>
       <div className="max-w-[1280px] mx-auto px-4 md:px-8" style={{ position: "relative", zIndex: 1 }}>
-        {/* Header */}
-        <div style={{ maxWidth: "44rem", margin: "0 auto 3rem", textAlign: "center" }}>
-          <h2 style={{ fontSize: "clamp(26px, 2.9vw, 42px)", fontWeight: 400, letterSpacing: "-0.02em", lineHeight: 1.12, color: "#fff", margin: 0 }}>
+        {/* Header row */}
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: "2rem", flexWrap: "wrap", marginBottom: "2.5rem" }}>
+          <h2 style={{ fontSize: "clamp(28px, 2.9vw, 42px)", fontWeight: 300, letterSpacing: "-0.02em", lineHeight: 1.1, color: "#fff", margin: 0 }}>
             {t("comparison.title")}
           </h2>
+          <div className="fl-mono" style={{ textAlign: "right", fontSize: 10.5, letterSpacing: "0.18em", lineHeight: 1.7 }}>
+            <p style={{ margin: 0, color: "rgba(255,255,255,0.42)" }}>{t("comparison.chrome.criteria")}</p>
+            <p style={{ margin: 0, color: "rgba(180,200,255,0.85)" }}>{t("comparison.chrome.wins")}</p>
+          </div>
         </div>
 
-        {/* Posters */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.05fr_1fr]" style={{ gap: "1.25rem", alignItems: "stretch" }}>
-          {posters.map((p) => {
-            const inner = (
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  height: "100%",
-                  background: p.id === "fleuret" ? "rgba(11,12,20,0.85)" : "rgba(255,255,255,0.02)",
-                  border: p.id === "fleuret" ? "none" : "1px solid rgba(255,255,255,0.08)",
-                  borderRadius: 6,
-                  overflow: "hidden",
-                }}
-              >
-                {/* Eyebrow strip */}
-                <div
-                  className="fl-mono"
-                  style={{
-                    padding: "0.85rem 1.1rem",
-                    fontSize: "0.65rem",
-                    letterSpacing: "0.24em",
-                    color: p.eyebrowColor,
-                    borderBottom: "1px solid rgba(255,255,255,0.08)",
-                    textTransform: "uppercase",
-                  }}
-                >
-                  {t(p.eyebrowKey)}
-                </div>
+        {/* Grid wrapper with raised middle card */}
+        <div style={{ position: "relative" }}>
+          {/* Raised middle column overlay */}
+          <div
+            aria-hidden
+            style={{
+              position: "absolute",
+              left: "33.333%",
+              right: "33.333%",
+              top: -18,
+              bottom: -18,
+              borderRadius: 14,
+              padding: 1,
+              background: "linear-gradient(180deg, rgba(79,143,255,0.7) 0%, rgba(139,92,246,0.5) 60%, rgba(79,143,255,0.2) 100%)",
+              zIndex: 0,
+              pointerEvents: "none",
+              boxShadow: "0 30px 80px rgba(79,143,255,0.18)",
+              WebkitMask: "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
+              WebkitMaskComposite: "xor",
+              maskComposite: "exclude",
+            }}
+          />
+          <div
+            aria-hidden
+            style={{
+              position: "absolute",
+              left: "33.333%",
+              right: "33.333%",
+              top: -18,
+              bottom: -18,
+              borderRadius: 14,
+              background: "linear-gradient(180deg, rgba(79,143,255,0.05) 0%, rgba(139,92,246,0.05) 100%)",
+              zIndex: 0,
+              pointerEvents: "none",
+            }}
+          />
 
-                {/* Column label */}
-                <div style={{ padding: "1.5rem 1.1rem 1.25rem", display: "flex", justifyContent: p.id === "fleuret" ? "center" : "flex-start" }}>
-                  {p.id === "fleuret" ? (
-                    <span className="fl-pill">{p.label}</span>
-                  ) : (
-                    <span style={{ fontSize: "1.0625rem", color: "rgba(255,255,255,0.85)", fontWeight: 400 }}>{p.label}</span>
-                  )}
-                </div>
+          {/* CSS grid: 3 equal columns, mixing per-column cells with full-width band strips */}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr 1fr",
+              gap: 0,
+            }}
+          >
+            {/* Header row */}
+            {cols.map(renderHeaderCell)}
 
-                {/* Bands of criteria */}
-                {bands.map((b) => {
-                  const bandRows = rows.filter((r) => r.band === b.key);
-                  return (
-                    <div key={b.key} style={{ padding: "0 0 0.4rem" }}>
-                      <div
-                        className="fl-mono"
-                        style={{
-                          padding: "0.55rem 1.1rem",
-                          fontSize: "0.6rem",
-                          letterSpacing: "0.24em",
-                          color: "rgba(255,255,255,0.4)",
-                          textTransform: "uppercase",
-                          background: "rgba(255,255,255,0.025)",
-                          borderTop: "1px solid rgba(255,255,255,0.06)",
-                        }}
-                      >
-                        {t(b.labelKey)}
-                      </div>
-                      {bandRows.map((row) => (
-                        <div key={row.key}>
-                          {p.id === "firm" && (
-                            <div
-                              className="fl-mono"
-                              style={{
-                                padding: "0.45rem 1.1rem 0",
-                                fontSize: "0.62rem",
-                                letterSpacing: "0.2em",
-                                color: "rgba(255,255,255,0.35)",
-                                textTransform: "uppercase",
-                              }}
-                            >
-                              {row.label}
-                            </div>
-                          )}
-                          {cellFor(row, p)}
-                        </div>
-                      ))}
-                    </div>
-                  );
-                })}
-
-                {/* Verdict */}
-                <div
-                  style={{
-                    marginTop: "auto",
-                    padding: "1rem 1.1rem 1.25rem",
-                    borderTop: "1px dashed rgba(255,255,255,0.1)",
-                    fontSize: "0.9375rem",
-                    color: p.id === "fleuret" ? "#fff" : "rgba(255,255,255,0.6)",
-                    fontWeight: p.id === "fleuret" ? 500 : 400,
-                    lineHeight: 1.5,
-                  }}
-                >
-                  {t(p.verdictKey)}
-                </div>
+            {/* Bands + rows */}
+            {bands.map((b) => (
+              <div key={b.key} style={{ display: "contents" }}>
+                {renderBandStrip(b.labelKey, `${b.key}-strip`)}
+                {rows.filter((r) => r.band === b.key).map((r) => (
+                  <div key={r.key} style={{ display: "contents" }}>
+                    {cols.map((c) => <div key={c}>{renderCell(r, c)}</div>)}
+                  </div>
+                ))}
               </div>
-            );
+            ))}
 
-            return (
-              <div
-                key={p.id}
-                style={{
-                  transform: p.raised ? "translateY(-12px)" : undefined,
-                }}
-                className={p.raised ? "fl-gradient-frame" : undefined}
-              >
-                {inner}
-              </div>
-            );
-          })}
+            {/* Verdict row */}
+            {cols.map(renderVerdictCell)}
+          </div>
         </div>
       </div>
     </section>
