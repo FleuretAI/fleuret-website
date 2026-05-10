@@ -269,17 +269,6 @@ const HowItWorks = () => {
         </div>
       </div>
 
-      <style>{`
-        .hiw-rail {
-          position: absolute;
-          top: 0;
-          bottom: 0;
-          left: 11px;
-          width: 1px;
-          background: linear-gradient(180deg, var(--fl-blue) 0%, var(--fl-red) 55%, var(--fl-violet) 100%);
-          opacity: 0.7;
-        }
-      `}</style>
     </section>
   );
 };

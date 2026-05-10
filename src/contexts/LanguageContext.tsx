@@ -275,7 +275,7 @@ export const translations = {
     'pricing.anchor.line3Tag': '+ FACTURE',
     'pricing.anchor.line4': 'Cycle achat annuel',
     'pricing.anchor.line4Tag': '+ OPEX',
-    'pricing.anchor.footer': '— PAS DE PLATEFORME · PAS DE RE-TEST · PAS DE DASHBOARD —',
+    'pricing.anchor.footer': '· PAS DE PLATEFORME · PAS DE RE-TEST · PAS DE DASHBOARD ·',
     'pricing.anchor.watermark': 'RÉFÉRENCE · ANCRAGE',
     'pricing.alsoAvailable': 'ÉGALEMENT DISPONIBLE · ENTERPRISE',
 
@@ -730,7 +730,7 @@ export const translations = {
     'pricing.anchor.line3Tag': '+ INVOICE',
     'pricing.anchor.line4': 'Annual procurement cycle',
     'pricing.anchor.line4Tag': '+ OPEX',
-    'pricing.anchor.footer': '— NOT A PLATFORM · NO RE-TEST · NO DASHBOARD —',
+    'pricing.anchor.footer': '· NOT A PLATFORM · NO RE-TEST · NO DASHBOARD ·',
     'pricing.anchor.watermark': 'ANCHOR · REFERENCE',
     'pricing.alsoAvailable': 'ALSO AVAILABLE · ENTERPRISE',
 

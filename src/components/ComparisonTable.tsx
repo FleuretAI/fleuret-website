@@ -21,6 +21,13 @@ const Tick = () => (
   </svg>
 );
 
+const NoMark = ({ label }: { label: string }) => (
+  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" role="img" aria-label={label} style={{ display: "inline-block", verticalAlign: "-2px" }}>
+    <circle cx="7" cy="7" r="6.5" stroke="rgba(229,72,77,0.55)" strokeWidth="1" fill="rgba(229,72,77,0.1)" />
+    <path d="M4.5 4.5L9.5 9.5M9.5 4.5L4.5 9.5" stroke="rgba(229,72,77,0.85)" strokeWidth="1.4" strokeLinecap="round" />
+  </svg>
+);
+
 const ComparisonTable = () => {
   const { t } = useLanguage();
 
@@ -30,8 +37,8 @@ const ComparisonTable = () => {
     { key: "speed",      band: "economics", label: t("comparison.speed"),          firm: t("comparison.speed.traditional"),          fleuret: t("comparison.speed.fleuret"),          scanner: t("comparison.speed.automated") },
     { key: "cost",       band: "economics", label: t("comparison.cost"),           firm: t("comparison.cost.traditional"),           fleuret: t("comparison.cost.fleuret"),           scanner: t("comparison.cost.automated") },
     { key: "frequency",  band: "economics", label: t("comparison.frequency"),      firm: t("comparison.frequency.traditional"),      fleuret: t("comparison.frequency.fleuret"),      scanner: t("comparison.frequency.automated") },
-    { key: "compliance", band: "fit",       label: t("comparison.compliance"),     firm: "✓",                                        fleuret: "✓",                                    scanner: "—" },
-    { key: "adapt",      band: "fit",       label: t("comparison.adaptability"),   firm: "✓",                                        fleuret: "✓",                                    scanner: "—" },
+    { key: "compliance", band: "fit",       label: t("comparison.compliance"),     firm: "__yes__",                                  fleuret: "__yes__",                              scanner: "__no__" },
+    { key: "adapt",      band: "fit",       label: t("comparison.adaptability"),   firm: "__yes__",                                  fleuret: "__yes__",                              scanner: "__no__" },
   ];
 
   const bands: { key: Band; labelKey: string }[] = [
@@ -59,6 +66,11 @@ const ComparisonTable = () => {
   const cellFor = (row: Row, p: PosterMeta) => {
     const v = p.id === "firm" ? row.firm : p.id === "fleuret" ? row.fleuret : row.scanner;
     const isFleuret = p.id === "fleuret";
+    const content =
+      v === "__yes__" ? <Tick /> :
+      v === "__no__"  ? <NoMark label="Not supported" /> :
+      v === "✓"       ? <Tick /> :
+      <span>{v}</span>;
     return (
       <div
         style={{
@@ -72,7 +84,10 @@ const ComparisonTable = () => {
           alignItems: "center",
         }}
       >
-        <span>{v}{isFleuret && isFleuretWin(row.key) && <Tick />}</span>
+        <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+          {content}
+          {isFleuret && isFleuretWin(row.key) && typeof v === "string" && v !== "__yes__" && v !== "__no__" && <Tick />}
+        </span>
       </div>
     );
   };

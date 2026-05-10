@@ -140,7 +140,7 @@ const PricingSection = () => {
             {/* Right — Anchor / firm reference */}
             <div style={{ padding: "2.5rem 2.25rem 2rem", position: "relative", opacity: 0.62 }}>
               {/* Watermark */}
-              <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", pointerEvents: "none" }}>
+              <div aria-hidden style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", pointerEvents: "none" }}>
                 <span
                   className="fl-mono"
                   style={{
@@ -163,7 +163,8 @@ const PricingSection = () => {
               </div>
 
               <div style={{ display: "flex", alignItems: "baseline", gap: "0.75rem", margin: "1.75rem 0 0.75rem", flexWrap: "wrap" }}>
-                <span
+                <s
+                  aria-label={t("pricing.anchor")}
                   style={{
                     fontSize: "clamp(54px, 6.4vw, 92px)",
                     fontWeight: 300,
@@ -176,7 +177,7 @@ const PricingSection = () => {
                   }}
                 >
                   {t("pricing.anchor.price")}
-                </span>
+                </s>
                 <span className="fl-mono" style={{ fontSize: "0.8125rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(255,255,255,0.4)" }}>
                   {t("pricing.anchor.unit")}
                 </span>
