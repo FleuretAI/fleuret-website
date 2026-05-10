@@ -1,7 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import WhySection from "@/components/WhySection";
-import Benchmark from "@/components/Benchmark";
 import HowItWorks from "@/components/HowItWorks";
 import ComparisonTable from "@/components/ComparisonTable";
 import PricingSection from "@/components/PricingSection";
@@ -32,7 +31,6 @@ const Index = () => {
       <main id="main-content">
         <Hero />
         <WhySection />
-        <Benchmark />
         <HowItWorks />
         <ComparisonTable />
         <PricingSection />
