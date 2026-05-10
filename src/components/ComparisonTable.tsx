@@ -93,15 +93,11 @@ const ComparisonTable = () => {
   };
 
   return (
-    <section id="comparison" className="fl-section" style={{ padding: "7rem 0 8rem", position: "relative", overflow: "hidden" }}>
+    <section id="comparison" className="fl-section fl-section--solid" style={{ padding: "5rem 0 6rem", position: "relative", overflow: "hidden", scrollMarginTop: "5rem" }}>
       <div className="max-w-[1280px] mx-auto px-4 md:px-8" style={{ position: "relative", zIndex: 1 }}>
         {/* Header */}
-        <div style={{ maxWidth: "44rem", margin: "0 auto 3.5rem", textAlign: "center" }}>
-          <p className="fl-eyebrow" style={{ display: "inline-flex", alignItems: "center", gap: "0.6rem", margin: "0 0 1.25rem" }}>
-            <span className="fl-dot" style={{ background: "var(--fl-violet)" }} />
-            {t("comparison.eyebrow")}
-          </p>
-          <h2 style={{ fontSize: "clamp(36px, 4.4vw, 64px)", fontWeight: 300, letterSpacing: "-0.02em", lineHeight: 1.08, color: "#fff", margin: 0 }}>
+        <div style={{ maxWidth: "44rem", margin: "0 auto 3rem", textAlign: "center" }}>
+          <h2 style={{ fontSize: "clamp(26px, 2.9vw, 42px)", fontWeight: 400, letterSpacing: "-0.02em", lineHeight: 1.12, color: "#fff", margin: 0 }}>
             {t("comparison.title")}
           </h2>
         </div>

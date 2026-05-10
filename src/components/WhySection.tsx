@@ -1,47 +1,103 @@
 import { useLanguage } from "@/contexts/LanguageContext";
 
-const RELEASE_ROWS = [
-  { wk: "W27", svc: "api-gateway",   env: "prod",    sha: "f3a92c4", status: "DEPLOYED" },
-  { wk: "W27", svc: "billing-svc",   env: "prod",    sha: "9b1e7da", status: "DEPLOYED" },
-  { wk: "W27", svc: "auth-edge",     env: "canary",  sha: "2d44f81", status: "CANARY" },
-  { wk: "W27", svc: "payments-api",  env: "prod",    sha: "c08aa12", status: "DEPLOYED" },
-  { wk: "W26", svc: "search-svc",    env: "prod",    sha: "1f7e9aa", status: "DEPLOYED" },
-  { wk: "W26", svc: "notif-worker",  env: "prod",    sha: "ab3d402", status: "DEPLOYED" },
-  { wk: "W26", svc: "graphql-edge",  env: "staging", sha: "55c1e09", status: "ROLLBACK" },
-  { wk: "W26", svc: "billing-svc",   env: "prod",    sha: "e9c2a17", status: "DEPLOYED" },
-  { wk: "W25", svc: "auth-edge",     env: "prod",    sha: "78a0bc4", status: "DEPLOYED" },
-  { wk: "W25", svc: "scoring-svc",   env: "canary",  sha: "4d2f81b", status: "CANARY" },
-  { wk: "W25", svc: "api-gateway",   env: "prod",    sha: "11ff009", status: "DEPLOYED" },
-  { wk: "W25", svc: "payments-api",  env: "prod",    sha: "0bc91a7", status: "DEPLOYED" },
-] as const;
+type Status = "UNAUDITED" | "STAGING" | "DEPLOYED" | "CANARY" | "ROLLBACK";
 
-const STATUS_COLOR: Record<string, string> = {
-  DEPLOYED: "var(--fl-blue)",
-  CANARY:   "#f5c451",
-  ROLLBACK: "var(--fl-red)",
+type Release = {
+  date: string;
+  service: string;
+  type: string;
+  sha: string;
+  version: string;
+  status: Status;
 };
 
-const DAY_MARKS = ["D+0", "D+30", "D+60", "D+90", "D+120", "D+150", "D+180"] as const;
+const STATUS_COLOR: Record<Status, string> = {
+  UNAUDITED: "rgba(229,72,77,0.85)",
+  STAGING: "rgba(245,196,81,0.85)",
+  DEPLOYED: "rgba(79,143,255,0.85)",
+  CANARY: "rgba(245,196,81,0.85)",
+  ROLLBACK: "rgba(229,72,77,0.9)",
+};
+
+const SERVICES = ["api", "web", "billing", "auth", "edge", "search", "notify", "graphql", "scoring", "payments", "infra"];
+const TYPES = ["chore", "feat", "fix", "perf", "refactor", "deps", "ci"];
+
+function rng(seed: number) {
+  let s = seed >>> 0;
+  return () => {
+    s = (s * 1664525 + 1013904223) >>> 0;
+    return s / 0xffffffff;
+  };
+}
+
+function buildReleases(count: number): Release[] {
+  const rand = rng(20260510);
+  const out: Release[] = [];
+  let day = 200; // Jan ≈ 14, count backwards into early year
+  for (let i = 0; i < count; i++) {
+    if (rand() < 0.4) day -= 1;
+    const hh = String(Math.floor(rand() * 24)).padStart(2, "0");
+    const mm = String(Math.floor(rand() * 60)).padStart(2, "0");
+    const month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"][Math.min(6, Math.floor((day - 1) / 30))];
+    const d = String((day % 30) + 1).padStart(2, "0");
+    const svc = SERVICES[Math.floor(rand() * SERVICES.length)];
+    const type = TYPES[Math.floor(rand() * TYPES.length)];
+    const sha = Math.floor(rand() * 0xffffffff).toString(16).slice(0, 7).padEnd(7, "0");
+    const major = 4;
+    const minor = 8 + Math.floor(rand() * 6);
+    const patch = Math.floor(rand() * 30);
+    const r = rand();
+    const status: Status =
+      r < 0.78 ? "UNAUDITED" :
+      r < 0.87 ? "STAGING" :
+      r < 0.93 ? "DEPLOYED" :
+      r < 0.97 ? "CANARY" :
+      "ROLLBACK";
+    out.push({
+      date: `${month} ${d} ${hh}:${mm}`,
+      service: svc,
+      type,
+      sha,
+      version: `v${major}.${minor}.${patch}`,
+      status,
+    });
+  }
+  return out;
+}
+
+const RELEASES = buildReleases(60);
+const LOOP = [...RELEASES, ...RELEASES]; // duplicate for seamless -50% loop
+
+const DAY_RULER = [
+  { label: "D + 0",   right: "JAN 14 · last pentest", tone: "pentest" as const, big: true },
+  { label: "D + 30",  right: "~ 96 deploys",          tone: "tick"    as const },
+  { label: "D + 60",  right: "~ 192 deploys",         tone: "tick"    as const },
+  { label: "D + 90",  right: "~ 288 deploys",         tone: "tick"    as const },
+  { label: "D + 120", right: "~ 384 deploys",         tone: "tick"    as const },
+  { label: "D + 150", right: "~ 480 deploys",         tone: "tick"    as const },
+  { label: "D + 184", right: "TODAY · WEEK 27",       tone: "now"     as const },
+  { label: "D + 220", right: "JUL 22 · scheduled",    tone: "pentest" as const, faint: true },
+];
 
 const WhySection = () => {
   const { t } = useLanguage();
 
   return (
-    <section id="why" className="fl-section" style={{ padding: "7rem 0 8rem", position: "relative", overflow: "hidden" }}>
+    <section id="why" className="fl-section" style={{ padding: "5rem 0 4.5rem", position: "relative", overflow: "hidden", scrollMarginTop: "5rem" }}>
       <div className="max-w-[1280px] mx-auto px-4 md:px-8" style={{ position: "relative", zIndex: 1 }}>
         {/* Header row */}
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: "2rem", flexWrap: "wrap", marginBottom: "3rem" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: "3rem", flexWrap: "wrap", marginBottom: "2.5rem" }}>
           <div style={{ maxWidth: "44rem" }}>
-            <p className="fl-eyebrow" style={{ display: "inline-flex", alignItems: "center", gap: "0.6rem", margin: "0 0 1.25rem" }}>
+            <p className="fl-eyebrow" style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", margin: "0 0 1rem", color: "rgba(255,255,255,0.45)", letterSpacing: "0.16em", fontSize: "10.5px" }}>
               <span className="fl-dot" style={{ background: "var(--fl-red)" }} />
               {t("problem.diptych.eyebrow")}
             </p>
             <h2
               style={{
-                fontSize: "clamp(36px, 4.4vw, 64px)",
+                fontSize: "clamp(26px, 2.65vw, 36px)",
                 fontWeight: 300,
                 letterSpacing: "-0.02em",
-                lineHeight: 1.08,
+                lineHeight: 1.1,
                 color: "#fff",
                 margin: 0,
               }}
@@ -49,212 +105,172 @@ const WhySection = () => {
               {t("problem.main.title")}{" "}
               <span className="fl-text-gradient">{t("problem.main.broken")}</span>
             </h2>
-            <p style={{ fontSize: "1.0625rem", color: "rgba(255,255,255,0.6)", lineHeight: 1.6, maxWidth: "36rem", margin: "1.25rem 0 0" }}>
-              {t("problem.main.subtitle")}
-            </p>
           </div>
-
-          {/* Stat block */}
-          <div style={{ textAlign: "right" }}>
-            <span
-              style={{
-                fontSize: "clamp(54px, 6.4vw, 92px)",
-                fontWeight: 300,
-                letterSpacing: "-0.03em",
-                lineHeight: 1,
-                display: "block",
-              }}
-              className="fl-text-gradient"
-            >
-              {t("problem.stat.value")}
-            </span>
-            <span className="fl-mono" style={{ fontSize: "0.75rem", letterSpacing: "0.22em", textTransform: "uppercase", color: "rgba(255,255,255,0.5)", display: "block", marginTop: "0.5rem" }}>
-              {t("problem.legend.stat")}
-            </span>
-          </div>
+          <p style={{ fontSize: "14.5px", color: "rgba(255,255,255,0.5)", lineHeight: 1.65, maxWidth: "360px", margin: 0 }}>
+            {t("problem.main.subtitle")}
+          </p>
         </div>
 
-        {/* Shared 52-week axis */}
-        <div style={{ border: "1px solid rgba(255,255,255,0.06)", borderRadius: 6, padding: "1.25rem 1.5rem", background: "rgba(11,12,20,0.4)", marginBottom: "1.25rem" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.5rem" }}>
-            <span className="fl-mono" style={{ fontSize: "0.65rem", letterSpacing: "0.22em", color: "rgba(255,255,255,0.45)" }}>52-WEEK AXIS · 2026</span>
-            <span className="fl-mono" style={{ fontSize: "0.65rem", letterSpacing: "0.22em", color: "rgba(255,255,255,0.45)" }}>NOW · W27</span>
+        {/* Shared 52-week axis card */}
+        <div style={{ background: "rgba(15,16,28,0.6)", border: "1px solid rgba(255,255,255,0.07)", padding: "14px 24px 14px", marginBottom: "1.25rem" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
+            <span className="fl-mono" style={{ fontSize: 10, letterSpacing: "0.2em", color: "rgba(255,255,255,0.42)" }}>52-WEEK AXIS · 2026</span>
+            <span className="fl-mono" style={{ fontSize: 10, letterSpacing: "0.2em", color: "rgba(255,255,255,0.42)", display: "inline-flex", alignItems: "center", gap: 6 }}>
+              <span className="fl-pulse-dot" style={{ width: 5, height: 5, borderRadius: "50%", background: "#fff", display: "inline-block" }} />
+              NOW · W27
+            </span>
           </div>
-          <svg viewBox="0 0 1000 60" preserveAspectRatio="none" style={{ display: "block", width: "100%", height: 56 }} role="img" aria-label="52-week axis with two pentest events and current scrub line at week 27">
+          <svg viewBox="0 0 1000 36" preserveAspectRatio="none" style={{ display: "block", width: "100%", height: 28 }} role="img" aria-label="52-week axis with pentest events at week 2 and week 29">
             <defs>
-              <linearGradient id="bv2-axis-grad" x1="0" x2="1" y1="0" y2="0">
-                <stop offset="0%"  stopColor="rgba(79,143,255,0.4)" />
-                <stop offset="55%" stopColor="rgba(229,72,77,0.5)" />
-                <stop offset="100%" stopColor="rgba(139,92,246,0.4)" />
+              <linearGradient id="bv2-heat" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0%" stopColor="rgba(229,72,77,0)" />
+                <stop offset="50%" stopColor="rgba(229,72,77,0.22)" />
+                <stop offset="100%" stopColor="rgba(229,72,77,0)" />
               </linearGradient>
             </defs>
-            <line x1="0" y1="34" x2="1000" y2="34" stroke="url(#bv2-axis-grad)" strokeWidth="1.2" opacity="0.85" />
+            <rect x="0" y="14" width="1000" height="8" fill="url(#bv2-heat)" />
+            <line x1="0" y1="18" x2="1000" y2="18" stroke="rgba(255,255,255,0.1)" strokeWidth="0.6" />
             {Array.from({ length: 52 }).map((_, i) => {
               const x = (1000 / 52) * (i + 0.5);
-              const big = i % 13 === 0;
-              return <line key={i} x1={x} y1={big ? 28 : 31} x2={x} y2={big ? 40 : 37} stroke="rgba(255,255,255,0.18)" strokeWidth={big ? 1 : 0.7} />;
+              const major = i % 13 === 0;
+              return <line key={i} x1={x} y1={major ? 11 : 13} x2={x} y2={major ? 25 : 23} stroke={major ? "rgba(255,255,255,0.22)" : "rgba(255,255,255,0.1)"} strokeWidth="1" />;
             })}
-            {["Jan", "Apr", "Jul", "Oct"].map((m, idx) => (
-              <text key={m} x={(1000 / 4) * idx + 24} y="56" fontSize="9" fill="rgba(255,255,255,0.45)" fontFamily="ui-monospace, monospace" letterSpacing="0.18em">{m.toUpperCase()}</text>
-            ))}
-            {/* Pentest diamonds at W2 + W29 */}
+            {/* Pentest markers at W2 and W29 — blue square boxes */}
             {[2, 29].map((wk) => {
               const x = (1000 / 52) * wk;
               return (
                 <g key={wk}>
-                  <path d={`M ${x} 22 L ${x + 7} 34 L ${x} 46 L ${x - 7} 34 Z`} fill="rgba(229,72,77,0.85)" stroke="rgba(229,72,77,1)" strokeWidth="1" />
-                  <text x={x} y="14" fontSize="8" fill="rgba(229,72,77,0.85)" fontFamily="ui-monospace, monospace" letterSpacing="0.2em" textAnchor="middle">PENTEST</text>
+                  <rect x={x - 7} y="10" width="14" height="14" rx="2" fill="rgba(79,143,255,0.18)" stroke="rgba(79,143,255,0.85)" strokeWidth="1" />
+                  <path d={`M ${x - 3} 17 L ${x - 1} 19.5 L ${x + 3.5} 14`} stroke="rgba(79,143,255,1)" strokeWidth="1.3" fill="none" strokeLinecap="round" strokeLinejoin="round" />
                 </g>
               );
             })}
-            {/* NOW scrub line at week 27 */}
-            <line x1={(1000 / 52) * 27} y1="6" x2={(1000 / 52) * 27} y2="50" stroke="#fff" strokeWidth="1.2" strokeDasharray="2 3" opacity="0.85" />
-            <text x={(1000 / 52) * 27 + 6} y="12" fontSize="8" fill="#fff" fontFamily="ui-monospace, monospace" letterSpacing="0.22em">NOW</text>
+            {/* NOW indicator at W27 — 1px line + 6px dot */}
+            <line x1={(1000 / 52) * 27} y1="6" x2={(1000 / 52) * 27} y2="30" stroke="rgba(255,255,255,0.55)" strokeWidth="1" />
+            <rect x={(1000 / 52) * 27 - 3} y="4" width="6" height="6" rx="1" fill="#fff" />
           </svg>
+          <div className="fl-mono" style={{ display: "grid", gridTemplateColumns: "repeat(12, 1fr)", marginTop: 6, fontSize: 9.5, letterSpacing: "0.2em", color: "rgba(255,255,255,0.32)" }}>
+            {["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"].map((m) => (
+              <span key={m} style={{ textAlign: "center" }}>{m}</span>
+            ))}
+          </div>
         </div>
 
         {/* Diptych */}
-        <div className="grid grid-cols-1 lg:grid-cols-2" style={{ gap: "1.25rem" }}>
-          {/* Left — Release log */}
-          <div style={{ border: "1px solid rgba(79,143,255,0.18)", borderRadius: 6, background: "rgba(79,143,255,0.025)", padding: "1.5rem", position: "relative", overflow: "hidden" }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem" }}>
-              <p className="fl-eyebrow" style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", margin: 0, color: "var(--fl-blue)" }}>
-                <span className="fl-dot fl-pulse-dot" style={{ background: "var(--fl-blue)" }} />
-                RELEASE LOG
-              </p>
-              <span className="fl-mono" style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.55)" }}>
-                {t("problem.diptych.left")}
-              </span>
-            </div>
-            <div className="fl-mono" style={{ fontSize: "0.72rem", color: "rgba(255,255,255,0.85)", lineHeight: 1.55 }}>
-              <div style={{ display: "grid", gridTemplateColumns: "44px 1.6fr 80px 90px 96px", gap: "0.5rem", padding: "0.5rem 0", color: "rgba(255,255,255,0.4)", letterSpacing: "0.18em", textTransform: "uppercase", borderBottom: "1px dashed rgba(255,255,255,0.1)" }}>
-                <span>WEEK</span>
-                <span>SERVICE</span>
-                <span>ENV</span>
-                <span>COMMIT</span>
-                <span>STATUS</span>
+        <div className="grid grid-cols-1 lg:grid-cols-2" style={{ gap: "1.5rem", alignItems: "stretch" }}>
+          {/* Left — Release cadence */}
+          <div style={{ background: "rgba(15,16,28,0.55)", padding: "20px 22px", height: 420, display: "flex", flexDirection: "column", overflow: "hidden" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 14 }}>
+              <div>
+                <p className="fl-mono" style={{ margin: 0, fontSize: 10, letterSpacing: "0.2em", color: "rgba(79,143,255,0.85)" }}>RELEASE CADENCE</p>
+                <p style={{ margin: "8px 0 0", display: "flex", alignItems: "baseline", gap: 8 }}>
+                  <span style={{ fontSize: 32, fontWeight: 300, color: "#fff", lineHeight: 1, letterSpacing: "-0.01em" }}>247</span>
+                  <span style={{ fontSize: 11, color: "rgba(255,255,255,0.5)", letterSpacing: "0.04em" }}>YTD · 3.2 / day</span>
+                </p>
               </div>
-              {RELEASE_ROWS.map((row, i) => (
-                <div
-                  key={i}
-                  style={{
-                    display: "grid",
-                    gridTemplateColumns: "44px 1.6fr 80px 90px 96px",
-                    gap: "0.5rem",
-                    padding: "0.45rem 0",
-                    borderBottom: "1px dashed rgba(255,255,255,0.05)",
-                    alignItems: "center",
-                  }}
-                >
-                  <span style={{ color: "rgba(255,255,255,0.5)" }}>{row.wk}</span>
-                  <span style={{ color: "#fff" }}>{row.svc}</span>
-                  <span style={{ color: "rgba(255,255,255,0.55)" }}>{row.env}</span>
-                  <span style={{ color: "rgba(255,255,255,0.45)" }}>{row.sha}</span>
-                  <span
-                    style={{
-                      color: STATUS_COLOR[row.status],
-                      fontSize: "0.65rem",
-                      letterSpacing: "0.15em",
-                      padding: "2px 6px",
-                      border: `1px solid ${STATUS_COLOR[row.status]}33`,
-                      borderRadius: 3,
-                      justifySelf: "start",
-                    }}
-                  >
-                    {row.status}
-                  </span>
-                </div>
-              ))}
+              <span className="fl-mono" style={{ fontSize: 10, color: "rgba(255,255,255,0.5)", letterSpacing: "0.2em" }}>PROD · EU-WEST-1</span>
+            </div>
+
+            {/* Column headers */}
+            <div className="fl-mono" style={{ display: "grid", gridTemplateColumns: "88px 56px 60px 70px 70px 1fr", gap: 8, fontSize: 9, letterSpacing: "0.2em", color: "rgba(255,255,255,0.32)", paddingBottom: 8, borderBottom: "1px dashed rgba(255,255,255,0.08)" }}>
+              <span>TIME</span><span>SERVICE</span><span>TYPE</span><span>SHA</span><span>VERSION</span><span>STATUS</span>
+            </div>
+
+            {/* Scrolling track */}
+            <div style={{ flex: 1, overflow: "hidden", position: "relative", marginTop: 6 }}>
+              <div className="fl-mono why-track" style={{ fontSize: 11, lineHeight: "22px", color: "rgba(255,255,255,0.85)" }}>
+                {LOOP.map((r, i) => (
+                  <div key={i} style={{ display: "grid", gridTemplateColumns: "88px 56px 60px 70px 70px 1fr", gap: 8, padding: "2px 0" }}>
+                    <span style={{ color: "rgba(255,255,255,0.55)" }}>{r.date}</span>
+                    <span style={{ color: "rgba(255,255,255,0.9)" }}>{r.service}</span>
+                    <span style={{ color: "rgba(255,255,255,0.55)" }}>{r.type}</span>
+                    <span style={{ color: "rgba(255,255,255,0.55)" }}>{r.sha}</span>
+                    <span style={{ color: "rgba(255,255,255,0.55)" }}>{r.version}</span>
+                    <span style={{ color: STATUS_COLOR[r.status], letterSpacing: "0.12em" }}>{r.status}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
 
-          {/* Right — Pentest day-ruler */}
-          <div style={{ border: "1px solid rgba(229,72,77,0.2)", borderRadius: 6, background: "rgba(229,72,77,0.03)", padding: "1.5rem", position: "relative" }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.5rem" }}>
-              <p className="fl-eyebrow" style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", margin: 0, color: "var(--fl-red)" }}>
-                <span className="fl-dot fl-pulse-dot" style={{ background: "var(--fl-red)" }} />
-                AUDIT GAP
-              </p>
-              <span className="fl-mono" style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.55)" }}>
-                {t("problem.diptych.pentest")} · JAN 14 → JUL 22
-              </span>
+          {/* Right — Pentest cadence + day ruler */}
+          <div style={{ background: "rgba(15,16,28,0.55)", padding: "20px 22px", height: 420, position: "relative" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+              <div>
+                <p className="fl-mono" style={{ margin: 0, fontSize: 10, letterSpacing: "0.2em", color: "rgba(229,72,77,0.85)" }}>PENTEST CADENCE</p>
+                <p style={{ margin: "8px 0 0", display: "flex", alignItems: "baseline", gap: 8 }}>
+                  <span style={{ fontSize: 32, fontWeight: 300, color: "#fff", lineHeight: 1, letterSpacing: "-0.01em" }}>2</span>
+                  <span style={{ fontSize: 11, color: "rgba(255,255,255,0.5)", letterSpacing: "0.04em" }}>/ yr · 39 days of testing</span>
+                </p>
+              </div>
+              <div style={{ textAlign: "right" }}>
+                <p className="fl-mono" style={{ margin: 0, fontSize: 22, fontWeight: 400, color: "rgba(255,180,180,0.95)", letterSpacing: "-0.005em", lineHeight: 1.05 }}>
+                  184<sup style={{ fontSize: 12, color: "rgba(255,180,180,0.6)", marginRight: 6, marginLeft: 1 }}>d</sup>
+                  07<sup style={{ fontSize: 12, color: "rgba(255,180,180,0.6)", marginRight: 6, marginLeft: 1 }}>h</sup>
+                  12<sup style={{ fontSize: 12, color: "rgba(255,180,180,0.6)", marginLeft: 1 }}>m</sup>
+                </p>
+                <p className="fl-mono" style={{ margin: "6px 0 0", fontSize: 9, letterSpacing: "0.22em", color: "rgba(255,180,180,0.55)" }}>SINCE LAST AUDIT</p>
+              </div>
             </div>
 
-            {/* Focal counter */}
-            <div style={{ textAlign: "center", padding: "1.5rem 0 1.25rem" }}>
-              <p
-                className="fl-mono"
-                style={{
-                  fontSize: "clamp(40px, 5.6vw, 78px)",
-                  fontWeight: 300,
-                  letterSpacing: "-0.02em",
-                  color: "var(--fl-red)",
-                  margin: 0,
-                  lineHeight: 1,
-                }}
-              >
-                184d 07h 12m
-              </p>
-              <p className="fl-mono" style={{ fontSize: "0.72rem", letterSpacing: "0.24em", textTransform: "uppercase", color: "rgba(229,72,77,0.7)", margin: "0.75rem 0 0" }}>
-                {t("problem.diptych.right")}
-              </p>
-            </div>
+            {/* Day ruler — vertical */}
+            <div style={{ position: "relative", marginTop: 28, height: 290 }}>
+              {/* Spine */}
+              <div style={{ position: "absolute", left: "44%", top: 0, bottom: 0, width: 1, background: "linear-gradient(180deg, rgba(79,143,255,0.7) 0%, rgba(229,72,77,0.45) 8%, rgba(229,72,77,0.45) 92%, rgba(79,143,255,0.7) 100%)" }} />
+              <div aria-hidden style={{ position: "absolute", left: "calc(44% - 12px)", top: 0, bottom: 0, width: 24, background: "radial-gradient(rgba(229,72,77,0.18), rgba(229,72,77,0) 70%)", pointerEvents: "none" }} />
 
-            {/* Day ruler */}
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "stretch", marginTop: "1rem", padding: "0 0.25rem" }}>
-              {DAY_MARKS.map((mark, i) => (
-                <div key={mark} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "0.4rem", flex: 1 }}>
-                  <div style={{ width: 1, height: i === 0 || i === DAY_MARKS.length - 1 ? 18 : 12, background: i === 0 || i === DAY_MARKS.length - 1 ? "var(--fl-red)" : "rgba(255,255,255,0.2)" }} />
-                  <span className="fl-mono" style={{ fontSize: "0.65rem", letterSpacing: "0.16em", color: i === 0 || i === DAY_MARKS.length - 1 ? "rgba(229,72,77,0.85)" : "rgba(255,255,255,0.45)" }}>
-                    {mark}
-                  </span>
-                </div>
-              ))}
-            </div>
-
-            {/* Chip labels */}
-            <div style={{ display: "flex", justifyContent: "space-between", marginTop: "0.75rem" }}>
-              <span className="fl-mono" style={{ fontSize: "0.6rem", letterSpacing: "0.2em", padding: "3px 8px", border: "1px solid rgba(229,72,77,0.45)", color: "rgba(229,72,77,0.85)", borderRadius: 3 }}>
-                {t("problem.diptych.pentest")} · JAN 14
-              </span>
-              <span className="fl-mono" style={{ fontSize: "0.6rem", letterSpacing: "0.2em", padding: "3px 8px", border: "1px solid rgba(229,72,77,0.45)", color: "rgba(229,72,77,0.85)", borderRadius: 3 }}>
-                {t("problem.diptych.pentest")} · JUL 22
-              </span>
+              {DAY_RULER.map((row, idx) => {
+                const top = (idx / (DAY_RULER.length - 1)) * 100;
+                const isNow = row.tone === "now";
+                const isPentest = row.tone === "pentest";
+                const leftColor = isNow ? "#fff" : isPentest ? "rgba(79,143,255,0.85)" : "rgba(255,255,255,0.32)";
+                const rightColor = isNow ? "#fff" : isPentest ? "rgba(79,143,255,0.85)" : "rgba(229,72,77,0.55)";
+                return (
+                  <div key={idx} style={{ position: "absolute", top: `${top}%`, left: 0, right: 0, transform: "translateY(-50%)", display: "grid", gridTemplateColumns: "calc(44% - 12px) 24px 1fr", alignItems: "center", gap: 0 }}>
+                    <span className="fl-mono" style={{ textAlign: "right", paddingRight: 8, fontSize: 10, letterSpacing: "0.16em", color: leftColor, opacity: row.faint ? 0.55 : 1 }}>{row.label}</span>
+                    <div style={{ display: "flex", justifyContent: "center" }}>
+                      {isPentest && !row.faint && (
+                        <span style={{ width: 14, height: 14, background: "rgba(79,143,255,0.18)", border: "1px solid rgba(79,143,255,0.85)", borderRadius: 2 }} />
+                      )}
+                      {isPentest && row.faint && (
+                        <span style={{ width: 14, height: 14, background: "rgba(79,143,255,0.06)", border: "1px solid rgba(79,143,255,0.45)", borderRadius: 2 }} />
+                      )}
+                      {isNow && <span style={{ width: 10, height: 10, background: "#fff", borderRadius: 1 }} />}
+                      {row.tone === "tick" && <span style={{ width: 8, height: 1, background: "rgba(229,72,77,0.6)" }} />}
+                    </div>
+                    <span className="fl-mono" style={{ paddingLeft: 10, fontSize: 10.5, letterSpacing: "0.12em", color: rightColor, opacity: row.faint ? 0.7 : 1 }}>{row.right}</span>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
 
+        {/* SVG connector */}
+        <svg viewBox="0 0 1000 28" preserveAspectRatio="none" style={{ display: "block", width: "100%", height: 28, marginTop: "1rem" }} aria-hidden>
+          <path d="M250 0 C 250 16, 166.66 16, 166.66 28" stroke="rgba(79,143,255,0.5)" strokeWidth="1" fill="none" />
+          <path d="M500 0 C 500 16, 500 16, 500 28" stroke="rgba(139,92,246,0.5)" strokeWidth="1" fill="none" />
+          <path d="M750 0 C 750 16, 833.33 16, 833.33 28" stroke="rgba(229,72,77,0.5)" strokeWidth="1" fill="none" />
+        </svg>
+
         {/* Problem strip — 3 cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3" style={{ gap: "1.25rem", marginTop: "2.5rem" }}>
+        <div className="grid grid-cols-1 md:grid-cols-3" style={{ gap: "3rem", padding: "16px 20px 0" }}>
           {[
             { num: "01", color: "var(--fl-blue)",   title: t("problem.delay.title"),    desc: t("problem.delay.desc") },
             { num: "02", color: "var(--fl-violet)", title: t("problem.friction.title"), desc: t("problem.friction.desc") },
             { num: "03", color: "var(--fl-red)",    title: t("problem.cost.title"),     desc: t("problem.cost.desc") },
           ].map((p) => (
-            <div
-              key={p.num}
-              style={{
-                border: "1px solid rgba(255,255,255,0.08)",
-                borderRadius: 6,
-                background: "rgba(255,255,255,0.02)",
-                padding: "1.5rem",
-                position: "relative",
-              }}
-            >
-              <div style={{ position: "absolute", top: -1, left: "1.5rem", width: "30%", height: 1, background: p.color, opacity: 0.5 }} />
-              <span className="fl-mono" style={{ fontSize: "1.625rem", color: p.color, fontWeight: 300, letterSpacing: "-0.02em", display: "block", marginBottom: "0.75rem" }}>
+            <div key={p.num} style={{ background: "transparent", border: 0, padding: 0 }}>
+              <span className="fl-mono" style={{ fontSize: 22, color: p.color, fontWeight: 400, letterSpacing: "-0.01em", display: "block", marginBottom: 6 }}>
                 {p.num}
               </span>
-              <h3 style={{ fontSize: "1.125rem", fontWeight: 500, color: "#fff", margin: "0 0 0.5rem" }}>{p.title}</h3>
-              <p style={{ color: "rgba(255,255,255,0.55)", lineHeight: 1.55, margin: 0, fontSize: "0.9375rem" }}>{p.desc}</p>
+              <h3 style={{ fontSize: 16, fontWeight: 400, color: "#F6F6FB", margin: "0 0 6px" }}>{p.title}</h3>
+              <p style={{ color: "rgba(255,255,255,0.5)", lineHeight: 1.55, margin: 0, fontSize: 13.5, fontWeight: 300 }}>{p.desc}</p>
             </div>
           ))}
         </div>
-
-        <p style={{ textAlign: "center", marginTop: "2.5rem", fontSize: "0.9375rem", color: "rgba(255,255,255,0.5)" }}>
-          {t("problem.exposure")}
-        </p>
       </div>
+
     </section>
   );
 };

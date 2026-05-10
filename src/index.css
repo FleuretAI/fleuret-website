@@ -69,7 +69,7 @@
   html, body {
     margin: 0;
     padding: 0;
-    background-color: var(--dark-bg);
+    background-color: var(--fl-bg);
     color: hsl(var(--foreground));
   }
 
@@ -80,14 +80,7 @@
   body {
     @apply font-sans antialiased;
     position: relative;
-    background-image: linear-gradient(
-      180deg,
-      #0f101c 0%,
-      #11132a 22%,
-      #15163a 45%,
-      #1a1336 70%,
-      #1a0d1c 100%
-    );
+    background-color: var(--fl-bg);
     background-attachment: scroll;
   }
 
@@ -206,11 +199,14 @@ body::before {
   background-clip: text;
 }
 
-/* Section frame: dark bg + three ambient blooms. */
+/* Section frame: ambient blooms only — bg comes from body gradient
+   (hero, why) OR --fl-section--solid for the locked-section ground. */
 .fl-section {
   position: relative;
-  background: var(--fl-bg);
   isolation: isolate;
+}
+.fl-section--solid {
+  background: var(--fl-bg);
 }
 .fl-section::before {
   content: "";
@@ -222,6 +218,7 @@ body::before {
     var(--fl-bloom-blue),
     var(--fl-bloom-violet),
     var(--fl-bloom-red);
+  opacity: 0.55;
 }
 
 /* Mono HUD chrome — eyebrow rows used across all locked sections. */
@@ -244,12 +241,12 @@ body::before {
   align-items: center;
   justify-content: center;
   gap: 0.6rem;
-  padding: 1rem 2rem;
-  border-radius: 8px;
+  padding: 0.9rem 1.9rem;
+  border-radius: 999px;
   font-family: var(--fl-mono);
   font-size: 0.8125rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
+  font-weight: 500;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: #fff;
   background: var(--fl-gradient);
@@ -257,7 +254,7 @@ body::before {
   cursor: pointer;
   text-decoration: none;
   transition: filter 0.15s ease, transform 0.15s ease, box-shadow 0.2s ease;
-  box-shadow: 0 6px 22px -8px rgba(139, 92, 246, 0.35);
+  box-shadow: 0 8px 26px -8px rgba(139, 92, 246, 0.4);
 }
 .fl-cta:hover { filter: brightness(1.1); box-shadow: 0 10px 30px -8px rgba(139, 92, 246, 0.5); }
 .fl-cta:active { transform: translateY(1px); }
@@ -311,6 +308,19 @@ body::before {
     linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
   background-size: 80px 80px;
+}
+
+/* WhySection release-log infinite scroll. Track height is 2x content;
+   translateY(-50%) at the end of the cycle lands on the duplicate. */
+@keyframes bv2-scroll {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-50%); }
+}
+.why-track {
+  animation: bv2-scroll 32s linear infinite;
+}
+.why-track:hover {
+  animation-play-state: paused;
 }
 
 /* HowItWorks vertical timeline rail. */
