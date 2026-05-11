@@ -13,7 +13,6 @@ export type RouteKey =
   | "subProcessors"
   | "resources"
   | "blog"
-  | "changelog"
   | "fundraise"
   | "notFound";
 
@@ -37,7 +36,6 @@ export const ROUTES: Record<RouteKey, LocalePath> = {
   subProcessors: { fr: "/sub-processors", en: "/en/sub-processors" },
   resources: { fr: "/resources", en: "/en/resources" },
   blog: { fr: "/blog", en: "/en/blog" },
-  changelog: { fr: "/changelog", en: "/en/changelog" },
   fundraise: { fr: "/news/fleuret-raises-3-5m", en: "/en/news/fleuret-raises-3-5m" },
   notFound: { fr: "/404", en: "/en/404" },
 };
@@ -203,22 +201,6 @@ export const META: Record<RouteKey, Record<Locale, MetaEntry>> = {
       title: "Blog | Fleuret",
       description:
         "Our latest insights on continuous AI pentesting, European compliance and offensive security.",
-    },
-  },
-  changelog: {
-    fr: {
-      title: "Changelog | Fleuret",
-      description:
-        "Toutes les améliorations Fleuret, livrées en continu. Chaque version, chaque fix, chaque nouvelle capacité, en clair.",
-      keywords:
-        "fleuret changelog, journal des changements, releases, pentest IA, NIS2, DORA",
-    },
-    en: {
-      title: "Changelog | Fleuret",
-      description:
-        "Every Fleuret improvement, shipped continuously. Each release, each fix, each new capability, in the open.",
-      keywords:
-        "fleuret changelog, releases, AI pentesting changelog, NIS2, DORA",
     },
   },
   fundraise: {

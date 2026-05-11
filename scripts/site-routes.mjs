@@ -24,7 +24,6 @@ export const STATIC_FR_PATHS = [
   "/sub-processors",
   "/resources",
   "/blog",
-  "/changelog",
   "/news/fleuret-raises-3-5m",
 ];
 
