@@ -248,7 +248,7 @@ function PostArticle({
         <hr className="max-w-3xl mx-auto mb-10 border-white/10" />
 
         {/* Article body */}
-        <div className="max-w-3xl mx-auto prose prose-invert font-sans prose-headings:font-light prose-headings:font-sans prose-headings:text-white prose-h2:mt-14 prose-h2:text-2xl md:prose-h2:text-3xl prose-h3:text-lg md:prose-h3:text-xl prose-p:font-light prose-p:leading-relaxed prose-p:text-white/75 prose-li:font-light prose-li:text-white/75 prose-strong:text-white prose-strong:font-medium prose-blockquote:border-l-[color:var(--accent-blue)] prose-blockquote:bg-white/[0.02] prose-blockquote:py-2 prose-blockquote:px-4 prose-blockquote:rounded-sm prose-blockquote:font-light prose-blockquote:text-white/80 prose-a:text-[color:var(--accent-blue)] prose-a:no-underline hover:prose-a:underline prose-code:text-[color:var(--accent-blue)] prose-code:bg-white/[0.05] prose-code:rounded-sm prose-code:px-1 prose-code:py-0.5 prose-code:before:content-none prose-code:after:content-none prose-img:rounded-md max-w-none">
+        <div className="max-w-3xl mx-auto prose prose-invert font-sans prose-headings:font-light prose-headings:font-sans prose-headings:text-white prose-h2:mt-14 prose-h2:text-2xl md:prose-h2:text-3xl prose-h3:text-lg md:prose-h3:text-xl prose-p:font-light prose-p:leading-relaxed prose-p:text-white/75 prose-li:font-light prose-li:text-white/75 prose-strong:text-white prose-strong:font-medium prose-blockquote:border-l-[color:var(--accent-blue)] prose-blockquote:bg-white/[0.02] prose-blockquote:py-2 prose-blockquote:px-4 prose-blockquote:rounded-sm prose-blockquote:font-light prose-blockquote:text-white/80 prose-a:text-[color:var(--accent-blue)] prose-a:no-underline hover:prose-a:underline prose-code:text-[color:var(--accent-blue)] prose-code:bg-white/[0.05] prose-code:rounded-sm prose-code:px-1 prose-code:py-0.5 prose-code:before:content-none prose-code:after:content-none prose-pre:overflow-x-auto prose-pre:max-w-full prose-img:rounded-md prose-img:max-w-full max-w-none">
           <MdxComponent />
         </div>
 
@@ -257,7 +257,7 @@ function PostArticle({
         {/* Share */}
         <section
           aria-label={t("blog.share.label")}
-          className="max-w-3xl mx-auto flex flex-wrap items-center gap-4"
+          className="max-w-3xl mx-auto flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4"
         >
           <span className="text-sm font-light text-white/60">
             {t("blog.share.prompt")}

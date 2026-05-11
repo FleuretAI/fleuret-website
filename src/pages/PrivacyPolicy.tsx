@@ -90,35 +90,39 @@ const PrivacyPolicy = () => {
         </h2>
         <div className="text-white/50 leading-relaxed text-sm space-y-3">
           {isFr ? (
-            <table className="w-full text-left border-collapse">
-              <thead>
-                <tr className="border-b border-white/10">
-                  <th className="py-2 pr-4 text-white/70 font-medium">Finalité</th>
-                  <th className="py-2 text-white/70 font-medium">Base légale</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-white/5">
-                <tr><td className="py-2 pr-4">Fourniture et gestion du service</td><td className="py-2">Exécution du contrat (art. 6.1.b RGPD)</td></tr>
-                <tr><td className="py-2 pr-4">Communication commerciale (newsletter, mises à jour produit)</td><td className="py-2">Consentement (art. 6.1.a RGPD)</td></tr>
-                <tr><td className="py-2 pr-4">Amélioration du service et analyse d'utilisation</td><td className="py-2">Intérêt légitime (art. 6.1.f RGPD)</td></tr>
-                <tr><td className="py-2 pr-4">Respect des obligations légales et réglementaires</td><td className="py-2">Obligation légale (art. 6.1.c RGPD)</td></tr>
-              </tbody>
-            </table>
+            <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
+              <table className="w-full min-w-full text-left border-collapse">
+                <thead>
+                  <tr className="border-b border-white/10">
+                    <th className="py-2 pr-4 text-white/70 font-medium">Finalité</th>
+                    <th className="py-2 text-white/70 font-medium">Base légale</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-white/5">
+                  <tr><td className="py-2 pr-4">Fourniture et gestion du service</td><td className="py-2">Exécution du contrat (art. 6.1.b RGPD)</td></tr>
+                  <tr><td className="py-2 pr-4">Communication commerciale (newsletter, mises à jour produit)</td><td className="py-2">Consentement (art. 6.1.a RGPD)</td></tr>
+                  <tr><td className="py-2 pr-4">Amélioration du service et analyse d'utilisation</td><td className="py-2">Intérêt légitime (art. 6.1.f RGPD)</td></tr>
+                  <tr><td className="py-2 pr-4">Respect des obligations légales et réglementaires</td><td className="py-2">Obligation légale (art. 6.1.c RGPD)</td></tr>
+                </tbody>
+              </table>
+            </div>
           ) : (
-            <table className="w-full text-left border-collapse">
-              <thead>
-                <tr className="border-b border-white/10">
-                  <th className="py-2 pr-4 text-white/70 font-medium">Purpose</th>
-                  <th className="py-2 text-white/70 font-medium">Legal basis</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-white/5">
-                <tr><td className="py-2 pr-4">Service delivery and management</td><td className="py-2">Contract performance (Art. 6.1.b GDPR)</td></tr>
-                <tr><td className="py-2 pr-4">Commercial communications (newsletter, product updates)</td><td className="py-2">Consent (Art. 6.1.a GDPR)</td></tr>
-                <tr><td className="py-2 pr-4">Service improvement and usage analytics</td><td className="py-2">Legitimate interest (Art. 6.1.f GDPR)</td></tr>
-                <tr><td className="py-2 pr-4">Compliance with legal and regulatory obligations</td><td className="py-2">Legal obligation (Art. 6.1.c GDPR)</td></tr>
-              </tbody>
-            </table>
+            <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
+              <table className="w-full min-w-full text-left border-collapse">
+                <thead>
+                  <tr className="border-b border-white/10">
+                    <th className="py-2 pr-4 text-white/70 font-medium">Purpose</th>
+                    <th className="py-2 text-white/70 font-medium">Legal basis</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-white/5">
+                  <tr><td className="py-2 pr-4">Service delivery and management</td><td className="py-2">Contract performance (Art. 6.1.b GDPR)</td></tr>
+                  <tr><td className="py-2 pr-4">Commercial communications (newsletter, product updates)</td><td className="py-2">Consent (Art. 6.1.a GDPR)</td></tr>
+                  <tr><td className="py-2 pr-4">Service improvement and usage analytics</td><td className="py-2">Legitimate interest (Art. 6.1.f GDPR)</td></tr>
+                  <tr><td className="py-2 pr-4">Compliance with legal and regulatory obligations</td><td className="py-2">Legal obligation (Art. 6.1.c GDPR)</td></tr>
+                </tbody>
+              </table>
+            </div>
           )}
         </div>
 

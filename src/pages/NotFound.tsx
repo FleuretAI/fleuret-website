@@ -15,7 +15,7 @@ const NotFound = () => {
     <div className="flex min-h-screen items-center justify-center bg-site-gradient">
       <SEO pageKey="notFound" noindex />
       <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold text-foreground">{t('notfound.title')}</h1>
+        <h1 className="mb-4 text-3xl sm:text-4xl font-bold text-foreground">{t('notfound.title')}</h1>
         <p className="mb-4 text-xl text-muted-foreground">{t('notfound.subtitle')}</p>
         <a href={localize("/")} className="text-primary underline hover:opacity-90">
           {t('notfound.home')}

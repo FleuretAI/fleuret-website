@@ -52,14 +52,15 @@ const Demo = () => {
         style={{
           position: "relative",
           overflow: "hidden",
-          paddingTop: "12rem",
-          paddingBottom: "6rem",
+          paddingTop: "clamp(6rem, 16vw, 12rem)",
+          paddingBottom: "clamp(3rem, 8vw, 6rem)",
           flex: 1,
         }}
       >
         {/* Ambient glows (reused from CTASection pattern) */}
         <div
           aria-hidden="true"
+          className="hidden md:block"
           style={{
             position: "absolute",
             top: "20%",
@@ -73,6 +74,7 @@ const Demo = () => {
         />
         <div
           aria-hidden="true"
+          className="hidden md:block"
           style={{
             position: "absolute",
             bottom: "20%",
@@ -169,7 +171,7 @@ const Demo = () => {
                   background: "#ffffff",
                   padding: 8,
                   boxShadow: "0 10px 40px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.06)",
-                  minHeight: 600,
+                  minHeight: 520,
                 }}
               >
                 <iframe
@@ -180,8 +182,8 @@ const Demo = () => {
                   style={{
                     border: 0,
                     width: "100%",
-                    minHeight: 584,
-                    height: 684,
+                    minHeight: 520,
+                    height: "min(80vh, 684px)",
                     display: "block",
                     borderRadius: 10,
                     background: "#ffffff",

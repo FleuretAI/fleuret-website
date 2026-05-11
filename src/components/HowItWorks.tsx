@@ -42,7 +42,7 @@ const StdoutPanel = () => (
   <div style={{ border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.016)", borderRadius: 10, padding: 17 }}>
     <p className="fl-mono" style={{ margin: "0 0 12px", fontSize: 9.5, letterSpacing: "0.2em", color: "rgba(255,255,255,0.35)" }}>STDOUT · ENGAGEMENT</p>
     <div className="-mx-4 px-4 sm:mx-0 sm:px-0" style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
-      <div className="fl-mono" style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 11.5, lineHeight: 1.5, minWidth: 280 }}>
+      <div className="fl-mono" style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 11.5, lineHeight: 1.5, minWidth: 420 }}>
         {STDOUT_LINES.map((l, i) => (
           <div key={i} style={{ display: "grid", gridTemplateColumns: "62px 62px 1fr", gap: 6 }}>
             <span style={{ color: "rgba(255,255,255,0.35)" }}>{l.t}</span>

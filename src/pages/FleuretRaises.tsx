@@ -362,7 +362,7 @@ const FleuretRaises = () => {
                 <p className="text-white/50 text-sm md:text-base max-w-2xl">{c.vcsP}</p>
               </div>
             </ScrollReveal>
-            <StaggerGroup className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            <StaggerGroup className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-4">
               {vcs.map((inv, idx) => (
                 <InvestorTile key={inv.name} inv={inv} lang={language} idx={idx} />
               ))}
@@ -379,7 +379,7 @@ const FleuretRaises = () => {
                 <p className="text-white/50 text-sm md:text-base max-w-2xl">{c.angelsP}</p>
               </div>
             </ScrollReveal>
-            <StaggerGroup className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <StaggerGroup className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
               {angels.map((inv, idx) => (
                 <InvestorTile key={inv.name} inv={inv} lang={language} idx={idx} />
               ))}
@@ -415,7 +415,7 @@ const FleuretRaises = () => {
                 <motion.div
                   key={m.name}
                   variants={staggerItem}
-                  className="group p-6 rounded-2xl border border-white/8 bg-white/[0.02] hover:bg-white/[0.04] hover:border-white/15 transition-all duration-300 text-center"
+                  className="group p-4 md:p-6 rounded-2xl border border-white/8 bg-white/[0.02] hover:bg-white/[0.04] hover:border-white/15 transition-all duration-300 text-center"
                 >
                   <div className="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden border border-white/10">
                     <img src={m.photo} alt={m.name} className="w-full h-full object-cover" />
