@@ -86,7 +86,7 @@ const WhySection = () => {
   const { t } = useLanguage();
 
   return (
-    <section id="why" className="fl-section fl-section--breathe fl-blur-bottom" style={{ padding: "6rem 0 7rem", position: "relative", overflow: "hidden", scrollMarginTop: "5rem" }}>
+    <section id="why" className="fl-section" style={{ padding: "6rem 0 7rem", position: "relative", overflow: "hidden", scrollMarginTop: "5rem" }}>
       <div className="max-w-[1280px] mx-auto px-4 md:px-8" style={{ position: "relative", zIndex: 1 }}>
         {/* Header row */}
         <motion.div
@@ -179,7 +179,8 @@ const WhySection = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.2 }}
-            style={{ background: "rgba(15,16,28,0.55)", padding: "20px 22px", height: 380, display: "flex", flexDirection: "column", overflow: "hidden" }}
+            className="min-h-[320px] sm:min-h-[380px]"
+            style={{ background: "rgba(15,16,28,0.55)", padding: "20px 22px", display: "flex", flexDirection: "column", overflow: "hidden" }}
           >
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 14 }}>
               <div>
@@ -192,24 +193,28 @@ const WhySection = () => {
               <span className="fl-mono" style={{ fontSize: 10, color: "rgba(255,255,255,0.5)", letterSpacing: "0.2em" }}>PROD · EU-WEST-1</span>
             </div>
 
-            {/* Column headers */}
-            <div className="fl-mono" style={{ display: "grid", gridTemplateColumns: "88px 56px 60px 70px 70px 1fr", gap: 8, fontSize: 9, letterSpacing: "0.2em", color: "rgba(255,255,255,0.32)", paddingBottom: 8, borderBottom: "1px dashed rgba(255,255,255,0.08)" }}>
-              <span>TIME</span><span>SERVICE</span><span>TYPE</span><span>SHA</span><span>VERSION</span><span>STATUS</span>
-            </div>
+            <div className="-mx-4 px-4 sm:mx-0 sm:px-0" style={{ overflowX: "auto", WebkitOverflowScrolling: "touch", flex: 1, display: "flex", flexDirection: "column", minHeight: 0 }}>
+              <div style={{ minWidth: 420, display: "flex", flexDirection: "column", flex: 1, minHeight: 0 }}>
+                {/* Column headers */}
+                <div className="fl-mono" style={{ display: "grid", gridTemplateColumns: "88px 56px 60px 70px 70px 1fr", gap: 8, fontSize: 9, letterSpacing: "0.2em", color: "rgba(255,255,255,0.32)", paddingBottom: 8, borderBottom: "1px dashed rgba(255,255,255,0.08)" }}>
+                  <span>TIME</span><span>SERVICE</span><span>TYPE</span><span>SHA</span><span>VERSION</span><span>STATUS</span>
+                </div>
 
-            {/* Scrolling track */}
-            <div style={{ flex: 1, overflow: "hidden", position: "relative", marginTop: 6 }}>
-              <div className="fl-mono why-track" style={{ fontSize: 11, lineHeight: "22px", color: "rgba(255,255,255,0.85)" }}>
-                {LOOP.map((r, i) => (
-                  <div key={i} style={{ display: "grid", gridTemplateColumns: "88px 56px 60px 70px 70px 1fr", gap: 8, padding: "2px 0" }}>
-                    <span style={{ color: "rgba(255,255,255,0.55)" }}>{r.date}</span>
-                    <span style={{ color: "rgba(255,255,255,0.9)" }}>{r.service}</span>
-                    <span style={{ color: "rgba(255,255,255,0.55)" }}>{r.type}</span>
-                    <span style={{ color: "rgba(255,255,255,0.55)" }}>{r.sha}</span>
-                    <span style={{ color: "rgba(255,255,255,0.55)" }}>{r.version}</span>
-                    <span style={{ color: STATUS_COLOR[r.status], letterSpacing: "0.12em" }}>{r.status}</span>
+                {/* Scrolling track */}
+                <div style={{ flex: 1, overflow: "hidden", position: "relative", marginTop: 6 }}>
+                  <div className="fl-mono why-track" style={{ fontSize: 11, lineHeight: "22px", color: "rgba(255,255,255,0.85)" }}>
+                    {LOOP.map((r, i) => (
+                      <div key={i} style={{ display: "grid", gridTemplateColumns: "88px 56px 60px 70px 70px 1fr", gap: 8, padding: "2px 0" }}>
+                        <span style={{ color: "rgba(255,255,255,0.55)" }}>{r.date}</span>
+                        <span style={{ color: "rgba(255,255,255,0.9)" }}>{r.service}</span>
+                        <span style={{ color: "rgba(255,255,255,0.55)" }}>{r.type}</span>
+                        <span style={{ color: "rgba(255,255,255,0.55)" }}>{r.sha}</span>
+                        <span style={{ color: "rgba(255,255,255,0.55)" }}>{r.version}</span>
+                        <span style={{ color: STATUS_COLOR[r.status], letterSpacing: "0.12em" }}>{r.status}</span>
+                      </div>
+                    ))}
                   </div>
-                ))}
+                </div>
               </div>
             </div>
           </motion.div>
@@ -220,7 +225,8 @@ const WhySection = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.3 }}
-            style={{ background: "rgba(15,16,28,0.55)", padding: "20px 22px", height: 380, position: "relative" }}
+            className="min-h-[320px] sm:min-h-[380px]"
+            style={{ background: "rgba(15,16,28,0.55)", padding: "20px 22px", position: "relative" }}
           >
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
               <div>
@@ -286,8 +292,8 @@ const WhySection = () => {
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
           variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.12, delayChildren: 0.15 } } }}
-          className="grid grid-cols-1 md:grid-cols-3"
-          style={{ gap: "3rem", padding: "12px 20px 0" }}
+          className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-12"
+          style={{ padding: "12px 20px 0" }}
         >
           {[
             { num: "01", color: "var(--fl-blue)",   title: t("problem.delay.title"),    desc: t("problem.delay.desc") },

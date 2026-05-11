@@ -41,14 +41,16 @@ const AssetListPanel = () => (
 const StdoutPanel = () => (
   <div style={{ border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.016)", borderRadius: 10, padding: 17 }}>
     <p className="fl-mono" style={{ margin: "0 0 12px", fontSize: 9.5, letterSpacing: "0.2em", color: "rgba(255,255,255,0.35)" }}>STDOUT · ENGAGEMENT</p>
-    <div className="fl-mono" style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 11.5, lineHeight: 1.5 }}>
-      {STDOUT_LINES.map((l, i) => (
-        <div key={i} style={{ display: "grid", gridTemplateColumns: "62px 62px 1fr", gap: 6 }}>
-          <span style={{ color: "rgba(255,255,255,0.35)" }}>{l.t}</span>
-          <span style={{ color: STAGE_COLORS.red }}>{l.agent}</span>
-          <span style={{ color: "rgba(255,255,255,0.85)" }}>{l.msg}</span>
-        </div>
-      ))}
+    <div className="-mx-4 px-4 sm:mx-0 sm:px-0" style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
+      <div className="fl-mono" style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 11.5, lineHeight: 1.5, minWidth: 280 }}>
+        {STDOUT_LINES.map((l, i) => (
+          <div key={i} style={{ display: "grid", gridTemplateColumns: "62px 62px 1fr", gap: 6 }}>
+            <span style={{ color: "rgba(255,255,255,0.35)" }}>{l.t}</span>
+            <span style={{ color: STAGE_COLORS.red }}>{l.agent}</span>
+            <span style={{ color: "rgba(255,255,255,0.85)" }}>{l.msg}</span>
+          </div>
+        ))}
+      </div>
     </div>
     <p className="fl-mono" style={{ margin: "14px 0 0", fontSize: 9.5, letterSpacing: "0.18em", color: STAGE_COLORS.red, display: "flex", alignItems: "center", gap: 6 }}>
       <span style={{ width: 6, height: 6, borderRadius: "50%", background: STAGE_COLORS.red }} />
@@ -151,7 +153,7 @@ const HowItWorks = () => {
   ];
 
   return (
-    <section className="fl-section fl-section--solid fl-section--breathe fl-blur-bottom" style={{ padding: "6rem 0 7rem", position: "relative", overflow: "hidden" }}>
+    <section className="fl-section fl-section--solid" style={{ padding: "6rem 0 7rem", position: "relative", overflow: "hidden" }}>
       <div className="max-w-[1280px] mx-auto px-4 md:px-8" style={{ position: "relative", zIndex: 1 }}>
         {/* Header */}
         <motion.div
@@ -291,7 +293,7 @@ const HowItWorks = () => {
                     <h3 style={{ fontSize: 22, fontWeight: 400, color: "#fff", margin: "0 0 8px", letterSpacing: "-0.015em" }}>{t(s.titleKey)}</h3>
                     <p style={{ color: "rgba(255,255,255,0.7)", lineHeight: 1.55, margin: 0, fontSize: 13.5, maxWidth: 440 }}>{t(s.descKey)}</p>
 
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 24, marginTop: 18 }}>
+                    <div className="grid grid-cols-3" style={{ gap: "clamp(12px, 3vw, 24px)", marginTop: 18 }}>
                       {s.stats.map((st, i) => {
                         const n = Number(st.value);
                         const isNumeric = !Number.isNaN(n);

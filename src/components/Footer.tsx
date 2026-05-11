@@ -26,9 +26,9 @@ const Footer = () => {
   const encodedPrompt = ENCODED_ASK_AI_PROMPTS[language === "fr" ? "fr" : "en"];
 
   return (
-    <footer style={{ borderTop: "1px solid rgba(255,255,255,0.05)", padding: "4rem 0" }}>
+    <footer className="py-10 md:py-16" style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}>
       <div className="max-w-[1280px] mx-auto px-4 md:px-8">
-        <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-8 md:gap-12" style={{ marginBottom: "3rem", maxWidth: "72rem", marginLeft: "auto", marginRight: "auto" }}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12" style={{ marginBottom: "3rem", maxWidth: "72rem", marginLeft: "auto", marginRight: "auto" }}>
           {/* Brand */}
           <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "0.625rem" }}>

@@ -22,7 +22,7 @@ const PricingSection = () => {
   const { t, localize } = useLanguage();
 
   return (
-    <section id="pricing" className="fl-section fl-section--solid fl-section--breathe fl-blur-bottom" style={{ padding: "6rem 0 7rem", position: "relative", overflow: "hidden", scrollMarginTop: "5rem" }}>
+    <section id="pricing" className="fl-section fl-section--solid" style={{ padding: "6rem 0 7rem", position: "relative", overflow: "hidden", scrollMarginTop: "5rem" }}>
       <div className="max-w-[1280px] mx-auto px-4 md:px-8" style={{ position: "relative", zIndex: 1 }}>
         {/* Header */}
         <motion.div
@@ -86,7 +86,7 @@ const PricingSection = () => {
         >
           <div className="grid grid-cols-1 md:grid-cols-2" style={{ alignItems: "stretch" }}>
             {/* Left — Fleuret */}
-            <div style={{ padding: "2.5rem 2.25rem 2rem", borderRight: "1px dashed rgba(255,255,255,0.1)", position: "relative" }}>
+            <div style={{ padding: "2.5rem clamp(1rem, 4vw, 2.25rem) 2rem", borderRight: "1px dashed rgba(255,255,255,0.1)", position: "relative" }}>
               {/* Line item header row */}
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: "1rem", paddingBottom: "1.25rem", borderBottom: "1px dashed rgba(255,255,255,0.12)" }}>
                 <span className="fl-mono" style={{ fontSize: "0.75rem", letterSpacing: "0.18em", color: "rgba(255,255,255,0.7)" }}>
@@ -162,7 +162,7 @@ const PricingSection = () => {
             </div>
 
             {/* Right — Anchor / firm reference */}
-            <div style={{ padding: "2.5rem 2.25rem 2rem", position: "relative", opacity: 0.62 }}>
+            <div style={{ padding: "2.5rem clamp(1rem, 4vw, 2.25rem) 2rem", position: "relative", opacity: 0.62 }}>
               {/* Watermark */}
               <div aria-hidden style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", pointerEvents: "none" }}>
                 <span

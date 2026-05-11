@@ -391,36 +391,6 @@ body::before {
   .fl-scroll-cue__line::after { animation: none; }
 }
 
-/* Section bottom blur fade — soft backdrop blur that bleeds into next
-   section. Use on the bottom of `.fl-section` instances individually so
-   the gradient mask plays nice with z-stack. */
-.fl-blur-bottom {
-  position: relative;
-}
-.fl-blur-bottom::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 110px;
-  pointer-events: none;
-  z-index: 2;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  -webkit-mask: linear-gradient(to bottom, transparent 0%, #000 100%);
-  mask: linear-gradient(to bottom, transparent 0%, #000 100%);
-}
-
-/* Per-section breathing room — each locked section feels like its own
-   destination, not a stacked card. */
-.fl-section--breathe {
-  min-height: 85vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
 @keyframes fl-cursor-blink {
   0%, 49% { opacity: 1; }
   50%, 100% { opacity: 0; }

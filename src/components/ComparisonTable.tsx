@@ -206,7 +206,7 @@ const ComparisonTable = () => {
   const cols: Col[] = ["firm", "fleuret", "scanner"];
 
   return (
-    <section id="comparison" className="fl-section fl-section--solid fl-section--breathe fl-blur-bottom" style={{ padding: "6rem 0 7rem", position: "relative", overflow: "hidden", scrollMarginTop: "5rem" }}>
+    <section id="comparison" className="fl-section fl-section--solid" style={{ padding: "6rem 0 7rem", position: "relative", overflow: "hidden", scrollMarginTop: "5rem" }}>
       <div className="max-w-[1280px] mx-auto px-4 md:px-8" style={{ position: "relative", zIndex: 1 }}>
         {/* Header row */}
         <motion.div
@@ -272,11 +272,13 @@ const ComparisonTable = () => {
           />
 
           {/* CSS grid: 3 equal columns, mixing per-column cells with full-width band strips */}
+          <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
           <div
             style={{
               display: "grid",
               gridTemplateColumns: "1fr 1fr 1fr",
               gap: 0,
+              minWidth: 640,
             }}
           >
             {/* Header row */}
@@ -296,6 +298,7 @@ const ComparisonTable = () => {
 
             {/* Verdict row */}
             {cols.map(renderVerdictCell)}
+          </div>
           </div>
         </motion.div>
       </div>
