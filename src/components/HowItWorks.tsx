@@ -1,4 +1,7 @@
+import { motion } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { staggerContainer, staggerItem } from "@/lib/animations";
+import CountUp from "@/components/motion/CountUp";
 
 const STAGE_COLORS = {
   blue: "#4F8FFF",
@@ -38,14 +41,16 @@ const AssetListPanel = () => (
 const StdoutPanel = () => (
   <div style={{ border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.016)", borderRadius: 10, padding: 17 }}>
     <p className="fl-mono" style={{ margin: "0 0 12px", fontSize: 9.5, letterSpacing: "0.2em", color: "rgba(255,255,255,0.35)" }}>STDOUT · ENGAGEMENT</p>
-    <div className="fl-mono" style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 11.5, lineHeight: 1.5 }}>
-      {STDOUT_LINES.map((l, i) => (
-        <div key={i} style={{ display: "grid", gridTemplateColumns: "62px 62px 1fr", gap: 6 }}>
-          <span style={{ color: "rgba(255,255,255,0.35)" }}>{l.t}</span>
-          <span style={{ color: STAGE_COLORS.red }}>{l.agent}</span>
-          <span style={{ color: "rgba(255,255,255,0.85)" }}>{l.msg}</span>
-        </div>
-      ))}
+    <div className="-mx-4 px-4 sm:mx-0 sm:px-0" style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
+      <div className="fl-mono" style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 11.5, lineHeight: 1.5, minWidth: 280 }}>
+        {STDOUT_LINES.map((l, i) => (
+          <div key={i} style={{ display: "grid", gridTemplateColumns: "62px 62px 1fr", gap: 6 }}>
+            <span style={{ color: "rgba(255,255,255,0.35)" }}>{l.t}</span>
+            <span style={{ color: STAGE_COLORS.red }}>{l.agent}</span>
+            <span style={{ color: "rgba(255,255,255,0.85)" }}>{l.msg}</span>
+          </div>
+        ))}
+      </div>
     </div>
     <p className="fl-mono" style={{ margin: "14px 0 0", fontSize: 9.5, letterSpacing: "0.18em", color: STAGE_COLORS.red, display: "flex", alignItems: "center", gap: 6 }}>
       <span style={{ width: 6, height: 6, borderRadius: "50%", background: STAGE_COLORS.red }} />
@@ -148,11 +153,17 @@ const HowItWorks = () => {
   ];
 
   return (
-    <section className="fl-section fl-section--solid" style={{ padding: "5rem 0 6rem", position: "relative", overflow: "hidden" }}>
+    <section className="fl-section fl-section--solid" style={{ padding: "6rem 0 7rem", position: "relative", overflow: "hidden" }}>
       <div className="max-w-[1280px] mx-auto px-4 md:px-8" style={{ position: "relative", zIndex: 1 }}>
         {/* Header */}
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: "2rem", flexWrap: "wrap", marginBottom: "2.25rem" }}>
-          <div style={{ maxWidth: "44rem" }}>
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+          variants={staggerContainer}
+          style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: "2rem", flexWrap: "wrap", marginBottom: "1.75rem" }}
+        >
+          <motion.div variants={staggerItem} style={{ maxWidth: "44rem" }}>
             <p className="fl-eyebrow" style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", margin: "0 0 1rem", color: "rgba(255,255,255,0.55)", letterSpacing: "0.28em", fontSize: 11 }}>
               <span className="fl-dot" style={{ background: STAGE_COLORS.blue }} />
               {t("process.eyebrow")}
@@ -173,26 +184,50 @@ const HowItWorks = () => {
             <p style={{ fontSize: 15, color: "rgba(255,255,255,0.5)", lineHeight: 1.6, maxWidth: "32rem", margin: "0.85rem 0 0" }}>
               {t("process.main.subtitle")}
             </p>
-          </div>
-          <div className="fl-mono" style={{ textAlign: "right", fontSize: 10, letterSpacing: "0.22em" }}>
+          </motion.div>
+          <motion.div variants={staggerItem} className="fl-mono" style={{ textAlign: "right", fontSize: 10, letterSpacing: "0.22em" }}>
             <p style={{ margin: 0, color: "rgba(255,255,255,0.45)" }}>RUN #FL-2026-0184</p>
             <p style={{ margin: "4px 0 0", color: "#fff" }}>04 H 42 M END-TO-END</p>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* Top elapsed-time bar */}
-        <div style={{ marginBottom: "3rem" }}>
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.2 }}
+          style={{ marginBottom: "2.25rem" }}
+        >
           <div className="fl-mono" style={{ display: "flex", justifyContent: "space-between", fontSize: 9.5, letterSpacing: "0.22em", color: "rgba(255,255,255,0.4)", marginBottom: 8 }}>
             <span>T+00:00</span>
             <span>T+02:21</span>
             <span>T+04:42</span>
           </div>
           <div style={{ display: "flex", height: 4, borderRadius: 2, overflow: "hidden", background: "rgba(255,255,255,0.05)" }}>
-            <div style={{ width: "1.5%",  background: STAGE_COLORS.blue }} />
-            <div style={{ width: "90%",   background: STAGE_COLORS.red }} />
-            <div style={{ width: "8.5%",  background: STAGE_COLORS.violet }} />
+            <motion.div
+              initial={{ width: 0 }}
+              whileInView={{ width: "1.5%" }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.4 }}
+              style={{ background: STAGE_COLORS.blue }}
+            />
+            <motion.div
+              initial={{ width: 0 }}
+              whileInView={{ width: "90%" }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.55 }}
+              style={{ background: STAGE_COLORS.red }}
+            />
+            <motion.div
+              initial={{ width: 0 }}
+              whileInView={{ width: "8.5%" }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94], delay: 1.7 }}
+              style={{ background: STAGE_COLORS.violet }}
+            />
           </div>
-        </div>
+        </motion.div>
 
         {/* Stages */}
         <div style={{ position: "relative" }}>
@@ -210,14 +245,28 @@ const HowItWorks = () => {
             }}
           />
 
-          <div style={{ display: "flex", flexDirection: "column", gap: "3.5rem" }}>
-            {stages.map((s) => (
-              <div key={s.num} style={{ display: "grid", gridTemplateColumns: "110px 1fr", gap: 0, alignItems: "start", position: "relative" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "2.5rem" }}>
+            {stages.map((s, idx) => (
+              <motion.div
+                key={s.num}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-100px" }}
+                variants={{
+                  hidden: { opacity: 0, y: 30 },
+                  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.05 * idx } },
+                }}
+                style={{ display: "grid", gridTemplateColumns: "110px 1fr", gap: 0, alignItems: "start", position: "relative" }}
+              >
                 {/* Left rail */}
                 <div style={{ position: "relative", paddingRight: 24 }}>
                   {/* Node */}
-                  <span
+                  <motion.span
                     aria-hidden
+                    initial={{ scale: 0 }}
+                    whileInView={{ scale: [0, 1.25, 1] }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ duration: 0.5, times: [0, 0.7, 1], ease: [0.25, 0.46, 0.45, 0.94], delay: 0.15 + idx * 0.05 }}
                     style={{
                       position: "absolute",
                       top: 4,
@@ -244,20 +293,30 @@ const HowItWorks = () => {
                     <h3 style={{ fontSize: 22, fontWeight: 400, color: "#fff", margin: "0 0 8px", letterSpacing: "-0.015em" }}>{t(s.titleKey)}</h3>
                     <p style={{ color: "rgba(255,255,255,0.7)", lineHeight: 1.55, margin: 0, fontSize: 13.5, maxWidth: 440 }}>{t(s.descKey)}</p>
 
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 24, marginTop: 20 }}>
-                      {s.stats.map((st, i) => (
-                        <div key={i}>
-                          <p style={{ margin: 0, fontSize: 22, fontWeight: 400, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1 }}>{st.value}</p>
-                          <p className="fl-mono" style={{ margin: "6px 0 0", fontSize: 9, letterSpacing: "0.2em", color: "rgba(255,255,255,0.5)" }}>{st.label}</p>
-                        </div>
-                      ))}
+                    <div className="grid grid-cols-3" style={{ gap: "clamp(12px, 3vw, 24px)", marginTop: 18 }}>
+                      {s.stats.map((st, i) => {
+                        const n = Number(st.value);
+                        const isNumeric = !Number.isNaN(n);
+                        return (
+                          <div key={i}>
+                            <p style={{ margin: 0, fontSize: 22, fontWeight: 400, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1 }}>
+                              {isNumeric ? (
+                                <CountUp to={n} duration={1.2} separator={n >= 1000 ? "," : ""} />
+                              ) : (
+                                st.value
+                              )}
+                            </p>
+                            <p className="fl-mono" style={{ margin: "6px 0 0", fontSize: 9, letterSpacing: "0.2em", color: "rgba(255,255,255,0.5)" }}>{st.label}</p>
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
                   <div>
                     <s.Panel />
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>

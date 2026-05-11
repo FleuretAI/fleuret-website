@@ -84,6 +84,7 @@ export const translations = {
     'hero.subtitle': 'Fleuret combine IA agentique et expertise offensive pour délivrer des pentests de niveau humain en heures, pas en semaines.',
     'hero.cta': 'Réserver une démo',
     'hero.cta.secondary': 'Voir la plateforme',
+    'hero.scrollCue': 'DÉFILER',
 
     // Partners (social proof)
     'partners.title': 'Issus de',
@@ -542,6 +543,7 @@ export const translations = {
     'hero.subtitle': 'Fleuret combines agentic AI and offensive expertise to deliver human-level pentests in hours, not weeks.',
     'hero.cta': 'Book a demo',
     'hero.cta.secondary': 'See the platform',
+    'hero.scrollCue': 'SCROLL',
 
     // Partners
     'partners.title': 'Alumni of',

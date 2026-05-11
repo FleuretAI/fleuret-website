@@ -36,24 +36,26 @@ const Hero = () => {
       style={{ minHeight: "100dvh", isolation: "isolate" }}
     >
       {/* Ambient glows */}
-      <div
-        className="absolute pointer-events-none"
-        style={{
-          top: "22%", left: "18%", width: 760, height: 760,
-          background: "radial-gradient(ellipse at center, rgba(79,143,255,0.09), transparent 70%)",
-          filter: "blur(10px)",
-          animation: "float1 18s ease-in-out infinite",
-        }}
-      />
-      <div
-        className="absolute pointer-events-none"
-        style={{
-          bottom: "15%", right: "14%", width: 680, height: 680,
-          background: "radial-gradient(ellipse at center, rgba(139,92,246,0.08), transparent 70%)",
-          filter: "blur(10px)",
-          animation: "float2 22s ease-in-out infinite",
-        }}
-      />
+      <div className="hidden sm:block">
+        <div
+          className="absolute pointer-events-none"
+          style={{
+            top: "22%", left: "18%", width: 760, height: 760,
+            background: "radial-gradient(ellipse at center, rgba(79,143,255,0.09), transparent 70%)",
+            filter: "blur(10px)",
+            animation: "float1 18s ease-in-out infinite",
+          }}
+        />
+        <div
+          className="absolute pointer-events-none"
+          style={{
+            bottom: "15%", right: "14%", width: 680, height: 680,
+            background: "radial-gradient(ellipse at center, rgba(139,92,246,0.08), transparent 70%)",
+            filter: "blur(10px)",
+            animation: "float2 22s ease-in-out infinite",
+          }}
+        />
+      </div>
 
       {/* Canvas */}
       <canvas
@@ -88,7 +90,7 @@ const Hero = () => {
       <div className="container mx-auto px-4 relative" style={{ zIndex: 10 }}>
         <div
           className="max-w-4xl mx-auto text-center px-2"
-          style={{ paddingTop: "5rem", paddingBottom: "5rem" }}
+          style={{ paddingTop: "clamp(2.5rem, 8vw, 5rem)", paddingBottom: "clamp(2.5rem, 8vw, 5rem)" }}
         >
           <h1
             style={{
@@ -181,6 +183,16 @@ const Hero = () => {
           )}
         </div>
       </div>
+
+      {/* Scroll cue — hcompany pattern */}
+      <a
+        href="#why"
+        aria-label={t("hero.scrollCue")}
+        className="fl-scroll-cue"
+      >
+        <span className="fl-mono fl-scroll-cue__label">{t("hero.scrollCue")}</span>
+        <span aria-hidden className="fl-scroll-cue__line" />
+      </a>
     </section>
   );
 };

@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { DEMO_ROUTE } from "@/lib/routes";
+import { fadeInUp, staggerContainer, staggerItem } from "@/lib/animations";
 
 const CTASection = () => {
   const { t, localize } = useLanguage();
@@ -8,7 +10,7 @@ const CTASection = () => {
   return (
     <section
       className="fl-section fl-section--solid"
-      style={{ position: "relative", overflow: "hidden", padding: "8rem 0 9rem", minHeight: "min(70vh, 660px)" }}
+      style={{ position: "relative", overflow: "hidden", padding: "7rem 0 8rem", minHeight: "min(60vh, 600px)" }}
     >
       <div
         aria-hidden
@@ -28,8 +30,15 @@ const CTASection = () => {
       />
 
       <div className="max-w-[1280px] mx-auto px-4 md:px-8" style={{ position: "relative", zIndex: 1 }}>
-        <div style={{ maxWidth: "62rem", margin: "0 auto", textAlign: "center" }}>
-          <p
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+          variants={staggerContainer}
+          style={{ maxWidth: "62rem", margin: "0 auto", textAlign: "center" }}
+        >
+          <motion.p
+            variants={staggerItem}
             className="fl-eyebrow"
             style={{
               display: "inline-flex",
@@ -41,9 +50,10 @@ const CTASection = () => {
           >
             <span className="fl-dot" style={{ background: "var(--fl-blue)" }} />
             {t("cta.eyebrow")}
-          </p>
+          </motion.p>
 
-          <h2
+          <motion.h2
+            variants={staggerItem}
             style={{
               fontSize: "clamp(36px, 4.4vw, 64px)",
               fontWeight: 300,
@@ -57,9 +67,10 @@ const CTASection = () => {
             {t("cta.titleA")}{" "}
             <span className="fl-text-gradient">{t("cta.titleB")}</span>
             <span style={{ color: "#fff" }}>.</span>
-          </h2>
+          </motion.h2>
 
-          <p
+          <motion.p
+            variants={staggerItem}
             style={{
               fontSize: "clamp(16px, 1.5vw, 18px)",
               color: "rgba(255,255,255,0.6)",
@@ -69,18 +80,23 @@ const CTASection = () => {
             }}
           >
             {t("cta.subtitle")}
-          </p>
+          </motion.p>
 
-          <div style={{ display: "flex", justifyContent: "center" }}>
+          <motion.div variants={staggerItem} style={{ display: "flex", justifyContent: "center" }}>
             <Link to={localize(DEMO_ROUTE)} className="fl-cta">
               {t("cta.button")}
               <span aria-hidden>→</span>
             </Link>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
 
-      <p
+      <motion.p
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.8, duration: 0.6 }}
+        variants={fadeInUp}
         className="fl-eyebrow fl-mono"
         style={{
           position: "absolute",
@@ -97,7 +113,7 @@ const CTASection = () => {
         }}
       >
         {t("cta.ambient")}
-      </p>
+      </motion.p>
     </section>
   );
 };

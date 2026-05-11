@@ -1,4 +1,7 @@
+import { motion } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { staggerContainer, staggerItem } from "@/lib/animations";
+import CountUp from "@/components/motion/CountUp";
 
 type Status = "UNAUDITED" | "STAGING" | "DEPLOYED" | "CANARY" | "ROLLBACK";
 
@@ -83,11 +86,17 @@ const WhySection = () => {
   const { t } = useLanguage();
 
   return (
-    <section id="why" className="fl-section" style={{ padding: "5rem 0 4.5rem", position: "relative", overflow: "hidden", scrollMarginTop: "5rem" }}>
+    <section id="why" className="fl-section" style={{ padding: "6rem 0 7rem", position: "relative", overflow: "hidden", scrollMarginTop: "5rem" }}>
       <div className="max-w-[1280px] mx-auto px-4 md:px-8" style={{ position: "relative", zIndex: 1 }}>
         {/* Header row */}
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: "3rem", flexWrap: "wrap", marginBottom: "2.5rem" }}>
-          <div style={{ maxWidth: "44rem" }}>
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+          variants={staggerContainer}
+          style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: "3rem", flexWrap: "wrap", marginBottom: "2rem" }}
+        >
+          <motion.div variants={staggerItem} style={{ maxWidth: "44rem" }}>
             <p className="fl-eyebrow" style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", margin: "0 0 1rem", color: "rgba(255,255,255,0.45)", letterSpacing: "0.16em", fontSize: "10.5px" }}>
               <span className="fl-dot" style={{ background: "var(--fl-red)" }} />
               {t("problem.diptych.eyebrow")}
@@ -105,14 +114,20 @@ const WhySection = () => {
               {t("problem.main.title")}{" "}
               <span className="fl-text-gradient">{t("problem.main.broken")}</span>
             </h2>
-          </div>
-          <p style={{ fontSize: "14.5px", color: "rgba(255,255,255,0.5)", lineHeight: 1.65, maxWidth: "360px", margin: 0 }}>
+          </motion.div>
+          <motion.p variants={staggerItem} style={{ fontSize: "14.5px", color: "rgba(255,255,255,0.5)", lineHeight: 1.65, maxWidth: "360px", margin: 0 }}>
             {t("problem.main.subtitle")}
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
 
         {/* Shared 52-week axis card */}
-        <div style={{ background: "rgba(15,16,28,0.6)", border: "1px solid rgba(255,255,255,0.07)", padding: "14px 24px 14px", marginBottom: "1.25rem" }}>
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.15 }}
+          style={{ background: "rgba(15,16,28,0.6)", border: "1px solid rgba(255,255,255,0.07)", padding: "14px 24px 14px", marginBottom: "1.25rem" }}
+        >
           <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
             <span className="fl-mono" style={{ fontSize: 10, letterSpacing: "0.2em", color: "rgba(255,255,255,0.42)" }}>52-WEEK AXIS · 2026</span>
             <span className="fl-mono" style={{ fontSize: 10, letterSpacing: "0.2em", color: "rgba(255,255,255,0.42)", display: "inline-flex", alignItems: "center", gap: 6 }}>
@@ -154,67 +169,85 @@ const WhySection = () => {
               <span key={m} style={{ textAlign: "center" }}>{m}</span>
             ))}
           </div>
-        </div>
+        </motion.div>
 
         {/* Diptych */}
         <div className="grid grid-cols-1 lg:grid-cols-2" style={{ gap: "1.5rem", alignItems: "stretch" }}>
           {/* Left — Release cadence */}
-          <div style={{ background: "rgba(15,16,28,0.55)", padding: "20px 22px", height: 420, display: "flex", flexDirection: "column", overflow: "hidden" }}>
+          <motion.div
+            initial={{ opacity: 0, x: -28 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.2 }}
+            className="min-h-[320px] sm:min-h-[380px]"
+            style={{ background: "rgba(15,16,28,0.55)", padding: "20px 22px", height: 420, display: "flex", flexDirection: "column", overflow: "hidden" }}
+          >
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 14 }}>
               <div>
                 <p className="fl-mono" style={{ margin: 0, fontSize: 10, letterSpacing: "0.2em", color: "rgba(79,143,255,0.85)" }}>RELEASE CADENCE</p>
                 <p style={{ margin: "8px 0 0", display: "flex", alignItems: "baseline", gap: 8 }}>
-                  <span style={{ fontSize: 32, fontWeight: 300, color: "#fff", lineHeight: 1, letterSpacing: "-0.01em" }}>247</span>
+                  <CountUp to={247} duration={1.4} style={{ fontSize: 32, fontWeight: 300, color: "#fff", lineHeight: 1, letterSpacing: "-0.01em" }} />
                   <span style={{ fontSize: 11, color: "rgba(255,255,255,0.5)", letterSpacing: "0.04em" }}>YTD · 3.2 / day</span>
                 </p>
               </div>
               <span className="fl-mono" style={{ fontSize: 10, color: "rgba(255,255,255,0.5)", letterSpacing: "0.2em" }}>PROD · EU-WEST-1</span>
             </div>
 
-            {/* Column headers */}
-            <div className="fl-mono" style={{ display: "grid", gridTemplateColumns: "88px 56px 60px 70px 70px 1fr", gap: 8, fontSize: 9, letterSpacing: "0.2em", color: "rgba(255,255,255,0.32)", paddingBottom: 8, borderBottom: "1px dashed rgba(255,255,255,0.08)" }}>
-              <span>TIME</span><span>SERVICE</span><span>TYPE</span><span>SHA</span><span>VERSION</span><span>STATUS</span>
-            </div>
+            <div className="-mx-4 px-4 sm:mx-0 sm:px-0" style={{ overflowX: "auto", WebkitOverflowScrolling: "touch", flex: 1, display: "flex", flexDirection: "column", minHeight: 0 }}>
+              <div style={{ minWidth: 420, display: "flex", flexDirection: "column", flex: 1, minHeight: 0 }}>
+                {/* Column headers */}
+                <div className="fl-mono" style={{ display: "grid", gridTemplateColumns: "88px 56px 60px 70px 70px 1fr", gap: 8, fontSize: 9, letterSpacing: "0.2em", color: "rgba(255,255,255,0.32)", paddingBottom: 8, borderBottom: "1px dashed rgba(255,255,255,0.08)" }}>
+                  <span>TIME</span><span>SERVICE</span><span>TYPE</span><span>SHA</span><span>VERSION</span><span>STATUS</span>
+                </div>
 
-            {/* Scrolling track */}
-            <div style={{ flex: 1, overflow: "hidden", position: "relative", marginTop: 6 }}>
-              <div className="fl-mono why-track" style={{ fontSize: 11, lineHeight: "22px", color: "rgba(255,255,255,0.85)" }}>
-                {LOOP.map((r, i) => (
-                  <div key={i} style={{ display: "grid", gridTemplateColumns: "88px 56px 60px 70px 70px 1fr", gap: 8, padding: "2px 0" }}>
-                    <span style={{ color: "rgba(255,255,255,0.55)" }}>{r.date}</span>
-                    <span style={{ color: "rgba(255,255,255,0.9)" }}>{r.service}</span>
-                    <span style={{ color: "rgba(255,255,255,0.55)" }}>{r.type}</span>
-                    <span style={{ color: "rgba(255,255,255,0.55)" }}>{r.sha}</span>
-                    <span style={{ color: "rgba(255,255,255,0.55)" }}>{r.version}</span>
-                    <span style={{ color: STATUS_COLOR[r.status], letterSpacing: "0.12em" }}>{r.status}</span>
+                {/* Scrolling track */}
+                <div style={{ flex: 1, overflow: "hidden", position: "relative", marginTop: 6 }}>
+                  <div className="fl-mono why-track" style={{ fontSize: 11, lineHeight: "22px", color: "rgba(255,255,255,0.85)" }}>
+                    {LOOP.map((r, i) => (
+                      <div key={i} style={{ display: "grid", gridTemplateColumns: "88px 56px 60px 70px 70px 1fr", gap: 8, padding: "2px 0" }}>
+                        <span style={{ color: "rgba(255,255,255,0.55)" }}>{r.date}</span>
+                        <span style={{ color: "rgba(255,255,255,0.9)" }}>{r.service}</span>
+                        <span style={{ color: "rgba(255,255,255,0.55)" }}>{r.type}</span>
+                        <span style={{ color: "rgba(255,255,255,0.55)" }}>{r.sha}</span>
+                        <span style={{ color: "rgba(255,255,255,0.55)" }}>{r.version}</span>
+                        <span style={{ color: STATUS_COLOR[r.status], letterSpacing: "0.12em" }}>{r.status}</span>
+                      </div>
+                    ))}
                   </div>
-                ))}
+                </div>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Right — Pentest cadence + day ruler */}
-          <div style={{ background: "rgba(15,16,28,0.55)", padding: "20px 22px", height: 420, position: "relative" }}>
+          <motion.div
+            initial={{ opacity: 0, x: 28 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.3 }}
+            className="min-h-[320px] sm:min-h-[380px]"
+            style={{ background: "rgba(15,16,28,0.55)", padding: "20px 22px", height: 420, position: "relative" }}
+          >
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
               <div>
                 <p className="fl-mono" style={{ margin: 0, fontSize: 10, letterSpacing: "0.2em", color: "rgba(229,72,77,0.85)" }}>PENTEST CADENCE</p>
                 <p style={{ margin: "8px 0 0", display: "flex", alignItems: "baseline", gap: 8 }}>
-                  <span style={{ fontSize: 32, fontWeight: 300, color: "#fff", lineHeight: 1, letterSpacing: "-0.01em" }}>2</span>
+                  <CountUp to={2} duration={1.0} style={{ fontSize: 32, fontWeight: 300, color: "#fff", lineHeight: 1, letterSpacing: "-0.01em" }} />
                   <span style={{ fontSize: 11, color: "rgba(255,255,255,0.5)", letterSpacing: "0.04em" }}>/ yr · 39 days of testing</span>
                 </p>
               </div>
               <div style={{ textAlign: "right" }}>
                 <p className="fl-mono" style={{ margin: 0, fontSize: 22, fontWeight: 400, color: "rgba(255,180,180,0.95)", letterSpacing: "-0.005em", lineHeight: 1.05 }}>
-                  184<sup style={{ fontSize: 12, color: "rgba(255,180,180,0.6)", marginRight: 6, marginLeft: 1 }}>d</sup>
-                  07<sup style={{ fontSize: 12, color: "rgba(255,180,180,0.6)", marginRight: 6, marginLeft: 1 }}>h</sup>
-                  12<sup style={{ fontSize: 12, color: "rgba(255,180,180,0.6)", marginLeft: 1 }}>m</sup>
+                  <CountUp to={184} duration={1.6} /><sup style={{ fontSize: 12, color: "rgba(255,180,180,0.6)", marginRight: 6, marginLeft: 1 }}>d</sup>
+                  <CountUp to={7} duration={1.0} prefix="0" /><sup style={{ fontSize: 12, color: "rgba(255,180,180,0.6)", marginRight: 6, marginLeft: 1 }}>h</sup>
+                  <CountUp to={12} duration={1.2} /><sup style={{ fontSize: 12, color: "rgba(255,180,180,0.6)", marginLeft: 1 }}>m</sup>
                 </p>
                 <p className="fl-mono" style={{ margin: "6px 0 0", fontSize: 9, letterSpacing: "0.22em", color: "rgba(255,180,180,0.55)" }}>SINCE LAST AUDIT</p>
               </div>
             </div>
 
             {/* Day ruler — vertical */}
-            <div style={{ position: "relative", marginTop: 28, height: 290 }}>
+            <div style={{ position: "relative", marginTop: 24, height: 250 }}>
               {/* Spine */}
               <div style={{ position: "absolute", left: "44%", top: 0, bottom: 0, width: 1, background: "linear-gradient(180deg, rgba(79,143,255,0.7) 0%, rgba(229,72,77,0.45) 8%, rgba(229,72,77,0.45) 92%, rgba(79,143,255,0.7) 100%)" }} />
               <div aria-hidden style={{ position: "absolute", left: "calc(44% - 12px)", top: 0, bottom: 0, width: 24, background: "radial-gradient(rgba(229,72,77,0.18), rgba(229,72,77,0) 70%)", pointerEvents: "none" }} />
@@ -243,7 +276,7 @@ const WhySection = () => {
                 );
               })}
             </div>
-          </div>
+          </motion.div>
         </div>
 
         {/* SVG connector */}
@@ -254,21 +287,32 @@ const WhySection = () => {
         </svg>
 
         {/* Problem strip — 3 cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3" style={{ gap: "3rem", padding: "16px 20px 0" }}>
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+          variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.12, delayChildren: 0.15 } } }}
+          className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-12"
+          style={{ padding: "12px 20px 0" }}
+        >
           {[
             { num: "01", color: "var(--fl-blue)",   title: t("problem.delay.title"),    desc: t("problem.delay.desc") },
             { num: "02", color: "var(--fl-violet)", title: t("problem.friction.title"), desc: t("problem.friction.desc") },
             { num: "03", color: "var(--fl-red)",    title: t("problem.cost.title"),     desc: t("problem.cost.desc") },
           ].map((p) => (
-            <div key={p.num} style={{ background: "transparent", border: 0, padding: 0 }}>
+            <motion.div
+              key={p.num}
+              variants={staggerItem}
+              style={{ background: "transparent", border: 0, padding: 0 }}
+            >
               <span className="fl-mono" style={{ fontSize: 22, color: p.color, fontWeight: 400, letterSpacing: "-0.01em", display: "block", marginBottom: 6 }}>
                 {p.num}
               </span>
               <h3 style={{ fontSize: 16, fontWeight: 400, color: "#F6F6FB", margin: "0 0 6px" }}>{p.title}</h3>
               <p style={{ color: "rgba(255,255,255,0.5)", lineHeight: 1.55, margin: 0, fontSize: 13.5, fontWeight: 300 }}>{p.desc}</p>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
 
     </section>

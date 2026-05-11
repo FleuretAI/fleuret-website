@@ -1,4 +1,6 @@
+import { motion } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { staggerContainer, staggerItem } from "@/lib/animations";
 
 type RowKey = "depth" | "fp" | "speed" | "cost" | "frequency" | "compliance" | "adapt";
 type Band = "rigor" | "economics" | "fit";
@@ -204,21 +206,36 @@ const ComparisonTable = () => {
   const cols: Col[] = ["firm", "fleuret", "scanner"];
 
   return (
-    <section id="comparison" className="fl-section fl-section--solid" style={{ padding: "5rem 0 6rem", position: "relative", overflow: "hidden", scrollMarginTop: "5rem" }}>
+    <section id="comparison" className="fl-section fl-section--solid" style={{ padding: "6rem 0 7rem", position: "relative", overflow: "hidden", scrollMarginTop: "5rem" }}>
       <div className="max-w-[1280px] mx-auto px-4 md:px-8" style={{ position: "relative", zIndex: 1 }}>
         {/* Header row */}
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: "2rem", flexWrap: "wrap", marginBottom: "2.5rem" }}>
-          <h2 style={{ fontSize: "clamp(28px, 2.9vw, 42px)", fontWeight: 300, letterSpacing: "-0.02em", lineHeight: 1.1, color: "#fff", margin: 0 }}>
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+          variants={staggerContainer}
+          style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: "2rem", flexWrap: "wrap", marginBottom: "2rem" }}
+        >
+          <motion.h2
+            variants={staggerItem}
+            style={{ fontSize: "clamp(28px, 2.9vw, 42px)", fontWeight: 300, letterSpacing: "-0.02em", lineHeight: 1.1, color: "#fff", margin: 0 }}
+          >
             {t("comparison.title")}
-          </h2>
-          <div className="fl-mono" style={{ textAlign: "right", fontSize: 10.5, letterSpacing: "0.18em", lineHeight: 1.7 }}>
+          </motion.h2>
+          <motion.div variants={staggerItem} className="fl-mono" style={{ textAlign: "right", fontSize: 10.5, letterSpacing: "0.18em", lineHeight: 1.7 }}>
             <p style={{ margin: 0, color: "rgba(255,255,255,0.42)" }}>{t("comparison.chrome.criteria")}</p>
             <p style={{ margin: 0, color: "rgba(180,200,255,0.85)" }}>{t("comparison.chrome.wins")}</p>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* Grid wrapper with raised middle card */}
-        <div style={{ position: "relative" }}>
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.15 }}
+          style={{ position: "relative" }}
+        >
           {/* Raised middle column overlay */}
           <div
             aria-hidden
@@ -255,11 +272,13 @@ const ComparisonTable = () => {
           />
 
           {/* CSS grid: 3 equal columns, mixing per-column cells with full-width band strips */}
+          <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
           <div
             style={{
               display: "grid",
               gridTemplateColumns: "1fr 1fr 1fr",
               gap: 0,
+              minWidth: 640,
             }}
           >
             {/* Header row */}
@@ -280,7 +299,8 @@ const ComparisonTable = () => {
             {/* Verdict row */}
             {cols.map(renderVerdictCell)}
           </div>
-        </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

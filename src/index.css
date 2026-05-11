@@ -340,6 +340,57 @@ body::before {
 }
 .fl-pulse-dot { animation: fl-pulse-dot 2s ease-in-out infinite; }
 
+/* Hero scroll-down cue (hcompany pattern) — mono label + vertical line
+   that animates downward, anchored at bottom of hero. */
+.fl-scroll-cue {
+  position: absolute;
+  left: 50%;
+  bottom: 28px;
+  transform: translateX(-50%);
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: rgba(255, 255, 255, 0.45);
+  text-decoration: none;
+  z-index: 12;
+  cursor: pointer;
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+.fl-scroll-cue:hover { color: #fff; }
+.fl-scroll-cue__label {
+  font-size: 10px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+}
+.fl-scroll-cue__line {
+  display: block;
+  width: 1px;
+  height: 36px;
+  background: linear-gradient(to bottom, currentColor 0%, transparent 100%);
+  position: relative;
+  overflow: hidden;
+}
+.fl-scroll-cue__line::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: linear-gradient(to bottom, transparent, #fff 60%, transparent);
+  animation: fl-scroll-cue 2.2s cubic-bezier(0.55, 0.05, 0.55, 0.95) infinite;
+}
+@keyframes fl-scroll-cue {
+  0% { transform: translateY(0%); opacity: 0; }
+  15% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { transform: translateY(300%); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fl-scroll-cue__line::after { animation: none; }
+}
+
 @keyframes fl-cursor-blink {
   0%, 49% { opacity: 1; }
   50%, 100% { opacity: 0; }

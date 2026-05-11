@@ -55,7 +55,7 @@ const Navbar = () => {
         role="banner"
         id="nav"
       >
-        <div className="max-w-[1280px] mx-auto px-4 md:px-8 flex items-center justify-between gap-4">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-8 flex items-center justify-between gap-4">
           {/* Logo */}
           <Link
             to={homePath}
@@ -76,7 +76,7 @@ const Navbar = () => {
               src={logoWordmark}
               alt="Fleuret"
               className={cn(
-                "w-auto object-contain transition-all duration-300 brightness-0 invert",
+                "w-auto object-contain transition-all duration-300 brightness-0 invert max-w-[140px] sm:max-w-none",
                 scrolled ? "h-8" : "h-10"
               )}
               width="454" height="111"
@@ -200,9 +200,9 @@ const Navbar = () => {
         id="mobileNav"
         className="lg:hidden fixed top-0 right-0 bottom-0 flex flex-col gap-1 backdrop-blur-2xl border-l border-white/8"
         style={{
-          width: "min(20rem, 85vw)",
+          width: "min(90vw, 20rem)",
           background: "rgba(12,13,23,0.96)",
-          padding: "5rem 1.5rem 2rem",
+          padding: "4.5rem 1.25rem 1.5rem",
           transform: mobileOpen ? "translateX(0)" : "translateX(100%)",
           transition: "transform 0.3s ease",
           zIndex: 40,
