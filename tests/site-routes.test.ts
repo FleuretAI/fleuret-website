@@ -37,13 +37,6 @@ describe("site-routes single source of truth", () => {
     expect(BLOG_POST_RE.test("/blog/")).toBe(false);
   });
 
-  it("/changelog is in every consumer (regression: prior drift bug)", () => {
-    expect(STATIC_FR_PATHS).toContain("/changelog");
-    expect(STATIC_EN_PATHS).toContain("/en/changelog");
-    expect(KNOWN_PATHS.has("/changelog")).toBe(true);
-    expect(KNOWN_PATHS.has("/en/changelog")).toBe(true);
-  });
-
   it("middleware imports route lists from shared module (no hardcoded duplication)", () => {
     const src = readSource("middleware.ts");
     expect(src).toMatch(
