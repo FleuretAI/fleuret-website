@@ -181,6 +181,16 @@ const Hero = () => {
           )}
         </div>
       </div>
+
+      {/* Scroll cue — hcompany pattern */}
+      <a
+        href="#why"
+        aria-label={t("hero.scrollCue")}
+        className="fl-scroll-cue"
+      >
+        <span className="fl-mono fl-scroll-cue__label">{t("hero.scrollCue")}</span>
+        <span aria-hidden className="fl-scroll-cue__line" />
+      </a>
     </section>
   );
 };

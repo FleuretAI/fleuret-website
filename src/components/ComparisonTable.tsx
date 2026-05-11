@@ -206,7 +206,7 @@ const ComparisonTable = () => {
   const cols: Col[] = ["firm", "fleuret", "scanner"];
 
   return (
-    <section id="comparison" className="fl-section fl-section--solid" style={{ padding: "3.5rem 0 4.5rem", position: "relative", overflow: "hidden", scrollMarginTop: "5rem" }}>
+    <section id="comparison" className="fl-section fl-section--solid fl-section--breathe fl-blur-bottom" style={{ padding: "6rem 0 7rem", position: "relative", overflow: "hidden", scrollMarginTop: "5rem" }}>
       <div className="max-w-[1280px] mx-auto px-4 md:px-8" style={{ position: "relative", zIndex: 1 }}>
         {/* Header row */}
         <motion.div

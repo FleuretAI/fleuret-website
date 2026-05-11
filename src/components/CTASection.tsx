@@ -9,8 +9,8 @@ const CTASection = () => {
 
   return (
     <section
-      className="fl-section fl-section--solid"
-      style={{ position: "relative", overflow: "hidden", padding: "6.5rem 0 7.5rem", minHeight: "min(60vh, 560px)" }}
+      className="fl-section fl-section--solid fl-section--breathe"
+      style={{ position: "relative", overflow: "hidden", padding: "8rem 0 9rem" }}
     >
       <div
         aria-hidden
