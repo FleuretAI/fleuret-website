@@ -340,6 +340,28 @@ body::before {
 }
 .fl-pulse-dot { animation: fl-pulse-dot 2s ease-in-out infinite; }
 
+/* Viewport-edge blur — hcompany pattern. Fixed overlay at the bottom of
+   the viewport so anything scrolling into / out of the visible edge is
+   softened. Sits above content, below nav. */
+.fl-viewport-blur-bottom {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 140px;
+  pointer-events: none;
+  z-index: 30;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  -webkit-mask: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.35) 35%, #000 75%);
+  mask: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.35) 35%, #000 75%);
+}
+@supports not (backdrop-filter: blur(10px)) {
+  .fl-viewport-blur-bottom {
+    background: linear-gradient(to bottom, transparent 0%, rgba(11,12,20,0.45) 70%, rgba(11,12,20,0.9) 100%);
+  }
+}
+
 /* Hero scroll-down cue (hcompany pattern) — mono label + vertical line
    that animates downward, anchored at bottom of hero. */
 .fl-scroll-cue {

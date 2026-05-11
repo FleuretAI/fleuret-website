@@ -28,6 +28,7 @@ const Index = () => {
         ]}
       />
       <Navbar />
+      <div aria-hidden className="fl-viewport-blur-bottom" />
       <main id="main-content">
         <Hero />
         <WhySection />
