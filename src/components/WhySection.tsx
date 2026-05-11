@@ -180,7 +180,7 @@ const WhySection = () => {
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.2 }}
             className="min-h-[320px] sm:min-h-[380px]"
-            style={{ background: "rgba(15,16,28,0.55)", padding: "20px 22px", display: "flex", flexDirection: "column", overflow: "hidden" }}
+            style={{ background: "rgba(15,16,28,0.55)", padding: "20px 22px", height: 420, display: "flex", flexDirection: "column", overflow: "hidden" }}
           >
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 14 }}>
               <div>
@@ -226,7 +226,7 @@ const WhySection = () => {
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.3 }}
             className="min-h-[320px] sm:min-h-[380px]"
-            style={{ background: "rgba(15,16,28,0.55)", padding: "20px 22px", position: "relative" }}
+            style={{ background: "rgba(15,16,28,0.55)", padding: "20px 22px", height: 420, position: "relative" }}
           >
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
               <div>
