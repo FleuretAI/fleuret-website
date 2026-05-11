@@ -1,0 +1,65 @@
+---
+title: "DORA, live production, and the pentest carve-out CISOs keep signing"
+description: "DORA Articles 26 and 27 require TLPT on live production systems with no test-environment substitution. Most pentest contracts still carve production out. Here is what supervisors will expect in 2026."
+date: "2026-05-11"
+author: "Yanis Grigy, CEO"
+tags: ["DORA", "Compliance", "Financial sector", "Pentest"]
+locale: "en"
+slug: "dora-article-24-live-production"
+---
+
+## One clause, repeated three ways
+
+Re-reading [DORA Regulation (EU) 2022/2554](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32022R2554) this weekend, one clause stood out across three different layers of the text.
+
+In Article 26, the regulation requires advanced testing by means of threat-led penetration testing (TLPT) on live production systems supporting critical or important functions. In the [Joint Committee final report on the TLPT RTS (JC 2024-29)](https://www.eba.europa.eu/sites/default/files/2024-07/427a52cf-5772-4b69-8eb5-d121c90c470a/JC%202024-29%20-%20Final%20report_DORA%20RTS%20on%20TLPT.pdf), the regulatory technical standard repeats it: "Each threat-led penetration test shall cover several or all critical or important functions of a financial entity, and shall be performed on live production systems supporting such functions." And the updated [TIBER-EU framework](https://www.ecb.europa.eu/press/intro/news/html/ecb.mipnews250211.en.html), which the ECB now treats as the implementation pathway for DORA TLPT, embeds the same requirement.
+
+The same clause, written three times, in three pieces of binding text.
+
+## What most pentest contracts actually say
+
+Most boutique and mid-market pentest engagements I have read carve production out by default. The scope reads "staging only", or "non-production replica", or the classic "production by mutual agreement, with a three-week change-freeze and a separate window booked four months in advance".
+
+That was prudent in 2018. It was defensible in 2022. Under DORA, for any financial entity selected by its supervisor for TLPT, it is non-compliant.
+
+The [law firm Noerr put it plainly](https://www.noerr.com/en/insights/hacking-by-regulation-threat-led-penetration-testing-under-dora) in their DORA analysis: financial entities selected by the competent supervisory authorities must subject their live production systems to TLPT at least every three years. The [DORA TLPT guide on financialregulations.eu](https://financialregulations.eu/blog/dora-tlpt-guide) repeats it without softening: "Testing is conducted on live production systems. No test environment substitution is permitted."
+
+If you renewed a pentest contract in Q4 2025 or Q1 2026 with a "non-production only" scope and you are inside DORA's TLPT cohort, the contract is misaligned with what your supervisor will ask for.
+
+## The third-party clause is the second surprise
+
+The live-production rule is the headline. The supplier rule is the one most teams miss.
+
+Article 30(3)(d) of DORA, and the RTS that operationalises it, requires financial entities to contractually obligate their critical third-party ICT service providers to participate in the entity's TLPT. The [Noerr analysis](https://www.noerr.com/en/insights/hacking-by-regulation-threat-led-penetration-testing-under-dora) confirms these providers cannot refuse. The financialregulations.eu guide goes further: critical ICT third-party providers must be included in the TLPT scope unless explicitly excluded by the national competent authority. That includes the major cloud providers, identity providers, and payment processors that sit underneath modern financial platforms.
+
+> The default DORA test scope is live production, including the cloud underneath. Excluding either takes a written decision by your supervisor.
+
+## What to ask your pentest provider before signing 2026 renewals
+
+Three questions to take to any provider before signing the renewal, ranked by how often I have seen each one mishandled.
+
+1. **Will the engagement run on live production?** Not "on a refreshed copy". Not "on the staging environment with the same configuration". The RTS language is "live production systems supporting such functions." Ask the provider to write that phrasing into the SOW.
+
+2. **Are critical ICT third parties inside the scope?** Cloud (AWS, Azure, GCP), identity (Okta, Microsoft Entra), payment processors, core banking systems, anything that supports a critical or important function. If they are excluded, the contract should reference the supervisor decision that excluded them. No reference, no exclusion.
+
+3. **How does the provider manage risk on a live-production test?** TIBER-EU prescribes a control team, threat intelligence handoff, purple-teaming, and incident-response coordination. A provider that cannot describe those mechanisms is selling annual pentest, not DORA TLPT. The vocabulary is the tell.
+
+For non-TLPT-cohort financial entities, the live-production clause still matters. National supervisors (the ACPR in France, BaFin in Germany, CNMV in Spain) read [Article 24](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32022R2554) as requiring a documented testing programme proportionate to risk. The companion question is: does the programme actually cover live production, or has the entity been running pentest theatre on staging for three years?
+
+## What this means for you
+
+If you are a CISO or GRC lead at an EU financial entity, two questions for Monday morning. First: does your current pentest contract include live production by default, or carve it out? Second: are your critical ICT third parties named inside the scope, or are they an unwritten exclusion?
+
+For the broader context on DORA's testing programme, the companion piece on [DORA penetration testing requirements](https://fleuret.ai/en/blog/dora-penetration-testing-requirements-2026) walks through Article 24, the Layer 1 / Layer 2 split, and the evidence supervisors expect. For the cadence question (annual versus continuous), the post on [why the annual pentest is broken](https://fleuret.ai/en/blog/annual-pentest-broken-saas-continuous) covers what shifts in 2026 procurement.
+
+Building Fleuret around this gap is the work for the next year. EU-sovereign, agentic, designed to run continuously on live production, with audit-grade evidence the ACPR can read.
+
+[**See Fleuret in action.**](/en/demo)
+
+## Sources
+
+1. [Regulation (EU) 2022/2554, Digital Operational Resilience Act (DORA)](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32022R2554). European Parliament and Council, 2022-12-14.
+2. [Hacking by regulation: threat-led penetration testing under DORA](https://www.noerr.com/en/insights/hacking-by-regulation-threat-led-penetration-testing-under-dora). Noerr, 2024.
+3. [DORA Threat-Led Penetration Testing: Articles 26-27 Requirements, Scope Criteria, and the TIBER-EU Pathway](https://financialregulations.eu/blog/dora-tlpt-guide). financialregulations.eu editorial, 2025.
+4. [TIBER-EU framework updated to align with DORA](https://www.ecb.europa.eu/press/intro/news/html/ecb.mipnews250211.en.html). European Central Bank, 2025-02-11.
+5. [JC 2024-29: Final report on DORA RTS on TLPT](https://www.eba.europa.eu/sites/default/files/2024-07/427a52cf-5772-4b69-8eb5-d121c90c470a/JC%202024-29%20-%20Final%20report_DORA%20RTS%20on%20TLPT.pdf). Joint Committee of the ESAs (EBA, EIOPA, ESMA), 2024-07.
