@@ -41,7 +41,7 @@ const Careers = () => {
         <section className="container mx-auto px-4 text-center mb-20">
           <ScrollReveal>
             <div className="max-w-3xl mx-auto space-y-6">
-              <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-light tracking-tight text-white leading-[1.1]">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-light tracking-tight text-white leading-[1.1]">
                 {t("careers.hero.title")}{" "}
                 <span className="text-gradient-accent">
                   {t("careers.hero.highlight")}
@@ -68,7 +68,7 @@ const Careers = () => {
               </h2>
             </ScrollReveal>
 
-            <StaggerGroup className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            <StaggerGroup className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
               {perks.map((perk) => (
                 <motion.div
                   key={perk.key}

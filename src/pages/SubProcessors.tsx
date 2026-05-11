@@ -142,7 +142,7 @@ const SubProcessors = () => {
         <div className="overflow-x-auto rounded-2xl border border-white/8 bg-white/[0.02]">
           <table className="w-full text-sm">
             <thead>
-              <tr className="text-left text-white/40 text-xs uppercase tracking-wider border-b border-white/8">
+              <tr className="text-left text-white/40 text-[11px] sm:text-xs uppercase tracking-normal sm:tracking-wider border-b border-white/8">
                 <th className="px-4 py-3 font-medium">{isFr ? "Fournisseur" : "Vendor"}</th>
                 <th className="px-4 py-3 font-medium">{isFr ? "Pays" : "Country"}</th>
                 <th className="px-4 py-3 font-medium">{isFr ? "Finalité" : "Purpose"}</th>
@@ -153,8 +153,8 @@ const SubProcessors = () => {
             <tbody>
               {ACTIVE.map((r) => (
                 <tr key={r.vendor} className="border-b border-white/5 last:border-0 align-top">
-                  <td className="px-4 py-4 text-white font-medium whitespace-nowrap">{r.vendor}</td>
-                  <td className="px-4 py-4 text-white/70 whitespace-nowrap">{r.country}</td>
+                  <td className="px-4 py-4 text-white font-medium">{r.vendor}</td>
+                  <td className="px-4 py-4 text-white/70">{r.country}</td>
                   <td className="px-4 py-4 text-white/60">{isFr ? r.purposeFr : r.purposeEn}</td>
                   <td className="px-4 py-4 text-white/60">{isFr ? r.dataFr : r.dataEn}</td>
                   <td className="px-4 py-4">

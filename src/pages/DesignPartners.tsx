@@ -136,7 +136,7 @@ const DesignPartners = () => {
                 </p>
               </ScrollReveal>
 
-              <StaggerGroup className="space-y-4 md:space-y-0 md:grid md:grid-cols-6 md:gap-3">
+              <StaggerGroup className="space-y-4 md:space-y-0 md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 md:gap-3">
                 {timelineKeys.map((k, i) => (
                   <motion.div
                     key={k}
@@ -161,7 +161,7 @@ const DesignPartners = () => {
 
         {/* Proof — founder + audit-trail */}
         <section className="container mx-auto px-4 py-16 md:py-24">
-          <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8 md:gap-12 items-start">
+          <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-8 md:gap-12 items-start">
             <ScrollReveal>
               <h2 className="text-2xl md:text-3xl font-light text-white mb-3">
                 {t("designPartners.proof.title")}
