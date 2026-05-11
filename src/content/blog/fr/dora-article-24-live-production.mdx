@@ -1,0 +1,65 @@
+---
+title: "DORA, production vive et la clause d'exclusion que les RSSI signent encore"
+description: "Les articles 26 et 27 de DORA imposent le TLPT sur des systèmes en production réelle, sans substitution par un environnement de test. La plupart des contrats de pentest excluent encore la production. Voici ce que les superviseurs attendront en 2026."
+date: "2026-05-11"
+author: "Yanis Grigy, CEO"
+tags: ["DORA", "Conformité", "Secteur financier", "Pentest"]
+locale: "fr"
+slug: "dora-article-24-live-production"
+---
+
+## Une seule clause, répétée trois fois
+
+En relisant ce week-end le [règlement (UE) 2022/2554 (DORA)](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32022R2554), une clause ressort à trois endroits différents du texte.
+
+L'article 26 impose un test avancé par pentest piloté par la menace (TLPT) sur les systèmes en production réelle qui supportent des fonctions critiques ou importantes. Dans le [rapport final du Comité conjoint sur le RTS TLPT (JC 2024-29)](https://www.eba.europa.eu/sites/default/files/2024-07/427a52cf-5772-4b69-8eb5-d121c90c470a/JC%202024-29%20-%20Final%20report_DORA%20RTS%20on%20TLPT.pdf), la norme technique réglementaire le redit : "Chaque pentest piloté par la menace doit couvrir plusieurs ou toutes les fonctions critiques ou importantes d'une entité financière, et doit être réalisé sur les systèmes en production réelle qui supportent ces fonctions." Et le [framework TIBER-EU actualisé](https://www.ecb.europa.eu/press/intro/news/html/ecb.mipnews250211.en.html), que la BCE traite désormais comme la voie d'implémentation du TLPT DORA, intègre la même exigence.
+
+La même clause, écrite trois fois, dans trois textes contraignants.
+
+## Ce que disent réellement la plupart des contrats de pentest
+
+La plupart des engagements de pentest boutique et mid-market que j'ai relus excluent la production par défaut. Le périmètre dit "staging uniquement", ou "réplique non-production", ou la formule classique "production sous accord mutuel, avec gel des changements de trois semaines et fenêtre dédiée réservée quatre mois à l'avance".
+
+C'était prudent en 2018. Défendable en 2022. Sous DORA, pour toute entité financière sélectionnée par son superviseur pour le TLPT, ce n'est plus conforme.
+
+Le [cabinet Noerr l'écrit sans détour](https://www.noerr.com/en/insights/hacking-by-regulation-threat-led-penetration-testing-under-dora) dans son analyse DORA : les entités financières sélectionnées par les autorités compétentes doivent soumettre leurs systèmes en production réelle au TLPT au moins tous les trois ans. Le [guide TLPT DORA de financialregulations.eu](https://financialregulations.eu/blog/dora-tlpt-guide) le répète sans nuance : "Les tests sont menés sur les systèmes en production réelle. Aucune substitution par un environnement de test n'est autorisée."
+
+Si vous avez renouvelé un contrat de pentest au Q4 2025 ou Q1 2026 avec un périmètre "non-production uniquement" et que vous êtes dans le périmètre TLPT de DORA, le contrat n'est pas aligné sur ce que votre superviseur va demander.
+
+## La clause tiers est la deuxième surprise
+
+La règle de production réelle est l'élément phare. La règle fournisseurs est celle que la plupart des équipes oublient.
+
+L'article 30(3)(d) de DORA, et le RTS qui l'opérationnalise, exige que les entités financières obligent contractuellement leurs prestataires ICT tiers critiques à participer au TLPT de l'entité. L'[analyse Noerr](https://www.noerr.com/en/insights/hacking-by-regulation-threat-led-penetration-testing-under-dora) confirme que ces prestataires ne peuvent pas refuser. Le guide financialregulations.eu va plus loin : les prestataires ICT tiers critiques doivent être inclus dans le périmètre du TLPT sauf exclusion explicite par l'autorité nationale compétente. Cela inclut les grands fournisseurs de cloud, d'identité, et de paiement qui se trouvent sous les plateformes financières modernes.
+
+> Le périmètre par défaut d'un test DORA, c'est la production réelle, cloud sous-jacent inclus. Exclure l'un ou l'autre demande une décision écrite du superviseur.
+
+## Trois questions à poser à votre prestataire de pentest avant les renouvellements 2026
+
+Trois questions à apporter à tout prestataire avant la signature du renouvellement, classées par fréquence de mauvaise gestion observée.
+
+1. **L'engagement va-t-il s'exécuter sur la production réelle ?** Pas sur "une copie rafraîchie". Pas sur "l'environnement de staging avec la même configuration". Le RTS parle de "systèmes en production réelle qui supportent ces fonctions". Demandez au prestataire d'inscrire cette formulation dans le SOW.
+
+2. **Les prestataires ICT tiers critiques sont-ils dans le périmètre ?** Cloud (AWS, Azure, GCP), identité (Okta, Microsoft Entra), processeurs de paiement, systèmes core banking, tout ce qui supporte une fonction critique ou importante. S'ils sont exclus, le contrat doit citer la décision du superviseur qui les a exclus. Pas de citation, pas d'exclusion.
+
+3. **Comment le prestataire gère-t-il le risque sur un test en production réelle ?** TIBER-EU prescrit une équipe de contrôle, un transfert de threat intelligence, du purple-teaming, et une coordination IR. Un prestataire qui ne sait pas décrire ces mécanismes vend du pentest annuel, pas du TLPT DORA. Le vocabulaire est révélateur.
+
+Pour les entités financières hors cohorte TLPT, la clause de production réelle compte aussi. Les superviseurs nationaux (l'ACPR en France, la BaFin en Allemagne, la CNMV en Espagne) lisent l'[article 24](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32022R2554) comme exigeant un programme de test documenté, proportionné au risque. La question d'appoint : le programme couvre-t-il réellement la production réelle, ou l'entité fait-elle du théâtre de pentest sur le staging depuis trois ans ?
+
+## Ce que ça veut dire pour vous
+
+Si vous êtes RSSI ou responsable GRC dans une entité financière européenne, deux questions à poser lundi matin. Première : votre contrat de pentest actuel inclut-il la production réelle par défaut, ou l'exclut-il ? Deuxième : vos prestataires ICT tiers critiques sont-ils nommés dans le périmètre, ou exclus de manière implicite ?
+
+Pour le contexte plus large sur le programme de test DORA, l'article frère sur les [exigences de pentest DORA](https://fleuret.ai/blog/dora-penetration-testing-requirements-2026) couvre l'article 24, le découpage Niveau 1 / Niveau 2, et les preuves attendues par les superviseurs. Pour la question de cadence (annuel versus continu), l'article sur [pourquoi le pentest annuel est cassé](https://fleuret.ai/blog/annual-pentest-broken-saas-continuous) couvre ce qui change dans les achats 2026.
+
+Construire Fleuret autour de ce trou, c'est le travail de l'année. Souverain européen, agentique, conçu pour tourner en continu sur la production réelle, avec une preuve de niveau audit que l'ACPR peut lire.
+
+[**Voir Fleuret en action.**](/demo)
+
+## Sources
+
+1. [Règlement (UE) 2022/2554, Digital Operational Resilience Act (DORA)](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32022R2554). Parlement européen et Conseil, 2022-12-14.
+2. [Hacking by regulation: threat-led penetration testing under DORA](https://www.noerr.com/en/insights/hacking-by-regulation-threat-led-penetration-testing-under-dora). Noerr, 2024.
+3. [DORA Threat-Led Penetration Testing: Articles 26-27 Requirements, Scope Criteria, and the TIBER-EU Pathway](https://financialregulations.eu/blog/dora-tlpt-guide). financialregulations.eu editorial, 2025.
+4. [TIBER-EU framework updated to align with DORA](https://www.ecb.europa.eu/press/intro/news/html/ecb.mipnews250211.en.html). Banque centrale européenne, 2025-02-11.
+5. [JC 2024-29: Final report on DORA RTS on TLPT](https://www.eba.europa.eu/sites/default/files/2024-07/427a52cf-5772-4b69-8eb5-d121c90c470a/JC%202024-29%20-%20Final%20report_DORA%20RTS%20on%20TLPT.pdf). Comité conjoint des AES (ABE, AEAPP, AEMF), 2024-07.
