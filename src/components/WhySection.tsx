@@ -126,16 +126,16 @@ const WhySection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.15 }}
-          style={{ background: "rgba(15,16,28,0.6)", border: "1px solid rgba(255,255,255,0.07)", padding: "14px 24px 14px", marginBottom: "1.25rem" }}
+          style={{ background: "rgba(15,16,28,0.6)", border: "1px solid rgba(255,255,255,0.07)", padding: "22px 28px 20px", marginBottom: "1.5rem", borderRadius: 4 }}
         >
-          <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
-            <span className="fl-mono" style={{ fontSize: 10, letterSpacing: "0.2em", color: "rgba(255,255,255,0.42)" }}>52-WEEK AXIS · 2026</span>
-            <span className="fl-mono" style={{ fontSize: 10, letterSpacing: "0.2em", color: "rgba(255,255,255,0.42)", display: "inline-flex", alignItems: "center", gap: 6 }}>
-              <span className="fl-pulse-dot" style={{ width: 5, height: 5, borderRadius: "50%", background: "#fff", display: "inline-block" }} />
+          <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 18 }}>
+            <span className="fl-mono" style={{ fontSize: 10.5, letterSpacing: "0.22em", color: "rgba(255,255,255,0.48)" }}>52-WEEK AXIS · 2026</span>
+            <span className="fl-mono" style={{ fontSize: 10.5, letterSpacing: "0.22em", color: "rgba(255,255,255,0.48)", display: "inline-flex", alignItems: "center", gap: 8 }}>
+              <span className="fl-pulse-dot" style={{ width: 6, height: 6, borderRadius: "50%", background: "#fff", display: "inline-block" }} />
               NOW · W27
             </span>
           </div>
-          <svg viewBox="0 0 1000 36" preserveAspectRatio="none" style={{ display: "block", width: "100%", height: 28 }} role="img" aria-label="52-week axis with pentest events at week 2 and week 29">
+          <svg viewBox="0 0 1000 56" preserveAspectRatio="none" style={{ display: "block", width: "100%", height: 52 }} role="img" aria-label="52-week axis with pentest events at week 2 and week 29">
             <defs>
               <linearGradient id="bv2-heat" x1="0" x2="0" y1="0" y2="1">
                 <stop offset="0%" stopColor="rgba(229,72,77,0)" />
@@ -143,28 +143,28 @@ const WhySection = () => {
                 <stop offset="100%" stopColor="rgba(229,72,77,0)" />
               </linearGradient>
             </defs>
-            <rect x="0" y="14" width="1000" height="8" fill="url(#bv2-heat)" />
-            <line x1="0" y1="18" x2="1000" y2="18" stroke="rgba(255,255,255,0.1)" strokeWidth="0.6" />
+            <rect x="0" y="22" width="1000" height="12" fill="url(#bv2-heat)" />
+            <line x1="0" y1="28" x2="1000" y2="28" stroke="rgba(255,255,255,0.1)" strokeWidth="0.6" />
             {Array.from({ length: 52 }).map((_, i) => {
               const x = (1000 / 52) * (i + 0.5);
               const major = i % 13 === 0;
-              return <line key={i} x1={x} y1={major ? 11 : 13} x2={x} y2={major ? 25 : 23} stroke={major ? "rgba(255,255,255,0.22)" : "rgba(255,255,255,0.1)"} strokeWidth="1" />;
+              return <line key={i} x1={x} y1={major ? 18 : 21} x2={x} y2={major ? 38 : 35} stroke={major ? "rgba(255,255,255,0.22)" : "rgba(255,255,255,0.1)"} strokeWidth="1" />;
             })}
             {/* Pentest markers at W2 and W29 — blue square boxes */}
             {[2, 29].map((wk) => {
               const x = (1000 / 52) * wk;
               return (
                 <g key={wk}>
-                  <rect x={x - 7} y="10" width="14" height="14" rx="2" fill="rgba(79,143,255,0.18)" stroke="rgba(79,143,255,0.85)" strokeWidth="1" />
-                  <path d={`M ${x - 3} 17 L ${x - 1} 19.5 L ${x + 3.5} 14`} stroke="rgba(79,143,255,1)" strokeWidth="1.3" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                  <rect x={x - 9} y="17" width="18" height="18" rx="2" fill="rgba(79,143,255,0.18)" stroke="rgba(79,143,255,0.85)" strokeWidth="1" />
+                  <path d={`M ${x - 4} 26 L ${x - 1} 29 L ${x + 5} 21`} stroke="rgba(79,143,255,1)" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
                 </g>
               );
             })}
-            {/* NOW indicator at W27 — 1px line + 6px dot */}
-            <line x1={(1000 / 52) * 27} y1="6" x2={(1000 / 52) * 27} y2="30" stroke="rgba(255,255,255,0.55)" strokeWidth="1" />
-            <rect x={(1000 / 52) * 27 - 3} y="4" width="6" height="6" rx="1" fill="#fff" />
+            {/* NOW indicator at W27 — 1px line + 8px dot */}
+            <line x1={(1000 / 52) * 27} y1="10" x2={(1000 / 52) * 27} y2="46" stroke="rgba(255,255,255,0.55)" strokeWidth="1" />
+            <rect x={(1000 / 52) * 27 - 4} y="6" width="8" height="8" rx="1" fill="#fff" />
           </svg>
-          <div className="fl-mono" style={{ display: "grid", gridTemplateColumns: "repeat(12, 1fr)", marginTop: 6, fontSize: 9.5, letterSpacing: "0.2em", color: "rgba(255,255,255,0.32)" }}>
+          <div className="fl-mono" style={{ display: "grid", gridTemplateColumns: "repeat(12, 1fr)", marginTop: 14, fontSize: 10.5, letterSpacing: "0.22em", color: "rgba(255,255,255,0.38)" }}>
             {["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"].map((m) => (
               <span key={m} style={{ textAlign: "center" }}>{m}</span>
             ))}
