@@ -50,15 +50,6 @@ const APP_ROUTES: RouteDef[] = [
   { path: "/news/fleuret-raises-3-5m", element: <FleuretRaises /> },
 ];
 
-// Mirror every route under /en for the English locale, except
-// /mentions-legales which is French-law content with no EN translation.
-const EN_MIRRORED: RouteDef[] = APP_ROUTES
-  .filter((r) => r.path !== "/mentions-legales")
-  .map((r) => ({
-    path: r.path === "/" ? "/en" : "/en" + r.path,
-    element: r.element,
-  }));
-
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
@@ -69,7 +60,7 @@ const App = () => (
           {import.meta.env.VITE_ANNOUNCE_VISIBLE !== "false" && <AnnouncementBanner />}
           <Suspense fallback={null}>
             <Routes>
-              {[...APP_ROUTES, ...EN_MIRRORED].map((r) => (
+              {APP_ROUTES.map((r) => (
                 <Route key={r.path} path={r.path} element={r.element} />
               ))}
               <Route path="*" element={<NotFound />} />

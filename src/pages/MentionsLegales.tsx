@@ -10,31 +10,37 @@ const MentionsLegales = () => {
           to="/"
           className="text-[var(--accent-blue)] hover:underline text-sm inline-block mb-8"
         >
-          &larr; Retour
+          &larr; Back
         </Link>
 
         <h1 className="text-3xl md:text-4xl font-bold text-white mb-8">
-          Mentions légales
+          Legal Notice
         </h1>
 
-        {/* Éditeur du site */}
+        {/* Publisher */}
         <h2 className="text-xl font-semibold text-white mb-4 mt-10">
-          1. Éditeur du site
+          1. Site publisher
         </h2>
         <div className="text-white/50 leading-relaxed text-sm space-y-1">
-          <p>Le site <a href="https://fleuret.ai" className="text-[var(--accent-blue)] hover:underline">https://fleuret.ai</a> est édité par :</p>
+          <p>
+            The site{" "}
+            <a href="https://fleuret.ai" className="text-[var(--accent-blue)] hover:underline">
+              https://fleuret.ai
+            </a>{" "}
+            is published by:
+          </p>
           <p className="mt-3"><strong className="text-white/70">FLEURET AI</strong></p>
-          <p>Société par actions simplifiée (SAS) au capital variable</p>
-          <p>Siège social : 60 Rue François 1er, 75008 Paris, France</p>
-          <p>SIREN : 999 515 604</p>
-          <p>SIRET : 999 515 604 00018</p>
+          <p>French simplified joint-stock company (SAS) with variable capital</p>
+          <p>Registered office: 60 Rue François 1er, 75008 Paris, France</p>
+          <p>SIREN: 999 515 604</p>
+          <p>SIRET: 999 515 604 00018</p>
           <p>RCS Paris</p>
-          <p>Code APE : 6201Z, Programmation informatique</p>
-          <p>N° TVA intracommunautaire : FR83999515604</p>
-          <p>Président : Yanis Grigy</p>
-          <p>Directeur Général : Augustin Ponsin</p>
+          <p>NAF code: 6201Z, Computer programming</p>
+          <p>EU VAT number: FR83999515604</p>
+          <p>President: Yanis Grigy</p>
+          <p>Managing Director: Augustin Ponsin</p>
           <p className="mt-3">
-            Email :{" "}
+            Email:{" "}
             <a
               href="mailto:contact@fleuret.ai"
               className="text-[var(--accent-blue)] hover:underline"
@@ -44,23 +50,23 @@ const MentionsLegales = () => {
           </p>
         </div>
 
-        {/* Directeur de la publication */}
+        {/* Publication director */}
         <h2 className="text-xl font-semibold text-white mb-4 mt-10">
-          2. Directeur de la publication
+          2. Publication director
         </h2>
         <p className="text-white/50 leading-relaxed text-sm">
-          Le directeur de la publication est Yanis Grigy, en qualité de Président de FLEURET AI.
+          The publication director is Yanis Grigy, in his capacity as President of FLEURET AI.
         </p>
 
-        {/* Hébergeur */}
+        {/* Host */}
         <h2 className="text-xl font-semibold text-white mb-4 mt-10">
-          3. Hébergeur
+          3. Hosting provider
         </h2>
         <div className="text-white/50 leading-relaxed text-sm space-y-1">
           <p><strong className="text-white/70">Vercel Inc.</strong></p>
-          <p>340 S Lemon Ave #4133, Walnut, CA 91789, États-Unis</p>
+          <p>340 S Lemon Ave #4133, Walnut, CA 91789, United States</p>
           <p>
-            Site web :{" "}
+            Website:{" "}
             <a
               href="https://vercel.com"
               className="text-[var(--accent-blue)] hover:underline"
@@ -72,67 +78,65 @@ const MentionsLegales = () => {
           </p>
         </div>
 
-        {/* Propriété intellectuelle */}
+        {/* IP */}
         <h2 className="text-xl font-semibold text-white mb-4 mt-10">
-          4. Propriété intellectuelle
+          4. Intellectual property
         </h2>
         <div className="text-white/50 leading-relaxed text-sm space-y-3">
           <p>
-            L'ensemble du contenu du site fleuret.ai (incluant, sans limitation, les textes,
-            graphismes, images, logos, icônes, logiciels, noms de domaine, marques, bases de
-            données et architecture) est la propriété exclusive de FLEURET AI ou de ses
-            concédants, et est protégé par les lois françaises et internationales relatives à la
-            propriété intellectuelle.
+            All content on the fleuret.ai website (including, without limitation, text, graphics,
+            images, logos, icons, software, domain names, trademarks, databases and architecture)
+            is the exclusive property of FLEURET AI or its licensors, and is protected by French
+            and international intellectual property law.
           </p>
           <p>
-            Toute reproduction, représentation, modification, distribution ou exploitation, totale
-            ou partielle, de ces éléments, par quelque procédé que ce soit, sans l'autorisation
-            écrite préalable de FLEURET AI, est strictement interdite et constitue une contrefaçon
-            sanctionnée par les articles L.335-2 et suivants du Code de la propriété intellectuelle.
+            Any reproduction, representation, modification, distribution or exploitation, in whole
+            or in part, of these elements, by any process whatsoever, without the prior written
+            authorization of FLEURET AI, is strictly prohibited and constitutes infringement
+            sanctioned by articles L.335-2 et seq. of the French Intellectual Property Code.
           </p>
         </div>
 
-        {/* Limitation de responsabilité */}
+        {/* Liability */}
         <h2 className="text-xl font-semibold text-white mb-4 mt-10">
-          5. Limitation de responsabilité
+          5. Liability limitation
         </h2>
         <div className="text-white/50 leading-relaxed text-sm space-y-3">
           <p>
-            FLEURET AI s'efforce d'assurer l'exactitude et la mise à jour des informations
-            diffusées sur le site, mais ne saurait garantir l'exhaustivité, la précision ou
-            l'actualité de l'ensemble des informations mises à disposition.
+            FLEURET AI strives to ensure the accuracy and timeliness of the information published
+            on the site, but cannot guarantee the completeness, accuracy or currency of all
+            information made available.
           </p>
           <p>
-            En conséquence, FLEURET AI décline toute responsabilité en cas d'imprécision,
-            d'inexactitude ou d'omission portant sur des informations disponibles sur le site.
+            FLEURET AI therefore disclaims any liability in the event of imprecision, inaccuracy
+            or omission relating to information available on the site.
           </p>
           <p>
-            FLEURET AI ne pourra être tenue responsable des dommages directs ou indirects résultant
-            de l'accès au site ou de l'utilisation de son contenu, ni des dysfonctionnements ou
-            interruptions du service, quelle qu'en soit la cause.
+            FLEURET AI shall not be held liable for direct or indirect damages resulting from
+            access to the site or use of its content, nor for service malfunctions or
+            interruptions, whatever the cause.
           </p>
           <p>
-            Le site peut contenir des liens hypertextes vers d'autres sites. FLEURET AI n'exerce
-            aucun contrôle sur le contenu de ces sites tiers et n'assume aucune responsabilité à
-            leur égard.
+            The site may contain hyperlinks to other sites. FLEURET AI exercises no control over
+            the content of these third-party sites and assumes no responsibility for them.
           </p>
         </div>
 
-        {/* Droit applicable et juridiction */}
+        {/* Law + jurisdiction */}
         <h2 className="text-xl font-semibold text-white mb-4 mt-10">
-          6. Droit applicable et juridiction compétente
+          6. Applicable law and jurisdiction
         </h2>
         <div className="text-white/50 leading-relaxed text-sm space-y-3">
           <p>
-            Les présentes mentions légales sont régies par le droit français. En cas de litige
-            relatif à l'interprétation ou l'exécution des présentes, et à défaut de résolution
-            amiable, compétence exclusive est attribuée au Tribunal de commerce de Paris.
+            This legal notice is governed by French law. In the event of a dispute relating to
+            the interpretation or execution of these terms, and failing amicable resolution,
+            exclusive jurisdiction is granted to the Commercial Court of Paris.
           </p>
         </div>
 
         {/* Date */}
         <p className="text-white/30 text-xs mt-16">
-          Dernière mise à jour : 11 mars 2026
+          Last updated: 13 May 2026
         </p>
       </div>
     </main>

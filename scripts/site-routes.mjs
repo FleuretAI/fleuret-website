@@ -2,16 +2,14 @@
  * Single source of truth for site routes.
  *
  * Consumed by: scripts/prerender.mjs, scripts/ensure-fallback-shells.mjs,
- * middleware.ts. Keeping the route list in one place prevents the recurring
- * deploy bug where a new page is added to two of three lists and 404s in
- * production.
+ * scripts/build-sitemap.ts, middleware.ts. Single-locale (EN) site.
  *
  * Edge runtime note: middleware.ts imports this file. @vercel/edge bundles
  * relative ESM imports via esbuild, so .mjs is fine. Do not add Node-only
  * APIs here (no fs, no path) so the edge bundler stays happy.
  */
 
-export const STATIC_FR_PATHS = [
+export const STATIC_PATHS = [
   "/",
   "/about",
   "/careers",
@@ -27,20 +25,18 @@ export const STATIC_FR_PATHS = [
   "/news/fleuret-raises-3-5m",
 ];
 
-// EN derived from FR. /mentions-legales is FR-only (legal mentions).
-export const STATIC_EN_PATHS = STATIC_FR_PATHS
-  .filter((p) => p !== "/mentions-legales")
-  .map((p) => (p === "/" ? "/en" : `/en${p}`));
+// Backwards-compat aliases. Older script imports still resolve.
+export const STATIC_FR_PATHS = STATIC_PATHS;
+export const STATIC_EN_PATHS = [];
 
 // Build-only routes that are not user-routable (404 page lives at /404.html).
 export const BUILD_ONLY_PATHS = ["/404"];
 
 // Blog post slug shape: alphanumeric + hyphens, must start with alphanumeric.
-// Matches /blog/<slug> and /en/blog/<slug>.
-export const BLOG_POST_RE = /^(?:\/en)?\/blog\/[a-z0-9][a-z0-9-]*$/;
+export const BLOG_POST_RE = /^\/blog\/[a-z0-9][a-z0-9-]*$/;
 
 /**
  * Allowlist for middleware: every route the site can serve a 200 for, minus
  * build-only paths. Blog posts are matched by regex, not enumerated.
  */
-export const KNOWN_PATHS = new Set([...STATIC_FR_PATHS, ...STATIC_EN_PATHS]);
+export const KNOWN_PATHS = new Set(STATIC_PATHS);

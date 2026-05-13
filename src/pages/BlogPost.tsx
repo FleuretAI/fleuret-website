@@ -102,11 +102,8 @@ const BlogPost = () => {
   const canonical = SITE_URL + entry.meta.path;
   const hreflangs = hreflangLinksFor(entry.meta.path, entry.meta.hreflangPath);
   const breadcrumbItems = [
-    { name: t("nav.home"), url: SITE_URL + (language === "fr" ? "/" : "/en") },
-    {
-      name: t("nav.blog"),
-      url: SITE_URL + (language === "fr" ? "/blog" : "/en/blog"),
-    },
+    { name: t("nav.home"), url: SITE_URL + "/" },
+    { name: t("nav.blog"), url: SITE_URL + "/blog" },
     { name: entry.meta.title, url: canonical },
   ];
   const jsonLd = [

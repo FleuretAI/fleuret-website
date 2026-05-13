@@ -19,8 +19,7 @@ import { SovereigntyProof } from "@/components/blog/SovereigntyProof";
  * at PR time, before merge.
  */
 
-function renderWithProviders(node: React.ReactNode, lang: "fr" | "en" = "fr") {
-  window.localStorage.setItem("fleuret_lang", lang);
+function renderWithProviders(node: React.ReactNode) {
   return render(
     <MemoryRouter initialEntries={["/"]}>
       <LanguageProvider>{node}</LanguageProvider>
@@ -39,15 +38,8 @@ describe("SovereigntyProof (regulatory cluster citation hook)", () => {
     expect(link.getAttribute("href")).toBe("/sub-processors");
   });
 
-  it("renders FR copy when language is fr", () => {
-    renderWithProviders(<SovereigntyProof />, "fr");
-    expect(screen.getByText(/V[ée]rification souveraine/i)).toBeInTheDocument();
-    // 'sous-traitants' appears in both body and link CTA. Either match counts.
-    expect(screen.getAllByText(/sous-traitants/i).length).toBeGreaterThan(0);
-  });
-
-  it("renders EN copy when language is en", () => {
-    renderWithProviders(<SovereigntyProof />, "en");
+  it("renders EN copy", () => {
+    renderWithProviders(<SovereigntyProof />);
     expect(screen.getByText(/Sovereign verification/i)).toBeInTheDocument();
     expect(screen.getAllByText(/sub-processors/i).length).toBeGreaterThan(0);
   });
@@ -60,7 +52,7 @@ describe("SovereigntyProof (regulatory cluster citation hook)", () => {
   });
 
   it("contains no em-dash separator (CLAUDE.md rule)", () => {
-    const { container } = renderWithProviders(<SovereigntyProof />, "fr");
+    const { container } = renderWithProviders(<SovereigntyProof />);
     expect(container.textContent).not.toContain(" — ");
   });
 });

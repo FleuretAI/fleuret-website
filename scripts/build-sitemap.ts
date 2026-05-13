@@ -27,8 +27,6 @@ const MANIFEST_DIST_COPY = resolve(DIST, "post-manifest.json");
 
 interface UrlEntry {
   loc: string;
-  /** map of hreflang code -> absolute URL for alt links */
-  alts: Record<string, string>;
   lastmod: string;
   priority: string;
   changefreq: string;
@@ -40,41 +38,20 @@ function buildStatic(): UrlEntry[] {
   const entries: UrlEntry[] = [];
   for (const [key, loc] of Object.entries(ROUTES)) {
     if (key === "notFound") continue;
-    // FR page (always exists)
     entries.push({
-      loc: SITE_URL + loc.fr,
-      alts: {
-        fr: SITE_URL + loc.fr,
-        en: SITE_URL + loc.en,
-        "x-default": SITE_URL + loc.en,
-      },
+      loc: SITE_URL + loc,
       lastmod: today,
       priority: key === "home" ? "1.0" : "0.8",
       changefreq: "weekly",
     });
-    // EN page (same, except mentionsLegales which is FR-only)
-    if (key !== "mentionsLegales") {
-      entries.push({
-        loc: SITE_URL + loc.en,
-        alts: {
-          fr: SITE_URL + loc.fr,
-          en: SITE_URL + loc.en,
-          "x-default": SITE_URL + loc.en,
-        },
-        lastmod: today,
-        priority: key === "home" ? "1.0" : "0.8",
-        changefreq: "weekly",
-      });
-    }
   }
   return entries;
 }
 
 interface ManifestEntry {
-  locale: "fr" | "en";
+  locale: "en";
   slug: string;
   path: string;
-  hreflangPath: string;
   date: string;
   title: string;
 }
@@ -87,36 +64,19 @@ function buildPosts(): UrlEntry[] {
     return [];
   }
   const manifest: ManifestEntry[] = JSON.parse(readFileSync(MANIFEST, "utf8"));
-  return manifest.map((m) => {
-    const frUrl = SITE_URL + (m.locale === "fr" ? m.path : m.hreflangPath);
-    const enUrl = SITE_URL + (m.locale === "en" ? m.path : m.hreflangPath);
-    return {
-      loc: SITE_URL + m.path,
-      alts: {
-        fr: frUrl,
-        en: enUrl,
-        // x-default aligned to EN, matching SEO.tsx hreflangLinks().
-        "x-default": enUrl,
-      },
-      lastmod: m.date,
-      priority: "0.7",
-      changefreq: "monthly",
-    };
-  });
+  return manifest.map((m) => ({
+    loc: SITE_URL + m.path,
+    lastmod: m.date,
+    priority: "0.7",
+    changefreq: "monthly",
+  }));
 }
 
 function render(entries: UrlEntry[]): string {
   const urls = entries
     .map((e) => {
-      const alts = Object.entries(e.alts)
-        .map(
-          ([hl, href]) =>
-            `    <xhtml:link rel="alternate" hreflang="${hl}" href="${href}" />`,
-        )
-        .join("\n");
       return `  <url>
     <loc>${e.loc}</loc>
-${alts}
     <lastmod>${e.lastmod}</lastmod>
     <changefreq>${e.changefreq}</changefreq>
     <priority>${e.priority}</priority>
@@ -124,8 +84,7 @@ ${alts}
     })
     .join("\n");
   return `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls}
 </urlset>
 `;
