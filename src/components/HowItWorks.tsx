@@ -41,16 +41,14 @@ const AssetListPanel = () => (
 const StdoutPanel = () => (
   <div style={{ border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.016)", borderRadius: 10, padding: 17 }}>
     <p className="fl-mono" style={{ margin: "0 0 12px", fontSize: 9.5, letterSpacing: "0.2em", color: "rgba(255,255,255,0.35)" }}>STDOUT · ENGAGEMENT</p>
-    <div className="-mx-4 px-4 sm:mx-0 sm:px-0" style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
-      <div className="fl-mono" style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 11.5, lineHeight: 1.5, minWidth: 420 }}>
-        {STDOUT_LINES.map((l, i) => (
-          <div key={i} style={{ display: "grid", gridTemplateColumns: "62px 62px 1fr", gap: 6 }}>
-            <span style={{ color: "rgba(255,255,255,0.35)" }}>{l.t}</span>
-            <span style={{ color: STAGE_COLORS.red }}>{l.agent}</span>
-            <span style={{ color: "rgba(255,255,255,0.85)" }}>{l.msg}</span>
-          </div>
-        ))}
-      </div>
+    <div className="fl-mono" style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 11.5, lineHeight: 1.5 }}>
+      {STDOUT_LINES.map((l, i) => (
+        <div key={i} style={{ display: "grid", gridTemplateColumns: "minmax(56px, max-content) minmax(56px, max-content) 1fr", gap: 6, minWidth: 0 }}>
+          <span style={{ color: "rgba(255,255,255,0.35)" }}>{l.t}</span>
+          <span style={{ color: STAGE_COLORS.red }}>{l.agent}</span>
+          <span style={{ color: "rgba(255,255,255,0.85)", minWidth: 0, overflowWrap: "anywhere" }}>{l.msg}</span>
+        </div>
+      ))}
     </div>
     <p className="fl-mono" style={{ margin: "14px 0 0", fontSize: 9.5, letterSpacing: "0.18em", color: STAGE_COLORS.red, display: "flex", alignItems: "center", gap: 6 }}>
       <span style={{ width: 6, height: 6, borderRadius: "50%", background: STAGE_COLORS.red }} />
@@ -185,7 +183,7 @@ const HowItWorks = () => {
               {t("process.main.subtitle")}
             </p>
           </motion.div>
-          <motion.div variants={staggerItem} className="fl-mono" style={{ textAlign: "right", fontSize: 10, letterSpacing: "0.22em" }}>
+          <motion.div variants={staggerItem} className="fl-mono md:text-right" style={{ fontSize: 10, letterSpacing: "0.22em" }}>
             <p style={{ margin: 0, color: "rgba(255,255,255,0.45)" }}>RUN #FL-2026-0184</p>
             <p style={{ margin: "4px 0 0", color: "#fff" }}>04 H 42 M END-TO-END</p>
           </motion.div>
@@ -231,9 +229,10 @@ const HowItWorks = () => {
 
         {/* Stages */}
         <div style={{ position: "relative" }}>
-          {/* Vertical rail */}
+          {/* Vertical rail — desktop only */}
           <div
             aria-hidden
+            className="hidden md:block"
             style={{
               position: "absolute",
               left: 110,
@@ -256,11 +255,19 @@ const HowItWorks = () => {
                   hidden: { opacity: 0, y: 30 },
                   visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.05 * idx } },
                 }}
-                style={{ display: "grid", gridTemplateColumns: "110px 1fr", gap: 0, alignItems: "start", position: "relative" }}
+                className="md:grid md:[grid-template-columns:110px_1fr]"
+                style={{ display: "block", alignItems: "start", position: "relative" }}
               >
-                {/* Left rail */}
-                <div style={{ position: "relative", paddingRight: 24 }}>
-                  {/* Node */}
+                {/* Mobile: horizontal meta strip */}
+                <div className="md:hidden" style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 14 }}>
+                  <span aria-hidden style={{ width: 12, height: 12, borderRadius: "50%", background: s.color, flexShrink: 0, boxShadow: `0 0 0 4px rgba(${s.rgb}, 0.18)` }} />
+                  <p className="fl-mono" style={{ margin: 0, fontSize: 11, letterSpacing: "0.12em", color: s.color }}>{s.timestamp}</p>
+                  <span className="fl-mono" style={{ fontSize: 9.5, letterSpacing: "0.18em", color: "rgba(255,255,255,0.4)" }}>·</span>
+                  <p className="fl-mono" style={{ margin: 0, fontSize: 9.5, letterSpacing: "0.18em", color: s.color }}>{t(s.durationKey)}</p>
+                </div>
+
+                {/* Desktop: left rail */}
+                <div className="hidden md:block" style={{ position: "relative", paddingRight: 24 }}>
                   <motion.span
                     aria-hidden
                     initial={{ scale: 0 }}
@@ -284,29 +291,29 @@ const HowItWorks = () => {
                 </div>
 
                 {/* Right content + artifact */}
-                <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px]" style={{ gap: 28, paddingLeft: 32 }}>
+                <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] md:pl-8" style={{ gap: 28 }}>
                   <div>
                     <p className="fl-mono" style={{ margin: "0 0 12px", fontSize: 10, letterSpacing: "0.24em" }}>
                       <span style={{ color: s.color }}>{s.num}</span>
                       <span style={{ color: "rgba(255,255,255,0.45)" }}> · STAGE</span>
                     </p>
-                    <h3 style={{ fontSize: 22, fontWeight: 400, color: "#fff", margin: "0 0 8px", letterSpacing: "-0.015em" }}>{t(s.titleKey)}</h3>
+                    <h3 style={{ fontSize: "clamp(19px, 4vw, 22px)", fontWeight: 400, color: "#fff", margin: "0 0 8px", letterSpacing: "-0.015em" }}>{t(s.titleKey)}</h3>
                     <p style={{ color: "rgba(255,255,255,0.7)", lineHeight: 1.55, margin: 0, fontSize: 13.5, maxWidth: 440 }}>{t(s.descKey)}</p>
 
-                    <div className="grid grid-cols-3" style={{ gap: "clamp(12px, 3vw, 24px)", marginTop: 18 }}>
+                    <div className="grid grid-cols-3" style={{ gap: "clamp(8px, 3vw, 24px)", marginTop: 18 }}>
                       {s.stats.map((st, i) => {
                         const n = Number(st.value);
                         const isNumeric = !Number.isNaN(n);
                         return (
-                          <div key={i}>
-                            <p style={{ margin: 0, fontSize: 22, fontWeight: 400, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1 }}>
+                          <div key={i} style={{ minWidth: 0 }}>
+                            <p style={{ margin: 0, fontSize: "clamp(18px, 4.5vw, 22px)", fontWeight: 400, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1 }}>
                               {isNumeric ? (
                                 <CountUp to={n} duration={1.2} separator={n >= 1000 ? "," : ""} />
                               ) : (
                                 st.value
                               )}
                             </p>
-                            <p className="fl-mono" style={{ margin: "6px 0 0", fontSize: 9, letterSpacing: "0.2em", color: "rgba(255,255,255,0.5)" }}>{st.label}</p>
+                            <p className="fl-mono" style={{ margin: "6px 0 0", fontSize: 8.5, letterSpacing: "0.16em", color: "rgba(255,255,255,0.5)", overflowWrap: "anywhere" }}>{st.label}</p>
                           </div>
                         );
                       })}

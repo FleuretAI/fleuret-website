@@ -120,12 +120,13 @@ const WhySection = () => {
           </motion.p>
         </motion.div>
 
-        {/* Shared 52-week axis card */}
+        {/* Shared 52-week axis card — desktop only */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.15 }}
+          className="hidden md:block"
           style={{ background: "rgba(15,16,28,0.6)", border: "1px solid rgba(255,255,255,0.07)", padding: "22px 28px 20px", marginBottom: "1.5rem", borderRadius: 4 }}
         >
           <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 18 }}>
@@ -179,8 +180,8 @@ const WhySection = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.2 }}
-            className="h-[420px]"
-            style={{ background: "rgba(15,16,28,0.55)", padding: "20px 22px", display: "flex", flexDirection: "column", overflow: "hidden" }}
+            className="h-[360px] sm:h-[420px]"
+            style={{ background: "rgba(15,16,28,0.55)", padding: "18px 16px", display: "flex", flexDirection: "column", overflow: "hidden" }}
           >
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 14 }}>
               <div>
@@ -193,14 +194,12 @@ const WhySection = () => {
               <span className="fl-mono" style={{ fontSize: 10, color: "rgba(255,255,255,0.5)", letterSpacing: "0.2em" }}>PROD · EU-WEST-1</span>
             </div>
 
-            <div className="-mx-4 px-4 sm:mx-0 sm:px-0" style={{ overflowX: "auto", WebkitOverflowScrolling: "touch", flex: 1, display: "flex", flexDirection: "column", minHeight: 0 }}>
-              <div style={{ minWidth: 420, display: "flex", flexDirection: "column", flex: 1, minHeight: 0 }}>
-                {/* Column headers */}
+            <div style={{ flex: 1, display: "flex", flexDirection: "column", minHeight: 0, overflow: "hidden" }}>
+              {/* Desktop: full 6-col grid */}
+              <div className="hidden sm:flex" style={{ flexDirection: "column", flex: 1, minHeight: 0 }}>
                 <div className="fl-mono" style={{ display: "grid", gridTemplateColumns: "88px 56px 60px 70px 70px 1fr", gap: 8, fontSize: 9, letterSpacing: "0.2em", color: "rgba(255,255,255,0.32)", paddingBottom: 8, borderBottom: "1px dashed rgba(255,255,255,0.08)" }}>
                   <span>TIME</span><span>SERVICE</span><span>TYPE</span><span>SHA</span><span>VERSION</span><span>STATUS</span>
                 </div>
-
-                {/* Scrolling track */}
                 <div style={{ flex: 1, overflow: "hidden", position: "relative", marginTop: 6 }}>
                   <div className="fl-mono why-track" style={{ fontSize: 11, lineHeight: "22px", color: "rgba(255,255,255,0.85)" }}>
                     {LOOP.map((r, i) => (
@@ -216,6 +215,24 @@ const WhySection = () => {
                   </div>
                 </div>
               </div>
+              {/* Mobile: condensed 4-col (time, service, version, status) */}
+              <div className="sm:hidden" style={{ display: "flex", flexDirection: "column", flex: 1, minHeight: 0 }}>
+                <div className="fl-mono" style={{ display: "grid", gridTemplateColumns: "72px 1fr 56px 64px", gap: 6, fontSize: 8.5, letterSpacing: "0.18em", color: "rgba(255,255,255,0.32)", paddingBottom: 8, borderBottom: "1px dashed rgba(255,255,255,0.08)" }}>
+                  <span>TIME</span><span>SERVICE</span><span>VER</span><span>STATUS</span>
+                </div>
+                <div style={{ flex: 1, overflow: "hidden", position: "relative", marginTop: 6 }}>
+                  <div className="fl-mono why-track" style={{ fontSize: 10.5, lineHeight: "22px", color: "rgba(255,255,255,0.85)" }}>
+                    {LOOP.map((r, i) => (
+                      <div key={i} style={{ display: "grid", gridTemplateColumns: "72px 1fr 56px 64px", gap: 6, padding: "2px 0" }}>
+                        <span style={{ color: "rgba(255,255,255,0.55)" }}>{r.date}</span>
+                        <span style={{ color: "rgba(255,255,255,0.9)" }}>{r.service}</span>
+                        <span style={{ color: "rgba(255,255,255,0.55)" }}>{r.version}</span>
+                        <span style={{ color: STATUS_COLOR[r.status], letterSpacing: "0.1em", fontSize: 9.5 }}>{r.status}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
           </motion.div>
 
@@ -226,7 +243,7 @@ const WhySection = () => {
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.3 }}
             className="h-[420px]"
-            style={{ background: "rgba(15,16,28,0.55)", padding: "20px 22px", position: "relative" }}
+            style={{ background: "rgba(15,16,28,0.55)", padding: "18px 16px", position: "relative" }}
           >
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
               <div>
@@ -279,8 +296,8 @@ const WhySection = () => {
           </motion.div>
         </div>
 
-        {/* SVG connector */}
-        <svg viewBox="0 0 1000 28" preserveAspectRatio="none" style={{ display: "block", width: "100%", height: 28, marginTop: "1rem" }} aria-hidden>
+        {/* SVG connector — desktop only (built for 3-col grid) */}
+        <svg viewBox="0 0 1000 28" preserveAspectRatio="none" className="hidden md:block" style={{ width: "100%", height: 28, marginTop: "1rem" }} aria-hidden>
           <path d="M250 0 C 250 16, 166.66 16, 166.66 28" stroke="rgba(79,143,255,0.5)" strokeWidth="1" fill="none" />
           <path d="M500 0 C 500 16, 500 16, 500 28" stroke="rgba(139,92,246,0.5)" strokeWidth="1" fill="none" />
           <path d="M750 0 C 750 16, 833.33 16, 833.33 28" stroke="rgba(229,72,77,0.5)" strokeWidth="1" fill="none" />
@@ -292,8 +309,8 @@ const WhySection = () => {
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
           variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.12, delayChildren: 0.15 } } }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-12"
-          style={{ padding: "12px 20px 0" }}
+          className="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-12 px-0 md:px-5"
+          style={{ paddingTop: "1.25rem" }}
         >
           {[
             { num: "01", color: "var(--fl-blue)",   title: t("problem.delay.title"),    desc: t("problem.delay.desc") },

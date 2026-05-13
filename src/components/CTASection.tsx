@@ -55,7 +55,7 @@ const CTASection = () => {
           <motion.h2
             variants={staggerItem}
             style={{
-              fontSize: "clamp(36px, 4.4vw, 64px)",
+              fontSize: "clamp(28px, 5.2vw, 64px)",
               fontWeight: 300,
               letterSpacing: "-0.025em",
               lineHeight: 1.06,
