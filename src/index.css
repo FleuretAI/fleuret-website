@@ -71,6 +71,7 @@
     padding: 0;
     background-color: var(--fl-bg);
     color: hsl(var(--foreground));
+    overflow-x: clip;
   }
 
   html {
@@ -345,7 +346,7 @@ body::before {
 .fl-scroll-cue {
   position: absolute;
   left: 50%;
-  bottom: 28px;
+  bottom: 88px;
   transform: translateX(-50%);
   display: inline-flex;
   flex-direction: column;
@@ -356,6 +357,9 @@ body::before {
   z-index: 12;
   cursor: pointer;
   transition: color 0.2s ease, opacity 0.2s ease;
+}
+@media (min-width: 640px) {
+  .fl-scroll-cue { bottom: 28px; }
 }
 .fl-scroll-cue:hover { color: #fff; }
 .fl-scroll-cue__label {

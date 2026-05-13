@@ -162,14 +162,14 @@ const PricingSection = () => {
             </div>
 
             {/* Right — Anchor / firm reference */}
-            <div style={{ padding: "2.5rem clamp(1rem, 4vw, 2.25rem) 2rem", position: "relative", opacity: 0.62 }}>
+            <div style={{ padding: "2.5rem clamp(1rem, 4vw, 2.25rem) 2rem", position: "relative", opacity: 0.62, overflow: "hidden" }}>
               {/* Watermark */}
-              <div aria-hidden style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", pointerEvents: "none" }}>
+              <div aria-hidden style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", pointerEvents: "none", overflow: "hidden" }}>
                 <span
                   className="fl-mono"
                   style={{
                     transform: "rotate(-18deg)",
-                    fontSize: "clamp(3rem, 6vw, 5rem)",
+                    fontSize: "clamp(2rem, 6vw, 5rem)",
                     letterSpacing: "0.2em",
                     color: "rgba(229,72,77,0.08)",
                     whiteSpace: "nowrap",

@@ -135,23 +135,25 @@ const Demo = () => {
               </blockquote>
 
               {/* Stats */}
-              <div className="grid grid-cols-3 gap-4 md:gap-6 max-w-md">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6 max-w-md">
                 {[1, 2, 3].map((n) => (
-                  <div key={n}>
+                  <div key={n} className="flex sm:block items-baseline gap-3" style={{ minWidth: 0 }}>
                     <div
                       style={{
-                        fontSize: "clamp(1.75rem, 3vw, 2.25rem)",
+                        fontSize: "clamp(1.5rem, 3vw, 2.25rem)",
                         fontWeight: 300,
                         letterSpacing: "-0.02em",
+                        lineHeight: 1,
+                        flexShrink: 0,
                       }}
                     >
                       {t(`demo.stat${n}.value`)}
                     </div>
                     <div
+                      className="sm:mt-1"
                       style={{
                         fontSize: "0.8125rem",
                         color: "rgba(255,255,255,0.5)",
-                        marginTop: "0.25rem",
                         lineHeight: 1.35,
                       }}
                     >
@@ -163,15 +165,17 @@ const Demo = () => {
             </div>
 
             {/* Right column: scheduler */}
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-3" style={{ minWidth: 0 }}>
               <div
                 style={{
                   borderRadius: 16,
-                  overflow: "hidden",
+                  overflow: "auto",
+                  WebkitOverflowScrolling: "touch",
                   background: "#ffffff",
                   padding: 8,
                   boxShadow: "0 10px 40px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.06)",
                   minHeight: 520,
+                  maxWidth: "100%",
                 }}
               >
                 <iframe

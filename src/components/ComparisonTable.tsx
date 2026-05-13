@@ -236,9 +236,10 @@ const ComparisonTable = () => {
           transition={{ duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.15 }}
           style={{ position: "relative" }}
         >
-          {/* Raised middle column overlay */}
+          {/* Raised middle column overlay — desktop only */}
           <div
             aria-hidden
+            className="hidden md:block"
             style={{
               position: "absolute",
               left: "33.333%",
@@ -258,6 +259,7 @@ const ComparisonTable = () => {
           />
           <div
             aria-hidden
+            className="hidden md:block"
             style={{
               position: "absolute",
               left: "33.333%",
@@ -271,34 +273,140 @@ const ComparisonTable = () => {
             }}
           />
 
-          {/* CSS grid: 3 equal columns, mixing per-column cells with full-width band strips */}
-          <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr 1fr",
-              gap: 0,
-              minWidth: 640,
-            }}
-          >
-            {/* Header row */}
-            {cols.map(renderHeaderCell)}
+          {/* Desktop: CSS grid with 3 equal columns */}
+          <div className="hidden md:block">
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr 1fr",
+                gap: 0,
+              }}
+            >
+              {/* Header row */}
+              {cols.map(renderHeaderCell)}
 
-            {/* Bands + rows */}
-            {bands.map((b) => (
-              <div key={b.key} style={{ display: "contents" }}>
-                {renderBandStrip(b.labelKey, `${b.key}-strip`)}
-                {rows.filter((r) => r.band === b.key).map((r) => (
-                  <div key={r.key} style={{ display: "contents" }}>
-                    {cols.map((c) => <div key={c}>{renderCell(r, c)}</div>)}
-                  </div>
-                ))}
-              </div>
-            ))}
+              {/* Bands + rows */}
+              {bands.map((b) => (
+                <div key={b.key} style={{ display: "contents" }}>
+                  {renderBandStrip(b.labelKey, `${b.key}-strip`)}
+                  {rows.filter((r) => r.band === b.key).map((r) => (
+                    <div key={r.key} style={{ display: "contents" }}>
+                      {cols.map((c) => <div key={c}>{renderCell(r, c)}</div>)}
+                    </div>
+                  ))}
+                </div>
+              ))}
 
-            {/* Verdict row */}
-            {cols.map(renderVerdictCell)}
+              {/* Verdict row */}
+              {cols.map(renderVerdictCell)}
+            </div>
           </div>
+
+          {/* Mobile: stacked Fleuret-first card layout */}
+          <div className="md:hidden" style={{ display: "flex", flexDirection: "column", gap: 18 }}>
+            {(["fleuret", "firm", "scanner"] as Col[]).map((col) => {
+              const isFleuret = col === "fleuret";
+              const eyebrow =
+                col === "firm" ? t("comparison.poster.firm") :
+                col === "fleuret" ? t("comparison.poster.fleuret") :
+                t("comparison.poster.scanner");
+              const headerLabel =
+                col === "firm" ? t("comparison.header.traditional") :
+                col === "fleuret" ? t("comparison.header.fleuret") :
+                t("comparison.header.automated");
+              const verdictKey =
+                col === "firm" ? "comparison.verdict.firm" :
+                col === "fleuret" ? "comparison.verdict.fleuret" :
+                "comparison.verdict.scanner";
+              return (
+                <div
+                  key={col}
+                  style={{
+                    position: "relative",
+                    border: isFleuret ? "1px solid rgba(79,143,255,0.45)" : "1px solid rgba(255,255,255,0.06)",
+                    borderRadius: 10,
+                    background: isFleuret ? "linear-gradient(180deg, rgba(79,143,255,0.06) 0%, rgba(139,92,246,0.04) 100%)" : "rgba(15,16,28,0.4)",
+                    overflow: "hidden",
+                  }}
+                >
+                  <div style={{ padding: "16px 18px", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+                    <p className="fl-mono" style={{ margin: "0 0 8px", fontSize: 10, letterSpacing: "0.22em", color: isFleuret ? "rgba(180,200,255,0.95)" : "rgba(255,255,255,0.42)" }}>
+                      {eyebrow}
+                    </p>
+                    {isFleuret ? (
+                      <span
+                        style={{
+                          display: "inline-block",
+                          padding: "5px 14px",
+                          borderRadius: 999,
+                          background: "linear-gradient(135deg, #4F8FFF 0%, #8B5CF6 100%)",
+                          color: "#fff",
+                          fontSize: 13,
+                          fontWeight: 500,
+                          letterSpacing: "0.02em",
+                        }}
+                      >
+                        {headerLabel}
+                      </span>
+                    ) : (
+                      <span style={{ fontSize: 18, fontWeight: 400, color: "rgba(255,255,255,0.85)", letterSpacing: "-0.01em" }}>
+                        {headerLabel}
+                      </span>
+                    )}
+                  </div>
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    {bands.map((b) => (
+                      <div key={b.key}>
+                        <div style={{ padding: "10px 18px 4px", background: "rgba(255,255,255,0.02)", borderTop: "1px solid rgba(255,255,255,0.04)" }}>
+                          <span className="fl-mono" style={{ fontSize: 9.5, letterSpacing: "0.22em", color: "rgba(255,255,255,0.32)", textTransform: "uppercase" }}>
+                            {t(b.labelKey)}
+                          </span>
+                        </div>
+                        {rows.filter((r) => r.band === b.key).map((r) => {
+                          const v = r[col];
+                          return (
+                            <div
+                              key={r.key}
+                              style={{
+                                padding: "12px 18px",
+                                borderTop: "1px solid rgba(255,255,255,0.04)",
+                                display: "flex",
+                                flexDirection: "column",
+                                gap: 6,
+                              }}
+                            >
+                              <p className="fl-mono" style={{ margin: 0, fontSize: 9.5, letterSpacing: "0.19em", color: "rgba(255,255,255,0.4)", textTransform: "uppercase" }}>
+                                {r.label}
+                              </p>
+                              <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap", gap: 8 }}>
+                                {v === "__yes__" ? <Tick /> : v === "__no__" ? <Cross /> : (
+                                  <span style={{ fontSize: 14, lineHeight: "20px", color: isFleuret ? "#fff" : "rgba(255,255,255,0.65)", fontWeight: isFleuret ? 500 : 400 }}>
+                                    {v}
+                                  </span>
+                                )}
+                                {isFleuret && r.win && <WinBadge label={t("comparison.win")} />}
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    ))}
+                    <div
+                      style={{
+                        padding: "14px 18px 16px",
+                        borderTop: "1px solid rgba(255,255,255,0.06)",
+                        fontSize: 13.5,
+                        lineHeight: "20px",
+                        color: isFleuret ? "#fff" : "rgba(255,255,255,0.55)",
+                        fontWeight: isFleuret ? 500 : 300,
+                      }}
+                    >
+                      {t(verdictKey)}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </motion.div>
       </div>

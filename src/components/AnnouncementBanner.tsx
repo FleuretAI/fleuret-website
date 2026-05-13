@@ -61,6 +61,7 @@ const AnnouncementBanner = () => {
           }}
         />
         <span
+          className="hidden sm:inline"
           style={{
             fontSize: "clamp(0.7rem, 1vw, 0.78rem)",
             fontWeight: 500,
@@ -75,9 +76,10 @@ const AnnouncementBanner = () => {
         <span
           className="text-white truncate"
           style={{
-            fontSize: "clamp(0.95rem, 1.6vw, 1.25rem)",
+            fontSize: "clamp(0.82rem, 1.6vw, 1.25rem)",
             fontWeight: 400,
             letterSpacing: "-0.01em",
+            minWidth: 0,
           }}
         >
           {t("announce.text")}

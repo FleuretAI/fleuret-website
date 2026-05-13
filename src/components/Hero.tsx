@@ -33,7 +33,12 @@ const Hero = () => {
     <section
       id="home"
       className="relative flex items-center justify-center overflow-hidden"
-      style={{ minHeight: "100dvh", isolation: "isolate" }}
+      style={{
+        minHeight: "100svh",
+        isolation: "isolate",
+        contain: "paint",
+        backgroundColor: "var(--fl-bg)",
+      }}
     >
       {/* Ambient glows */}
       <div className="hidden sm:block">
