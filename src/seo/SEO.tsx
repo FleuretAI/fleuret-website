@@ -1,14 +1,10 @@
 import { Helmet } from "react-helmet-async";
-import { useLanguage } from "@/contexts/LanguageContext";
 import {
   META,
   RouteKey,
   SITE_URL,
   DEFAULT_OG_IMAGE,
   canonicalUrl,
-  hreflangLinks,
-  ogLocale,
-  altOgLocale,
 } from "./routes";
 
 type JsonLd = Record<string, unknown>;
@@ -37,24 +33,21 @@ interface SEOProps {
 }
 
 export function SEO({ pageKey, meta, image, jsonLd, noindex }: SEOProps) {
-  const { language } = useLanguage();
-
   if (!pageKey && !meta) {
     throw new Error("SEO requires either pageKey or meta override.");
   }
 
-  const title = meta?.title ?? META[pageKey!][language].title;
-  const description =
-    meta?.description ?? META[pageKey!][language].description;
-  const keywords = meta ? undefined : META[pageKey!][language].keywords;
-  const canonical = meta?.canonical ?? canonicalUrl(pageKey!, language);
-  const hreflangs = meta?.hreflangs ?? hreflangLinks(pageKey!);
+  const title = meta?.title ?? META[pageKey!].title;
+  const description = meta?.description ?? META[pageKey!].description;
+  const keywords = meta ? undefined : META[pageKey!].keywords;
+  const canonical = meta?.canonical ?? canonicalUrl(pageKey!);
+  const hreflangs = meta?.hreflangs ?? [];
   const ogImage = image ?? meta?.ogImage ?? DEFAULT_OG_IMAGE;
   const jsonLdArray = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 
   return (
     <Helmet prioritizeSeoTags>
-      <html lang={language} />
+      <html lang="en" />
       <title>{title}</title>
       <meta name="title" content={title} />
       <meta name="description" content={description} />
@@ -74,8 +67,7 @@ export function SEO({ pageKey, meta, image, jsonLd, noindex }: SEOProps) {
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
       <meta property="og:image:alt" content={title} />
-      <meta property="og:locale" content={ogLocale(language)} />
-      <meta property="og:locale:alternate" content={altOgLocale(language)} />
+      <meta property="og:locale" content="en_US" />
 
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:url" content={canonical} />
@@ -102,7 +94,7 @@ export function organizationJsonLd(): JsonLd {
     url: SITE_URL,
     logo: `${SITE_URL}/favicon.png`,
     description:
-      "Plateforme de pentesting automatisé par IA agentique pour la cybersécurité continue.",
+      "Agentic AI pentesting platform for continuous cybersecurity.",
     address: {
       "@type": "PostalAddress",
       streetAddress: "14 Rue Ballu",
@@ -114,7 +106,7 @@ export function organizationJsonLd(): JsonLd {
       "@type": "ContactPoint",
       email: "contact@fleuret.ai",
       contactType: "Customer Service",
-      availableLanguage: ["French", "English"],
+      availableLanguage: ["English"],
     },
     sameAs: [],
   };
@@ -126,15 +118,11 @@ export function websiteJsonLd(): JsonLd {
     "@type": "WebSite",
     name: "Fleuret",
     url: SITE_URL,
-    inLanguage: ["fr-FR", "en-US"],
+    inLanguage: ["en-US"],
   };
 }
 
-export function softwareApplicationJsonLd(locale: "fr" | "en"): JsonLd {
-  const descriptions = {
-    fr: "Plateforme de pentesting automatisé par IA agentique avec tests de sécurité en continu.",
-    en: "Agentic AI pentesting platform with continuous security testing.",
-  };
+export function softwareApplicationJsonLd(_locale?: string): JsonLd {
   return {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
@@ -142,7 +130,7 @@ export function softwareApplicationJsonLd(locale: "fr" | "en"): JsonLd {
     applicationCategory: "SecurityApplication",
     operatingSystem: "Web",
     offers: { "@type": "Offer", price: "0", priceCurrency: "EUR" },
-    description: descriptions[locale],
+    description: "Agentic AI pentesting platform with continuous security testing.",
   };
 }
 
@@ -177,7 +165,7 @@ export function designPartnerOfferJsonLd(params: {
   pilotWeeks: number;
   cohortStartIso: string;
   url: string;
-  locale: "fr" | "en";
+  locale?: string;
 }): JsonLd[] {
   const cohortEndIso = new Date(
     new Date(params.cohortStartIso).getTime() +
@@ -187,14 +175,8 @@ export function designPartnerOfferJsonLd(params: {
     params.slotsRemaining > 0
       ? "https://schema.org/LimitedAvailability"
       : "https://schema.org/SoldOut";
-  const productName =
-    params.locale === "fr"
-      ? "Programme Design Partners Fleuret"
-      : "Fleuret Design Partner Cohort";
-  const productDescription =
-    params.locale === "fr"
-      ? `${params.pentestsIncluded} pentests par IA agentique en ${params.pilotWeeks} semaines, livrable Compliance ready.`
-      : `${params.pentestsIncluded} agentic AI pentests in ${params.pilotWeeks} weeks, Compliance-ready report.`;
+  const productName = "Fleuret Design Partner Cohort";
+  const productDescription = `${params.pentestsIncluded} agentic AI pentests in ${params.pilotWeeks} weeks, Compliance-ready report.`;
 
   const product: JsonLd = {
     "@context": "https://schema.org",
@@ -223,10 +205,7 @@ export function designPartnerOfferJsonLd(params: {
   const event: JsonLd = {
     "@context": "https://schema.org",
     "@type": "Event",
-    name:
-      params.locale === "fr"
-        ? "Kickoff cohort Design Partners Fleuret"
-        : "Fleuret Design Partner Cohort Kickoff",
+    name: "Fleuret Design Partner Cohort Kickoff",
     startDate: params.cohortStartIso,
     endDate: cohortEndIso,
     eventAttendanceMode: "https://schema.org/OnlineEventAttendanceMode",

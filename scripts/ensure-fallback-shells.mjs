@@ -22,8 +22,7 @@ const ROOT = resolve(__dirname, "..");
 const DIST = join(ROOT, "dist");
 
 import {
-  STATIC_FR_PATHS as FR_PATHS,
-  STATIC_EN_PATHS as EN_PATHS,
+  STATIC_PATHS,
   BUILD_ONLY_PATHS as EXTRA_PATHS,
 } from "./site-routes.mjs";
 
@@ -74,8 +73,7 @@ function main() {
   const rootHtml = readFileSync(rootIndex, "utf8");
 
   const ROUTES = [
-    ...FR_PATHS,
-    ...EN_PATHS,
+    ...STATIC_PATHS,
     ...EXTRA_PATHS,
     ...readPostPaths(),
   ];

@@ -121,10 +121,10 @@ function loadLocale(locale: Locale): LoadedPost[] {
     const rt = readingTime(parsed.content);
     const readingTimeMinutes = Math.max(1, Math.ceil(rt.minutes));
 
-    const path =
-      locale === "fr" ? `/blog/${fm.slug}` : `/en/blog/${fm.slug}`;
-    const hreflangPath =
-      locale === "fr" ? `/en/blog/${fm.slug}` : `/blog/${fm.slug}`;
+    // Single-locale site: every post lives at /blog/<slug>. hreflangPath
+    // retained as identical to path for backwards-compat with old consumers.
+    const path = `/blog/${fm.slug}`;
+    const hreflangPath = path;
 
     // Normalize ogImage to an absolute URL. Schema.org + Google require
     // absolute URLs in Article JSON-LD; a bare `/blog/<slug>/hero.webp` in
@@ -153,33 +153,7 @@ function loadLocale(locale: Locale): LoadedPost[] {
   return out;
 }
 
-function enforcePair(
-  fr: LoadedPost[],
-  en: LoadedPost[],
-): { posts: LoadedPost[] } {
-  const frSlugs = new Set(fr.map((p) => p.meta.slug));
-  const enSlugs = new Set(en.map((p) => p.meta.slug));
-
-  const orphanFr = [...frSlugs].filter((s) => !enSlugs.has(s));
-  const orphanEn = [...enSlugs].filter((s) => !frSlugs.has(s));
-
-  for (const s of orphanFr) {
-    fail(
-      `slug "${s}" exists in fr/ but not en/. Pair required (add src/content/blog/en/${s}.mdx or set draft:true on FR).`,
-    );
-  }
-  for (const s of orphanEn) {
-    fail(
-      `slug "${s}" exists in en/ but not fr/. Pair required (add src/content/blog/fr/${s}.mdx or set draft:true on EN).`,
-    );
-  }
-
-  // Only posts that appear in BOTH locales ship.
-  const paired = new Set([...frSlugs].filter((s) => enSlugs.has(s)));
-  return {
-    posts: [...fr, ...en].filter((p) => paired.has(p.meta.slug)),
-  };
-}
+// Single-locale: no FR/EN pairing required. Every EN post ships as-is.
 
 function excludeTombstoned(posts: LoadedPost[]): LoadedPost[] {
   const blocked = new Set(TOMBSTONES.map((t) => `${t.locale}:${t.slug}`));
@@ -256,7 +230,7 @@ function writeManifest(posts: LoadedPost[]) {
  * 308 redirect to /404 would turn that into a 200 at /404 (soft-404 in
  * Google Search Console). Natural 404 is strictly better.
  */
-const BLOG_TOMBSTONE_SOURCE_RE = /^\/(?:en\/)?blog\/[a-z0-9-]+$/;
+const BLOG_TOMBSTONE_SOURCE_RE = /^\/blog\/[a-z0-9-]+$/;
 
 function patchVercelTombstones() {
   if (!existsSync(VERCEL_JSON)) return;
@@ -279,15 +253,19 @@ function patchVercelTombstones() {
   );
 
   // Only emit redirects for tombstones that point somewhere (replacement).
-  const generated = TOMBSTONES.filter((t) => t.replacement).map((t) => {
-    const source =
-      t.locale === "fr" ? `/blog/${t.slug}` : `/en/blog/${t.slug}`;
-    const dest =
-      t.locale === "fr"
-        ? `/blog/${t.replacement}`
-        : `/en/blog/${t.replacement}`;
-    return { source, destination: dest, permanent: true };
-  });
+  // Single-locale: dedupe by slug so an old fr+en tombstone pair only emits one rule.
+  const seenSlug = new Set<string>();
+  const generated = TOMBSTONES.filter((t) => t.replacement)
+    .filter((t) => {
+      if (seenSlug.has(t.slug)) return false;
+      seenSlug.add(t.slug);
+      return true;
+    })
+    .map((t) => ({
+      source: `/blog/${t.slug}`,
+      destination: `/blog/${t.replacement}`,
+      permanent: true,
+    }));
 
   const nextRedirects = [...stripped, ...generated];
 
@@ -328,10 +306,9 @@ function main() {
   console.log(
     `build-post-registry: strict=${STRICT} drafts=${INCLUDE_DRAFTS}`,
   );
-  const fr = loadLocale("fr");
+  // Single-locale: load EN only. The fr/ directory is intentionally gone.
   const en = loadLocale("en");
-  const { posts: paired } = enforcePair(fr, en);
-  const live = excludeTombstoned(paired);
+  const live = excludeTombstoned(en);
 
   for (const w of warnings) console.warn(`WARN: ${w}`);
   if (errors.length > 0) {
@@ -345,7 +322,7 @@ function main() {
   patchVercelTombstones();
 
   console.log(
-    `done: ${live.length} live posts (${fr.length} fr + ${en.length} en, paired=${paired.length}, tombstoned=${paired.length - live.length})`,
+    `done: ${live.length} live posts (${en.length} en, tombstoned=${en.length - live.length})`,
   );
 }
 

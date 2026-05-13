@@ -5,7 +5,6 @@ import { cn } from "@/lib/utils";
 import logoSymbol from "@/assets/logo-symbol.svg";
 import logoWordmark from "@/assets/logo-wordmark.svg";
 import { useLanguage } from "@/contexts/LanguageContext";
-import LanguageSwitcher from "./LanguageSwitcher";
 import { DEMO_ROUTE } from "@/lib/routes";
 
 const Navbar = () => {
@@ -154,7 +153,6 @@ const Navbar = () => {
 
           {/* Desktop right zone */}
           <div className="hidden lg:flex items-center gap-3">
-            <LanguageSwitcher />
             <Link to={localize(DEMO_ROUTE)} className="btn-cta btn-cta--sm">
               {t("nav.cta")}
             </Link>
@@ -227,10 +225,6 @@ const Navbar = () => {
         >
           {t("nav.cta")}
         </Link>
-
-        <div className="mt-4 flex justify-center">
-          <LanguageSwitcher />
-        </div>
       </nav>
     </>
   );

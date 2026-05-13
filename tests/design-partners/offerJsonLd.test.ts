@@ -74,16 +74,8 @@ describe("designPartnerOfferJsonLd", () => {
     expect(offer.priceValidUntil).toBe("2026-05-31");
   });
 
-  it("FR locale produces French product name", () => {
+  it("produces English product name (single-locale site)", () => {
     const [product] = designPartnerOfferJsonLd(baseParams);
-    expect(product.name).toContain("Programme");
-  });
-
-  it("EN locale produces English product name", () => {
-    const [product] = designPartnerOfferJsonLd({
-      ...baseParams,
-      locale: "en",
-    });
     expect(product.name).toContain("Cohort");
   });
 

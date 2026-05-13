@@ -3,8 +3,7 @@ import { readFileSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import {
-  STATIC_FR_PATHS,
-  STATIC_EN_PATHS,
+  STATIC_PATHS,
   KNOWN_PATHS,
   BLOG_POST_RE,
 } from "../scripts/site-routes.mjs";
@@ -17,24 +16,26 @@ function readSource(rel: string): string {
 }
 
 describe("site-routes single source of truth", () => {
-  it("EN paths derive from FR paths (minus FR-only legal page)", () => {
-    expect(STATIC_EN_PATHS).toContain("/en");
-    expect(STATIC_EN_PATHS).toContain("/en/about");
-    expect(STATIC_EN_PATHS).not.toContain("/en/mentions-legales");
+  it("STATIC_PATHS contains the canonical EN route set", () => {
+    expect(STATIC_PATHS).toContain("/");
+    expect(STATIC_PATHS).toContain("/about");
+    expect(STATIC_PATHS).toContain("/mentions-legales");
   });
 
   it("KNOWN_PATHS contains every static route", () => {
-    for (const p of [...STATIC_FR_PATHS, ...STATIC_EN_PATHS]) {
+    for (const p of STATIC_PATHS) {
       expect(KNOWN_PATHS.has(p)).toBe(true);
     }
   });
 
   it("BLOG_POST_RE matches valid slugs and rejects invalid ones", () => {
     expect(BLOG_POST_RE.test("/blog/my-post")).toBe(true);
-    expect(BLOG_POST_RE.test("/en/blog/my-post-2")).toBe(true);
+    expect(BLOG_POST_RE.test("/blog/my-post-2")).toBe(true);
     expect(BLOG_POST_RE.test("/blog/-bad")).toBe(false);
     expect(BLOG_POST_RE.test("/blog/foo/bar")).toBe(false);
     expect(BLOG_POST_RE.test("/blog/")).toBe(false);
+    // /en/blog/* is now redirected by middleware, not matched here.
+    expect(BLOG_POST_RE.test("/en/blog/my-post")).toBe(false);
   });
 
   it("middleware imports route lists from shared module (no hardcoded duplication)", () => {

@@ -30,8 +30,7 @@ const PORT = Number(process.env.PRERENDER_PORT || 4273);
 const BASE = `http://127.0.0.1:${PORT}`;
 
 import {
-  STATIC_FR_PATHS as FR_PATHS,
-  STATIC_EN_PATHS as EN_PATHS,
+  STATIC_PATHS,
   BUILD_ONLY_PATHS as EXTRA_PATHS,
 } from "./site-routes.mjs";
 
@@ -45,10 +44,10 @@ if (existsSync(MANIFEST_PATH)) {
   POST_PATHS = manifest.map((m) => m.path);
 }
 
-const ROUTES = [...FR_PATHS, ...EN_PATHS, ...EXTRA_PATHS, ...POST_PATHS];
+const ROUTES = [...STATIC_PATHS, ...EXTRA_PATHS, ...POST_PATHS];
 
 function isBlogPostPath(route) {
-  return /^(\/en)?\/blog\/.+/.test(route);
+  return /^\/blog\/.+/.test(route);
 }
 
 function wait(ms) {

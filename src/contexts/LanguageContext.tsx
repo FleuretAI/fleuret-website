@@ -1,10 +1,8 @@
-import React, { createContext, useContext, useEffect, useMemo, useRef } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { buildLocalePath, detectLocaleFromPath, swapLocalePath } from '@/seo/routes';
+import React, { createContext, useContext, useMemo } from 'react';
 
-type Language = 'fr' | 'en';
-
-const LANG_STORAGE_KEY = 'fleuret_lang';
+// Single-locale (EN) site. Legacy fr/en union kept for type compatibility with
+// callers that haven't been refactored yet. Runtime always returns 'en'.
+type Language = 'en';
 
 interface LanguageContextType {
   language: Language;
@@ -916,67 +914,14 @@ export const translations = {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
-const readStoredLang = (): Language | null => {
-  if (typeof window === 'undefined') return null;
-  try {
-    const v = window.localStorage.getItem(LANG_STORAGE_KEY);
-    return v === 'fr' || v === 'en' ? v : null;
-  } catch {
-    return null;
-  }
-};
-
-const writeStoredLang = (lang: Language) => {
-  if (typeof window === 'undefined') return;
-  try {
-    window.localStorage.setItem(LANG_STORAGE_KEY, lang);
-  } catch {
-    // ignore (private mode, quota, etc.)
-  }
-};
-
-// Paths that exist only in French (no EN mirror). Never redirect these.
-const FR_ONLY_PATHS = new Set<string>(['/mentions-legales']);
-
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const language: Language = detectLocaleFromPath(location.pathname);
-  const didInitialRedirect = useRef(false);
-
-  // One-shot: honor a stored language preference for returning visitors.
-  // URL is the source of truth when no preference is stored — never auto-redirect
-  // on first visit. Prerender (Puppeteer) has no localStorage, so any default-driven
-  // redirect would bake the wrong locale into every static HTML and point its
-  // canonical at the other locale, deindexing the FR home from Google.
-  useEffect(() => {
-    if (didInitialRedirect.current) return;
-    didInitialRedirect.current = true;
-
-    if (FR_ONLY_PATHS.has(location.pathname)) return;
-
-    const stored = readStoredLang();
-    if (!stored || stored === language) return;
-
-    const target = swapLocalePath(location.pathname, stored);
-    if (target !== location.pathname) {
-      navigate(target + (location.search || '') + (location.hash || ''), { replace: true });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   const value = useMemo<LanguageContextType>(() => ({
-    language,
-    setLanguage: (lang: Language) => {
-      writeStoredLang(lang);
-      const target = swapLocalePath(location.pathname, lang);
-      const search = location.search || '';
-      const hash = location.hash || '';
-      navigate(target + search + hash);
-    },
-    t: (key: string): string => translations[language][key] || key,
-    localize: (basePath: string) => buildLocalePath(basePath, language),
-  }), [language, location.pathname, location.search, location.hash, navigate]);
+    language: 'en',
+    // No-op: site is single-locale. Kept so legacy callers don't crash.
+    setLanguage: () => {},
+    t: (key: string): string => (translations as Record<string, Record<string, string>>).en[key] || key,
+    localize: (basePath: string) => basePath,
+  }), []);
 
   return (
     <LanguageContext.Provider value={value}>

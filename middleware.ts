@@ -28,6 +28,20 @@ export default function middleware(request: Request): Response {
     return Response.redirect(url.toString(), 301);
   }
 
+  // Single-locale (EN) migration: legacy /en/* URLs that Google still has
+  // indexed get a permanent redirect to the same path without the prefix.
+  // /en -> /
+  if (url.pathname === "/en") {
+    const stripped = new URL("/", url);
+    stripped.search = url.search;
+    return Response.redirect(stripped.toString(), 301);
+  }
+  if (url.pathname.startsWith("/en/")) {
+    const stripped = new URL(url.pathname.replace(/^\/en/, "") || "/", url);
+    stripped.search = url.search;
+    return Response.redirect(stripped.toString(), 301);
+  }
+
   if (KNOWN_PATHS.has(url.pathname) || BLOG_POST_RE.test(url.pathname)) {
     return next();
   }
