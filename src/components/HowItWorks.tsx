@@ -259,7 +259,7 @@ const HowItWorks = () => {
                 style={{ position: "relative" }}
               >
                 {/* Mobile: horizontal meta strip */}
-                <div className="md:hidden" style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 14 }}>
+                <div className="md:hidden flex items-center" style={{ gap: 10, marginBottom: 14 }}>
                   <span aria-hidden style={{ width: 12, height: 12, borderRadius: "50%", background: s.color, flexShrink: 0, boxShadow: `0 0 0 4px rgba(${s.rgb}, 0.18)` }} />
                   <p className="fl-mono" style={{ margin: 0, fontSize: 11, letterSpacing: "0.12em", color: s.color }}>{s.timestamp}</p>
                   <span className="fl-mono" style={{ fontSize: 9.5, letterSpacing: "0.18em", color: "rgba(255,255,255,0.4)" }}>·</span>

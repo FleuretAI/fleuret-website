@@ -303,7 +303,7 @@ const ComparisonTable = () => {
           </div>
 
           {/* Mobile: stacked Fleuret-first card layout */}
-          <div className="md:hidden" style={{ display: "flex", flexDirection: "column", gap: 18 }}>
+          <div className="md:hidden flex flex-col" style={{ gap: 18 }}>
             {(["fleuret", "firm", "scanner"] as Col[]).map((col) => {
               const isFleuret = col === "fleuret";
               const eyebrow =
