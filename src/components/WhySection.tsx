@@ -216,7 +216,7 @@ const WhySection = () => {
                 </div>
               </div>
               {/* Mobile: condensed 4-col (time, service, version, status) */}
-              <div className="sm:hidden" style={{ display: "flex", flexDirection: "column", flex: 1, minHeight: 0 }}>
+              <div className="sm:hidden flex flex-col" style={{ flex: 1, minHeight: 0 }}>
                 <div className="fl-mono" style={{ display: "grid", gridTemplateColumns: "72px 1fr 56px 64px", gap: 6, fontSize: 8.5, letterSpacing: "0.18em", color: "rgba(255,255,255,0.32)", paddingBottom: 8, borderBottom: "1px dashed rgba(255,255,255,0.08)" }}>
                   <span>TIME</span><span>SERVICE</span><span>VER</span><span>STATUS</span>
                 </div>
