@@ -668,13 +668,13 @@ export const translations = {
 
     // Redesign 2026-05-09 — HowItWorks timeline
     'process.eyebrow': 'PROCESS · 03 STAGES',
-    'process.deploy.duration': '4 MIN',
+    'process.deploy.duration': '30 MIN',
     'process.deploy.stat1': 'EXTERNAL SURFACE',
     'process.deploy.stat2': '1,247 ASSETS',
-    'process.attack.duration': '2h 14m',
+    'process.attack.duration': '71 H',
     'process.attack.stat1': 'EXPLOIT CHAINS',
     'process.attack.stat2': '7 PoCs VALIDATED',
-    'process.exploits.duration': '11 MIN',
+    'process.exploits.duration': '30 MIN',
     'process.exploits.stat1': 'AUDIT-GRADE PDF',
     'process.exploits.stat2': 'ZERO FALSE-POS',
     'process.elapsed.label': 'ELAPSED · PERIMETER / ENGAGEMENT / REPORT',

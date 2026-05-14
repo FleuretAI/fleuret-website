@@ -106,7 +106,7 @@ const HowItWorks = () => {
       rgb: "79,143,255",
       timestamp: "T+00:00",
       durationKey: "process.deploy.duration",
-      ended: "ENDED 14:36 UTC",
+      ended: "D1 · 14:36 UTC",
       titleKey: "process.deploy.title",
       descKey: "process.deploy.desc",
       stats: [
@@ -120,9 +120,9 @@ const HowItWorks = () => {
       num: "02",
       color: STAGE_COLORS.red,
       rgb: "229,72,77",
-      timestamp: "T+00:04",
+      timestamp: "T+00:30",
       durationKey: "process.attack.duration",
-      ended: "ENDED 18:18 UTC",
+      ended: "D3 · 13:00 UTC",
       titleKey: "process.attack.title",
       descKey: "process.attack.desc",
       stats: [
@@ -136,9 +136,9 @@ const HowItWorks = () => {
       num: "03",
       color: STAGE_COLORS.violet,
       rgb: "139,92,246",
-      timestamp: "T+04:18",
+      timestamp: "T+71:30",
       durationKey: "process.exploits.duration",
-      ended: "DELIVERED 14:42 UTC",
+      ended: "DELIVERED · D3 14:00 UTC",
       titleKey: "process.exploits.title",
       descKey: "process.exploits.desc",
       stats: [
@@ -185,7 +185,7 @@ const HowItWorks = () => {
           </motion.div>
           <motion.div variants={staggerItem} className="fl-mono md:text-right" style={{ fontSize: 10, letterSpacing: "0.22em" }}>
             <p style={{ margin: 0, color: "rgba(255,255,255,0.45)" }}>RUN #FL-2026-0184</p>
-            <p style={{ margin: "4px 0 0", color: "#fff" }}>04 H 42 M END-TO-END</p>
+            <p style={{ margin: "4px 0 0", color: "#fff" }}>72 H 00 M END-TO-END</p>
           </motion.div>
         </motion.div>
 
@@ -199,27 +199,27 @@ const HowItWorks = () => {
         >
           <div className="fl-mono" style={{ display: "flex", justifyContent: "space-between", fontSize: 9.5, letterSpacing: "0.22em", color: "rgba(255,255,255,0.4)", marginBottom: 8 }}>
             <span>T+00:00</span>
-            <span>T+02:21</span>
-            <span>T+04:42</span>
+            <span>T+36:00</span>
+            <span>T+72:00</span>
           </div>
           <div style={{ display: "flex", height: 4, borderRadius: 2, overflow: "hidden", background: "rgba(255,255,255,0.05)" }}>
             <motion.div
               initial={{ width: 0 }}
-              whileInView={{ width: "1.5%" }}
+              whileInView={{ width: "1%" }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.4 }}
               style={{ background: STAGE_COLORS.blue }}
             />
             <motion.div
               initial={{ width: 0 }}
-              whileInView={{ width: "90%" }}
+              whileInView={{ width: "98%" }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.55 }}
               style={{ background: STAGE_COLORS.red }}
             />
             <motion.div
               initial={{ width: 0 }}
-              whileInView={{ width: "8.5%" }}
+              whileInView={{ width: "1%" }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94], delay: 1.7 }}
               style={{ background: STAGE_COLORS.violet }}
