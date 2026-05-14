@@ -255,8 +255,8 @@ const HowItWorks = () => {
                   hidden: { opacity: 0, y: 30 },
                   visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.05 * idx } },
                 }}
-                className="md:grid md:[grid-template-columns:110px_1fr]"
-                style={{ display: "block", alignItems: "start", position: "relative" }}
+                className="block md:grid md:[grid-template-columns:110px_1fr] md:items-start"
+                style={{ position: "relative" }}
               >
                 {/* Mobile: horizontal meta strip */}
                 <div className="md:hidden" style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 14 }}>

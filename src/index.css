@@ -71,6 +71,14 @@
     padding: 0;
     background-color: var(--fl-bg);
     color: hsl(var(--foreground));
+  }
+
+  /* Defend against a rogue element ever bleeding page-wide horizontal scroll.
+     Applied to body only (not html). `overflow-x: clip` on the root element
+     has caused mobile-only IntersectionObserver regressions in some browser
+     engines (CountUp stuck at 0). Keep the rule on body so the document
+     element stays a vanilla scroll root. */
+  body {
     overflow-x: clip;
   }
 
