@@ -8,7 +8,7 @@ import {
   type LazyExoticComponent,
 } from "react";
 import { Link, useParams } from "react-router-dom";
-import { SEO, articleJsonLd, breadcrumbJsonLd } from "@/seo/SEO";
+import { SEO, articleJsonLd, breadcrumbJsonLd, faqPageJsonLd } from "@/seo/SEO";
 import { SITE_URL, hreflangLinksFor } from "@/seo/routes";
 import { useLanguage } from "@/contexts/LanguageContext";
 import Navbar from "@/components/Navbar";
@@ -117,6 +117,9 @@ const BlogPost = () => {
     }),
     breadcrumbJsonLd(breadcrumbItems),
   ];
+  if (entry.meta.faqs && entry.meta.faqs.length > 0) {
+    jsonLd.push(faqPageJsonLd(entry.meta.faqs));
+  }
 
   return (
     <>

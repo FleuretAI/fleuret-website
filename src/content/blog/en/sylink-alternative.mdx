@@ -6,6 +6,19 @@ author: "Yanis Grigy, CEO"
 tags: ["SYLink alternative", "Comparison", "Buyer guide", "OIV", "OSE", "Sovereignty"]
 locale: "en"
 slug: "sylink-alternative"
+faqs:
+  - question: "Is Fleuret AI a direct SYLink AI alternative?"
+    answer: "Partly. Both are French sovereign pentest platforms. SYLink delivers on-premise GPU cluster with an 80B-parameter LLM stack for OIV / OSE customers. Fleuret AI is managed SaaS on Scaleway France with documented open-weight LLMs. The deployment model is the primary deciding axis."
+  - question: "When should I pick SYLink over Fleuret AI?"
+    answer: "Pick SYLink when on-premise inference inside the customer perimeter is mandatory, typically because the buyer is OIV / OSE classified, defence-adjacent, or holds national-security-sensitive workloads that prevent any third-party cloud usage."
+  - question: "When should I pick Fleuret AI over SYLink?"
+    answer: "Pick Fleuret when managed SaaS on Scaleway France is acceptable, when the buying logic prioritises shipped DORA Article 24 / NIS2 Annex I audit PDFs and Jira-native workflow integration by default, and when fast onboarding without GPU cluster provisioning is preferred."
+  - question: "Are both vendors EU-sovereign and CLOUD Act-immune?"
+    answer: "Yes. Both Fleuret and SYLink are French legal entities. SYLink's on-premise model gives full inference control inside the customer's infrastructure. Fleuret runs on Scaleway France with no US LLM dependency in the data path."
+  - question: "What is the cost difference between managed SaaS and on-premise?"
+    answer: "Fleuret publishes tiers (€500 single, €2.5-5k campaign, €25-35k/year Continuous). SYLink on-premise is engagement-led and depends on GPU cluster sizing + customer infrastructure ownership. Managed SaaS typically has lower upfront capex and faster time-to-value."
+  - question: "Can a customer run both Fleuret and SYLink?"
+    answer: "Yes. Some buyers run on-premise SYLink for the OIV-classified scope and managed Fleuret for the rest of the attack surface. The vendors are complementary when the customer has both classified and standard scopes to test."
 ---
 
 ## TL;DR

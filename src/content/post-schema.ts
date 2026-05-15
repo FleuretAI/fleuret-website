@@ -36,6 +36,16 @@ export const PostFrontmatterSchema = z.object({
   // keeps existing 16 articles valid without edits. 'partner' is for GRC
   // platform managers (Vanta, Drata, Sprinto) who buy wholesale.
   audience: z.enum(AUDIENCES).default("direct"),
+  // FAQ entries lift into FAQPage JSON-LD on the blog post route. Google +
+  // AI grounding engines pull these into expandable rich-result answers.
+  faqs: z
+    .array(
+      z.object({
+        question: z.string().min(1),
+        answer: z.string().min(1),
+      }),
+    )
+    .optional(),
 });
 
 export type PostFrontmatter = z.infer<typeof PostFrontmatterSchema>;
