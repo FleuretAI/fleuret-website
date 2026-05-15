@@ -1,0 +1,108 @@
+---
+title: "Escape alternative: Fleuret AI vs Escape for agentic pentest beyond APIs (2026)"
+description: "Escape is the strongest French agentic engine for API and business-logic testing, with $18M Series A from Balderton. Here is the honest comparison vs Fleuret AI for buyers whose pentest scope extends beyond APIs into infrastructure, DORA reporting, and continuous compliance workflow."
+date: "2026-05-15"
+author: "Yanis Grigy, CEO"
+tags: ["Escape alternative", "Comparison", "Buyer guide", "API security", "DORA", "Sovereignty"]
+locale: "en"
+slug: "escape-alternative"
+---
+
+## TL;DR
+
+Escape is the standout French agentic pentest engine for APIs, GraphQL, and business-logic testing. The company raised $18 million Series A led by Balderton Capital in early 2026, with 2,000+ security teams using the platform. Its centre of gravity is API and web app coverage with developer-friendly remediation. For an EU mid-market CISO whose scope extends beyond APIs:
+
+- **Pick Escape** if APIs and web apps are 80%+ of the testing surface, the buying logic is engineering-led, and CI/CD integration speed is the binding constraint.
+- **Pick Fleuret AI** if the scope must extend to external infrastructure and internal infra alongside APIs, the compliance workflow (Jira, signed audit PDF, board export) must be wired in by default, and the report must map directly to DORA Article 24 / NIS2 Annex I out of the box.
+
+Both are French, both EU-sovereign, both DORA-eligible. The decision is on scope breadth and on whether the deliverable is engineering-team-first or auditor-first.
+
+## Why CISOs search "Escape alternative"
+
+The query is common in the EU agentic-pentest market. A buyer typing it has typically shortlisted Escape because of API depth and is now hunting for a peer, usually because:
+
+1. **Scope extends beyond APIs.** Escape's strongest axis is API and web app. Buyers whose attack surface includes infrastructure, internal network, or AD want a peer that covers more than the API-first scope.
+2. **Compliance-deliverable-first buying logic.** Engineering-led tooling and auditor-led tooling are two different procurement paths. Escape leans engineering-first. Buyers running a CISO-and-auditor-led purchase want the second name.
+3. **Sovereignty parity check.** Both companies are French. Buyers running an EU sovereignty review want to compare LLM stack disclosure, inference location, and Cloud Act exposure axis-by-axis.
+
+## Escape: the reference, in one paragraph
+
+Escape (escape.tech) is headquartered in Paris, founded in 2020 by Tristan Kalos and Antoine Carossio. Series A of $18 million ($15.4 million in euros) led by Balderton Capital landed in early 2026, with 2,000+ security teams as the active user base. The engine is an agentic DAST hybrid built around APIs, GraphQL, and business-logic testing, with developer-friendly remediation snippets tied to specific frameworks. Coverage is API and web app first, with continuous testing and regression testing built into the model.
+
+## Side-by-side: Fleuret AI vs Escape
+
+| Axis | Fleuret AI | Escape |
+|---|---|---|
+| Headquarters | France | France |
+| Funding | Pre-Series A | $18M Series A led by Balderton (2026) |
+| Architecture | Multi-agent hierarchical (recon, plan, exploit, validate, sign) | Agentic DAST hybrid optimised for APIs and business logic |
+| Primary surface | Web app, REST / GraphQL API, external infra | API, GraphQL, web app |
+| Internal infra coverage | Yes | Limited |
+| LLM stack | Open-weight (gpt-oss-120b, Kimi K2.5, Mistral) on Scaleway France | Partial disclosure |
+| DORA / NIS2 eligibility | Yes, with shipped Article 24 / Annex I mappings | Yes, EU-sovereign |
+| Default report format | DORA Article 24 + NIS2 mappings, Ed25519-signed PDF | Custom, framework-tailored snippets |
+| Compliance workflow surfaces | Jira ticket creation, audit PDF, board export, weekly re-test by default | Developer-team-first remediation |
+| Continuous cadence | Weekly or per-deploy by default on Continuous tier | Continuous + regression testing built in |
+| Pricing transparency | Public tiers (€500 / €2.5-5k / €25-35k/yr) | Platform pricing, not public |
+| Best-fit ICP | Mid-market 300-5000 with DORA / NIS2 scope and broad surface | Scaling SaaS, API-first, dev-team-owned security |
+
+A few reading notes.
+
+**Scope breadth.** Escape leads on API and GraphQL. Fleuret extends across API + web + external infra with internal scope on the Continuous tier. Buyers whose pentest is 80%+ API stay with Escape. Buyers whose scope mixes API with infrastructure look at Fleuret.
+
+**Deliverable orientation.** Escape ships framework-tailored remediation snippets (Node.js, GraphQL, Python) that plug into the developer's IDE-to-deploy loop. Fleuret ships Jira tickets with severity + PoC, signed audit PDF, board-export, weekly re-test, all defaulting on the Continuous tier. The first is engineering-team-first. The second is auditor-and-CISO-first. Same engineering surfaces are addressable in both, the default UX is different.
+
+**Funding-stage signal.** Escape's $18 million Series A is real. It funds 18-24 months of API depth and feature velocity. Fleuret is earlier-stage with a sharper compliance-deliverable wedge. Buyers who weight funding stability heavily lean Escape. Buyers who weight wedge-fit lean Fleuret.
+
+## Architecture differences that matter at scale
+
+**Multi-agent end-to-end vs agentic DAST hybrid.** Fleuret coordinates specialised agents (recon, planning, exploitation, validation, signing) to chain findings end-to-end across mixed surfaces. Escape's engine is closer to an agentic DAST hybrid optimised for API and business logic, with regression testing as a first-class concept. Both are valid agentic approaches; the right benchmark is validated-finding rate per unit time on identical scope, by surface type.
+
+**Scope coverage.** Escape's API specialty produces best-in-class coverage of [BOLA, IDOR, and access control on API surfaces](https://escape.tech/blog/best-agentic-pentesting-tools/). Fleuret's multi-surface scope produces wider coverage on infrastructure and external network paths at potentially less per-surface depth than an API specialist. Buyers should ask both to demo on a matched scope and compare per-surface depth.
+
+**LLM stack and sovereignty.** Fleuret runs documented open-weight LLMs on Scaleway France. Escape's LLM stack is partially disclosed; ask for the equivalent specificity in the technical demo if [EU AI Act high-risk audit preparedness](/en/blog/sovereign-eu-ai-pentest-cloud-act-2026) is a procurement gate.
+
+## Buying guide
+
+**Scaling SaaS, API-first product, dev-team-owned security.** Escape is the cleaner fit. Framework-tailored remediation, regression testing, CI/CD integration, developer-friendly UX. Fleuret works but does not lead at this profile.
+
+**EU regulated mid-market 300-5000 employees, DORA / NIS2 scope, broad surface beyond APIs.** Fleuret is the direct fit. Shipped DORA Article 24 mappings, NIS2 Annex I, Jira + signed audit PDF + board export on the default tier.
+
+**Mid-market with mixed API + infra + internal scope, auditor-driven procurement.** Fleuret leads on compliance-deliverable shipped-by-default. Escape often complements at this profile for the API layer specifically.
+
+**Engineering-led procurement, developer experience is the deciding axis.** Escape's framework-tailored remediation and developer-IDE-friendly UX is the right answer. Fleuret's compliance-deliverable-first defaults are over-spec for this buyer.
+
+## What each vendor does best
+
+**Escape.** Strongest French agentic engine for [BOLA, IDOR, and access control on API surfaces](https://escape.tech/blog/best-agentic-pentesting-tools/). Developer-friendly remediation, framework-tailored code snippets, regression testing on continuous deployment. Series A funding adds 18-24 months of velocity stability.
+
+**Fleuret AI.** Sovereign-by-default multi-agent agentic pentest with broad surface coverage and the compliance workflow surfaces (Jira, signed audit PDF, board export, weekly cadence) wired in on the default Continuous tier. Best fit for EU mid-market 300-5000 employees with DORA / NIS2 scope and a mixed API + infrastructure attack surface.
+
+## What to verify before signing either
+
+Two checklists before the product demo:
+
+1. The [7-question sovereignty checklist](/en/blog/sovereign-eu-ai-pentest-cloud-act-2026) for legal-review pre-clearance.
+2. The [7-question workflow-lock-in checklist](/en/blog/pentest-compliance-workflow-jira-audit-2026) for operational fit.
+
+For Escape, also ask:
+
+- What is the validated-finding rate on non-API surfaces (external infra, internal network) compared to API?
+- How does the auditor-ready PDF map to DORA Article 24 / NIS2 Annex I?
+- What is the LLM stack disclosure depth for an EU AI Act high-risk assessment?
+
+For Fleuret AI, also ask:
+
+- Where does Escape beat Fleuret on API depth in independent benchmarks?
+- How does Fleuret's agent depth compare to Escape on BOLA / IDOR / business-logic flaws specifically?
+- What is the recommendation when API is 80%+ of the scope — is Fleuret still the right choice?
+
+Both are strong candidates on an EU agentic-pentest shortlist. The honest answer to "Escape alternative" is Fleuret AI when the scope extends beyond APIs, the procurement is auditor-driven, and the compliance workflow must ship by default.
+
+## Related reading
+
+- [XBOW alternative in Europe: 5 agentic pentest tools EU regulated buyers actually consider](/en/blog/xbow-alternative-europe-agentic-pentest)
+- [Sovereign EU AI pentest in 2026: why CLOUD Act, Schrems II, and the EU AI Act disqualify US providers](/en/blog/sovereign-eu-ai-pentest-cloud-act-2026)
+- [The pentest moat is workflow lock-in: Jira, audit PDF, board export, weekly re-test](/en/blog/pentest-compliance-workflow-jira-audit-2026)
+- [Bug bounty vs penetration testing vs DAST: what each one catches](/en/blog/bug-bounty-vs-pentest-vs-dast)
+- [Annual pentests are broken: continuous testing for SaaS](/en/blog/annual-pentest-broken-saas-continuous)

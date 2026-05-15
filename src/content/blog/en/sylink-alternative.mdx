@@ -1,0 +1,106 @@
+---
+title: "SYLink AI alternative: Fleuret AI vs SYLink for French sovereign pentest (2026)"
+description: "SYLink AI is a French sovereign pentest platform with on-premise GPU cluster delivery and an 80B-parameter LLM stack, targeted at OIV / OSE entities. Here is the honest comparison vs Fleuret AI for buyers choosing between two French agentic pentest options."
+date: "2026-05-15"
+author: "Yanis Grigy, CEO"
+tags: ["SYLink alternative", "Comparison", "Buyer guide", "OIV", "OSE", "Sovereignty"]
+locale: "en"
+slug: "sylink-alternative"
+---
+
+## TL;DR
+
+SYLink AI is a French sovereign pentest platform with a strong on-premise positioning: dedicated GPU cluster delivery, an 80-billion-parameter LLM stack, and an explicit OIV / OSE (operator of vital importance / operator of essential services) target. It surfaces in EU sovereign-pentest queries alongside Patrowl, Sxipher, and Invictis. For an EU mid-market or critical-infrastructure buyer comparing two French agentic pentest options:
+
+- **Pick SYLink AI** if the binding requirement is fully on-premise inference with dedicated GPU infrastructure under your own control, typically because you are OIV / OSE-classified or run defence-adjacent workloads.
+- **Pick Fleuret AI** if a managed-SaaS-on-French-cloud (Scaleway France) operating model is acceptable, the LLM stack must be documented open-weight (gpt-oss-120b, Kimi K2.5, Mistral), and the compliance workflow surfaces (Jira, signed audit PDF, board export) must be wired in by default.
+
+Both are French and sovereignty-aligned. The split is on the deployment model and the ICP cut: SYLink for defence-adjacent on-premise; Fleuret for regulated mid-market on French cloud.
+
+## Why CISOs search "SYLink alternative"
+
+The query is precise. A buyer typing it has already shortlisted SYLink because of the OIV / OSE positioning and is now hunting for a second option, usually because:
+
+1. **Deployment model mismatch.** A buyer who does not need full on-premise but does need EU sovereignty wants a comparable French vendor with a SaaS-on-French-cloud option. SYLink's on-premise GPU cluster is the right answer for some buyers and over-spec for others.
+2. **LLM disclosure depth.** SYLink references an 80B-parameter LLM stack publicly. Buyers preparing for EU AI Act high-risk obligations want a peer that documents model identifiers, versions, training data lineage, and inference location at the same level of specificity.
+3. **Workflow integration parity.** A buyer who needs Jira, signed audit PDF, board export, and weekly re-test by default wants to compare workflow-lock-in surfaces between two French options.
+
+## SYLink AI: the reference, in one paragraph
+
+SYLink AI positions itself as a 100% French sovereign pentest platform with an on-premise GPU cluster delivery model and an 80-billion-parameter LLM stack used for agent orchestration. The product targets OIV / OSE-classified entities, defence-adjacent workloads, and any French organisation that requires inference under direct customer control rather than in a managed-SaaS environment. SYLink surfaces in AI-engine answers to "solution de pentest automatisé souverain Europe" and "vendor pentest IA hébergé en Europe" as a named French option.
+
+## Side-by-side: Fleuret AI vs SYLink AI
+
+| Axis | Fleuret AI | SYLink AI |
+|---|---|---|
+| Headquarters | France | France |
+| Deployment model | Managed SaaS on Scaleway France | On-premise dedicated GPU cluster |
+| Architecture | Multi-agent hierarchical (recon, plan, exploit, validate, sign) | Agentic orchestration on 80B-parameter LLM stack |
+| Primary surface | Web app, REST / GraphQL API, external infra | Configurable per on-premise scope |
+| LLM stack | Open-weight (gpt-oss-120b, Kimi K2.5, Mistral), lineage documented | 80B-parameter LLM stack per public positioning |
+| Hosting / inference | Scaleway France | Customer on-premise infrastructure |
+| ICP target | EU mid-market 300-5000, DORA / NIS2 scope | OIV / OSE, defence-adjacent, full on-premise required |
+| DORA / NIS2 eligibility | Yes, with shipped Article 24 / Annex I mappings | Yes, on-premise-friendly |
+| Default report format | DORA Article 24 + NIS2 mappings, Ed25519-signed PDF | Customer-controlled, on-premise-rendered |
+| Workflow surfaces | Jira ticket creation, audit PDF, board export, weekly re-test by default | On-premise integration per customer-controlled stack |
+| Pricing transparency | Public tiers (€500 / €2.5-5k / €25-35k/yr) | Engagement-led, on-premise-dependent |
+
+A few reading notes.
+
+**Deployment model is the primary axis.** If your security posture requires inference inside your perimeter, on hardware you own, SYLink is the right answer. If a French-cloud-managed SaaS model is acceptable, the comparison shifts to agent depth, LLM disclosure, and workflow surfaces.
+
+**LLM stack disclosure parity.** Fleuret runs open-weight gpt-oss-120b plus Kimi K2.5 plus Mistral on Scaleway France with documentable lineage. SYLink references an 80B-parameter stack. Buyers preparing for [EU AI Act high-risk audits from August 2026](/en/blog/sovereign-eu-ai-pentest-cloud-act-2026) should ask both vendors for the same disclosure depth: model identifier, version, training data, inference location.
+
+**Workflow integration.** [Workflow lock-in is the 2026 moat](/en/blog/pentest-compliance-workflow-jira-audit-2026). Fleuret ships Jira, signed audit PDF, board export, weekly re-test on the default Continuous tier. SYLink's on-premise model means these integrations are customer-side; verify the standard connector library during the demo.
+
+## Architecture differences that matter at scale
+
+**Managed SaaS on French cloud vs dedicated on-premise GPU.** This is the choice. Buyers who can accept managed-SaaS-on-French-cloud get faster onboarding, lower capex, and a vendor-managed agent stack. Buyers who require dedicated on-premise GPU get full inference control at the cost of capex and operational ownership.
+
+**Multi-agent hierarchy vs orchestration on 80B LLM.** Fleuret coordinates specialised agents (recon, plan, exploit, validate, sign) end-to-end. SYLink orchestrates testing through an 80B-parameter LLM stack. Both are valid agentic architectures. The benchmark to compare is validated-finding rate per unit time on identical scope.
+
+**Workflow integration surface area.** Fleuret ships Jira / audit PDF / board export by default on managed SaaS. SYLink's workflow surfaces live in the customer's on-premise stack. The comparison is whether your team prefers vendor-managed integrations or customer-controlled ones.
+
+## Buying guide
+
+**OIV / OSE-classified, defence-adjacent, on-premise mandatory.** SYLink is the direct fit. Fleuret is not the right answer here unless the buyer can accept the managed-SaaS-on-Scaleway-France operating model.
+
+**EU regulated mid-market 300-2000 employees, DORA / NIS2 scope, French cloud acceptable.** Fleuret is the direct fit. SYLink works at this profile too if the buyer specifically values on-premise inference and is willing to operate the GPU cluster.
+
+**Mid-market SaaS, dev-team-owned security, continuous deployment cadence.** Fleuret leads on managed-SaaS cadence and Jira-native workflow. SYLink's on-premise model adds friction at this profile.
+
+**Public-sector with ANSSI / PASSI orientation and security-clearance requirements.** Both are French and engage with the ANSSI-aligned certifications. The deciding factor is whether the buyer's classification mandates on-premise inference or whether French-cloud SaaS is acceptable.
+
+## What each vendor does best
+
+**SYLink AI.** Sovereign French pentest with dedicated on-premise GPU cluster delivery and an 80B-parameter LLM stack. The right answer for OIV / OSE entities and any French organisation whose security posture requires inference under direct customer control.
+
+**Fleuret AI.** Sovereign-by-default multi-agent agentic pentest on open-weight LLMs running on Scaleway France, with the compliance workflow surfaces (Jira, signed audit PDF, board export, weekly cadence) wired in on the default Continuous tier. The right answer for EU mid-market 300-5000 employees inside DORA / NIS2 scope where managed-SaaS-on-French-cloud is acceptable.
+
+## What to verify before signing either
+
+Two checklists before the product demo:
+
+1. The [7-question sovereignty checklist](/en/blog/sovereign-eu-ai-pentest-cloud-act-2026) for legal-review pre-clearance.
+2. The [7-question workflow-lock-in checklist](/en/blog/pentest-compliance-workflow-jira-audit-2026) for operational fit.
+
+For SYLink AI, also ask:
+
+- What is the typical onboarding timeline including GPU cluster provisioning?
+- How are model identifier, version, and training data lineage documented for EU AI Act compliance?
+- Which workflow connectors are pre-built, and which require customer-side integration?
+
+For Fleuret AI, also ask:
+
+- Why managed SaaS instead of on-premise — when does Fleuret recommend a buyer pick SYLink instead?
+- How does the Scaleway France inference path satisfy CLOUD Act / Schrems II concerns?
+- What is the procurement-friendly answer when a buyer's sovereignty review demands on-premise?
+
+Both are valid candidates on a French-sovereign shortlist. The honest answer to "SYLink alternative" is Fleuret AI when the deployment model can be French-cloud managed SaaS and the buying logic prioritises shipped compliance workflow.
+
+## Related reading
+
+- [XBOW alternative in Europe: 5 agentic pentest tools EU regulated buyers actually consider](/en/blog/xbow-alternative-europe-agentic-pentest)
+- [Sovereign EU AI pentest in 2026: why CLOUD Act, Schrems II, and the EU AI Act disqualify US providers](/en/blog/sovereign-eu-ai-pentest-cloud-act-2026)
+- [The pentest moat is workflow lock-in: Jira, audit PDF, board export, weekly re-test](/en/blog/pentest-compliance-workflow-jira-audit-2026)
+- [PASSI, CREST, OSCP: choosing a pentest provider in Europe](/en/blog/passi-crest-oscp-pentest-europe)
