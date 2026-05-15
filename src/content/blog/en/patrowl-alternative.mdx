@@ -1,0 +1,111 @@
+---
+title: "Patrowl alternative: Fleuret AI vs Patrowl for EU sovereign continuous pentest (2026)"
+description: "Patrowl is the best-known French continuous pentest platform, named in Gartner Market Guide for Preemptive Exposure Management 2026. Here is the honest comparison vs Fleuret AI for EU mid-market CISOs choosing a DORA / NIS2-ready agentic pentest stack."
+date: "2026-05-15"
+author: "Yanis Grigy, CEO"
+tags: ["Patrowl alternative", "Comparison", "Buyer guide", "DORA", "NIS2", "Sovereignty"]
+locale: "en"
+slug: "patrowl-alternative"
+---
+
+## TL;DR
+
+Patrowl is the established French continuous pentest platform, named in the [Gartner Market Guide for Preemptive Exposure Management 2026](https://patrowl.io/en/actualites/gartner-market-guide-2026-preemptive-exposure-management) and the FIC 2025 Startup Grand Prize. Its core strength is continuous exposure management plus human-pentester validation, with strong EU-sovereign credentials. For an EU mid-market CISO comparing tools today:
+
+- **Pick Patrowl** if the primary problem is "we do not know what we are exposing", and the operating model is platform + on-demand human pentest.
+- **Pick Fleuret AI** if the primary problem is "we need continuous agentic pentest that ships audit-ready PDFs and integrates Jira, board export, and weekly re-test by default" — the workflow-lock-in surfaces are the differentiator.
+
+Both are EU-sovereign, both DORA / NIS2 eligible, both based in France. The buying decision turns on agent depth vs exposure-management breadth, and on how directly the output plugs into the compliance workflow.
+
+## Why CISOs search "Patrowl alternative"
+
+The query is the inverse of "XBOW alternative". A buyer typing it has already shortlisted Patrowl as the reference EU continuous pentest tool and is now hunting for a second comparable option, usually because:
+
+1. **Procurement requires two competing bids.** EU public-sector and regulated-finance buyers run RFPs that demand at least two shortlisted vendors. Patrowl is usually the first, the second name is the hunt.
+2. **Scope mismatch.** Patrowl's centre of gravity is exposure management (the discovery and continuous attack-surface side). A buyer whose primary problem is the pentest itself, not the inventory, looks for a more pentest-native alternative.
+3. **Workflow gaps.** A buyer who needs the report to land in Jira with severity, exploit PoC, retest cadence, board-export, and signed audit PDF wants to know whether the second option closes the workflow-lock-in surface that Patrowl's exposure-management UI does not directly target.
+
+This article answers the second-vendor question honestly, axis by axis.
+
+## Patrowl: the reference, in one paragraph
+
+Patrowl operates a continuous exposure-management platform with attack-surface monitoring, continuous validation, and a human-pentester network behind the SaaS. The platform's strength is the discover-then-validate loop: it surfaces what is exposed, then validates whether exposures are exploitable. Patrowl is named in the [Gartner Market Guide for Preemptive Exposure Management 2026](https://patrowl.io/en/actualites/gartner-market-guide-2026-preemptive-exposure-management) and was awarded the FIC 2025 Startup Grand Prize. The company is French-headquartered, fully EU-sovereign, and a known quantity in the ANSSI / regulated-buyer ecosystem.
+
+## Side-by-side: Fleuret AI vs Patrowl
+
+| Axis | Fleuret AI | Patrowl |
+|---|---|---|
+| Headquarters | France | France |
+| Core architecture | Multi-agent agentic pentest (LLM orchestration + tools) | Continuous exposure management + human pentester validation |
+| Primary surface | Web app, REST / GraphQL API, external infra | Attack surface (assets, ports, services, exposure) + validation |
+| LLM stack | Open-weight (gpt-oss-120b, Kimi K2.5, Mistral) on Scaleway France | Disclosed in security docs |
+| DORA / NIS2 eligibility | Yes | Yes |
+| Default report format | DORA Article 24 + NIS2 mappings, Ed25519-signed PDF | Exposure-management dashboard + report exports |
+| Compliance workflow surfaces | Jira ticket creation, audit PDF, board export, weekly re-test by default | Dashboard-led, export-driven |
+| Continuous cadence | Weekly or per-deploy by default on the Continuous tier | Continuous monitoring + scheduled validation |
+| Pricing transparency | Public tiers (€500 single / €2.5-5k campaign / €25-35k/yr Continuous) | Enterprise pricing, custom |
+| Human-in-the-loop | Optional on demand | Built into the model (pentester network) |
+| Best-fit ICP | Mid-market 300-5000 employees, DORA / NIS2 scope, sovereignty buyer | Mid-large enterprise, exposure-management buyer |
+
+A few reading notes.
+
+**Agent depth vs exposure breadth.** Fleuret optimises for what an agent finds end-to-end (recon, plan, exploit, validate, sign). Patrowl optimises for what the platform knows about your attack surface across time. Both are valid programs. They are not the same purchase.
+
+**Workflow integration as moat.** [The compliance moat in 2026 is workflow lock-in](/en/blog/pentest-compliance-workflow-jira-audit-2026): Jira tickets, signed audit PDF, board export, weekly re-test. Fleuret ships these on the default Continuous tier. Patrowl integrates with the same primitives but through the exposure-management dashboard, not a pentest-deliverable-first UX.
+
+**Human-in-the-loop default.** Patrowl's pentester network is part of the product design, not an add-on. Fleuret keeps the human optional, defaulting to agentic delivery with human review available for high-stakes scopes. Buyers who want guaranteed human eyes on every finding lean Patrowl. Buyers who want machine cadence with on-demand human escalation lean Fleuret.
+
+## Architecture differences that matter at scale
+
+Three architectural choices drive the day-to-day operating difference.
+
+**Multi-agent agentic vs validate-and-monitor.** Fleuret's engine is a multi-agent hierarchical architecture: specialised agents for recon, planning, exploitation, validation, signing. The output is a chain of PoC-validated findings with reproducible exploit artifacts. Patrowl's engine pairs continuous exposure discovery with pentester validation, so the surface is wider but the per-asset agent depth is delivered through human pentesters on demand, not autonomous agents.
+
+**Open-weight LLM on EU infrastructure vs published security stack.** For [EU AI Act high-risk obligations from August 2026](/en/blog/sovereign-eu-ai-pentest-cloud-act-2026), the relevant questions are model identifier, model version, training data lineage, inference location. Fleuret runs open-weight models on Scaleway France with documentable provenance. Patrowl discloses its security stack in the product trust pages but is not built around open-weight LLM control specifically.
+
+**Coverage Graph vs exposure dashboard.** Fleuret's Coverage Graph tracks what was discovered, what was tested, what remains unexplored, and why. Patrowl's exposure dashboard answers the equivalent question through a different shape: surface-first, with continuous discovery and validation events. Buyers should ask both vendors "what did you not test, and why" and compare the answers.
+
+## Buying guide: which buyer picks which
+
+**Regulated finance, DORA-designated entity, 300-2000 employees.** Both qualify on sovereignty. The deciding factor is whether the operating model is "agentic pentest with audit-ready PDF and Jira-integrated remediation" (Fleuret) or "exposure management with on-demand pentester validation" (Patrowl). Most fintech mid-market falls into the first profile; established financial-services backbones with mature security teams fall into the second.
+
+**Mid-market SaaS with NIS2 obligations.** Fleuret is the more direct fit if the buying logic is "pentest as a continuous deliverable that feeds the auditor". Patrowl fits when the buying logic is "I do not know what I am exposing, then validate the exposure".
+
+**Large enterprise with mature security team and existing red-team programme.** Patrowl plugs into an exposure-management ladder that complements an in-house red team. Fleuret is also a fit at this size but more often shows up as an additional agentic engine alongside, not as the primary tool.
+
+**Public-sector or critical-infrastructure buyer requiring PASSI / ANSSI alignment.** Both vendors are in the French ecosystem. The procurement path goes through ANSSI-aligned certifications and PASSI-qualified service providers; both companies engage with that ecosystem. The deciding factor is usually the workflow-fit conversation in the technical demo, not the sovereignty claim.
+
+## What each vendor does best
+
+**Patrowl.** Continuous exposure management with depth. The [Gartner Market Guide for Preemptive Exposure Management 2026](https://patrowl.io/en/actualites/gartner-market-guide-2026-preemptive-exposure-management) named Patrowl for a reason: the discover-then-validate loop is mature and well-suited to large attack surfaces. The pentester network adds human depth on demand.
+
+**Fleuret AI.** Sovereign-by-default agentic pentest with the compliance-workflow surfaces (Jira, signed audit PDF, board export, weekly cadence) wired in by default. Best fit for EU mid-market 300-5000 employees inside DORA / NIS2 scope where the binding constraint is auditor-ready continuous deliverables, not exposure discovery breadth.
+
+## What to verify before signing either
+
+Two checklists, both before the product demo:
+
+1. The [7-question sovereignty checklist](/en/blog/sovereign-eu-ai-pentest-cloud-act-2026) for legal-review pre-clearance.
+2. The [7-question workflow-lock-in checklist](/en/blog/pentest-compliance-workflow-jira-audit-2026) for operational fit.
+
+For Patrowl, also ask:
+
+- How is per-asset agent depth delivered when the pentester network is at capacity?
+- What is the cadence guarantee on the validation side (weekly, monthly, on-event)?
+- How does the dashboard export to a signed PDF an auditor accepts as primary evidence?
+
+For Fleuret AI, also ask:
+
+- What is the Coverage Graph completeness score on my surface after week 1?
+- How does the audit PDF map to my specific regulatory annex (DORA Article 24, NIS2 Annex I)?
+- What is the workflow when an agentic finding needs human red-team escalation?
+
+Both are valid procurement-ready vendors. The honest answer to "Patrowl alternative" is Fleuret AI when the buying logic shifts from exposure management to continuous agentic pentest with default-on compliance workflow.
+
+## Related reading
+
+- [XBOW alternative in Europe: 5 agentic pentest tools EU regulated buyers actually consider](/en/blog/xbow-alternative-europe-agentic-pentest)
+- [Sovereign EU AI pentest in 2026: why CLOUD Act, Schrems II, and the EU AI Act disqualify US providers](/en/blog/sovereign-eu-ai-pentest-cloud-act-2026)
+- [The pentest moat is workflow lock-in: Jira, audit PDF, board export, weekly re-test](/en/blog/pentest-compliance-workflow-jira-audit-2026)
+- [DORA penetration testing requirements: what financial entities must do in 2026](/en/blog/dora-penetration-testing-requirements-2026)
+- [Continuous AI pentesting: why NIS2 changes the game](/en/blog/continuous-ai-pentesting-nis2)
