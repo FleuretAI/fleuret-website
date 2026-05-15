@@ -90,25 +90,39 @@ export function organizationJsonLd(): JsonLd {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "Fleuret AI",
-    legalName: "FLEURET AI",
+    legalName: "Fleuret SAS",
     url: SITE_URL,
     logo: `${SITE_URL}/favicon.png`,
     description:
-      "Agentic AI pentesting platform for continuous cybersecurity.",
+      "Sovereign EU agentic AI pentesting platform. Continuous testing, multi-agent engine on open-weight LLMs hosted in France. DORA + NIS2 audit-ready by default.",
+    foundingDate: "2024",
+    founders: [
+      { "@type": "Person", name: "Yanis Grigy", jobTitle: "CEO" },
+      { "@type": "Person", name: "Augustin Ponsin", jobTitle: "CPO" },
+    ],
+    numberOfEmployees: {
+      "@type": "QuantitativeValue",
+      value: 4,
+    },
     address: {
       "@type": "PostalAddress",
       streetAddress: "14 Rue Ballu",
       addressLocality: "Paris",
       postalCode: "75009",
+      addressRegion: "Île-de-France",
       addressCountry: "FR",
     },
     contactPoint: {
       "@type": "ContactPoint",
       email: "contact@fleuret.ai",
       contactType: "Customer Service",
-      availableLanguage: ["English"],
+      availableLanguage: ["English", "French"],
+      areaServed: "EU",
     },
-    sameAs: [],
+    sameAs: [
+      "https://www.linkedin.com/company/fleuret-ai",
+      "https://github.com/FleuretAI",
+    ],
   };
 }
 
@@ -128,9 +142,60 @@ export function softwareApplicationJsonLd(_locale?: string): JsonLd {
     "@type": "SoftwareApplication",
     name: "Fleuret AI",
     applicationCategory: "SecurityApplication",
+    applicationSubCategory: "Penetration Testing Software",
     operatingSystem: "Web",
-    offers: { "@type": "Offer", price: "0", priceCurrency: "EUR" },
-    description: "Agentic AI pentesting platform with continuous security testing.",
+    url: SITE_URL,
+    description:
+      "Sovereign EU agentic AI pentesting platform. Multi-agent autonomous engine on open-weight LLMs hosted on Scaleway France. Continuous testing with DORA Article 24 + NIS2 Annex I audit PDFs shipped by default.",
+    featureList: [
+      "Multi-agent autonomous pentest engine",
+      "Open-weight LLM stack (gpt-oss-120b, Kimi K2.5, Mistral) on Scaleway France",
+      "EU sovereign infrastructure, no CLOUD Act exposure",
+      "DORA Article 24 audit PDF mapping",
+      "NIS2 Annex I compliance reporting",
+      "Ed25519-signed audit reports",
+      "Jira-native ticket creation per finding",
+      "Continuous weekly re-test cadence",
+      "Web application + REST + GraphQL API + external infrastructure coverage",
+      "CI/CD integration",
+      "Coverage Graph test-completeness tracking",
+      "PoC-validated findings (no theoretical vulnerabilities)",
+    ],
+    offers: [
+      {
+        "@type": "Offer",
+        name: "Single pentest",
+        price: "500",
+        priceCurrency: "EUR",
+        description: "One-off agentic pentest engagement",
+      },
+      {
+        "@type": "Offer",
+        name: "Campaign (4 weeks)",
+        price: "2500",
+        priceCurrency: "EUR",
+        description: "Four-week pentest campaign with weekly re-test",
+      },
+      {
+        "@type": "Offer",
+        name: "Continuous (annual)",
+        price: "25000",
+        priceCurrency: "EUR",
+        description: "Continuous agentic pentest, weekly cadence, DORA + NIS2 audit PDF, Jira integration",
+      },
+      {
+        "@type": "Offer",
+        name: "Design Partner Cohort",
+        price: "4900",
+        priceCurrency: "EUR",
+        description: "Limited-slot cohort with founder support",
+      },
+    ],
+    publisher: {
+      "@type": "Organization",
+      name: "Fleuret AI",
+      url: SITE_URL,
+    },
   };
 }
 
@@ -232,6 +297,29 @@ export function designPartnerOfferJsonLd(params: {
   };
 
   return [product, event];
+}
+
+/**
+ * FAQPage JSON-LD. Emitted when a blog post declares `faqs` in frontmatter.
+ * Google + AI grounding engines (ChatGPT search, Perplexity, Gemini) lift
+ * these into expandable rich-result answers and procurement-query
+ * summaries. High-leverage AEO surface for comparison + buying-guide posts.
+ */
+export function faqPageJsonLd(
+  items: Array<{ question: string; answer: string }>,
+): JsonLd {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
+  };
 }
 
 /**
