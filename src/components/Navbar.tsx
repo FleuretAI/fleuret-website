@@ -6,6 +6,7 @@ import logoSymbol from "@/assets/logo-symbol.svg";
 import logoWordmark from "@/assets/logo-wordmark.svg";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { DEMO_ROUTE } from "@/lib/routes";
+import { trackCTAClick } from "@/lib/gtag";
 
 const Navbar = () => {
   const { t, localize } = useLanguage();
@@ -153,7 +154,17 @@ const Navbar = () => {
 
           {/* Desktop right zone */}
           <div className="hidden lg:flex items-center gap-3">
-            <Link to={localize(DEMO_ROUTE)} className="btn-cta btn-cta--sm">
+            <Link
+              to={localize(DEMO_ROUTE)}
+              className="btn-cta btn-cta--sm"
+              onClick={() =>
+                trackCTAClick({
+                  location: "navbar_desktop",
+                  label: "get_demo",
+                  destination: DEMO_ROUTE,
+                })
+              }
+            >
               {t("nav.cta")}
             </Link>
           </div>
@@ -220,7 +231,14 @@ const Navbar = () => {
 
         <Link
           to={localize(DEMO_ROUTE)}
-          onClick={close}
+          onClick={() => {
+            trackCTAClick({
+              location: "navbar_mobile",
+              label: "get_demo",
+              destination: DEMO_ROUTE,
+            });
+            close();
+          }}
           className="btn-cta btn-cta--block mt-4"
         >
           {t("nav.cta")}

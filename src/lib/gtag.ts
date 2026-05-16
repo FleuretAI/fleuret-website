@@ -80,3 +80,39 @@ export function trackPageView(path: string, title?: string): void {
     // no-op
   }
 }
+
+export type CTAClickParams = {
+  /** Where the CTA lives (e.g. "hero", "navbar", "cta_section", "footer"). */
+  location: string;
+  /** Visible label or stable identifier (e.g. "get_demo"). */
+  label: string;
+  /** Internal route or external URL the CTA points to. */
+  destination?: string;
+};
+
+/** Marketing-funnel CTA click. Wire on every demo / contact / pricing button. */
+export function trackCTAClick(params: CTAClickParams): void {
+  trackEvent("cta_click", params);
+}
+
+/** External-link click. Auto-fires from the global delegate in Analytics.tsx. */
+export function trackOutboundClick(href: string, label?: string): void {
+  trackEvent("outbound_click", {
+    link_url: href,
+    link_domain: safeHost(href),
+    link_text: label,
+  });
+}
+
+/** One-shot scroll milestone (25 / 50 / 75 / 100). */
+export function trackScrollDepth(percent: 25 | 50 | 75 | 100): void {
+  trackEvent("scroll_depth", { percent });
+}
+
+function safeHost(url: string): string | undefined {
+  try {
+    return new URL(url, window.location.origin).host;
+  } catch {
+    return undefined;
+  }
+}
