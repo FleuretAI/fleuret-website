@@ -1,0 +1,90 @@
+---
+title: "NIS2 pentest for energy: scoping resilience testing for an essential entity"
+description: "NIS2 Article 21 requires risk-based security testing for energy operators classified as essential entities. How energy CISOs map testing to OT, IT, and ICS boundaries."
+date: "2026-05-16"
+author: "Fleuret"
+tags: ["NIS2", "energy", "pentest", "OT", "ICS", "compliance"]
+locale: en
+slug: energy
+kind: compliance
+framework: nis2
+industry: energy
+faqs:
+  - question: "Is my energy operator automatically classified essential under NIS2?"
+    answer: "If you are a TSO, DSO, electricity producer above 100 MW, gas or oil storage operator, or district heating operator above the directive thresholds, yes. The competent authority publishes the specific list per Member State."
+  - question: "Does NIS2 require OT penetration testing?"
+    answer: "NIS2 does not name OT pentest specifically. It requires risk-based testing of security measures effectiveness. IEC 62443 assessment is the standard methodology for OT environments, and is generally accepted as the testing layer for the ICS/SCADA stack."
+  - question: "How often must an essential energy entity pentest?"
+    answer: "NIS2 does not specify a frequency. Competent authorities generally expect at least annual testing of critical functions, with continuous monitoring or validation on the surfaces that change frequently."
+  - question: "Can I use the same pentest vendor for IT and OT?"
+    answer: "Rarely. The expertise profiles are different. Most operators run two separate engagements: continuous IT pentest with a PTaaS vendor, plus periodic OT assessment with a specialist (Mandiant, Dragos, Stoik specialty engagements)."
+  - question: "What happens if my pentest causes a grid disruption?"
+    answer: "Catastrophic. Every responsible vendor has explicit rules of engagement that prohibit testing live OT systems without explicit, documented authorization from the operations director. The risk-acceptance signature is mandatory before testing fires. Disruption caused by unauthorised testing is a reportable incident under NIS2 Article 23 and a potential criminal matter under national CNI legislation."
+---
+
+Energy operators are at the top of the NIS2 sectoral list. Electricity, gas, oil, district heating, hydrogen: every operator above the size thresholds is classified an "essential entity" and faces the strictest enforcement track. NIS2 Article 21 demands risk-based security measures, including "policies and procedures regarding the use of cryptography" and "basic cyber hygiene practices and cybersecurity training." It does not name penetration testing explicitly, but Article 21(2)(b) and the supervisory expectations of national regulators (in France, ANSSI; in Germany, BSI) make regular technical testing non-negotiable.
+
+This page lays out how to scope a NIS2 pentest programme specifically for energy: what surfaces matter, where OT and IT meet, and what auditors will actually ask for.
+
+## What NIS2 requires for an essential entity in energy
+
+NIS2 transposes into national law across EU Member States. The directive sets minimum security measures (Article 21) and incident reporting timelines (Article 23) but the testing programme specifics come from each national competent authority. For a French TSO or DSO, that means ANSSI's existing OIV framework continues to apply, layered with new NIS2 obligations. For a German Stadtwerk, BSI's KRITIS audit cycle expands.
+
+Concretely, every NIS2-essential energy operator must:
+
+- **Maintain a risk-management framework** covering IT, OT, and the increasingly fuzzy boundary between them
+- **Test the effectiveness of security measures** on a periodic risk-based cadence
+- **Document supply-chain security** for ICT suppliers and ICS/SCADA vendors
+- **Report significant incidents** within 24 hours (early warning), 72 hours (incident notification), one month (final report)
+- **Train staff and the management body** on cybersecurity risks, with the management body personally liable for governance failures
+
+Penetration testing fits inside the testing-effectiveness requirement. Auditors expect a documented cadence, scope that covers the operator's critical functions, a methodology that maps to recognised standards (ISO/IEC 27001 Annex A.18, IEC 62443 for the OT side), and remediation evidence.
+
+## What pentesting an energy operator actually looks like
+
+The OT/IT boundary is the central engineering problem. Energy operators run two security stacks that historically did not talk to each other and now, increasingly, do. Concrete examples:
+
+**A French DSO managing 2.5 million low-voltage connection points.** Their NIS2 testing scope split into three lanes: corporate IT (Microsoft 365, identity, SAP), grid-management IT (SCADA front-end, work-order systems, the customer outage portal), and OT proper (RTUs, substation automation, the AMR backhaul). The corporate IT side ran a standard external pentest plus continuous validation. The grid-management IT side ran a controlled internal pentest, scoped to non-production environments because the live system controls actual electrical infrastructure. The OT side did not get tested aggressively at all: instead, an IEC 62443 assessment of segmentation, plus tabletop exercises against simulated grid scenarios. The auditor accepted this layered approach because the methodology was documented and the residual risks were registered.
+
+**A German gas storage operator.** Designated essential under NIS2, supervised by BSI. Their scope was simpler architecturally (one site, less customer surface), harder operationally (any disruption is a national-security event). The testing programme focused heavily on supply-chain: which ICS vendors had remote-access tooling into the SCADA network, what authentication those vendors used, whether their tooling was tested. The CISO described their NIS2 testing as "70% supplier audit, 20% IT pentest, 10% controlled OT review." That ratio is unusual but defensible for an entity where the inside is a small attack surface and the outside (the vendor channel) is the realistic threat vector.
+
+For most mid-sized energy operators, the practical pattern is: annual external IT pentest, continuous validation on the corporate IT and grid-management IT layer, IEC 62443 assessments on the OT side (no aggressive testing without explicit risk-acceptance from the operations director), and supply-chain testing of any vendor with remote access to the SCADA or ICS environments.
+
+## Where continuous AI pentest fits energy
+
+Continuous AI pentest is appropriate for the IT and grid-management IT layers, NOT for the OT side. The OT side requires expertise that AI agents currently do not replicate safely: knowledge of specific PLC firmware, protocol-level safety considerations on Modbus, DNP3, IEC 60870-5-104, IEC 61850, and the operational consequences of an unexpected response on a live electrical system.
+
+For the IT side, continuous pentest fits cleanly:
+
+1. **Customer-facing outage portal.** Changes weekly. New endpoints, new auth flows, new integrations with smart-meter platforms. Continuous validation catches drift between annual deep tests.
+2. **AMR / smart-metering backhaul.** Constantly evolving as new meter models enter the network. The IT-side ingress points (collection servers, MDM systems) are testable continuously.
+3. **Corporate IT and identity.** Standard surface. Continuous validation on M365, Okta or Entra, the VPN concentrator, any internet-exposed service.
+4. **The grid-management IT front-end.** The non-OT part of SCADA. Web consoles, work-order systems, operator dashboards. Testable continuously in non-production environments. Production validation must be coordinated with control-room operators.
+
+What continuous pentest is NOT appropriate for: anything below the SCADA front-end. The RTUs, the substation automation, the field network. Those require human red-team expertise, IEC 62443-aligned methodology, and explicit risk-acceptance from operations leadership before any test fires.
+
+## Procurement checklist for energy CISOs
+
+If you are scoping NIS2 pentest for an essential energy entity:
+
+- Does the vendor's methodology map to both ISO/IEC 27001 (for IT) and IEC 62443 (for OT) explicitly?
+- Does the vendor have references in EU energy operators, ideally in your sub-sector (TSO, DSO, gas, oil, hydrogen)?
+- Does the vendor understand OT testing boundaries, or do they want to probe SCADA aggressively? (The wrong answer to this question disqualifies the vendor.)
+- Where is the pentest report data stored? For essential-entity energy operators, EU-only data residency is usually a procurement requirement, not a preference.
+- Can the vendor produce evidence packages mapped to your national supervisor's specific requirements (ANSSI's PASSI methodology, BSI's KRITIS audit format, etc.)?
+- Will the vendor coordinate with your ICS/SCADA suppliers when their participation is required for supply-chain testing?
+- What is the contractual incident-reporting clause if the vendor causes operational disruption during testing?
+
+## Where Fleuret fits
+
+Fleuret runs continuous AI pentest on the IT and grid-management IT layers of energy operators. We do not test OT below the SCADA boundary. We coordinate with PASSI-qualified or BSI-qualified human-red-team providers for the engagements that require deep OT expertise. We produce evidence packages mapped to ANSSI and BSI audit formats.
+
+Fleuret data residency is EU only. No CLOUD Act exposure on pentest findings from an essential-entity energy operator.
+
+If you are scoping NIS2 pentest for an energy entity, [book a demo](/demo).
+
+## Related compliance reading
+
+- [NIS2 pentest for telecom](/compliance/nis2/telecom): the other dominant essential-entity sector and where supply-chain testing scope explodes.
+- [NIS2 pentest for transport](/compliance/nis2/transport): rail and aviation, with the OT-IT boundary problem mirrored from energy.
+- [NIS2 pentest for healthcare](/compliance/nis2/healthcare): hospitals and medical-device operators, where patient-safety overlaps with cybersecurity.

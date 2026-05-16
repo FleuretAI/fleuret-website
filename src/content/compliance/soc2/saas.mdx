@@ -1,0 +1,93 @@
+---
+title: "SOC 2 pentest for SaaS: a practical 2026 guide for fast-shipping teams"
+description: "SOC 2 Type II auditors expect penetration testing as evidence for CC4.1, CC7.1, and CC7.2. How fast-shipping SaaS teams scope testing without slowing releases."
+date: "2026-05-16"
+author: "Fleuret"
+tags: ["SOC 2", "SaaS", "pentest", "Type II", "compliance"]
+locale: en
+slug: saas
+kind: compliance
+framework: soc2
+industry: saas
+faqs:
+  - question: "Does SOC 2 Type II require penetration testing?"
+    answer: "Not literally in the Trust Services Criteria. In practice, every SOC 2 auditor expects at least one penetration test during the observation period, plus a documented vulnerability management process."
+  - question: "How often do I need to pentest for SOC 2?"
+    answer: "Most auditors accept annual penetration testing combined with continuous vulnerability scanning. Fast-shipping SaaS increasingly add continuous validation tied to CI/CD as additional evidence."
+  - question: "Can the same pentest cover SOC 2, ISO 27001, and DORA?"
+    answer: "Yes, if the test scope covers the systems each framework cares about and the evidence is formatted for each auditor. The test itself is usually the same; the report packaging differs."
+  - question: "Should my SOC 2 pentest cover LLM features?"
+    answer: "If your SOC 2 scope includes the LLM features, yes. Customer enterprises increasingly ask whether AI features are SOC 2-covered. Excluding them limits the commercial value of the report."
+  - question: "Will a SOC 2 audit fail if I have unresolved penetration test findings?"
+    answer: "Not automatically. The audit will check whether findings are tracked, prioritized, and remediated according to your documented process. Unresolved findings with documented risk-acceptance are acceptable. Unresolved findings with no process are an audit finding."
+---
+
+SOC 2 Type II is the dominant security attestation for B2B SaaS selling into US enterprise. It is also the report most SaaS founders dread, because the auditor sits in your evidence for a 12-month observation period and reads everything.
+
+This page focuses on one practical question: how does penetration testing fit into a SOC 2 Type II report, specifically for SaaS teams that ship weekly and cannot afford to slow down?
+
+## What SOC 2 actually says about penetration testing
+
+The AICPA's Trust Services Criteria do not require penetration testing literally. The relevant criteria:
+
+- **CC4.1** monitors the system to detect potential security events
+- **CC7.1** uses detection and monitoring to identify changes that could result in new vulnerabilities
+- **CC7.2** monitors system components for anomalies that indicate unauthorized actions or changes
+- **CC8.1** authorizes, designs, develops, tests, and implements changes
+
+Auditors translate these criteria into specific evidence requests. The standard evidence request for the testing criteria includes "annual penetration test report" and "vulnerability management process documentation." Most SOC 2 auditors will issue a qualified opinion if they see vulnerability scanning but no penetration testing. Many will issue a qualified opinion if penetration testing is older than 12 months.
+
+The practical bar: at least one penetration test executed during the SOC 2 observation period, with remediation evidence for any High or Critical findings, plus a documented vulnerability management process showing how findings flow from identification to closure.
+
+## What this looks like for fast-shipping SaaS specifically
+
+Three patterns from recent SOC 2 Type II audits:
+
+**A 30-person dev-tools SaaS, first SOC 2 Type II audit.** They had two-week sprints and deployed 30+ times per week. Their challenge: the auditor wanted "evidence that changes are tested before production." Their first instinct was to slow down deployments to add a review gate. Their better solution was to wire continuous validation into the CI/CD pipeline, so every release candidate ran through automated security testing before merge. The evidence was the pipeline log, not a manual gate. They passed Type II with no qualifications and kept their deployment cadence.
+
+**A 75-person workflow-automation SaaS, second annual audit.** Their auditor flagged that their previous year's annual pentest covered the API but not the new mobile clients or the public webhook receiver. They added scope to the next annual engagement and added continuous validation specifically for the webhook surface, which changed weekly. Auditor approved both additions for the current observation period.
+
+**A 12-person AI SaaS, first SOC 2 Type II in preparation.** They were debating whether to include their LLM features in scope. The argument for: customer enterprises increasingly ask whether AI features are SOC 2-covered. The argument against: scope expansion costs auditor time and pentest depth. They chose to include LLM features in scope and explicitly added prompt-injection testing to the pentest engagement. The cost was 20% more pentest effort. The commercial value was significant: their enterprise sales cycle shortened by weeks because the SOC 2 report explicitly named LLM features as in scope.
+
+## Where continuous AI pentest fits SaaS doing SOC 2
+
+SOC 2 evidence rewards continuous validation for the same structural reason ISO 27001 does: the auditor sits inside your evidence for 12 months and observes whether your control operated effectively across that period. A single point-in-time pentest demonstrates operation on one day. Continuous validation demonstrates operation on every day.
+
+For fast-shipping SaaS specifically:
+
+1. **CC7.1 evidence stream.** Continuous validation of every release candidate produces an evidence stream the auditor can sample. No need to manually package evidence after the fact.
+2. **CC8.1 change management.** Wiring security testing into CI/CD shows that every change is tested before deployment. This is the change-management evidence that historically tripped up fast-deploy teams.
+3. **CC4.1 detection.** Continuous validation produces detection events. Combined with monitoring, this gives the auditor a complete loop from change to test to detection to response.
+
+What does not work: a vendor that gives you a single annual PDF and expects it to satisfy 12 months of evidence. Auditors increasingly ask for monthly or quarterly attestation that testing is operating, not just annual.
+
+## Procurement checklist for SOC 2 pentest
+
+If you are choosing a pentest vendor specifically for SOC 2:
+
+- Does the vendor produce evidence that maps to specific Trust Services Criteria (CC4.1, CC7.1, CC7.2, CC8.1)?
+- Does the vendor integrate with your CI/CD pipeline so testing is part of the change-management flow, not a separate event?
+- Can the vendor produce monthly or quarterly attestation reports during the SOC 2 observation period?
+- Does the vendor coordinate directly with your SOC 2 auditor (Vanta, Drata, Sprinto, A-LIGN, Schellman, etc.) on evidence format?
+- Does the vendor have explicit experience with SaaS SOC 2 reports in your size range?
+- What is the contractual remediation SLA, and how is retest evidence packaged for the auditor?
+
+## SOC 2 vs ISO 27001 vs DORA, what overlaps
+
+For SaaS selling into multiple markets, the testing programme often covers SOC 2 + ISO 27001 + sometimes DORA simultaneously. The good news: the testing itself overlaps significantly. The same penetration test can produce evidence for SOC 2 CC7.1, ISO 27001 A.8.8, and DORA Article 24. The difference is in evidence formatting.
+
+- **SOC 2** wants observation-period evidence (12 months)
+- **ISO 27001** wants annual evidence plus continuous vulnerability management
+- **DORA** wants annual evidence for in-scope financial entities, plus TLPT for designated entities
+
+A pentest vendor that produces a single evidence package mapped to all three saves significant audit-prep time. Ask vendors specifically about cross-framework evidence packaging.
+
+## Where Fleuret fits
+
+Fleuret runs continuous AI pentest on SaaS environments. Our evidence streams map to SOC 2 Trust Services Criteria, ISO 27001:2022 Annex A, and DORA Article 24-27 simultaneously. We integrate with GitHub Actions, GitLab CI, Vanta, Drata, and Sprinto. EU data residency by default; US-hosted option available for SaaS that prefer aligned auditor regions.
+
+If you are scoping pentest for SOC 2 Type II, [book a demo](/demo).
+
+## Related compliance reading
+
+- [ISO 27001 pentest for SaaS](/compliance/iso27001/saas): the EU analogue, often required in parallel for SaaS selling into both markets.
