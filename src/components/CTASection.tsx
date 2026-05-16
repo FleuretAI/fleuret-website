@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { DEMO_ROUTE } from "@/lib/routes";
 import { fadeInUp, staggerContainer, staggerItem } from "@/lib/animations";
+import { trackCTAClick } from "@/lib/gtag";
 
 const CTASection = () => {
   const { t, localize } = useLanguage();
@@ -83,7 +84,17 @@ const CTASection = () => {
           </motion.p>
 
           <motion.div variants={staggerItem} style={{ display: "flex", justifyContent: "center" }}>
-            <Link to={localize(DEMO_ROUTE)} className="fl-cta">
+            <Link
+              to={localize(DEMO_ROUTE)}
+              className="fl-cta"
+              onClick={() =>
+                trackCTAClick({
+                  location: "cta_section",
+                  label: "get_demo",
+                  destination: DEMO_ROUTE,
+                })
+              }
+            >
               {t("cta.button")}
               <span aria-hidden>→</span>
             </Link>
