@@ -14,6 +14,7 @@ export type RouteKey =
   | "subProcessors"
   | "resources"
   | "blog"
+  | "compliance"
   | "fundraise"
   | "notFound";
 
@@ -35,6 +36,7 @@ export const ROUTES: Record<RouteKey, string> = {
   subProcessors: "/sub-processors",
   resources: "/resources",
   blog: "/blog",
+  compliance: "/compliance",
   fundraise: "/news/fleuret-raises-3-5m",
   notFound: "/404",
 };
@@ -111,6 +113,13 @@ export const META: Record<RouteKey, MetaEntry> = {
     title: "Blog | Fleuret",
     description:
       "Our latest insights on continuous AI pentesting, European compliance and offensive security.",
+  },
+  compliance: {
+    title: "Compliance guides | Fleuret",
+    description:
+      "Practical compliance guides for CISOs: DORA, NIS2, ISO 27001, SOC 2, PCI DSS pentest scoping by industry. AI-driven continuous pentest hosted in Europe.",
+    keywords:
+      "compliance pentest, DORA pentest, NIS2 pentest, ISO 27001 pentest, SOC 2 pentest, PCI DSS pentest",
   },
   fundraise: {
     title: "Fleuret raises €3.5M to industrialize agentic AI pentesting",

@@ -54,6 +54,11 @@ interface ManifestEntry {
   path: string;
   date: string;
   title: string;
+  // pSEO compliance pages tag with kind/framework/industry. Existing blog
+  // entries either omit kind or set kind="blog".
+  kind?: "blog" | "compliance";
+  framework?: string;
+  industry?: string;
 }
 
 function buildPosts(): UrlEntry[] {
@@ -67,7 +72,9 @@ function buildPosts(): UrlEntry[] {
   return manifest.map((m) => ({
     loc: SITE_URL + m.path,
     lastmod: m.date,
-    priority: "0.7",
+    // Blog editorial = 0.7. Compliance pSEO = 0.6 so it doesn't dilute the
+    // ranking signal of hand-crafted blog posts.
+    priority: m.kind === "compliance" ? "0.6" : "0.7",
     changefreq: "monthly",
   }));
 }
