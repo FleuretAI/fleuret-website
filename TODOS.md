@@ -226,6 +226,72 @@ frontmatter schema established there). Design direction for the OG template
 
 ---
 
+## Website playbook audit (2026-05-16) — W2 through W9
+
+Source: YC friend's 9-point website guide. Mapped against fleuret.ai. W1 (hero rewrite) shipped in this PR.
+
+### W2: Page intent — one CTA per page
+**What:** Each top page (Home, /pricing, /design-partners, /about, /resources, /blog) has exactly one directional next-step CTA. Kill "Learn more" / "Explore" generics.
+**Audit:** read every route in `src/pages/`. List current CTAs + `trackCTAClick` labels. Map each to a single buyer next-step.
+**Acceptance:** inventory + proposed rewrites at `docs/site/cta-audit-2026-05-16.md`. Implement only after Yanis review.
+**Don't touch:** GA4 event names (sibling agent on `feat/ga4-debug-mode`).
+**Effort:** ~2h audit + 1h implement.
+
+### W3: Trust signals above the fold
+**What:** Stoik logo (permission cleared 2026-04-27) visible above-fold on homepage. Stub remaining (Raja, Clustor, Ouwba, Yogosha) once NDAs land.
+**Files:** `src/components/ClientsBand.tsx` (or grep `clients.title`). Assets in `public/clients/`.
+**Acceptance:** Stoik logo renders above-fold desktop + mobile. No fake/placeholder logos LIVE.
+**Capital gate:** none.
+**Effort:** ~30 min.
+
+### W4: Conversion basics — contextual CTAs
+**What:** Every blog + landing has page-specific CTA. Blog → newsletter capture. /pricing → demo. Eliminate footer-only contact.
+**Files:** `src/components/blog/`, `src/pages/Blog*.tsx`, MDX articles in `src/content/`. Build `<NewsletterCTA />` reusing design-partners apply form pattern.
+**Acceptance:** new component renders on every blog post + resources page. Submits to existing Supabase via `api/_lib/supabase.ts`. GDPR consent checkbox per design-partners pattern. EU project only.
+**Don't touch:** existing /design-partners form, GA4 event names.
+**Effort:** ~3-4h.
+
+### W5: SEO foundation (maintenance, no new work)
+**State:** 22 FR+EN articles live (2026-04-27→29). Domain authority near zero, compounding clock started. Continue cadence via `fleuret-content-engine` skill.
+**Owner:** Yanis direct.
+
+### W6: GEO/AEO (already ahead)
+**State:** refine-seo-geo Phase 2-9 shipped. AEO baseline 2026-05-15 + 6wk sprint design 2026-05-16. Cross-ref Yogosha co-citation work.
+**Owner:** Yanis direct.
+
+### W7: Analytics baseline ⚠ blocked
+**State:** GA4 work active on `feat/ga4-debug-mode` (commits `8f19120`, `3ae5e0d`). Microsoft Clarity merged `75e492f`. **Do not parallel-agent on analytics until that branch lands.**
+**Files (when unblocked):** `src/components/Analytics.tsx`, `index.html`, `src/lib/analytics.ts`.
+**Acceptance:** GA4 DebugView shows hero CTA + scroll-depth events. Document funnel definitions in `docs/analytics/funnel-spec.md`.
+**Effort:** ~2h once branch lands.
+
+### W8: CMS bottleneck audit (defer until marketing hire)
+**Triggers:** marketing hire signs OR weekly copy edits ≥ 3.
+**Action this week:** none. Snapshot pain — count copy commits last 4 wks via `git log --since=2026-04-15 --oneline -- src/contexts/LanguageContext.tsx src/content/`.
+**Capital gate:** post-€3.5M close.
+**Effort:** 1h audit + decision doc. Migration itself ~1-2 wks if green-lit.
+
+### W9: Site speed + mobile audit
+**What:** Lighthouse run on prod fleuret.ai (desktop + mobile). Doc Core Web Vitals (LCP / CLS / INP / FCP). Fix if score < 90.
+**Tool:** Lighthouse CI or local `bunx unlighthouse` against prod URL.
+**Acceptance:** report at `docs/perf/lighthouse-2026-05-16.md` with scores + actionable findings. If LCP > 2.5s mobile, raise P1.
+**Don't touch:** code until report reviewed.
+**Effort:** ~30 min audit + variable fix.
+
+### Shared rules (paste at top of every sibling-agent prompt)
+- Project: Fleuret AI marketing site (this repo).
+- Base: branch off origin/main, NOT `feat/*` branches.
+- Active sibling branches: `feat/ga4-debug-mode` (analytics, do not touch `Analytics.tsx` + `index.html`).
+- No em-dashes "— " in user-facing copy (lints + tests enforce).
+- Site = EN-only since PR #98. Update FR strings in `LanguageContext.tsx` anyway for type-compat.
+- Pricing source-of-truth = `src/lib/pricingConfig.ts`. Hero anchor = €2,500 vs €15,000+ (Standard tier vs market low).
+- GDPR / EU residency required. Supabase EU project only.
+- Capital discipline: any spend > €500 = ask Yanis. Free paths first.
+- Narrow `git add <file>`, never `-A`.
+- `/review` before commit. `/ship` only with Yanis green light.
+
+---
+
 ## Completed
 
 ### 1. Stand up vitest + React Testing Library
