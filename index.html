@@ -49,10 +49,14 @@
          Mode v2). Analytics.tsx also emits SPA page_view on route change. -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-GCT3NK4C34"></script>
     <script>
+      // Opt-in DebugView: append ?debug_mode=1 to any URL to stream hits into
+      // GA4 DebugView (Admin > DebugView). Normal visitors stay unaffected.
+      var __ga4_debug = /[?&]debug_mode=1\b/.test(window.location.search);
       gtag('js', new Date());
       gtag('config', 'G-GCT3NK4C34', {
         'anonymize_ip': true,
-        'cookie_flags': 'SameSite=None;Secure'
+        'cookie_flags': 'SameSite=None;Secure',
+        'debug_mode': __ga4_debug
       });
     </script>
   </head>
