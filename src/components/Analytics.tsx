@@ -11,6 +11,20 @@ import {
 const STORAGE_KEY = "fleuret_cookie_consent";
 const SCROLL_MILESTONES = [25, 50, 75, 100] as const;
 
+type ClarityFn = (...args: unknown[]) => void;
+type WindowWithClarity = typeof window & { clarity?: ClarityFn };
+
+/** Upgrade Clarity to cookie-based tracking once the visitor accepts cookies.
+ *  No-op when Clarity is missing (script blocked, ad-blocker, SSR). */
+function grantClarityConsent(): void {
+  try {
+    if (typeof window === "undefined") return;
+    (window as WindowWithClarity).clarity?.("consent");
+  } catch {
+    // Never let analytics throw into product code.
+  }
+}
+
 /**
  * Bridges the cookie banner to GA4 Consent Mode v2 and tracks SPA page_views.
  *
@@ -32,12 +46,17 @@ const Analytics = () => {
     const stored = localStorage.getItem(STORAGE_KEY);
     if (stored === "accepted") {
       grantAnalyticsConsent();
+      grantClarityConsent();
     }
 
     const onConsent = (e: Event) => {
       const detail = (e as CustomEvent<"accepted" | "denied">).detail;
-      if (detail === "accepted") grantAnalyticsConsent();
-      else if (detail === "denied") denyAnalyticsConsent();
+      if (detail === "accepted") {
+        grantAnalyticsConsent();
+        grantClarityConsent();
+      } else if (detail === "denied") {
+        denyAnalyticsConsent();
+      }
     };
     window.addEventListener("cookie-consent", onConsent);
     return () => window.removeEventListener("cookie-consent", onConsent);
