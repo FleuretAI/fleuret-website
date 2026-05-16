@@ -1,0 +1,89 @@
+---
+title: "ISO 27001 pentest for SaaS: what auditors expect in 2026"
+description: "ISO 27001:2022 does not mandate penetration testing, but auditors expect it. How SaaS companies scope pentest for Annex A.8.8, A.8.29, and the technical-vulnerability controls."
+date: "2026-05-16"
+author: "Fleuret"
+tags: ["ISO 27001", "SaaS", "pentest", "compliance", "Annex A"]
+locale: en
+slug: saas
+kind: compliance
+framework: iso27001
+industry: saas
+faqs:
+  - question: "Does ISO 27001:2022 require penetration testing?"
+    answer: "Not literally. It requires processes for managing technical vulnerabilities (A.8.8) and security testing in the SDLC (A.8.29). In practice, every auditor expects penetration testing as primary evidence for both controls."
+  - question: "Is annual pentest sufficient for ISO 27001 certification?"
+    answer: "Usually yes for initial certification, increasingly no for surveillance audits. Auditors in 2026 are tightening expectations: continuous vulnerability management plus annual depth-testing is the new baseline."
+  - question: "Does my pentest need to be conducted by a CREST or PASSI-qualified provider for ISO 27001?"
+    answer: "No. ISO 27001 does not specify the testing-provider qualification. Some auditors prefer to see recognised certifications, but the standard itself only requires that the testing is competent and the methodology is documented."
+  - question: "How do I scope ISO 27001 for a SaaS with multiple products?"
+    answer: "The scope is your choice, documented in the Statement of Applicability. Most SaaS choose either the whole production environment or the specific product environment. Smaller scope is faster to certify but limits the certificate's commercial value."
+  - question: "What if my SaaS uses LLM features? Does the pentest scope expand?"
+    answer: "Yes if the LLM features are in scope (recommended). Testing must cover prompt-injection resistance, output filtering, training-data integrity if you fine-tune, and the third-party LLM provider integration. The scope expansion is typically 20-40% of testing effort."
+---
+
+ISO 27001:2022 is the most common security certification for B2B SaaS. It does not explicitly require penetration testing. Read the standard literally and you will find no mandate. Read the auditor's report template and you will find that nobody passes certification without one.
+
+This page explains the gap between what the standard says and what auditors actually check, specifically for SaaS companies in the €1M-€100M ARR band where most ISO 27001 first-time certification happens.
+
+## What ISO 27001 actually says about testing
+
+ISO/IEC 27001:2022 Annex A is the control reference. The 2022 revision restructured controls into four themes (organisational, people, physical, technological) and reduced the count from 114 to 93. The relevant ones for pentesting:
+
+- **A.8.8 Management of technical vulnerabilities.** "Information about technical vulnerabilities of information systems being used shall be obtained, the organisation's exposure to such vulnerabilities shall be evaluated, and appropriate measures shall be taken."
+- **A.8.29 Security testing in development and acceptance.** "Security testing processes shall be defined and implemented in the development life cycle."
+- **A.5.34 Privacy and protection of PII.** Where the SaaS processes personal data, testing must demonstrate that the technical and organisational measures protect PII effectively.
+- **A.5.19, A.5.20, A.5.22 Supplier relationships.** Where third-party SaaS components are integrated, supplier security must be addressed. Auditors will check whether your suppliers themselves are tested.
+
+None of these say "do an annual pentest." All of them collectively require that you have a documented process for finding and fixing vulnerabilities, with evidence. In practice, that means an annual pentest at minimum, with continuous vulnerability management between engagements.
+
+## What auditors actually look for
+
+Three SaaS examples from recent ISO 27001:2022 certification audits we have observed:
+
+**A 40-person B2B analytics SaaS, first-time certification.** Their auditor (a Bureau Veritas team) spent half a day on A.8.8 evidence. They asked: which vulnerabilities did you find in the last 12 months, how did you rate them, who decided remediation priority, what is your retest evidence, where are your risk-acceptance records for any unresolved findings? The company had a single annual pentest report but no continuous scanning, no remediation tracker beyond Linear tickets, and no formal retest. They passed certification with a minor non-conformity that required a corrective action plan: implement continuous vulnerability management within 90 days. Without continuous scanning, A.8.8 was insufficient.
+
+**A 200-person fintech SaaS, second surveillance audit.** Their auditor focused on A.8.29 and the SDLC. The questions: which security tests run on every commit, which tests gate deployment, what is the false-positive rate of those tests, how do developers see findings, what is the average time-to-remediation for high-severity findings. The company had GitHub Advanced Security plus a quarterly pentest. The auditor wanted to see specifically whether security tests blocked merges or merely warned. Warning-only tests were flagged as insufficient: deployment-gating tests were required for full A.8.29 conformance.
+
+**A 15-person AI-coding SaaS, pre-cert preparation.** Their challenge was scope. ISO 27001 scope is up to the organisation: it can be the whole company, a single product, a specific environment. The auditor's first question: is your ML training pipeline in scope? If yes, the pentest must cover prompt-injection resistance, training-data integrity, and model-update controls. If no, the SOA (Statement of Applicability) must explicitly exclude it with documented rationale. They chose to include it. Their pentest scope expanded by 30%.
+
+The pattern: auditors care about the evidence chain, not the test itself. A perfect pentest report on an out-of-scope environment is useless. A modest pentest on the in-scope environment, with documented remediation and retest, passes.
+
+## Where continuous AI pentest fits SaaS specifically
+
+ISO 27001 for SaaS rewards continuous validation for three concrete reasons:
+
+1. **A.8.8 evidence quality.** A single annual snapshot is technically compliant but auditors increasingly read it as insufficient. Continuous validation with weekly or monthly evidence drops makes A.8.8 unambiguous.
+2. **A.8.29 SDLC integration.** SaaS teams ship weekly. Pentest that fires only on release branches misses pre-merge vulnerabilities. Continuous testing tied to CI/CD pipelines satisfies A.8.29 directly.
+3. **A.5.19-A.5.22 supplier evidence.** SaaS depends on cloud, identity, data, and AI providers. Continuous testing of integration points (API contracts, IAM boundaries, data-flow surfaces) generates the evidence that suppliers are not the back door.
+
+The version that works:
+
+- Continuous validation on production-equivalent staging environments, against every release candidate
+- Annual deep pentest on production, including business logic and authorization edge cases
+- Supplier integration testing on a quarterly cadence
+- Evidence generated automatically into the ISMS evidence repository
+
+The version that does not work: a vendor that gives you scanner output with no human triage, no retest, and no remediation tracking. Auditors recognize scanner output as "vulnerability identification" but not as the full Annex A.8.8 process.
+
+## Procurement checklist for SaaS CISOs scoping ISO 27001 pentest
+
+- Does the vendor produce evidence that auditors specifically accept for A.8.8 (process), A.8.29 (SDLC integration), and A.5.34 (privacy where applicable)?
+- Does the vendor integrate with your CI/CD pipeline natively (GitHub Actions, GitLab CI, CircleCI), or require manual report uploads?
+- Does the vendor produce a continuous evidence stream, or a single PDF per engagement?
+- What is the false-positive rate? (Ask for specific numbers from existing customers in your sub-segment, not marketing claims.)
+- Does the vendor support retest workflow with documented closure, not just "we'll look at it again next year"?
+- Where is your testing data stored and under which jurisdiction? (For EU SaaS, US-hosted pentest vendors are an audit finding.)
+- How does the vendor scope ML/AI features if your product uses them?
+
+## Where Fleuret fits
+
+Fleuret runs continuous AI pentest on SaaS environments. We produce ISO 27001:2022 Annex A-mapped evidence automatically. Our findings stream into the ISMS evidence repository without manual export. We integrate with GitHub Actions, GitLab CI, and Linear for remediation tracking. EU data residency by default.
+
+For SaaS in the €1M-€100M ARR band, our typical engagement covers: continuous validation against the production-equivalent staging environment with every release candidate, plus a depth-pentest engagement once per certification cycle, plus supplier integration tests on the quarterly cadence ISO auditors prefer.
+
+If you are scoping pentest for ISO 27001:2022, [book a demo](/demo).
+
+## Related compliance reading
+
+- [SOC 2 pentest for SaaS](/compliance/soc2/saas): the US analogue to ISO 27001, often required in parallel for SaaS selling into US enterprise.

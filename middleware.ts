@@ -1,5 +1,9 @@
 import { next, rewrite } from "@vercel/edge";
-import { KNOWN_PATHS, BLOG_POST_RE } from "./scripts/site-routes.mjs";
+import {
+  KNOWN_PATHS,
+  BLOG_POST_RE,
+  COMPLIANCE_POST_RE,
+} from "./scripts/site-routes.mjs";
 
 /**
  * Edge middleware. Strips trailing slashes and returns a true HTTP 404 for
@@ -42,7 +46,11 @@ export default function middleware(request: Request): Response {
     return Response.redirect(stripped.toString(), 301);
   }
 
-  if (KNOWN_PATHS.has(url.pathname) || BLOG_POST_RE.test(url.pathname)) {
+  if (
+    KNOWN_PATHS.has(url.pathname) ||
+    BLOG_POST_RE.test(url.pathname) ||
+    COMPLIANCE_POST_RE.test(url.pathname)
+  ) {
     return next();
   }
 

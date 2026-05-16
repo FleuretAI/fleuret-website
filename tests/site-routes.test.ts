@@ -6,6 +6,7 @@ import {
   STATIC_PATHS,
   KNOWN_PATHS,
   BLOG_POST_RE,
+  COMPLIANCE_POST_RE,
 } from "../scripts/site-routes.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -38,6 +39,20 @@ describe("site-routes single source of truth", () => {
     expect(BLOG_POST_RE.test("/en/blog/my-post")).toBe(false);
   });
 
+  it("COMPLIANCE_POST_RE matches valid /compliance/{f}/{i} and rejects invalid", () => {
+    expect(COMPLIANCE_POST_RE.test("/compliance/dora/fintech")).toBe(true);
+    expect(COMPLIANCE_POST_RE.test("/compliance/iso27001/saas")).toBe(true);
+    expect(COMPLIANCE_POST_RE.test("/compliance/nis2/energy")).toBe(true);
+    expect(COMPLIANCE_POST_RE.test("/compliance/-bad/saas")).toBe(false);
+    expect(COMPLIANCE_POST_RE.test("/compliance/dora/-bad")).toBe(false);
+    expect(COMPLIANCE_POST_RE.test("/compliance/dora")).toBe(false);
+    expect(COMPLIANCE_POST_RE.test("/compliance/dora/fintech/extra")).toBe(
+      false,
+    );
+    expect(COMPLIANCE_POST_RE.test("/compliance/")).toBe(false);
+    expect(COMPLIANCE_POST_RE.test("/blog/dora/fintech")).toBe(false);
+  });
+
   it("middleware imports route lists from shared module (no hardcoded duplication)", () => {
     const src = readSource("middleware.ts");
     expect(src).toMatch(
@@ -45,6 +60,12 @@ describe("site-routes single source of truth", () => {
     );
     expect(src).not.toMatch(/const\s+KNOWN_PATHS\s*=\s*new Set/);
     expect(src).not.toMatch(/const\s+BLOG_POST_RE\s*=\s*\//);
+    expect(src).not.toMatch(/const\s+COMPLIANCE_POST_RE\s*=\s*\//);
+  });
+
+  it("middleware allowlist includes COMPLIANCE_POST_RE check", () => {
+    const src = readSource("middleware.ts");
+    expect(src).toMatch(/COMPLIANCE_POST_RE\.test\(url\.pathname\)/);
   });
 
   it("prerender imports route lists from shared module", () => {

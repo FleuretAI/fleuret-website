@@ -34,6 +34,9 @@ interface ManifestEntry {
   date: string;
   title: string;
   description: string;
+  // Compliance pSEO entries set kind="compliance" and are excluded from RSS
+  // (editorial feed only). Blog entries either omit kind or set kind="blog".
+  kind?: "blog" | "compliance";
 }
 
 const FEED_META = {
@@ -130,8 +133,11 @@ function main() {
   }
   const manifest = loadManifest();
 
-  const frPosts = manifest.filter((p) => p.locale === "fr");
-  const enPosts = manifest.filter((p) => p.locale === "en");
+  // Editorial RSS: blog only. Compliance pSEO stays out of /feed.xml so
+  // subscribers don't get a programmatic-SEO firehose in their reader.
+  const editorial = manifest.filter((p) => p.kind !== "compliance");
+  const frPosts = editorial.filter((p) => p.locale === "fr");
+  const enPosts = editorial.filter((p) => p.locale === "en");
 
   if (!existsSync(dirname(OUT_EN))) {
     mkdirSync(dirname(OUT_EN), { recursive: true });

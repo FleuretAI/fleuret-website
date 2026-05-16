@@ -1,0 +1,95 @@
+---
+title: "PCI DSS pentest for ecommerce: scoping testing for Level 1 to Level 4 merchants"
+description: "PCI DSS 4.0 Requirement 11.4 mandates annual external pentesting and after every significant change. How ecommerce merchants scope it based on transaction volume tier."
+date: "2026-05-16"
+author: "Fleuret"
+tags: ["PCI DSS", "ecommerce", "pentest", "compliance", "merchant"]
+locale: en
+slug: ecommerce
+kind: compliance
+framework: pcidss
+industry: ecommerce
+faqs:
+  - question: "Is penetration testing mandatory for all PCI DSS merchants?"
+    answer: "It depends on your SAQ flavour. SAQ-A merchants (fully hosted checkout) do not require pentest. SAQ-A-EP and SAQ-D-Merchant require annual external + internal + segmentation pentest. Level 1 merchants require pentest regardless."
+  - question: "How often does PCI DSS 4.0 require pentest?"
+    answer: "At least annually for external, internal, and segmentation tests. After any significant change to systems in or connected to the CDE. Segmentation testing for merchants every 24 months minimum."
+  - question: "Can my QSA do my pentest, or does it need a separate vendor?"
+    answer: "Either works. The QSA is responsible for assessing whether the pentest was conducted properly. Many QSAs offer pentest as a separate service. Some merchants prefer to separate the two to avoid conflict-of-interest concerns."
+  - question: "What counts as a significant change requiring re-test?"
+    answer: "PCI SSC guidance lists examples: new infrastructure, new applications, significant new functionality, changes to authentication mechanisms, changes to encryption, network architecture changes. Most assessors interpret it broadly. Continuous validation between changes is the defensible answer."
+  - question: "Does PCI pentest cover cardholder data exposure or just system vulnerabilities?"
+    answer: "Both. PCI pentest must cover application-layer vulnerabilities (Requirement 11.4.1), network-layer vulnerabilities, segmentation controls, and any other security mechanisms protecting cardholder data. The PCI SSC Penetration Testing Guidance document is the authoritative scope reference."
+---
+
+PCI DSS 4.0 is the only major compliance framework that names penetration testing as a literal, mandatory control. Requirement 11.4 says: external and internal penetration testing, at least annually, and after any significant change. There is no interpretation flexibility. You test, or you fail your assessment.
+
+This page focuses on ecommerce specifically: how Level 1 to Level 4 merchants scope testing, where the CDE (Cardholder Data Environment) boundary actually lives in a modern ecommerce stack, and what saves time versus what saves money.
+
+## What PCI DSS 4.0 requires for ecommerce pentest
+
+Requirement 11.4 has multiple sub-requirements that all apply to ecommerce merchants:
+
+- **11.4.1** Penetration testing methodology must be defined, documented, implemented, and include industry-accepted approaches
+- **11.4.2** Internal penetration testing at least once every 12 months
+- **11.4.3** External penetration testing at least once every 12 months
+- **11.4.4** Exploitable vulnerabilities found during testing must be corrected, and testing repeated to verify corrections
+- **11.4.5** Penetration testing on segmentation controls is at least once every 12 months for service providers, and once every 24 months for merchants. The test must validate that segmentation methods isolate all out-of-scope systems from in-scope systems.
+
+The PCI Security Standards Council also published the *Penetration Testing Guidance* document, which clarifies that the testing must cover the entire CDE perimeter, all critical systems, and the segmentation controls between the CDE and the rest of the network.
+
+Merchant levels (Visa scheme; Mastercard, Amex, Discover are similar):
+
+- **Level 1:** 6+ million transactions/year. Annual on-site assessment by a QSA, quarterly external ASV scans, annual external + internal pentest.
+- **Level 2:** 1-6 million transactions/year. Annual self-assessment questionnaire (SAQ-D usually), annual external + internal pentest.
+- **Level 3:** 20k-1M transactions/year. Annual SAQ. Pentest depends on the SAQ flavour: SAQ-D-Merchant requires pentest; SAQ-A and SAQ-A-EP may not.
+- **Level 4:** Below 20k transactions/year. Annual SAQ. Pentest requirements depend on SAQ flavour.
+
+The critical insight for most ecommerce merchants is the SAQ choice, not the merchant level. Most modern ecommerce uses redirect or iframe checkout (Stripe, Adyen, Mollie hosted) which qualifies for SAQ-A. SAQ-A does not require pentest. The moment you start touching cardholder data in your own systems (capturing card details on your domain, custom checkout, stored tokens), you move to SAQ-A-EP or SAQ-D-Merchant, and pentest is back on the table.
+
+## What this looks like for ecommerce specifically
+
+Three patterns from recent assessments:
+
+**A Shopify-Plus merchant doing €30M/year through Stripe Hosted Checkout.** SAQ-A eligible. No CDE on their infrastructure. Their PCI scope was minimal: the iframe integration, the redirect flow, the order-confirmation page that received tokenized payment status. Pentest was optional under SAQ-A, but their acquiring bank still requested annual external pentest as a contractual term. The scope was small (4 days of testing). They passed.
+
+**A direct-to-consumer fashion retailer with custom checkout on their own domain.** €80M/year, capturing card details with Adyen Drop-In (front-end) and Adyen Web SDK (backend tokenization). SAQ-A-EP. CDE included their checkout pages, their payment-processing servers, their order database (which stored the tokenized PAN reference). Pentest scope was their entire checkout flow plus the segmentation between checkout and the rest of their estate. External pentest + internal pentest + segmentation pentest. 12 days total. Two High findings on the first engagement (XSS in a checkout error page, IDOR in the order-lookup endpoint), both remediated within 30 days, retested clean.
+
+**A digital-goods marketplace (subscription SaaS for creators) with Stripe Connect.** €15M/year. SAQ-D-Merchant because they handle multi-party payment flows and store payout details for sellers. Their CDE included the payout-processing system, the seller-onboarding KYC flow, and the dispute-resolution system. Pentest was the most extensive of the three: external, internal, segmentation, plus targeted testing of the payout authorization flow. 18 days. Several findings, all remediated.
+
+The pattern: ecommerce PCI scope is determined by where card data flows in your own infrastructure. Modern hosted-checkout integrations keep scope tiny. Any custom handling expands scope rapidly.
+
+## Where continuous AI pentest fits PCI DSS
+
+PCI DSS 4.0 added Requirement 11.4.7 for service providers specifically: "additional requirement for multi-tenant service providers." But for merchants, the testing cadence is fixed at annual minimum. So why does continuous matter?
+
+The answer is in Requirement 11.4 "after any significant change." Ecommerce platforms change constantly: A/B tests, new payment methods, new partner integrations, new sub-domains, new tracking pixels. Every significant change to the CDE or systems connected to the CDE triggers a re-test obligation.
+
+Most merchants interpret "significant change" narrowly to avoid the cost of constant pentest engagements. PCI assessors increasingly interpret it broadly. Continuous validation makes the narrow interpretation defensible: if you can show that every change is automatically tested against the same security controls, the human pentest engagement remains annual but the change-by-change evidence demonstrates ongoing assurance.
+
+Practical pattern that works:
+
+- **Annual external + internal pentest** by a QSA-aligned vendor (mandatory)
+- **Annual segmentation pentest** validating CDE isolation (mandatory)
+- **Continuous validation** of the checkout flow, payment-processing endpoints, and authentication boundaries between changes (defensible interpretation of "after any significant change")
+- **Quarterly ASV scans** by an Approved Scanning Vendor (mandatory for external-facing IPs)
+
+The dangerous version: a vendor that fires payloads at production checkout. Test cardholder-data systems on production-equivalent staging environments only. Production testing of payment flows requires explicit scoping with the acquirer and is rare.
+
+## Procurement checklist for ecommerce CISOs scoping PCI pentest
+
+- Does the vendor's pentest methodology follow the PCI SSC *Penetration Testing Guidance* document explicitly?
+- Does the vendor coordinate with your QSA or self-assessment process?
+- Does the vendor have references in ecommerce specifically, at your merchant level?
+- Does the vendor produce evidence that PCI assessors specifically accept (test report including methodology, scope, findings, remediation evidence, retest results)?
+- Will the vendor handle segmentation pentest specifically (it is a different test methodology from standard pentest)?
+- Where is your testing data stored? Most acquirers require pentest data residency to match the merchant's region.
+- Can the vendor continuously validate the checkout surface between annual engagements?
+
+## Where Fleuret fits
+
+Fleuret runs continuous AI pentest on ecommerce environments. Our methodology aligns with the PCI SSC *Penetration Testing Guidance*. We coordinate with QSAs on evidence formatting. We continuously validate the checkout surface and authentication boundaries between annual engagements. EU data residency by default; US-hosted available for merchants whose acquirer requires it.
+
+We are not a QSA. For the annual mandatory pentest, you still need a QSA-aligned engagement, which we can refer or coordinate with. Continuous validation between engagements is where we add most value.
+
+If you are scoping PCI DSS pentest for ecommerce, [book a demo](/demo).

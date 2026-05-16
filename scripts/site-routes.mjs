@@ -35,8 +35,16 @@ export const BUILD_ONLY_PATHS = ["/404"];
 // Blog post slug shape: alphanumeric + hyphens, must start with alphanumeric.
 export const BLOG_POST_RE = /^\/blog\/[a-z0-9][a-z0-9-]*$/;
 
+// Compliance pSEO shape: /compliance/{framework}/{industry}. Both segments
+// alphanumeric + hyphens, must start with alphanumeric. The build-time
+// registry enforces that {framework} and {industry} come from typed
+// constants; this regex is only the middleware shape gate.
+export const COMPLIANCE_POST_RE =
+  /^\/compliance\/[a-z0-9][a-z0-9-]*\/[a-z0-9][a-z0-9-]*$/;
+
 /**
  * Allowlist for middleware: every route the site can serve a 200 for, minus
- * build-only paths. Blog posts are matched by regex, not enumerated.
+ * build-only paths. Blog posts and compliance pSEO pages are matched by
+ * regex, not enumerated.
  */
 export const KNOWN_PATHS = new Set(STATIC_PATHS);

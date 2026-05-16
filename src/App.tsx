@@ -12,6 +12,9 @@ import Index from "./pages/Index";
 // `article[data-post-slug][data-rendered="true"]`; a lazy route would render
 // the Suspense fallback before the chunk resolves and ship empty HTML.
 import BlogPost from "./pages/BlogPost";
+// CompliancePage is also EAGER-imported for the same prerender reason. It
+// waits on `article[data-compliance-framework][data-rendered="true"]`.
+import CompliancePage from "./pages/CompliancePage";
 
 const About = lazy(() => import("./pages/About"));
 const Careers = lazy(() => import("./pages/Careers"));
@@ -47,6 +50,10 @@ const APP_ROUTES: RouteDef[] = [
   { path: "/resources", element: <Resources /> },
   { path: "/blog", element: <BlogIndex /> },
   { path: "/blog/:slug", element: <BlogPost /> },
+  {
+    path: "/compliance/:framework/:industry",
+    element: <CompliancePage />,
+  },
   { path: "/news/fleuret-raises-3-5m", element: <FleuretRaises /> },
 ];
 
