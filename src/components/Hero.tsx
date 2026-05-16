@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { mountHeroCanvas } from "@/lib/heroCanvas";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { DEMO_ROUTE } from "@/lib/routes";
+import { trackCTAClick } from "@/lib/gtag";
 import stoikLogo from "@/assets/investors/stoik.svg";
 
 type TrustLogo = {
@@ -147,7 +148,17 @@ const Hero = () => {
           </p>
 
           <div style={{ display: "flex", justifyContent: "center", paddingTop: "1rem" }}>
-            <Link to={localize(DEMO_ROUTE)} className="btn-cta btn-cta--lg">
+            <Link
+              to={localize(DEMO_ROUTE)}
+              className="btn-cta btn-cta--lg"
+              onClick={() =>
+                trackCTAClick({
+                  location: "hero",
+                  label: "get_demo",
+                  destination: DEMO_ROUTE,
+                })
+              }
+            >
               {t("hero.cta")}
             </Link>
           </div>

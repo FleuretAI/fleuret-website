@@ -385,6 +385,7 @@ function writeManifest(posts: LoadedPost[]) {
     hreflangPath: p.meta.hreflangPath,
     date: p.meta.date,
     title: p.meta.title,
+    description: p.meta.description,
     kind: p.meta.kind,
     framework: p.meta.framework,
     industry: p.meta.industry,

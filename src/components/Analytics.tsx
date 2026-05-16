@@ -3,10 +3,13 @@ import { useLocation } from "react-router-dom";
 import {
   denyAnalyticsConsent,
   grantAnalyticsConsent,
+  trackOutboundClick,
   trackPageView,
+  trackScrollDepth,
 } from "@/lib/gtag";
 
 const STORAGE_KEY = "fleuret_cookie_consent";
+const SCROLL_MILESTONES = [25, 50, 75, 100] as const;
 
 /**
  * Bridges the cookie banner to GA4 Consent Mode v2 and tracks SPA page_views.
@@ -49,6 +52,49 @@ const Analytics = () => {
     }
     trackPageView(pathname + search);
   }, [pathname, search]);
+
+  // Outbound-click delegate: one capture-phase listener on document beats
+  // tagging every <a> manually. Fires for any link to a different host.
+  useEffect(() => {
+    const onClick = (e: MouseEvent) => {
+      const anchor = (e.target as Element | null)?.closest?.("a");
+      if (!anchor) return;
+      const href = anchor.getAttribute("href");
+      if (!href) return;
+      let url: URL;
+      try {
+        url = new URL(href, window.location.origin);
+      } catch {
+        return;
+      }
+      if (url.host === window.location.host) return;
+      if (url.protocol !== "http:" && url.protocol !== "https:") return;
+      trackOutboundClick(url.href, anchor.textContent?.trim() || undefined);
+    };
+    document.addEventListener("click", onClick, { capture: true });
+    return () => document.removeEventListener("click", onClick, { capture: true });
+  }, []);
+
+  // Scroll depth: fire 25/50/75/100 once per page. Reset on route change so a
+  // long Resources article counts separately from the homepage.
+  useEffect(() => {
+    const fired = new Set<number>();
+    const onScroll = () => {
+      const doc = document.documentElement;
+      const max = doc.scrollHeight - window.innerHeight;
+      if (max <= 0) return;
+      const pct = Math.min(100, Math.round((window.scrollY / max) * 100));
+      for (const m of SCROLL_MILESTONES) {
+        if (pct >= m && !fired.has(m)) {
+          fired.add(m);
+          trackScrollDepth(m);
+        }
+      }
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [pathname]);
 
   return null;
 };
