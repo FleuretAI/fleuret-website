@@ -69,14 +69,21 @@ function buildPosts(): UrlEntry[] {
     return [];
   }
   const manifest: ManifestEntry[] = JSON.parse(readFileSync(MANIFEST, "utf8"));
-  return manifest.map((m) => ({
-    loc: SITE_URL + m.path,
-    lastmod: m.date,
-    // Blog editorial = 0.7. Compliance pSEO = 0.6 so it doesn't dilute the
-    // ranking signal of hand-crafted blog posts.
-    priority: m.kind === "compliance" ? "0.6" : "0.7",
-    changefreq: "monthly",
-  }));
+  // Kill-switch: when VITE_COMPLIANCE_NOINDEX=true the CompliancePage emits a
+  // noindex robots meta. Drop the same entries from the sitemap so consumers
+  // (Google, Bing, AI crawlers reading sitemap.xml directly) stay consistent.
+  const complianceNoindex =
+    process.env.VITE_COMPLIANCE_NOINDEX === "true";
+  return manifest
+    .filter((m) => !(complianceNoindex && m.kind === "compliance"))
+    .map((m) => ({
+      loc: SITE_URL + m.path,
+      lastmod: m.date,
+      // Blog editorial = 0.7. Compliance pSEO = 0.6 so it doesn't dilute the
+      // ranking signal of hand-crafted blog posts.
+      priority: m.kind === "compliance" ? "0.6" : "0.7",
+      changefreq: "monthly",
+    }));
 }
 
 function render(entries: UrlEntry[]): string {

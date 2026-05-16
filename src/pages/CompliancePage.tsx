@@ -28,8 +28,9 @@ import { getIndustry } from "@/content/compliance/industries";
  *  - Breadcrumb adds Framework + Industry levels
  *  - JSON-LD always emits Article + BreadcrumbList; FAQPage conditional on
  *    presence of faqs[] in frontmatter (per eng-review A5 rule)
- *  - Kill switch: VITE_COMPLIANCE_NOINDEX=true flips noindex meta + removes
- *    the entry from sitemap consumers via separate env handling
+ *  - Kill switch: VITE_COMPLIANCE_NOINDEX=true flips noindex meta here and
+ *    drops the entries from sitemap.xml in scripts/build-sitemap.ts (same
+ *    env var, read at build time). Keep both in lockstep.
  *
  * Duplication with BlogPost.tsx is intentional. Refactor into a shared
  * <PostShell> component is queued as a follow-up TODO so this PR stays
@@ -133,6 +134,7 @@ const CompliancePage = () => {
           title: `${entry.meta.title} | Fleuret`,
           description: entry.meta.description,
           canonical,
+          hreflangs: [],
           ogImage: entry.meta.ogImage,
         }}
         jsonLd={jsonLd}
