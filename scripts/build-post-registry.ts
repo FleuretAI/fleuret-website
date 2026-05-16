@@ -213,6 +213,7 @@ function writeManifest(posts: LoadedPost[]) {
     hreflangPath: p.meta.hreflangPath,
     date: p.meta.date,
     title: p.meta.title,
+    description: p.meta.description,
   }));
   writeFileSync(MANIFEST_OUT, JSON.stringify(manifest, null, 2), "utf8");
   console.log(`wrote ${MANIFEST_OUT} (${manifest.length} entries)`);
