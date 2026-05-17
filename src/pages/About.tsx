@@ -297,6 +297,10 @@ const About = () => {
                     <img
                       src={member.photo}
                       alt={member.name}
+                      width={96}
+                      height={96}
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-full object-cover"
                     />
                   </div>

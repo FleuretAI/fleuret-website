@@ -1,7 +1,9 @@
 <!doctype html>
 <html lang="fr">
   <head>
-    <!-- Consent defaults: MUST run before any tag fires (RGPD / ePrivacy) -->
+    <!-- Consent defaults: MUST run before any tag fires (RGPD / ePrivacy).
+         Stays in <head> so the deferred analytics blocks at the body end
+         always see analytics_storage=denied at boot. -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
@@ -12,16 +14,6 @@
         'ad_personalization': 'denied'
       });
     </script>
-
-    <!-- Google Tag Manager -->
-    <script>
-      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-      })(window,document,'script','dataLayer','GTM-W5JB9N2K');
-    </script>
-    <!-- End Google Tag Manager -->
 
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -38,15 +30,59 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
 
-    <!-- Font: Lufga -->
+    <!-- Font: Lufga. display=swap added so text paints with system font while
+         Lufga downloads — saves ~150ms of blank-text time on slow connections
+         (Lighthouse W9 audit P1 finding 2026-05-17). -->
     <link rel="preconnect" href="https://fonts.cdnfonts.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/lufga" />
+    <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/lufga&display=swap" />
 
-    <!-- Google Analytics 4 (gtag.js). Boots with analytics_storage=denied per the
-         gtag('consent','default') block above. src/components/Analytics.tsx
-         bridges the cookie banner: on accept it fires consent 'update' to
-         granted; before that GA4 sends anonymized, cookieless pings (Consent
-         Mode v2). Analytics.tsx also emits SPA page_view on route change. -->
+    <!-- DNS preconnect for the analytics tags loaded at body end. Drops
+         TLS handshake cost off the critical path so the deferred scripts
+         hydrate fast once parsed. -->
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
+    <link rel="preconnect" href="https://www.clarity.ms" crossorigin />
+  </head>
+
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-W5JB9N2K"
+        height="0"
+        width="0"
+        style="display:none;visibility:hidden"
+      ></iframe
+    ></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <a href="#main-content" class="skip-to-content">Skip to main content</a>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+
+    <!-- Analytics block — moved from <head> to body end (Lighthouse W9 audit
+         2026-05-17). All three tags previously sat in <head> and accounted
+         for ~1.76s of render-blocking work + 427 KB of unused JS on mobile.
+         Consent defaults still fire from <head> above; events captured via
+         `dataLayer` survive the deferral because `dataLayer = []` is
+         initialised in <head> and the tags drain the queue when they load. -->
+
+    <!-- Google Tag Manager. Reserved for future marketing tags only; the
+         GA4 hits flow through gtag.js below. Container audit gate documented
+         in TODOS.md item #3. -->
+    <script>
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-W5JB9N2K');
+    </script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Google Analytics 4 (gtag.js). Boots with analytics_storage=denied per
+         the gtag('consent','default') block in <head> above.
+         src/components/Analytics.tsx bridges the cookie banner: on accept it
+         fires consent 'update' to granted; before that GA4 sends anonymized,
+         cookieless pings (Consent Mode v2). Analytics.tsx also emits SPA
+         page_view on route change. -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-GCT3NK4C34"></script>
     <script>
       // Opt-in DebugView: append ?debug_mode=1 to any URL to stream hits into
@@ -72,21 +108,5 @@
         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
       })(window, document, "clarity", "script", "wrwrt0esfs");
     </script>
-  </head>
-
-  <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript
-      ><iframe
-        src="https://www.googletagmanager.com/ns.html?id=GTM-W5JB9N2K"
-        height="0"
-        width="0"
-        style="display:none;visibility:hidden"
-      ></iframe
-    ></noscript>
-    <!-- End Google Tag Manager (noscript) -->
-    <a href="#main-content" class="skip-to-content">Skip to main content</a>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
