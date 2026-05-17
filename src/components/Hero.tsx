@@ -19,7 +19,7 @@ type TrustLogo = {
 };
 
 const TRUST_LOGOS: TrustLogo[] = [
-  { name: "Stoïk", logo: stoikLogo, href: "https://www.stoik.io/", invert: true, heightPx: 22 },
+  { name: "Stoïk", logo: stoikLogo, invert: true, heightPx: 22 },
   { name: "Ouwba", logo: ouwbaLogo, heightPx: 22 },
 ];
 
