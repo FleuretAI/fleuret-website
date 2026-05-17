@@ -16,8 +16,9 @@ import ScrollReveal from "@/components/motion/ScrollReveal";
  *   - gradient highlight via text-gradient-accent (blue -> violet -> red)
  *   - subtitle: text-lg md:text-xl text-white/50 max-w-2xl mx-auto
  *
- * Currently hosts a single "Blog" tile. No "Coming soon" stubs for future
- * content types: stale stubs erode trust more than missing tiles.
+ * Hosts two tiles: editorial Blog + Compliance pSEO hub. Each tile follows
+ * the same shape — no "Coming soon" stubs for future content types: stale
+ * stubs erode trust more than missing tiles.
  */
 const Resources = () => {
   const { t, localize } = useLanguage();
@@ -42,7 +43,7 @@ const Resources = () => {
         </section>
 
         <section className="container mx-auto px-4 pb-16 md:pb-24">
-          <div className="max-w-3xl mx-auto">
+          <div className="max-w-3xl mx-auto space-y-6">
             <ScrollReveal>
               <Link
                 to={localize("/blog")}
@@ -59,6 +60,26 @@ const Resources = () => {
                 </p>
                 <span className="inline-flex items-center gap-2 text-sm font-medium text-white/75 transition-transform group-hover:translate-x-1">
                   {t("resources.blog.cta")} <span aria-hidden="true">→</span>
+                </span>
+              </Link>
+            </ScrollReveal>
+
+            <ScrollReveal>
+              <Link
+                to={localize("/compliance")}
+                className="group block rounded-2xl border border-white/10 bg-white/[0.02] p-8 md:p-10 transition-colors hover:border-white/20 hover:bg-white/[0.04] focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--accent-blue)] focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              >
+                <div className="text-xs uppercase tracking-widest text-white/40 mb-4">
+                  {t("resources.compliance.label")}
+                </div>
+                <h2 className="text-2xl md:text-3xl font-light text-white mb-3 leading-tight">
+                  {t("resources.compliance.title")}
+                </h2>
+                <p className="text-base md:text-lg font-light text-white/60 leading-relaxed mb-6 max-w-xl">
+                  {t("resources.compliance.description")}
+                </p>
+                <span className="inline-flex items-center gap-2 text-sm font-medium text-white/75 transition-transform group-hover:translate-x-1">
+                  {t("resources.compliance.cta")} <span aria-hidden="true">→</span>
                 </span>
               </Link>
             </ScrollReveal>

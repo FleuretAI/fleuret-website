@@ -442,6 +442,10 @@ export const translations = {
     'resources.blog.title': 'Dernières analyses',
     'resources.blog.description': 'Nos équipes partagent leur travail sur le pentest automatisé, NIS2, DORA, et l\'IA agentique appliquée à la sécurité offensive.',
     'resources.blog.cta': 'Voir tous les articles',
+    'resources.compliance.label': 'Compliance',
+    'resources.compliance.title': 'Guides conformité',
+    'resources.compliance.description': 'Cadrage pentest par framework × industrie : DORA fintech, NIS2 énergie, ISO 27001 SaaS, SOC 2 SaaS, PCI DSS e-commerce. Citations régulateur, périmètre Fleuret assumé.',
+    'resources.compliance.cta': 'Voir les guides conformité',
 
     // Blog
     'blog.hero.title': 'Blog',
@@ -887,6 +891,10 @@ export const translations = {
     // Resources hub
     'resources.hero.title': 'AI pentest & compliance resources',
     'resources.hero.subtitle': 'Insights and field notes on continuous AI pentesting, European compliance and offensive security.',
+    'resources.compliance.label': 'Compliance',
+    'resources.compliance.title': 'Compliance guides',
+    'resources.compliance.description': 'Pentest scoping per framework × industry: DORA fintech, NIS2 energy, ISO 27001 SaaS, SOC 2 SaaS, PCI DSS e-commerce. Real regulator citations, honest fit assessment.',
+    'resources.compliance.cta': 'Browse compliance guides',
     'resources.blog.label': 'Blog',
     'resources.blog.title': 'Latest insights',
     'resources.blog.description': 'Our team shares work on automated pentesting, NIS2, DORA, and agentic AI applied to offensive security.',
