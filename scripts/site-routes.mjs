@@ -22,6 +22,7 @@ export const STATIC_PATHS = [
   "/sub-processors",
   "/resources",
   "/blog",
+  "/compliance",
   "/news/fleuret-raises-3-5m",
 ];
 
