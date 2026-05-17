@@ -4,6 +4,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/motion/ScrollReveal";
+import { NewsletterCTA } from "@/components/blog/NewsletterCTA";
 
 /**
  * /resources — hub page. Typography + container pattern mirrors About.tsx
@@ -84,6 +85,13 @@ const Resources = () => {
               </Link>
             </ScrollReveal>
           </div>
+        </section>
+
+        {/* Newsletter capture */}
+        <section className="container mx-auto px-4 pb-20">
+          <ScrollReveal>
+            <NewsletterCTA trackingLocation="resources_footer" />
+          </ScrollReveal>
         </section>
       </main>
       <Footer />
