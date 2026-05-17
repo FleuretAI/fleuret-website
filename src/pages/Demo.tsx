@@ -208,6 +208,11 @@ const Demo = () => {
                   href={DEMO_SCHEDULER_SHORT_URL}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() =>
+                    trackEvent("demo_scheduler_fallback_clicked", {
+                      destination: DEMO_SCHEDULER_SHORT_URL,
+                    })
+                  }
                   style={{
                     color: "rgba(255,255,255,0.75)",
                     textDecoration: "underline",
