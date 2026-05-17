@@ -84,13 +84,6 @@ describe("/careers v1 invariants", () => {
     expect(matches.length).toBeGreaterThan(0);
   });
 
-  it("renders an architecture diagram inside a <pre> with 'Supervisor agent' text", () => {
-    const { container } = renderPage();
-    const pre = container.querySelector("pre");
-    expect(pre).not.toBeNull();
-    expect(pre?.textContent || "").toMatch(/Supervisor agent/);
-  });
-
   it("does NOT introduce the em-dash separator pattern '— ' in rendered prose", () => {
     const { container } = renderPage();
     // U+2014 followed by a space, the AI-slop pattern banned by CLAUDE.md.

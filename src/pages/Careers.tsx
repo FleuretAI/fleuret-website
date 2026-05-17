@@ -24,25 +24,6 @@ const positions = [
 
 const EMAIL = "yanis@fleuret.ai";
 
-const EMILE_DIAGRAM = `            +---------------------+
-            |  Supervisor agent   |
-            |  (Coverage Graph,   |
-            |  termination oracle)|
-            +----------+----------+
-                       |
-       +---------------+---------------+--------------+
-       |               |               |              |
-       v               v               v              v
-   [Auth agent]   [IDOR agent]   [Injection]    [Biz logic]
-       |               |               |              |
-       +---------------+---------------+--------------+
-                       |
-                       v
-            +---------------------+
-            |  Audit-ready PDF +  |
-            |  Coverage report    |
-            +---------------------+`;
-
 const Careers = () => {
   const { t, localize } = useLanguage();
 
@@ -148,17 +129,6 @@ const Careers = () => {
                   <p>{t("careers.emile.p3")}</p>
                 </div>
               </ScrollReveal>
-
-              <ScrollReveal delay={0.2}>
-                <div className="mt-10 p-4 rounded-2xl border border-white/8 bg-black/40 overflow-x-auto">
-                  <pre
-                    className="text-[10px] sm:text-xs font-mono text-white/70 leading-tight whitespace-pre"
-                    aria-label="Émile architecture diagram"
-                  >
-                    {EMILE_DIAGRAM}
-                  </pre>
-                </div>
-              </ScrollReveal>
             </div>
           </div>
         </section>
@@ -216,15 +186,6 @@ const Careers = () => {
                 {t("careers.positions.process")}
               </p>
             </ScrollReveal>
-          </div>
-        </section>
-
-        {/* Bottom strip */}
-        <section className="container mx-auto px-4 mb-10">
-          <div className="max-w-3xl mx-auto">
-            <p className="text-xs text-white/40 leading-relaxed text-center border-t border-white/8 pt-6">
-              {t("careers.bottom.strip")}
-            </p>
           </div>
         </section>
 

@@ -769,7 +769,6 @@ export const translations = {
     'careers.positions.role3.subject': 'Founding Eng',
     'careers.positions.process': 'Hiring process: R1 with Yanis (30 min, fit and motivation). R2 tech with Augustin and Gabriel (30 min, architecture conversation). R3 take-home or working session (depends on role, 2 to 4 hours, paid). Decision in 1 to 2 weeks. Salary discussed at R1.',
     'careers.positions.applyLabel': 'Apply',
-    'careers.bottom.strip': 'BSPCE 0.5-1.5% on a €9M post-money seed. Paris, hybrid 2-3 days remote. Premium healthcare, 30+ days off, top-tier setup. €3.5M seed closing mid-May 2026.',
     'careers.back': 'Back to home',
 
     // About
