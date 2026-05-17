@@ -50,6 +50,10 @@ function isBlogPostPath(route) {
   return /^\/blog\/.+/.test(route);
 }
 
+function isCompliancePath(route) {
+  return /^\/compliance\/[^/]+\/[^/]+$/.test(route);
+}
+
 function wait(ms) {
   return new Promise((r) => setTimeout(r, ms));
 }
@@ -194,6 +198,17 @@ async function main() {
             () =>
               !!document.querySelector(
                 'article[data-post-slug][data-rendered="true"]',
+              ),
+            { timeout: 30_000 },
+          );
+        } else if (isCompliancePath(route)) {
+          // Compliance pSEO route: same lazy-MDX pattern, different marker
+          // attribute. CompliancePage stamps data-compliance-framework on
+          // its <article> and flips data-rendered after the first paint.
+          await page.waitForFunction(
+            () =>
+              !!document.querySelector(
+                'article[data-compliance-framework][data-rendered="true"]',
               ),
             { timeout: 30_000 },
           );

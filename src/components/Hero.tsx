@@ -100,7 +100,7 @@ const Hero = () => {
         >
           <h1
             style={{
-              fontSize: "clamp(1.375rem, 6vw, 4.5rem)",
+              fontSize: "clamp(1.125rem, 4.5vw, 3.25rem)",
               fontWeight: 300,
               letterSpacing: "-0.02em",
               lineHeight: 1.15,
@@ -128,6 +128,17 @@ const Hero = () => {
               }}
             >
               {t("hero.title.line2")}
+            </span>
+            <span
+              className="block"
+              style={{
+                background: "linear-gradient(135deg, #4f8fff 0%, #8b5cf6 55%, #ef4444 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+            >
+              {t("hero.title.line3")}
             </span>
           </h1>
 

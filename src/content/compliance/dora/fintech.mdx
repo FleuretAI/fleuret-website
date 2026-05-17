@@ -1,0 +1,93 @@
+---
+title: "DORA pentest for fintech: a practical 2026 guide for CISOs"
+description: "DORA Article 24-27 demands resilience testing and threat-led pentests. How fintech CISOs scope it, who must do TLPT, and how continuous AI pentesting fits the regulation."
+date: "2026-05-16"
+author: "Fleuret"
+tags: ["DORA", "fintech", "pentest", "TLPT", "compliance"]
+locale: en
+slug: fintech
+kind: compliance
+framework: dora
+industry: fintech
+faqs:
+  - question: "Does every EU fintech need TLPT under DORA?"
+    answer: "No. TLPT applies to entities designated by the competent authority based on systemic importance, ICT risk profile, and size. Most early-stage fintechs are not designated, but should still meet the Article 24 baseline testing programme."
+  - question: "How often does DORA require pentests?"
+    answer: "At least annually for ICT systems supporting critical or important functions. The competent authority may require more frequent testing. TLPT-designated entities additionally need threat-led testing every three years."
+  - question: "Can AI pentesting replace human pentesters under DORA?"
+    answer: "No. DORA Article 27 explicitly requires external testers for TLPT, with rotation between internal and external every three engagements. AI-driven continuous pentest complements human testing by keeping surfaces validated between deep engagements."
+  - question: "Does my cloud provider count as an ICT third party under DORA?"
+    answer: "Almost always yes. Article 28-30 obligations apply to ICT third-party providers, and DORA Article 30 specifically requires their participation in your testing programme where they support critical functions."
+  - question: "What evidence do auditors expect from a DORA pentest programme?"
+    answer: "Test plans with documented scope, methodology references (e.g., OWASP, NIST SP 800-115, TIBER-EU), findings with CVSS scoring, remediation tickets with closure proof, retest results, and risk-acceptance records for any unresolved findings."
+---
+
+The Digital Operational Resilience Act has been enforceable since 17 January 2025. Every fintech operating in the EU is in scope. Most CISOs we talk to are still figuring out what "regular security testing" actually means in practice, and whether their organisation will be designated for Threat-Led Penetration Testing (TLPT).
+
+This page is the short version. Real article references, real fintech examples, no fluff.
+
+## What DORA requires for security testing
+
+DORA Article 24 mandates a digital operational resilience testing programme for every in-scope financial entity. Fintechs that hold a payment institution, e-money institution, or crypto-asset service provider licence sit inside scope by default.
+
+The minimum bar:
+
+- **Vulnerability assessments** on systems supporting critical or important functions
+- **Network security assessments**, including penetration tests
+- **Gap analyses** against the testing programme itself
+- **Source code reviews** where relevant (any custom-built component handling money movement, KYC, or settlement)
+- **Scenario-based tests** that probe how the entity responds under simulated incident conditions
+
+Tests must be conducted at least annually for ICT systems supporting critical or important functions. The competent authority (in France, ACPR for credit institutions, AMF for investment services) can mandate more frequent testing for specific entities.
+
+For a subset of larger fintechs and incumbents, Article 26 adds **Threat-Led Penetration Testing (TLPT)**: every three years, on live production systems, with realistic adversary emulation, scoped to critical functions, with mandatory third-party ICT provider participation. The European supervisory framework (TIBER-EU) defines methodology.
+
+The TLPT designation typically catches: significant payment institutions, e-money institutions above a certain transaction volume, and any fintech that operates infrastructure other financial entities depend on. If your transaction volume is in the billions or you provide ICT services to other regulated entities, assume you will be designated.
+
+## What this looks like for a fintech specifically
+
+Two concrete examples we have seen during the first year of DORA enforcement:
+
+**A French payment institution processing card transactions for SMB merchants.** Designated for TLPT in late 2025. Scope included the merchant onboarding flow, the card-tokenization service, the settlement engine, and the data warehouse that feeds AML reporting. Their existing annual pentest covered roughly 40% of that surface. The TLPT exercise added: lateral movement testing from a compromised merchant credential to settlement, supply-chain testing against their card-network connector, and a chained scenario that exfiltrated tokenized PANs via a misconfigured analytics export. Remediation took six months.
+
+**A crypto-asset service provider running a regulated EU exchange.** Not designated for TLPT, but their competent authority required quarterly pentests on the withdrawal-approval workflow after a peer suffered a hot-wallet incident. The CISO's challenge was scope drift: every release modified the workflow, so an annual snapshot was always stale. They moved to continuous validation against the withdrawal path, with point-in-time deep tests retained for the cold-wallet and KMS boundary.
+
+The pattern across both: DORA testing is not a single annual event. It is a layered programme. Annual deep tests on the heaviest surfaces, continuous validation on the surfaces that change weekly, scenario tests against the realistic threat models for the entity's specific role in the financial system.
+
+## Where continuous AI pentest fits
+
+DORA does not name "AI pentesting" or "continuous pentest" specifically. It names outcomes: ongoing detection of vulnerabilities, validation of controls, evidence of effective remediation. Continuous AI-driven pentest fits the outcome layer cleanly.
+
+For fintech specifically, the procurement angle that matters:
+
+1. **Coverage of the surfaces that change weekly.** API endpoints, IAM policy changes, infrastructure-as-code drift, third-party connector updates. Annual human pentests cannot keep up. Continuous validation can.
+2. **Evidence generation that satisfies an auditor.** Date, scope, methodology, findings with CVSS, remediation tickets, retest results. DORA Article 16 expects this artefact chain. A continuous pentest platform that emits it automatically removes the audit-preparation tax.
+3. **Layered with human expert testing for TLPT scope.** The TLPT exercise requires threat-led, scenario-based, live-production testing by external testers at least every three engagements. Continuous AI pentest does NOT replace this. It complements it by keeping the surfaces validated between TLPT cycles.
+
+The dangerous version of "continuous pentest" for a fintech is a scanner that fires every payload at production with no rate limits and no kill switch. That is not what we mean. The version that works is bounded, safe-mode validation continuously, plus controlled adversarial testing on pre-prod, plus a yearly TIBER-style human-led TLPT on live production with full governance.
+
+## Procurement checklist for fintech CISOs
+
+If you are scoping a pentest programme for DORA compliance, these are the questions that matter:
+
+- Does the vendor's testing methodology map to DORA Article 24-27 control areas explicitly?
+- Does the vendor produce auditor-ready evidence packages without manual export work?
+- Does the vendor have a TLPT track record, or do they refer you elsewhere for that scope?
+- Where is your pentest report data stored, and under which jurisdiction? (CLOUD Act exposure on US vendors is real.)
+- Can the vendor test continuously without disrupting production, with documented rate limits and kill switches?
+- Will the vendor coordinate with your ICT third-party providers when their participation is required by DORA Article 30?
+- What is the contractual remediation SLA, and does it include retest as a billed service or as part of the platform?
+
+## Where Fleuret fits
+
+Fleuret is an AI-driven continuous pentest platform built for EU regulated industries. We test the surfaces that change between human pentests, the APIs you ship every sprint, the auth boundaries that drift when a new microservice lands, the third-party integrations the procurement team adds without telling security. We produce DORA-aligned evidence automatically, mapped to the Article 24 baseline, the Article 25 testing categories, and the Article 30 third-party-provider register. We coordinate with TLPT providers for the engagements that require human red-team execution and chained scenario testing.
+
+Fleuret data residency is EU. No CLOUD Act exposure on pentest findings. We are not a TLPT provider, and we will tell you directly when human-led testing is the right tool for the scope.
+
+If you are scoping pentest for DORA, [book a demo](/demo).
+
+## Related compliance reading
+
+- [ISO 27001 pentest for SaaS](/compliance/iso27001/saas): Annex A.8.8 / A.8.29 / A.5.34, the controls fintech SaaS most frequently maps when auditors ask for evidence beyond DORA Article 25.
+- [SOC 2 pentest for SaaS](/compliance/soc2/saas): CC4.1-CC8.1 continuous-validation evidence — what your US enterprise customers will ask for in parallel with DORA.
+- [PCI DSS pentest for e-commerce](/compliance/pcidss/ecommerce): Req 11.4 segmentation testing — relevant if the fintech surface touches card data flows.

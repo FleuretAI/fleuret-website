@@ -5,11 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "bun run build:posts && vite",
-    "build": "bun run build:posts -- --strict && vite build && bun run build:sitemap",
+    "build": "bun run build:posts -- --strict && vite build && bun run build:sitemap && bun run build:feed",
     "build:dev": "bun run build:posts && vite build --mode development",
     "build:no-prerender": "bun run build:posts && vite build",
     "build:posts": "bun scripts/build-post-registry.ts",
     "build:sitemap": "bun scripts/build-sitemap.ts",
+    "build:feed": "bun scripts/build-rss.ts",
     "prerender": "node scripts/prerender.mjs",
     "smoke": "bun scripts/smoke.mjs",
     "lint": "eslint .",
@@ -17,7 +18,7 @@
     "pretest": "bun run build:posts",
     "test": "vitest run",
     "test:watch": "vitest",
-    "build:prerender": "bun run build:posts -- --strict && vite build && bun run build:sitemap && bun run build:ensure-fallback && node scripts/prerender.mjs",
+    "build:prerender": "bun run build:posts -- --strict && vite build && bun run build:sitemap && bun run build:feed && bun run build:ensure-fallback && node scripts/prerender.mjs",
     "build:ensure-fallback": "node scripts/ensure-fallback-shells.mjs"
   },
   "dependencies": {

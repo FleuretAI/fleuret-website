@@ -21,7 +21,7 @@ const PrivacyPolicy = () => {
           {isFr ? "Politique de confidentialité" : "Privacy Policy"}
         </h1>
         <p className="text-white/30 text-sm mb-8">
-          {isFr ? "Dernière mise à jour : 11 mars 2026" : "Last updated: March 11, 2026"}
+          {isFr ? "Dernière mise à jour : 17 mai 2026" : "Last updated: May 17, 2026"}
         </p>
 
         {/* Section 1 */}
@@ -138,6 +138,8 @@ const PrivacyPolicy = () => {
                 <li><strong className="text-white/70">Supabase Inc.</strong> : hébergement de la base de données et authentification.</li>
                 <li><strong className="text-white/70">Vercel Inc.</strong> : hébergement du site web et déploiement.</li>
                 <li><strong className="text-white/70">Brevo (ex-Sendinblue)</strong> : envoi d'emails transactionnels et marketing.</li>
+                <li><strong className="text-white/70">Google LLC (Google Analytics 4)</strong> : mesure d'audience et analyse d'utilisation. Hits routés via le point d'entrée européen (<code className="text-white/60">region1.google-analytics.com</code>), IP anonymisée côté serveur.</li>
+                <li><strong className="text-white/70">Microsoft Corporation (Clarity)</strong> : cartes de chaleur et enregistrement de sessions agrégées (mouvements, clics, scroll) pour comprendre les parcours utilisateurs et corriger les frictions UX. Aucune donnée de formulaire ou de saisie sensible n'est capturée (masquage par défaut).</li>
               </ul>
               <p>
                 Nous ne vendons, ne louons et ne partageons jamais vos données personnelles avec des tiers à des fins publicitaires.
@@ -150,6 +152,8 @@ const PrivacyPolicy = () => {
                 <li><strong className="text-white/70">Supabase Inc.</strong>: database hosting and authentication.</li>
                 <li><strong className="text-white/70">Vercel Inc.</strong>: website hosting and deployment.</li>
                 <li><strong className="text-white/70">Brevo (formerly Sendinblue)</strong>: transactional and marketing email delivery.</li>
+                <li><strong className="text-white/70">Google LLC (Google Analytics 4)</strong>: audience measurement and usage analytics. Hits route through the European endpoint (<code className="text-white/60">region1.google-analytics.com</code>) with server-side IP anonymization.</li>
+                <li><strong className="text-white/70">Microsoft Corporation (Clarity)</strong>: heatmaps and aggregated session recordings (mouse movement, clicks, scroll) used to understand user journeys and fix UX friction. Form fields and sensitive inputs are masked by default and never captured.</li>
               </ul>
               <p>
                 We never sell, rent, or share your personal data with third parties for advertising purposes.
@@ -171,6 +175,8 @@ const PrivacyPolicy = () => {
                 <li><strong className="text-white/70">Données de facturation :</strong> 10 ans conformément aux obligations comptables.</li>
                 <li><strong className="text-white/70">Données d'utilisation et logs :</strong> 12 mois maximum.</li>
                 <li><strong className="text-white/70">Cookies :</strong> 13 mois maximum conformément aux recommandations de la CNIL.</li>
+                <li><strong className="text-white/70">Données Google Analytics 4 :</strong> 14 mois (durée maximale autorisée par GA4 sur les données événementielles et utilisateur).</li>
+                <li><strong className="text-white/70">Données Microsoft Clarity :</strong> enregistrements de sessions et heatmaps conservés 12 mois maximum.</li>
               </ul>
             </>
           ) : (
@@ -181,6 +187,8 @@ const PrivacyPolicy = () => {
                 <li><strong className="text-white/70">Billing data:</strong> 10 years in accordance with accounting obligations.</li>
                 <li><strong className="text-white/70">Usage data and logs:</strong> 12 months maximum.</li>
                 <li><strong className="text-white/70">Cookies:</strong> 13 months maximum in accordance with CNIL guidelines.</li>
+                <li><strong className="text-white/70">Google Analytics 4 data:</strong> 14 months (maximum retention period GA4 allows for event and user data).</li>
+                <li><strong className="text-white/70">Microsoft Clarity data:</strong> session recordings and heatmaps retained for 12 months maximum.</li>
               </ul>
             </>
           )}
@@ -248,25 +256,53 @@ const PrivacyPolicy = () => {
           {isFr ? (
             <>
               <p>
-                Le site utilise des cookies strictement nécessaires au fonctionnement du service (préférences de langue, authentification). Ces cookies ne nécessitent pas votre consentement.
+                Le site utilise deux catégories de cookies et traceurs :
+              </p>
+              <ul className="list-disc list-inside space-y-1 ml-2">
+                <li>
+                  <strong className="text-white/70">Cookies strictement nécessaires :</strong> préférences de langue, authentification, fonctionnement du service. Ces cookies ne nécessitent pas votre consentement.
+                </li>
+                <li>
+                  <strong className="text-white/70">Cookies analytiques (soumis à consentement) :</strong> Google Analytics 4 (<code className="text-white/60">_ga</code>, <code className="text-white/60">_ga_GCT3NK4C34</code>) et Microsoft Clarity (<code className="text-white/60">_clck</code>, <code className="text-white/60">_clsk</code>) pour la mesure d'audience, la compréhension des parcours utilisateurs et l'amélioration du site.
+                </li>
+              </ul>
+              <p>
+                Tant que vous n'avez pas accepté le bandeau de consentement, Google Analytics 4 fonctionne en mode Consent Mode v2 ("denied" par défaut) : les hits sont anonymisés et sans cookie persistant. Microsoft Clarity ne déclenche pas de cookies de suivi avant acceptation.
               </p>
               <p>
-                Si des cookies analytiques ou publicitaires sont mis en place à l'avenir, votre consentement explicite sera recueilli préalablement via un bandeau de consentement conforme aux recommandations de la CNIL.
+                Lorsque vous cliquez sur "Accepter" dans le bandeau, le consentement est élevé à "granted" pour les deux outils. Lorsque vous cliquez sur "Refuser", les cookies analytiques ne sont pas déposés.
               </p>
               <p>
-                Vous pouvez à tout moment paramétrer votre navigateur pour refuser les cookies. Veuillez noter que cela peut altérer votre expérience de navigation.
+                Vous pouvez également paramétrer votre navigateur pour refuser les cookies à tout moment. Pour retirer un consentement déjà accordé, vous pouvez effacer le stockage local du site (clé <code className="text-white/60">fleuret_cookie_consent</code>) ou nous contacter par email.
+              </p>
+              <p>
+                Bandeau conforme aux recommandations CNIL : choix Accepter / Refuser présentés sur le même plan d'égalité, refus aussi simple que l'acceptation.
               </p>
             </>
           ) : (
             <>
               <p>
-                The site uses cookies strictly necessary for the operation of the service (language preferences, authentication). These cookies do not require your consent.
+                The site uses two categories of cookies and trackers:
+              </p>
+              <ul className="list-disc list-inside space-y-1 ml-2">
+                <li>
+                  <strong className="text-white/70">Strictly necessary cookies:</strong> language preferences, authentication, service functionality. These cookies do not require your consent.
+                </li>
+                <li>
+                  <strong className="text-white/70">Analytics cookies (consent-gated):</strong> Google Analytics 4 (<code className="text-white/60">_ga</code>, <code className="text-white/60">_ga_GCT3NK4C34</code>) and Microsoft Clarity (<code className="text-white/60">_clck</code>, <code className="text-white/60">_clsk</code>) for audience measurement, user journey analysis, and site improvement.
+                </li>
+              </ul>
+              <p>
+                Until you accept the consent banner, Google Analytics 4 operates in Consent Mode v2 ("denied" by default): hits are anonymized and no persistent cookie is set. Microsoft Clarity does not set tracking cookies before acceptance.
               </p>
               <p>
-                If analytics or advertising cookies are implemented in the future, your explicit consent will be collected beforehand via a consent banner compliant with CNIL guidelines.
+                When you click "Accept" in the banner, consent is upgraded to "granted" for both tools. When you click "Refuse", analytics cookies are not set.
               </p>
               <p>
-                You can configure your browser to refuse cookies at any time. Please note that this may affect your browsing experience.
+                You can also configure your browser to refuse cookies at any time. To withdraw a previously granted consent, clear the site's local storage (key <code className="text-white/60">fleuret_cookie_consent</code>) or contact us by email.
+              </p>
+              <p>
+                The banner follows CNIL guidelines: Accept and Refuse options are presented with equal visual weight, and refusing is as simple as accepting.
               </p>
             </>
           )}
@@ -280,11 +316,12 @@ const PrivacyPolicy = () => {
           {isFr ? (
             <>
               <p>
-                Certains de nos sous-traitants (Vercel, Supabase) sont établis aux États-Unis. Ces transferts sont encadrés par :
+                Certains de nos sous-traitants (Vercel, Supabase, Google LLC pour Google Analytics 4, Microsoft Corporation pour Clarity) sont établis aux États-Unis. Ces transferts sont encadrés par :
               </p>
               <ul className="list-disc list-inside space-y-1 ml-2">
-                <li>Le Data Privacy Framework UE-États-Unis (décision d'adéquation de la Commission européenne du 10 juillet 2023), lorsque le sous-traitant est certifié.</li>
+                <li>Le Data Privacy Framework UE-États-Unis (décision d'adéquation de la Commission européenne du 10 juillet 2023). Google LLC et Microsoft Corporation sont tous deux certifiés DPF.</li>
                 <li>Des clauses contractuelles types (CCT) adoptées par la Commission européenne, le cas échéant.</li>
+                <li>Pour Google Analytics 4 spécifiquement : les hits sont routés via le point d'entrée européen (<code className="text-white/60">region1.google-analytics.com</code>) et l'IP est anonymisée côté serveur (paramètre <code className="text-white/60">anonymize_ip: true</code>) avant tout transfert vers les serveurs Google aux États-Unis.</li>
               </ul>
               <p>
                 Nous veillons à ce que tout transfert de données hors de l'Espace économique européen bénéficie de garanties appropriées conformément au chapitre V du RGPD.
@@ -293,11 +330,12 @@ const PrivacyPolicy = () => {
           ) : (
             <>
               <p>
-                Some of our processors (Vercel, Supabase) are established in the United States. These transfers are governed by:
+                Some of our processors (Vercel, Supabase, Google LLC for Google Analytics 4, Microsoft Corporation for Clarity) are established in the United States. These transfers are governed by:
               </p>
               <ul className="list-disc list-inside space-y-1 ml-2">
-                <li>The EU-U.S. Data Privacy Framework (European Commission adequacy decision of July 10, 2023), where the processor is certified.</li>
+                <li>The EU-U.S. Data Privacy Framework (European Commission adequacy decision of July 10, 2023). Both Google LLC and Microsoft Corporation are DPF-certified.</li>
                 <li>Standard Contractual Clauses (SCCs) adopted by the European Commission, where applicable.</li>
+                <li>For Google Analytics 4 specifically: hits route through the European endpoint (<code className="text-white/60">region1.google-analytics.com</code>) and the IP address is anonymized server-side (<code className="text-white/60">anonymize_ip: true</code>) before any onward transfer to Google servers in the United States.</li>
               </ul>
               <p>
                 We ensure that any transfer of data outside the European Economic Area benefits from appropriate safeguards in accordance with Chapter V of the GDPR.
