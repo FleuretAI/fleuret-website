@@ -27,6 +27,7 @@ const SecurityPolicy = lazy(() => import("./pages/SecurityPolicy"));
 const SubProcessors = lazy(() => import("./pages/SubProcessors"));
 const Resources = lazy(() => import("./pages/Resources"));
 const BlogIndex = lazy(() => import("./pages/BlogIndex"));
+const ComplianceIndex = lazy(() => import("./pages/ComplianceIndex"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 // Unlinked, noindex-ed fundraise announcement page. Kept out of sitemap and
 // prerender list until press embargo drops. URL resolves via SPA routing only.
@@ -50,6 +51,7 @@ const APP_ROUTES: RouteDef[] = [
   { path: "/resources", element: <Resources /> },
   { path: "/blog", element: <BlogIndex /> },
   { path: "/blog/:slug", element: <BlogPost /> },
+  { path: "/compliance", element: <ComplianceIndex /> },
   {
     path: "/compliance/:framework/:industry",
     element: <CompliancePage />,
