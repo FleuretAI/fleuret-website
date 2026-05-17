@@ -1,0 +1,113 @@
+---
+title: "DORA pentest for insurance: scoping resilience testing for undertakings and IORPs"
+description: "DORA applies to insurance undertakings, reinsurance undertakings, and IORPs above the size thresholds. How insurance-sector CISOs scope pentest where Solvency II ORSA + DORA Article 24 stack."
+date: "2026-05-17"
+author: "Fleuret"
+tags: ["DORA", "insurance", "pentest", "Solvency II", "IORP", "compliance"]
+locale: en
+slug: insurance
+kind: compliance
+framework: dora
+industry: insurance
+faqs:
+  - question: "Are all EU insurance undertakings in DORA scope?"
+    answer: "DORA Article 2 names insurance undertakings, reinsurance undertakings, and IORPs as in-scope, subject to a proportionality regime. Micro-enterprises (under 10 employees, balance sheet under EUR 2M) are excluded from some specific obligations but not from the framework itself. Most life, non-life, and reinsurance undertakings supervised by EIOPA-equivalent national authorities are full-scope."
+  - question: "How does DORA Article 24 interact with Solvency II ORSA?"
+    answer: "Solvency II requires the Own Risk and Solvency Assessment (ORSA) annually, which is increasingly expected to include ICT-risk dimensions. DORA Article 24 provides the testing programme that feeds the ICT-risk evidence into ORSA. Same evidence pack typically covers both: the testing report goes to the competent authority's DORA review AND lands in the Annex to the ORSA report."
+  - question: "Is the insurance core platform (Guidewire, Sapiens, Insurity) treated like a banking core?"
+    answer: "Yes for DORA purposes. The core policy-administration system always supports critical or important functions (policy issuance, claims, renewal, premium calculation). Article 25 frequency expectations apply: annual external pentest on the core, supplemented by continuous AI pentest on the customer-facing channels and broker portals."
+  - question: "Are IORPs required to do TLPT?"
+    answer: "Rarely in the first wave. TLPT designation under Article 26 is based on systemic importance, ICT risk profile, and size. Most IORPs fall below the systemic-importance threshold. Larger pan-European pension institutions (PEPP providers, multi-employer schemes) may face designation as the EBA RTS thresholds tighten."
+  - question: "Does DORA apply to my insurance intermediary network or only to the undertaking itself?"
+    answer: "DORA applies to ancillary services insurance intermediaries above the size threshold. Tied-agent networks where the intermediary is contractually integrated with the undertaking usually inherit obligations via Article 30 third-party-provider mechanisms. The undertaking is responsible for testing the integration boundary even when the intermediary IT is run by a third party."
+---
+
+The Digital Operational Resilience Act went live on 17 January 2025. Insurance undertakings, reinsurance undertakings, and Institutions for Occupational Retirement Provision (IORPs) are in scope under Article 2, supervised by EIOPA and by national competent authorities (ACPR in France, BaFin in Germany, IVASS in Italy, MFSA in Malta, equivalents elsewhere). The Solvency II Own Risk and Solvency Assessment already obligates undertakings to consider ICT risk in their overall risk profile. DORA Article 24 provides the testing programme that produces the evidence ORSA needs.
+
+This page is the short version for insurance-sector CISOs. Real article references, real undertaking-scale examples, no fluff.
+
+## What DORA expects from an insurance undertaking
+
+DORA Article 24 mandates a digital operational resilience testing programme. For insurance undertakings, reinsurance undertakings, and IORPs above the proportionality thresholds, that programme covers:
+
+- **Vulnerability assessments** on ICT systems supporting critical or important functions
+- **Source code reviews** where relevant, especially for in-house policy-administration, claims, and actuarial computation components
+- **Scenario-based tests** simulating ICT disruption against the undertaking's continuity plan
+- **Performance testing** of the systems that handle peak loads (renewal seasons, catastrophe-event claim spikes)
+- **End-to-end testing** across the policy lifecycle from quote to claim settlement
+- **Compatibility testing** at the boundaries where the undertaking's systems meet broker portals, aggregator APIs, and reinsurer treaty platforms
+
+Article 25 sets the frequency expectation: at least annually for systems supporting critical or important functions. The competent authority can require more frequent testing for specific undertakings based on their risk profile.
+
+Article 30 governs the ICT third-party provider regime. This matters acutely for insurance because the sector outsources heavily: claims handling to third-party administrators, actuarial calculations to reinsurance partners, distribution to broker networks, and increasingly, embedded-insurance APIs to aggregator platforms. Each of these relationships needs to appear in the third-party register and be tested where the third party supports a critical or important function.
+
+## The Solvency II ORSA overlay
+
+Solvency II already requires the undertaking to perform an Own Risk and Solvency Assessment annually. The ORSA covers the full risk profile of the undertaking, and ICT risk has moved up the priority list in recent supervisory cycles. DORA Article 24 supplies the testing evidence the ORSA needs on the ICT side.
+
+The practical consequence: one pentest evidence pack feeds two consumers. The competent authority's DORA review reads it for Article 24 compliance. The ORSA report references it in the ICT-risk annex. If the evidence is structured to support both at production time, the CISO avoids re-formatting and the actuarial team avoids requesting bespoke reports.
+
+## When TLPT designation applies to insurance
+
+Article 26 introduces Threat-Led Penetration Testing for entities designated by the competent authority. The criteria laid out in the joint regulatory technical standards from the European Supervisory Authorities (EBA, EIOPA, ESMA) include systemic importance, ICT risk profile, size, market share, and exposure to payment flows.
+
+For insurance specifically, the designation logic tracks: the largest reinsurers handling catastrophe risk for multiple primary insurers, pan-European multi-line undertakings with cross-border policyholder bases, and pension institutions whose disruption would affect retirement income at scale. Most regional life-only undertakings and most national-scope IORPs will not be designated in the first wave. Designation expectations should tighten over the next several supervisory cycles.
+
+If the undertaking is designated, TLPT runs at least every three years on live production systems, with adversary emulation, scope tied to critical functions, and mandatory third-party-provider participation. The TIBER-EU methodology is the European reference framework.
+
+## What the pentest scope looks like specifically for insurance
+
+The surfaces that need coverage in a typical mid-to-large insurance undertaking:
+
+1. **Core policy-administration platform.** Whether running on Guidewire, Sapiens, Insurity, or in-house, this supports critical functions: policy issuance, endorsement, renewal, premium calculation, billing. Annual external pentest is the baseline.
+2. **Claims-management system.** First Notice of Loss intake, fraud-rule engine, payment authorisation, reserve setting. Often a separate platform from policy admin, often heavily integrated with third-party adjusters and assessors.
+3. **Customer-facing channels.** Policyholder web portal, mobile app, self-service claim filing, document upload. These change frequently and benefit from continuous validation between annual deep tests.
+4. **Actuarial computation grid.** The pricing engine, the reserving models, the catastrophe-modelling integrations. Lower-frequency changes, but high-impact when a vulnerability exists. Specialist human testing is appropriate here.
+5. **Distribution-channel integration.** Tied-agent platforms, broker portals, aggregator APIs, embedded-insurance APIs serving retail partners or travel-tech platforms. The integration boundary is the failure surface that gets exploited most often in this sector.
+
+## Where continuous AI pentest fits
+
+Customer-facing channels, broker portals, and embedded-insurance APIs change weekly. Every product release modifies a quote flow, a document-upload endpoint, an aggregator-facing pricing call. Annual human pentests cannot keep pace with that release cadence. Continuous AI pentest fits cleanly: bounded, safe-mode validation that re-runs the relevant test patterns every time the surface changes, with evidence captured automatically.
+
+Core policy administration and the actuarial computation grid are different. Changes are infrequent, the systems are complex, and the failure modes are domain-specific. Annual deep tests by human pentesters with insurance-platform experience are the right tool. TLPT scenarios, where the undertaking is designated, sit on top of that and require specialist red-team firms running TIBER-EU exercises.
+
+The right shape of programme for an in-scope insurance undertaking: annual human-led deep tests on the core and the actuarial grid, continuous AI pentest on the customer channels and broker and aggregator surfaces, and (if designated) a TLPT cycle every three years on live production.
+
+## Procurement checklist for insurance CISOs
+
+If you are scoping a pentest programme for DORA compliance in an insurance context, these are the questions that matter:
+
+- Does the vendor produce an ORSA-aware evidence pack, or will the actuarial team need to reformat the findings into the ICT-risk annex by hand?
+- Does the vendor's reporting integrate with the Article 30 third-party register, including the joint testing arrangements DORA expects where the third party supports a critical function?
+- For the claims-fraud rule engine, how does the vendor handle rules-of-engagement on production data, given the sensitivity of personal-injury and medical-claim records?
+- Where is your pentest findings data stored, and under which jurisdiction? Policyholder personal-injury data carries additional sensitivity, and EU data residency for the findings themselves is non-negotiable for most ACPR-supervised undertakings.
+- Does the vendor have TIBER-EU methodology familiarity for the surfaces where TLPT designation is a realistic prospect within the next supervisory cycle?
+- Will the vendor's evidence package map cleanly to the Solvency II report annex, or does the actuarial team need to bridge the format gap themselves?
+
+## Where Fleuret fits
+
+Fleuret is an AI-driven continuous pentest platform built for EU regulated industries. For insurance undertakings, we cover the customer-facing channels, the broker portals, the embedded-insurance APIs, and the administrative web surfaces where the policy-admin platform exposes self-service. We produce DORA-aligned evidence mapped to the Article 24 baseline, the Article 25 testing categories, and the Article 30 third-party-provider register. The same evidence pack is structured to land in the Solvency II ORSA ICT-risk annex without rework.
+
+Fleuret data residency is EU. Sovereign hosting in France, no CLOUD Act exposure on policyholder-adjacent findings. We are not a TLPT execution firm, and we are not an actuarial-system pentester. Both of those require specialist human-led engagements, and we will tell you directly when that is the right tool for the scope. We complement those engagements by keeping the surfaces that change between them validated continuously.
+
+### A French non-life undertaking, around EUR 8B gross written premium
+
+ACPR-supervised. Solvency II SCR ratio in the healthy 180% range. DORA Article 24 testing programme structured as: annual external pentest on Guidewire ClaimCenter, continuous AI pentest on the policyholder portal, continuous AI pentest on the broker portal, and continuous AI coverage of six embedded-insurance APIs serving aggregator partners. The evidence pack feeds both the ACPR DORA review and the annual ORSA filing. No reformatting between the two.
+
+### A Dutch reinsurer, around EUR 2B gross written premium
+
+B2B-only, no direct policyholders. Likely TLPT-designated within the next supervisory cycle given systemic importance to the cedent base. Article 24 baseline programme: annual external on the underwriting platform, continuous AI pentest on the cedent-portal web app, treaty-management interface, and reporting API consumed by the cedent finance teams. TLPT scenario planning underway in parallel with a specialist red-team firm using TIBER-EU methodology.
+
+If you are scoping pentest for DORA in an insurance context, [book a demo](/demo).
+
+## Related compliance reading
+
+**Same framework, other industries:**
+
+- [DORA pentest for fintech](/compliance/dora/fintech): how the testing programme is structured for payment institutions, e-money institutions, and crypto-asset service providers.
+- [DORA pentest for banking](/compliance/dora/banking): credit institutions under the SSM, where TLPT designation hits hardest, and how SREP cyber assessment consumes the evidence pack.
+- [DORA pentest for payments](/compliance/dora/payments): PIs, EMIs, and acquirers under PSD2 plus PCI DSS, with TLPT designation likely above EBA volume thresholds.
+
+**Adjacent frameworks:**
+
+- [ISO 27001 pentest for fintech](/compliance/iso27001/fintech): Annex A controls that an insurance undertaking will frequently map alongside DORA Article 25 when auditors ask for the underlying ISMS evidence.

@@ -1,0 +1,97 @@
+---
+title: "NIS2 pentest for water: scoping resilience testing for drinking and waste-water operators"
+description: "NIS2 classifies drinking-water and waste-water operators as essential entities under Annex I sector 1. How water-utility CISOs scope pentest at the IT, OT, and SCADA boundary."
+date: "2026-05-17"
+author: "Fleuret"
+tags: ["NIS2", "water", "pentest", "OT", "SCADA", "compliance"]
+locale: en
+slug: water
+kind: compliance
+framework: nis2
+industry: water
+faqs:
+  - question: "Is my water utility automatically essential under NIS2?"
+    answer: "Water is at the top of NIS2 Annex I (sector 1 for drinking water, sector 11 for waste water). Drinking-water suppliers serving above the directive thresholds (typically population-served thresholds set per Member State) and waste-water operators above the comparable size threshold are essential entities under the strictest supervisory regime."
+  - question: "Does NIS2 require pentest of SCADA and ICS systems running the treatment plant?"
+    answer: "NIS2 Article 21 requires testing the effectiveness of security measures. SCADA and ICS systems in a water-treatment plant qualify as in-scope ICT systems. Pentest of these systems is restricted to laboratory or shadow environments. Production SCADA is never tested live. IEC 62443 assessment is the standard methodology for the ICS layer, with a separate sector-specialist firm."
+  - question: "What happens if my pentest causes a chemical-dosing fault or water-quality alarm?"
+    answer: "Catastrophic. Every responsible vendor must have documented rules of engagement that prohibit any traffic generation against the SCADA chemical-dosing systems, treatment-control PLCs, or distribution-network valves without explicit written authorisation and a kill switch on the operations bridge. Unauthorised disruption is a reportable incident under Article 23 AND a likely public-health-emergency reporting trigger under national CNI legislation."
+  - question: "Can the same pentest vendor cover IT, SCADA HMI, and the customer-billing platform?"
+    answer: "Partially. Customer-facing IT (consumer portal, billing, SAP-equivalent ERP, asset-management software, GIS), staff portals, and the SCADA HMI workstations on the office IT side can be tested by a continuous-pentest vendor. The PLC/RTU layer and the SCADA server backbone need a sector specialist (Claroty, Nozomi, Dragos, ANSSI-accredited PASSI for OT in France)."
+  - question: "How does Article 23 incident reporting apply if a ransomware event affects the SCADA HMI?"
+    answer: "Article 23 mandates a 24-hour early warning and 72-hour incident notification. A SCADA HMI compromise that affects operator visibility is operational disruption of a critical service. Notification to the national CSIRT is required. Parallel notification to the national public-health authority (in France, ARS + ministère de la Santé; in Germany, Umweltbundesamt) may also apply if water-quality monitoring is affected."
+---
+
+Water sits at sector 1 of the NIS2 Annex I list. Drinking-water suppliers and waste-water operators are both classified essential entities under the directive, and both face the strictest enforcement track from national competent authorities. Sector incidents have sharpened that enforcement. The Oldsmar Florida treatment-plant intrusion in 2021, the Aliquippa Pennsylvania PLC compromise in 2023, and a steady cadence of ransomware events against EU municipal water utilities since 2024 have made water cybersecurity a board-level concern across the union.
+
+This page lays out how to scope a NIS2 pentest programme specifically for a water operator: where the IT, OT, and SCADA layers meet, what auditors expect to see tested, and what testing is categorically off-limits on a live treatment plant.
+
+## What NIS2 expects from a water operator
+
+NIS2 transposes into national law across Member States, with the directive setting minimum security measures (Article 21) and incident reporting timelines (Article 23). The testing programme specifics flow from each national competent authority. In France, ANSSI's existing OIV framework continues to apply, with new NIS2 obligations layered on top, and the regional ARS (Agence régionale de santé) carries the public-health-reporting interface. In Germany, BSI supervises water under the KRITIS regime, with Umweltbundesamt as the environmental-and-water-quality regulator.
+
+Concretely, every NIS2-essential water operator must:
+
+- **Maintain a risk-management framework** covering corporate IT, operations IT, and the SCADA / ICS layer that runs the treatment plant and the distribution network
+- **Test the effectiveness of security measures** on a documented risk-based cadence
+- **Document supply-chain security** for ICT suppliers, SCADA vendors, chemical-dosing-system vendors, and AMI smart-meter vendors under Article 21(2)(d)
+- **Report significant incidents** within 24 hours (early warning), 72 hours (incident notification), one month (final report)
+- **Train staff and the management body** on cybersecurity risks, with the management body personally liable for governance failures
+
+Penetration testing fits inside the testing-effectiveness requirement. Auditors expect a documented cadence, scope that covers the operator's critical functions (water production, treatment, distribution, customer-facing services), a methodology that maps to recognised standards (ISO/IEC 27001 Annex A.18, IEC 62443 for the ICS side), and remediation evidence.
+
+## What the pentest scope looks like specifically for water
+
+Water operators run four distinct surfaces, each with a different testing posture.
+
+**Customer-facing IT.** The consumer portal, the billing platform, the mobile app, the AMI back-end that ingests smart-meter readings. Standard external attack surface. Continuous validation appropriate.
+
+**Operations IT.** Asset-management software, GIS (geographic information systems mapping the distribution network), work-order systems, the SCADA HMI workstations sitting on the office IT side of the air gap. These are office-network endpoints that read from operations but do not write to the control plane. Continuous validation appropriate, with care around any system that could leak distribution-network topology to a finding repository.
+
+**SCADA backbone, PLCs, RTUs.** The treatment-control loop, chemical-dosing systems, valve actuators, pump controllers, network-monitoring sensors. Categorically off-limits to a continuous AI pentest vendor. Tested by a sector specialist under IEC 62443 methodology, in a laboratory or shadow environment, never against the live treatment plant. The cost of an error here is not a finding in a report. It is a public-health emergency.
+
+**Supply chain.** Article 21(2)(d) testing rights flow into vendor contracts: the SCADA vendor, the AMI smart-meter vendor, the chemical-dosing-system supplier with remote-access tooling, the asset-management SaaS provider. Procurement language matters as much as technical testing here.
+
+**Example: a French regional water authority (syndicat intercommunal) serving 1.2 million inhabitants.** Drinking-water plus waste-water operator. SCADA backbone managed in-house. Their NIS2 pentest scope splits into the four lanes above. Lanes 1 and 2 (consumer portal, billing, AMI back-end, GIS, asset-management, SCADA HMI office-network exposure) run on a continuous-pentest engagement. Lane 3 (production SCADA, PLCs, RTUs) is a separate, periodic IEC 62443 specialist engagement run by a PASSI-certified OT firm, in a shadow environment that mirrors plant topology. Lane 4 (supply chain) is a yearly attestation cycle with each vendor. The ARS regional public-health-authority notification path is documented in the incident-response runbook, with named individuals on call.
+
+**Example: a German municipal Stadtwerke combining water and electricity.** Water side serves around 400,000 consumers plus 80,000 industrial connections. The water-side pentest scope covers consumer portal, the Stadtwerke ERP, the AMI infrastructure, GIS, and SCADA HMI office-network exposure. The electricity side is run under a separate energy-sector pentest engagement with different vendors and different reporting paths. The Umweltbundesamt notification path applies for waste-water-quality incidents, sitting alongside the BSI CSIRT path for cyber incidents.
+
+## Where continuous AI pentest fits
+
+Continuous AI pentest is appropriate for customer-facing IT, operations IT, and the SCADA HMI workstations on the office network side. It is NOT appropriate for the SCADA backbone, the PLC/RTU layer, or the field network. The reasoning mirrors energy: AI agents do not replicate the sector-specialist expertise required to test ICS safely, and the consequences of a wrong response on a live treatment plant include physical harm to consumers.
+
+For the testable layer, continuous validation handles surfaces that change frequently:
+
+1. **Consumer portal and billing.** Authentication, billing flows, integrations with payment processors, customer-data exposure paths. Changes often.
+2. **AMI back-end.** Meter-data ingestion, the meter-data-management system, integrations with the GIS and the billing platform. Constantly evolving as new meter models enter the network.
+3. **Asset-management and GIS.** Sensitive because they describe network topology. Findings need careful handling so that distribution-map data is never stored outside EU residency.
+4. **SCADA HMI office-network exposure.** The workstations that read SCADA data into the office IT environment. Tested at the network-exposure layer, never against the SCADA write path.
+
+What continuous pentest does not cover: anything below the SCADA HMI. PLCs, RTUs, chemical-dosing controllers, valve actuators, the operational-technology field network. Those require human red-team expertise, IEC 62443 methodology, and explicit risk-acceptance from operations leadership before any test fires.
+
+## Procurement checklist for water-utility CISOs
+
+If you are scoping NIS2 pentest for an essential-entity water operator:
+
+- Is the SCADA backbone explicitly out of scope in the vendor's statement of work, with a written acknowledgement that PLCs, RTUs, and field-network devices are never tested live?
+- Is the chemical-dosing-system carve-out explicit, including no traffic generation against treatment-control PLCs even in passive-mode scanning?
+- What are the rules of engagement for any ransomware-payload simulation? (Correct answer: tabletop only, never executable artefacts in any environment with a network path to operations.)
+- How does the vendor scope AMI smart-meter testing? Meter-side endpoint testing, the collection servers, the meter-data-management system, and what stays off-limits?
+- Does the vendor's incident-handling runbook reference the national public-health notification chain (ARS in France, Umweltbundesamt in Germany), or only the cyber-CSIRT path?
+- Is EU data residency guaranteed for any pentest findings that include consumer-billing data or distribution-network topology? CLOUD Act exposure on either dataset is unacceptable for a NIS2 essential entity in water.
+
+## Where Fleuret fits
+
+Fleuret runs continuous AI pentest on the customer-facing IT, operations IT, and SCADA HMI office-network exposure layers of water operators. We do not test the SCADA backbone, PLCs, or RTUs. We coordinate with sector-specialist firms (Claroty, Nozomi, Dragos, PASSI-certified OT providers) for the engagements that require ICS expertise. We produce evidence packages mapped to ANSSI and BSI audit formats, with an explicit out-of-scope statement for the operational-technology layer.
+
+Fleuret data residency is EU only. No CLOUD Act exposure on findings that may contain distribution-network topology or consumer-billing data from an essential-entity water operator.
+
+If you are scoping NIS2 pentest for a water entity, [book a demo](/demo).
+
+## Related compliance reading
+
+**Same framework, other essential-entity sectors:**
+
+- [NIS2 pentest for energy](/compliance/nis2/energy): the parallel essential-entity sector with the same OT-IT boundary problem and a comparable testing-scope split between continuous IT validation and specialist OT assessment.
+- [NIS2 pentest for transport](/compliance/nis2/transport): rail, aviation, and maritime operators, with the OT-IT boundary problem mirrored from energy and water.
+- [NIS2 pentest for healthcare](/compliance/nis2/healthcare): hospitals and medical-device operators, where pentest scope overlaps with MDR Article 17 cybersecurity duty.

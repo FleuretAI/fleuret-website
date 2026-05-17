@@ -1,0 +1,111 @@
+---
+title: "ISO 27001 pentest for healthcare: scoping for health-SaaS and EHR vendors selling to EU hospitals"
+description: "Health-SaaS and EHR vendors pursuing ISO 27001:2022 face hospital procurement gating on the cert. How to scope pentest with ISO 27799 health-overlay + MDR-adjacent boundaries in mind."
+date: "2026-05-17"
+author: "Fleuret"
+tags: ["ISO 27001", "healthcare", "pentest", "ISO 27799", "compliance"]
+locale: en
+slug: healthcare
+kind: compliance
+framework: iso27001
+industry: healthcare
+faqs:
+  - question: "Do hospitals require ISO 27001 from health-SaaS vendors?"
+    answer: "Increasingly yes. Most EU hospital procurement frameworks (UGAP in France, regional Krankenhaus-IT tender pools in Germany, public-hospital aggregated procurement in Italy and Spain) now name ISO 27001 as a baseline qualification for health-SaaS vendors. ISO 27799 (health-information-security overlay) is often required additionally for vendors touching patient PHI."
+  - question: "What is ISO 27799 and how does it differ from ISO 27001?"
+    answer: "ISO 27799 is the health-sector implementation guide for ISO 27001. It adds health-specific controls on top of Annex A: stronger requirements around patient consent, PHI handling, breach notification timelines, and the boundary with medical-device software. A health-SaaS pursuing both gets one cert (27001) plus a conformance attestation (27799)."
+  - question: "Does my software classify as a medical device under MDR if I touch patient records?"
+    answer: "Probably no, if your software does not influence diagnosis or treatment decisions. EHR systems, billing systems, scheduling, and patient portals are usually not medical devices under MDR. Clinical decision-support tools that suggest a diagnosis or treatment ARE. The boundary matters for pentest scope: medical-device firmware testing falls under the manufacturer's MDR Article 17 duty, not the customer hospital's ISO 27001 perimeter."
+  - question: "Can the same pentest evidence pack satisfy ISO 27001 + NIS2 (for our hospital customers)?"
+    answer: "Yes for the testing layer. Hospitals are NIS2 essential entities and pass supply-chain testing expectations (NIS2 Article 21(2)(d)) down to their health-SaaS vendors. Vendors who can provide their own ISO 27001 + recent pentest report satisfy that flowdown directly. The hospital then maps the vendor evidence to their own Article 21 obligations."
+  - question: "What evidence do health-SaaS auditors typically require for A.8.8?"
+    answer: "Documented test plan with scope statement, methodology (OWASP ASVS L2 minimum, NIST SP 800-115), CVSS-scored findings, remediation tickets with closure proof, retest evidence on Highs and Criticals, and a risk-acceptance log for any unresolved findings. ISO 27799 adds: patient-PHI exposure assessment in the report, breach-notification-readiness drill evidence."
+---
+
+Health-SaaS and EHR vendors selling into EU hospitals face a procurement reality the ISO 27001 standard text does not surface. Hospital procurement teams have made ISO 27001:2022 a default qualifier in the past 24 months. ISO 27799, the health-information-security overlay, is becoming the second ask alongside it. And NIS2 supply-chain flowdown from hospital customers (Article 21(2)(d)) compounds the pressure: each hospital customer pushes its own essential-entity obligations down to its software vendors.
+
+This page explains how a health-SaaS or EHR vendor scopes ISO 27001 pentest with the health overlay in mind, where the medical-device regulatory boundary sits, and what hospital procurement wants to see in the evidence pack.
+
+## What ISO 27001:2022 expects for health-SaaS testing
+
+ISO/IEC 27001:2022 Annex A is the control reference. The 2022 revision restructured controls into four themes and reduced the count from 114 to 93. For a health-SaaS, the same core controls apply as for a generic B2B SaaS, but PHI weight shifts the centre of gravity:
+
+- **A.8.8 Management of technical vulnerabilities.** "Information about technical vulnerabilities of information systems being used shall be obtained, the organisation's exposure to such vulnerabilities shall be evaluated, and appropriate measures shall be taken."
+- **A.8.29 Security testing in development and acceptance.** "Security testing processes shall be defined and implemented in the development life cycle."
+- **A.5.34 Privacy and protection of PII.** For health-SaaS this is the highest-attention Annex A control. Patient data is special-category personal data under GDPR Article 9. Auditors expect testing evidence to specifically address PHI exposure.
+- **A.5.23 Information security for use of cloud services.** Where the SaaS uses cloud providers, supplier security must be addressed. Auditors check whether your cloud subprocessors themselves are tested and certified.
+
+None of these mandate an annual pentest in literal text. Collectively, they require a documented process for finding and fixing vulnerabilities, with evidence. In the health-SaaS context, A.5.34 makes that evidence load heavier: the auditor wants to see that PHI-handling code paths have been specifically tested, not just the application as a whole.
+
+## The ISO 27799 health overlay
+
+ISO 27799 is the health-sector implementation guide for ISO 27001. It is not a separate certification. It is a conformance attestation that a vendor has implemented ISO 27001 in line with health-sector specifics. Hospital procurement teams in Germany, France, and the Nordics now ask vendors for both: the ISO 27001 certificate plus a 27799 conformance statement.
+
+What ISO 27799 adds on top of ISO 27001:
+
+- **Patient-consent traceability.** Every access to PHI must be auditable back to a documented consent basis. The pentest must validate that the consent audit trail cannot be tampered with by an authenticated user.
+- **PHI breach-notification readiness.** Vendors must show they can identify a PHI breach within a defined window and notify the customer hospital, which then runs its own GDPR Article 33 clock. A breach-simulation tabletop is increasingly part of the evidence pack.
+- **Segregation of clinical vs administrative data.** Auditors check that scheduling, billing, and clinical data are not entangled in ways that expand the breach surface beyond the consent basis.
+- **Scope clarity on the medical-device boundary.** ISO 27799 expects the vendor to state where its product ends and where any connected medical device begins. Pentest scope must match that boundary.
+
+For a health-SaaS pursuing both ISO 27001 and ISO 27799 attestation, the testing programme satisfies both in one engagement, provided the report explicitly flags PHI-handling test paths and includes the breach-simulation evidence.
+
+## Medical-device boundary (MDR/IVDR) for health-SaaS
+
+The boundary that matters most for pentest scope is whether the software qualifies as a medical device under MDR (Regulation (EU) 2017/745). The rule of thumb:
+
+- **Not a medical device:** EHR systems, hospital billing, scheduling, patient portals, document management, telemedicine waiting-room software. These store and present clinical data but do not influence diagnosis or treatment decisions.
+- **Medical device:** clinical decision-support that suggests a diagnosis, software that controls a connected device, software that interprets imaging or lab results for clinical decisions, AI/ML models that recommend treatment.
+
+For non-device health-SaaS, pentest scope is wide-open and follows the normal SaaS pattern: customer-facing application, APIs, admin, supply chain. For clinical decision-support software, the manufacturer carries MDR Article 17 cybersecurity duties as a manufacturer, which layer on top of ISO 27001 expectations and require notified-body involvement. Pentest scope for such products typically excludes the regulated medical-device firmware itself (which falls under the manufacturer's separate cybersecurity submission) and focuses on the surrounding hospital-side surface.
+
+Fleuret operates on the non-device side of the boundary. We do not test connected medical devices in clinical use.
+
+## What the pentest scope looks like specifically for health-SaaS
+
+For a typical health-SaaS or EHR vendor at the €2M to €50M ARR band, the in-scope surface breaks into four layers:
+
+1. **Customer-facing application.** Clinician portal, patient app, web admin. Authentication, role separation (physician vs nurse vs admin vs patient), session handling, audit logging. Patient-portal flows attract specific attention because they expose PHI to weakly-authenticated users.
+2. **Integration layer.** HL7 FHIR REST APIs, DICOM endpoints for imaging vendors, EHR connectors (often to Cerner, Epic, Dedalus, Maincare, or regional EHR products). Highest-density PHI surface. A misconfigured FHIR endpoint exposes patient records at scale.
+3. **Admin and tenant-management.** Multi-tenant health-SaaS must demonstrate strict tenant isolation. Auditors test whether a clinician at hospital A can ever see data from hospital B. Cross-tenant IDOR is the single most consequential class of finding here.
+4. **Supply-chain attestation.** Cloud subprocessors, AI/ML model vendors if applicable, third-party identity providers. A.5.23 and A.5.19-A.5.22 expect supplier evidence in the ISMS.
+
+## Where continuous AI pentest fits
+
+The HL7 FHIR API surface is the natural fit for continuous AI-driven testing. FHIR APIs are uniform in shape, large in count (a typical EHR vendor exposes 80 to 300 endpoints), and continuously evolving. AI pentest scales breadth and frequency cost-effectively. The version that works for health-SaaS:
+
+- Continuous validation on production-equivalent staging environments against every release candidate, focused on the FHIR/DICOM/EHR-connector layer and on cross-tenant isolation
+- Annual depth pentest by a human specialist on PHI-handling code paths and clinical-workflow business logic
+- Breach-simulation tabletop on the quarterly cadence ISO 27799 evidence packs expect
+- Evidence streamed automatically into the ISMS repository with Annex A mapping
+
+The version that does not work: scanner output with no PHI-aware triage, no retest, no segregation between clinical and administrative test data.
+
+## Procurement checklist for health-SaaS CISOs
+
+When scoping a pentest vendor for ISO 27001 plus ISO 27799 plus hospital NIS2 flowdown, ask:
+
+- Does the vendor scope PHI exposure explicitly in the report, or treat patient data as generic personal data?
+- Does the vendor produce a NIS2-flowdown-ready evidence pack hospital customers can map directly to Article 21 obligations?
+- Does the vendor support ISO 27799 overlay (consent audit, breach-simulation evidence, clinical-admin segregation testing)?
+- Demonstrated experience with HL7 FHIR and DICOM endpoint testing plus EHR connector security?
+- Where is testing data stored and under which jurisdiction? Any PHI in findings must remain in EU residency.
+- Does the vendor honour a Rules of Engagement that excludes connected medical devices in clinical use (MDR Article 17 boundary)?
+
+## Where Fleuret fits
+
+Fleuret runs continuous AI pentest on health-SaaS environments. We cover the customer-facing application, the integration layer (HL7 FHIR, DICOM, EHR connectors), and admin tenant-management. EU sovereign residency for all testing data, mandatory for any pentest evidence that may contain patient PHI fragments. We are not a certification body. We are not an MDR notified body. We do not test connected medical devices in clinical use.
+
+For health-SaaS or EHR vendors selling to EU hospitals, our typical engagement combines continuous validation against staging on every release candidate (FHIR breadth, cross-tenant isolation, admin surface) with an annual depth-pentest engagement focused on PHI-handling code paths and clinical-workflow business logic.
+
+A concrete shape we see often: a German health-SaaS with 40 hospital customers across Germany and Austria, pursuing ISO 27001:2022 plus ISO 27799 attestation. Pentest scope covers the clinician portal, patient app, 12 HL7 FHIR endpoints, admin tenant-management, and one EHR connector. Continuous AI pentest programme plus annual external on PHI-handling code paths. Evidence pack lands directly in the ISMS and is reused for each hospital procurement cycle.
+
+Another common shape: a French EHR vendor selling to public hospitals through UGAP. ISO 27001 already certified. NIS2 supply-chain flowdown landing from every ARS region, each asking for the vendor's testing-evidence file. Continuous AI pentest produces the file once, then serves it into 14 hospital-customer audit cycles per year without re-engagement.
+
+If you are scoping pentest for ISO 27001:2022 plus ISO 27799 in a health-SaaS or EHR context, [book a demo](/demo).
+
+## Related compliance reading
+
+- [ISO 27001 pentest for SaaS](/compliance/iso27001/saas): the generic B2B SaaS version of this page, useful background reading on Annex A mapping.
+- [ISO 27001 pentest for fintech](/compliance/iso27001/fintech): the financial-services analogue, with DORA flowdown instead of NIS2.
+- [NIS2 pentest for healthcare](/compliance/nis2/healthcare): the hospital-side view, useful for understanding what your customers are passing down to you under Article 21(2)(d).
