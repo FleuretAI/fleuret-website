@@ -222,7 +222,14 @@ function ComplianceArticle({
               </Link>
             </li>
             <li aria-hidden="true" className="text-white/20">/</li>
-            <li className="text-white/60">Compliance</li>
+            <li>
+              <Link
+                to={localize("/compliance")}
+                className="text-white/60 hover:text-white transition-colors"
+              >
+                Compliance
+              </Link>
+            </li>
             <li aria-hidden="true" className="text-white/20">/</li>
             <li className="text-white/60">{frameworkDisplay}</li>
             <li aria-hidden="true" className="text-white/20">/</li>
