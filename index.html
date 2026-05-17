@@ -32,8 +32,25 @@
 
     <!-- Font: Lufga. display=swap added so text paints with system font while
          Lufga downloads — saves ~150ms of blank-text time on slow connections
-         (Lighthouse W9 audit P1 finding 2026-05-17). -->
+         (Lighthouse W9 audit P1 finding 2026-05-17). The preload hints below
+         drop the LCP weight (300) and the body weight (400) off the discovery
+         chain — the browser starts fetching them in parallel with the CSS
+         instead of after parsing the @font-face rules (W9 P2 push). -->
     <link rel="preconnect" href="https://fonts.cdnfonts.com" crossorigin />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff"
+      href="https://fonts.cdnfonts.com/s/67775/LufgaLight.woff"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff"
+      href="https://fonts.cdnfonts.com/s/67775/LufgaRegular.woff"
+      crossorigin
+    />
     <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/lufga&display=swap" />
 
     <!-- DNS preconnect for the analytics tags loaded at body end. Drops

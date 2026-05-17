@@ -5,7 +5,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import CookieBanner from "./components/CookieBanner";
 import AnnouncementBanner from "./components/AnnouncementBanner";
-import Analytics from "./components/Analytics";
+// Analytics is lazy-loaded so its JS (gtag bridge, scroll-depth listeners,
+// outbound-click delegate) doesn't sit on the LCP critical path. Lighthouse
+// W9 P2 — fires after Suspense resolves, no visible UX dependency.
+const Analytics = lazy(() => import("./components/Analytics"));
 import ScrollToTop from "./components/ScrollToTop";
 import Index from "./pages/Index";
 // BlogPost is EAGER-imported (not React.lazy). Prerender Puppeteer waits for
@@ -65,7 +68,9 @@ const App = () => (
       <BrowserRouter>
         <LanguageProvider>
           <ScrollToTop />
-          <Analytics />
+          <Suspense fallback={null}>
+            <Analytics />
+          </Suspense>
           {import.meta.env.VITE_ANNOUNCE_VISIBLE !== "false" && <AnnouncementBanner />}
           <Suspense fallback={null}>
             <Routes>
