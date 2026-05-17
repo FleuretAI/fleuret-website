@@ -42,7 +42,7 @@ embed, no form" for v1. This TODO captures the v2 extension.
 
 ## 3. GTM container pre-merge audit (ship gate for GA4 plan) — RESOLVED 2026-05-17
 
-**Status:** RESOLVED. Playwright audit on prod 2026-05-17 detected GA4 events double-firing through GTM container `GTM-W5JB9N2K` (audit gate had not been honoured). Container nuked + recreated as `GTM-NQFK57KC` (empty, zero tags). `index.html` swapped to new ID in the same commit. Dual-pipe premise (gtag.js owns GA4, GTM reserved for future marketing tags) restored.
+**Status:** RESOLVED. Playwright audit on prod 2026-05-17 detected GA4 events double-firing through GTM container `GTM-W5JB9N2K` (audit gate had not been honoured). Container nuked + recreated as `GTM-NQFK57KC`, then swapped again to `GTM-TLLF3LB2` after moving the GTM workspace to the correct Google account (Fleuret AI, not perso). `index.html` points at `GTM-TLLF3LB2` (empty, zero tags). Dual-pipe premise (gtag.js owns GA4, GTM reserved for future marketing tags) restored.
 
 **Original ask:** Before merging the full-GA4 plan (`docs/superpowers/specs/2026-04-19-google-analytics-full-design.md`), log in to tagmanager.google.com, open container `GTM-W5JB9N2K`, verify zero GA4 tags exist. If any GA4 tag is present, pause and delete it (gtag.js in `index.html` owns GA4, GTM must not duplicate).
 
@@ -56,7 +56,7 @@ embed, no form" for v1. This TODO captures the v2 extension.
 
 ## 4. GTM workspace policy: no advertising tags (keeps 2-button banner legal)
 
-**What:** Inside GTM container `GTM-NQFK57KC` (recreated fresh 2026-05-17, see TODO #3), add a workspace note / container description: "Policy: do NOT add advertising tags (LinkedIn Insight, Meta Pixel, Google Ads remarketing, TikTok Pixel) without first implementing consent category toggles in src/components/CookieBanner.tsx. Current banner is 2-button (Accept all / Refuse all). Adding ad tags without finer consent = CNIL violation."
+**What:** Inside GTM container `GTM-TLLF3LB2` (final fresh container under Fleuret AI account, 2026-05-17 — see TODO #3), add a workspace note / container description: "Policy: do NOT add advertising tags (LinkedIn Insight, Meta Pixel, Google Ads remarketing, TikTok Pixel) without first implementing consent category toggles in src/components/CookieBanner.tsx. Current banner is 2-button (Accept all / Refuse all). Adding ad tags without finer consent = CNIL violation."
 
 **Why:** The 2-button banner only consents to `analytics_storage` per CNIL specificity rule. If someone adds a LinkedIn Insight tag to GTM later, the banner copy no longer covers the processing purpose = GDPR Art. 7(2) specificity violation + CNIL fine exposure.
 
