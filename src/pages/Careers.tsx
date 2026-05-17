@@ -176,11 +176,11 @@ const Careers = () => {
                     <div className="flex flex-wrap items-center gap-3 pt-2">
                       <a
                         href={mailtoFor(position.subject)}
-                        className="text-sm font-medium hover:underline"
+                        className="inline-flex items-center text-sm font-medium hover:underline min-h-[44px] py-2 -my-2"
                         style={{ color: position.accent }}
                       >
                         {t("careers.positions.applyLabel")} ({position.subject})
-                        &rarr;
+                        &nbsp;&rarr;
                       </a>
                       <span className="text-xs text-white/40">{EMAIL}</span>
                     </div>
