@@ -12,6 +12,7 @@ import { SEO, designPartnerOfferJsonLd } from "@/seo/SEO";
 import { SITE_URL } from "@/seo/routes";
 import { CohortCountdown } from "@/components/designPartners/CohortCountdown";
 import { ApplyForm } from "@/components/designPartners/ApplyForm";
+import { trackCTAClick } from "@/lib/gtag";
 import {
   DP_COHORT_START_ISO,
   DP_COHORT_VISIBLE,
@@ -105,13 +106,31 @@ const DesignPartners = () => {
               )}
 
               <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
-                <HashLink to="#apply" smooth className="btn-cta btn-cta--lg">
+                <HashLink
+                  to="#apply"
+                  smooth
+                  className="btn-cta btn-cta--lg"
+                  onClick={() =>
+                    trackCTAClick({
+                      location: "design_partners_hero",
+                      label: "apply",
+                      destination: "#apply",
+                    })
+                  }
+                >
                   {t("designPartners.hero.cta")}
                 </HashLink>
                 <HashLink
                   to="#timeline"
                   smooth
                   className="text-sm text-white/70 hover:text-white underline-offset-4 hover:underline transition-colors"
+                  onClick={() =>
+                    trackCTAClick({
+                      location: "design_partners_hero",
+                      label: "see_timeline",
+                      destination: "#timeline",
+                    })
+                  }
                 >
                   {t("designPartners.hero.cta.secondary")}
                 </HashLink>

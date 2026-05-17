@@ -7,6 +7,7 @@ import ScrollReveal from "@/components/motion/ScrollReveal";
 import StaggerGroup from "@/components/motion/StaggerGroup";
 import { staggerItem } from "@/lib/animations";
 import { NEWS_LATEST_ROUTE } from "@/lib/routes";
+import { trackCTAClick } from "@/lib/gtag";
 import { motion } from "framer-motion";
 import { SEO } from "@/seo/SEO";
 import yanisPhoto from "@/assets/yanis.png";
@@ -375,12 +376,29 @@ const About = () => {
                 {t("about.cta.title")}
               </h2>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link to={localize(NEWS_LATEST_ROUTE)} className="btn-cta">
+                <Link
+                  to={localize(NEWS_LATEST_ROUTE)}
+                  className="btn-cta"
+                  onClick={() =>
+                    trackCTAClick({
+                      location: "about_footer",
+                      label: "latest_news",
+                      destination: NEWS_LATEST_ROUTE,
+                    })
+                  }
+                >
                   {t("about.cta.news")}
                 </Link>
                 <Link
                   to={localize("/careers")}
                   className="inline-flex items-center justify-center rounded-[6px] px-8 py-3 text-sm font-medium text-white/70 border border-white/10 hover:text-white hover:border-white/20 hover:bg-white/[0.04] transition-all"
+                  onClick={() =>
+                    trackCTAClick({
+                      location: "about_footer",
+                      label: "view_careers",
+                      destination: "/careers",
+                    })
+                  }
                 >
                   {t("about.cta.careers")}
                 </Link>

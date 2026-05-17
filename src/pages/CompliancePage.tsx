@@ -18,6 +18,8 @@ import { PostMeta } from "@/components/blog/PostMeta";
 import { PostAiSummarize } from "@/components/blog/PostAiSummarize";
 import { getFramework } from "@/content/compliance/frameworks";
 import { getIndustry } from "@/content/compliance/industries";
+import { DEMO_ROUTE } from "@/lib/routes";
+import { trackCTAClick } from "@/lib/gtag";
 
 /**
  * CompliancePage renders pSEO entries at /compliance/{framework}/{industry}.
@@ -273,7 +275,17 @@ function ComplianceArticle({
           <span className="text-sm font-light text-white/60">
             Ready to scope your {frameworkDisplay} pentest programme?
           </span>
-          <Link to={localize("/demo")} className="btn-cta btn-cta--sm">
+          <Link
+            to={localize(DEMO_ROUTE)}
+            className="btn-cta btn-cta--sm"
+            onClick={() =>
+              trackCTAClick({
+                location: "compliance_footer",
+                label: "get_demo",
+                destination: DEMO_ROUTE,
+              })
+            }
+          >
             Book a demo
           </Link>
         </section>
