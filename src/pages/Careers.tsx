@@ -8,6 +8,7 @@ import ScrollReveal from "@/components/motion/ScrollReveal";
 import StaggerGroup from "@/components/motion/StaggerGroup";
 import { staggerItem } from "@/lib/animations";
 import { SEO } from "@/seo/SEO";
+import { trackCTAClick } from "@/lib/gtag";
 
 const buildCards = [
   { key: "card1", accent: "var(--accent-blue)" },
@@ -56,6 +57,13 @@ const Careers = () => {
                 <a
                   href={mailtoFor("Fleuret careers")}
                   className="btn-cta btn-cta--lg"
+                  onClick={() =>
+                    trackCTAClick({
+                      location: "careers_hero",
+                      label: "apply_mailto",
+                      destination: "mailto:yanis@fleuret.ai",
+                    })
+                  }
                 >
                   {t("careers.hero.cta")}
                 </a>

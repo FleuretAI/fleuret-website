@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/motion/ScrollReveal";
 import { NewsletterCTA } from "@/components/blog/NewsletterCTA";
+import { trackCTAClick } from "@/lib/gtag";
 
 /**
  * /resources — hub page. Typography + container pattern mirrors About.tsx
@@ -49,6 +50,13 @@ const Resources = () => {
               <Link
                 to={localize("/blog")}
                 className="group block rounded-2xl border border-white/10 bg-white/[0.02] p-8 md:p-10 transition-colors hover:border-white/20 hover:bg-white/[0.04] focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--accent-blue)] focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                onClick={() =>
+                  trackCTAClick({
+                    location: "resources_tile",
+                    label: "browse_blog",
+                    destination: "/blog",
+                  })
+                }
               >
                 <div className="text-xs uppercase tracking-widest text-white/40 mb-4">
                   {t("resources.blog.label")}
@@ -69,6 +77,13 @@ const Resources = () => {
               <Link
                 to={localize("/compliance")}
                 className="group block rounded-2xl border border-white/10 bg-white/[0.02] p-8 md:p-10 transition-colors hover:border-white/20 hover:bg-white/[0.04] focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--accent-blue)] focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                onClick={() =>
+                  trackCTAClick({
+                    location: "resources_tile",
+                    label: "browse_compliance",
+                    destination: "/compliance",
+                  })
+                }
               >
                 <div className="text-xs uppercase tracking-widest text-white/40 mb-4">
                   {t("resources.compliance.label")}
