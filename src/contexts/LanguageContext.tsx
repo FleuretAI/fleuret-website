@@ -460,6 +460,20 @@ export const translations = {
     'blog.askAi.tldr': 'Trop long ?',
     'blog.askAi.prompt': 'Demandez à une IA de résumer cet article.',
 
+    // Newsletter
+    'newsletter.title': 'La newsletter Fleuret',
+    'newsletter.subtitle': 'Un email par mois. Analyses cyber, DORA, NIS2, et ce qu\'on apprend en pentestant les apps de nos clients.',
+    'newsletter.emailLabel': 'Adresse email professionnelle',
+    'newsletter.emailPlaceholder': 'vous@entreprise.com',
+    'newsletter.consent': 'J\'accepte de recevoir la newsletter Fleuret. Désabonnement en un clic.',
+    'newsletter.cta': 'S\'abonner',
+    'newsletter.ctaLoading': 'Envoi…',
+    'newsletter.success.title': 'Merci, c\'est noté.',
+    'newsletter.success.body': 'Vous recevrez le prochain numéro à cette adresse.',
+    'newsletter.error.email': 'Adresse email invalide.',
+    'newsletter.error.consent': 'Cochez la case de consentement RGPD.',
+    'newsletter.error.network': 'Erreur réseau. Réessayez dans un instant.',
+
     // 404
     'notfound.title': '404',
     'notfound.subtitle': 'Page introuvable',
@@ -927,6 +941,20 @@ export const translations = {
     'blog.askAi.aria': 'Summarize this post with AI',
     'blog.askAi.tldr': 'Too long?',
     'blog.askAi.prompt': 'Ask an AI to summarize this article.',
+
+    // Newsletter
+    'newsletter.title': 'The Fleuret newsletter',
+    'newsletter.subtitle': 'One email a month. Cyber analysis, DORA, NIS2, and what we learn pentesting our customers\' apps.',
+    'newsletter.emailLabel': 'Work email',
+    'newsletter.emailPlaceholder': 'you@company.com',
+    'newsletter.consent': 'I agree to receive the Fleuret newsletter. One-click unsubscribe.',
+    'newsletter.cta': 'Subscribe',
+    'newsletter.ctaLoading': 'Sending…',
+    'newsletter.success.title': 'You\'re in.',
+    'newsletter.success.body': 'The next issue will land at this address.',
+    'newsletter.error.email': 'Invalid email address.',
+    'newsletter.error.consent': 'Please tick the GDPR consent box.',
+    'newsletter.error.network': 'Network error. Try again in a moment.',
 
     // 404
     'notfound.title': '404',
