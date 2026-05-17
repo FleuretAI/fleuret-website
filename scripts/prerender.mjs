@@ -217,13 +217,27 @@ async function main() {
           // `data-rh="true"` is the marker react-helmet-async stamps on
           // every tag it owns; if it's not present after 15s, Helmet never
           // ran and we'd ship a metadata-less shell.
+          //
+          // For the homepage `/` route, also wait for the
+          // `data-home-rendered="true"` flag the PrerenderMarker component
+          // stamps on <html> once the below-fold Suspense boundary has
+          // resolved (Lighthouse W9 P4). Without this, the lazy-loaded
+          // WhySection/HowItWorks/ComparisonTable/PricingSection/
+          // CTASection/Footer would ship as Suspense fallbacks and kill
+          // SEO for everything below the hero.
+          const isHomepage = route === "/" || route === "";
           await page.waitForFunction(
-            () => {
+            ({ isHomepage }) => {
               const root = document.getElementById("root");
               if (!root || root.children.length === 0) return false;
-              return !!document.querySelector('[data-rh="true"]');
+              if (!document.querySelector('[data-rh="true"]')) return false;
+              if (isHomepage) {
+                return document.documentElement.dataset.homeRendered === "true";
+              }
+              return true;
             },
-            { timeout: 15_000 },
+            { timeout: 30_000 },
+            { isHomepage },
           );
         }
         const html = await page.content();

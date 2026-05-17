@@ -1,11 +1,7 @@
+import { lazy, Suspense } from "react";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import WhySection from "@/components/WhySection";
-import HowItWorks from "@/components/HowItWorks";
-import ComparisonTable from "@/components/ComparisonTable";
-import PricingSection from "@/components/PricingSection";
-import CTASection from "@/components/CTASection";
-import Footer from "@/components/Footer";
+import { PrerenderMarker } from "@/components/PrerenderMarker";
 import { useLanguage } from "@/contexts/LanguageContext";
 import {
   SEO,
@@ -13,6 +9,18 @@ import {
   websiteJsonLd,
   softwareApplicationJsonLd,
 } from "@/seo/SEO";
+
+// Below-fold sections lazy-loaded so their JS chunks don't compete with the
+// hero render on first paint. Suspense resolves once all five resolve, then
+// PrerenderMarker flips data-home-rendered="true" on <html> — scripts/
+// prerender.mjs waits on that flag for the `/` route so the static HTML
+// still ships full content for SEO (Lighthouse W9 P4 2026-05-17).
+const WhySection = lazy(() => import("@/components/WhySection"));
+const HowItWorks = lazy(() => import("@/components/HowItWorks"));
+const ComparisonTable = lazy(() => import("@/components/ComparisonTable"));
+const PricingSection = lazy(() => import("@/components/PricingSection"));
+const CTASection = lazy(() => import("@/components/CTASection"));
+const Footer = lazy(() => import("@/components/Footer"));
 
 const Index = () => {
   const { language } = useLanguage();
@@ -30,12 +38,15 @@ const Index = () => {
       <Navbar />
       <main id="main-content">
         <Hero />
-        <WhySection />
-        <HowItWorks />
-        <ComparisonTable />
-        <PricingSection />
-        <CTASection />
-        <Footer />
+        <Suspense fallback={null}>
+          <WhySection />
+          <HowItWorks />
+          <ComparisonTable />
+          <PricingSection />
+          <CTASection />
+          <Footer />
+          <PrerenderMarker flag="homeRendered" />
+        </Suspense>
       </main>
     </div>
   );
