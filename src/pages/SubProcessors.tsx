@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { SEO } from "@/seo/SEO";
 
-const LAST_UPDATED = "2026-04-28";
+const LAST_UPDATED = "2026-05-17";
 
 type Row = {
   vendor: string;
@@ -79,6 +79,32 @@ const ACTIVE: Row[] = [
     dataFr: "Aucune donnée client. Notes internes uniquement.",
     dataEn: "No customer data. Internal notes only.",
     dpa: "https://www.granola.ai/legal",
+  },
+  {
+    vendor: "Google LLC (Google Analytics 4)",
+    country: "🇺🇸 United States (EU endpoint)",
+    purposeFr:
+      "Mesure d'audience anonymisée sur fleuret.ai. Hits routés via region1.google-analytics.com (point d'entrée européen) avec anonymize_ip=true. Consent Mode v2 (denied par défaut, granted après acceptation du bandeau cookies).",
+    purposeEn:
+      "Anonymized audience measurement on fleuret.ai. Hits routed through region1.google-analytics.com (European endpoint) with anonymize_ip=true. Consent Mode v2 (denied by default, granted only after cookie banner acceptance).",
+    dataFr:
+      "Métadonnées navigation (pages vues, durée session, navigateur). Aucune donnée client. IP anonymisée côté serveur.",
+    dataEn:
+      "Navigation metadata (page views, session duration, browser). No customer data. IP anonymized server-side.",
+    dpa: "https://business.safety.google/adsprocessorterms/",
+  },
+  {
+    vendor: "Microsoft Corporation (Clarity)",
+    country: "🇺🇸 United States",
+    purposeFr:
+      "Cartes de chaleur et enregistrement de sessions agrégées (mouvements souris, clics, scroll) sur fleuret.ai. Champs de formulaire et saisies sensibles masqués par défaut. Consentement explicite requis via bandeau cookies.",
+    purposeEn:
+      "Heatmaps and aggregated session recordings (mouse movement, clicks, scroll) on fleuret.ai. Form inputs and sensitive fields masked by default. Explicit consent required via cookie banner.",
+    dataFr:
+      "Interactions UI agrégées. Aucun champ de formulaire capturé. Aucune donnée client de la plateforme produit.",
+    dataEn:
+      "Aggregated UI interactions. No form input captured. No product-platform customer data.",
+    dpa: "https://www.microsoft.com/licensing/docs/view/Microsoft-Products-and-Services-Data-Protection-Addendum-DPA",
   },
 ];
 
