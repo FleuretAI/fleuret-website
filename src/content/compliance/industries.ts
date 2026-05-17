@@ -17,6 +17,11 @@ export const INDUSTRY_SLUGS = [
   "energy",
   "saas",
   "ecommerce",
+  "telecom",
+  "transport",
+  "healthcare",
+  "banking",
+  "payments",
 ] as const;
 export type IndustrySlug = (typeof INDUSTRY_SLUGS)[number];
 
@@ -47,6 +52,31 @@ export const INDUSTRIES: Record<IndustrySlug, IndustryProfile> = {
     slug: "ecommerce",
     displayName: "ecommerce",
     fullName: "Ecommerce (DTC, marketplace, retail, digital goods)",
+  },
+  telecom: {
+    slug: "telecom",
+    displayName: "telecom",
+    fullName: "Telecom (fixed and mobile network operators, ISPs, MVNOs)",
+  },
+  transport: {
+    slug: "transport",
+    displayName: "transport",
+    fullName: "Transport (rail, aviation, maritime, road, urban mobility)",
+  },
+  healthcare: {
+    slug: "healthcare",
+    displayName: "healthcare",
+    fullName: "Healthcare (hospitals, clinics, medical device operators, EHR providers)",
+  },
+  banking: {
+    slug: "banking",
+    displayName: "banking",
+    fullName: "Banking (credit institutions supervised by ECB/national prudential authorities)",
+  },
+  payments: {
+    slug: "payments",
+    displayName: "payments",
+    fullName: "Payments (payment institutions, e-money issuers, card networks under PSD2)",
   },
 };
 

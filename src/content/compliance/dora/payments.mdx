@@ -1,0 +1,103 @@
+---
+title: "DORA pentest for payments: scoping resilience testing for PIs, EMIs, and acquirers"
+description: "DORA plus PSD2 plus PCI DSS layer cybersecurity requirements on payment institutions and e-money issuers. How payment-sector CISOs scope pentest where TLPT designation hits hardest."
+date: "2026-05-17"
+author: "Fleuret"
+tags: ["DORA", "payments", "pentest", "TLPT", "PSD2", "compliance"]
+locale: en
+slug: payments
+kind: compliance
+framework: dora
+industry: payments
+faqs:
+  - question: "Are payment institutions and e-money issuers automatically designated for TLPT?"
+    answer: "Not automatically, but the EBA RTS on TLPT criteria weights payment-infrastructure participation heavily. Payment institutions above the EBA transaction-volume threshold and e-money issuers above the outstanding-e-money threshold are very likely to be designated. Acquirers processing significant volumes for systemically important merchants are likely too."
+  - question: "How does DORA Article 24 interact with PSD2 SCA and PCI DSS 4.0 testing?"
+    answer: "Three regimes, one programme. DORA Article 24 is the umbrella. PSD2 SCA testing under the SCA RTS satisfies a slice. PCI DSS 4.0 Requirement 11.4 testing on the cardholder data environment is required separately and feeds the DORA evidence pack. Most payment institutions run one pentest engagement scoped to cover all three."
+  - question: "Does DORA require pentest of the SWIFT/SEPA/TARGET2 integration?"
+    answer: "DORA Article 25 requires testing 'commensurate with the risk' for ICT systems supporting critical or important functions. Payment-network integration always qualifies. The methodology references TIBER-EU. SWIFT CSCF and TARGET2-specific obligations under the Eurosystem oversight policy parallel DORA, so the same evidence pack typically covers all three."
+  - question: "Are crypto-asset service providers (CASPs) under MiCA in DORA scope for pentest?"
+    answer: "Yes. DORA Article 2 explicitly names crypto-asset service providers authorised under MiCA Regulation (EU) 2023/1114. They are full-scope financial entities under DORA. Pentest scoping is similar to payment institutions but with on-chain integration and custody-wallet surfaces additionally in scope."
+  - question: "Does DORA Article 30 (ICT third-party) require testing rights against my card network?"
+    answer: "Article 30 requires contractual provisions that include the third party's participation in your testing programme where they support critical or important functions. For an acquirer or e-money issuer, the card network (Visa, Mastercard, national schemes) is critical. You cannot test their infrastructure directly, but you can require evidence of their own testing and participation in scenarios."
+---
+
+Payments is where every cybersecurity regulation stacks. DORA sits at the top, PSD2 (and the incoming PSD3 package) governs strong customer authentication and access to payment accounts, and PCI DSS 4.0 governs the cardholder data environment. For a payment institution, an e-money issuer, an acquirer, or a card processor, "DORA pentest" is rarely a standalone engagement. It is the umbrella under which three testing regimes get reconciled into one auditable programme.
+
+TLPT designation likelihood is also higher in payments than in generic fintech. Payment-infrastructure participation is one of the criteria weighted heavily by the EBA in the joint ESA technical standards on TLPT. If your firm sits on the SEPA rails, on a card scheme, or on an instant-payments scheme as a direct participant, assume designation is on the table.
+
+## What DORA expects from a payment institution
+
+DORA Article 24 mandates a digital operational resilience testing programme. Article 25 lists the testing categories that the programme must cover: vulnerability assessments, network security assessments and penetration tests, gap analyses, source code reviews, scenario-based tests, compatibility testing, performance testing, end-to-end testing, and physical security reviews. Payment institutions sit fully in scope by virtue of their PSD2 authorisation.
+
+Two overlays specific to payments:
+
+- **PSD2 SCA RTS overlay.** The strong customer authentication regime under PSD2 carries its own testing expectations on the authentication elements and the dynamic linking implementation. Penetration testing of the SCA flow, including step-up, fallback, and exemption logic, feeds both the DORA evidence pack and the PSD2 compliance file.
+- **PCI DSS 4.0 Requirement 11.4 overlay.** If your firm stores, processes, or transmits cardholder data (PAN, track data, sensitive authentication data), Requirement 11.4 mandates internal and external penetration testing of the cardholder data environment and the segmentation controls that scope it. The PCI report on compliance is separate from the DORA evidence pack, but the underlying test engagement is usually one and the same.
+
+Tests must run at least annually on ICT systems supporting critical or important functions. The competent authority (in France, the ACPR for credit and payment institutions) can mandate more frequent testing.
+
+## When TLPT designation applies to payments
+
+DORA Article 26 creates Threat-Led Penetration Testing for entities the competent authority designates. The joint ESA regulatory technical standards set the criteria. For payments specifically, the criteria that bite hardest are:
+
+- **Transaction volume.** Payment institutions and e-money issuers above the EBA-published threshold are very likely candidates.
+- **Outstanding e-money.** EMIs above the outstanding-e-money threshold are likely candidates.
+- **Direct participation in payment infrastructures.** SEPA Credit Transfer, SEPA Instant, a card-scheme connector role, TARGET2 access. Each of these increases designation likelihood.
+- **Concentration role.** Acquirers processing for systemically important merchants, or processors operating on behalf of multiple regulated entities, are routinely on the designation shortlist.
+
+As a rule of thumb among the firms we have spoken with, acquirers above roughly €2B in annual processing volume should plan for designation within the first two waves. The cost shape changes significantly: a TLPT exercise is a six-to-nine-month engagement with a dedicated red-team firm, threat intelligence input, control-team blue-team coordination, and the competent authority observing the test plan.
+
+## What the pentest scope looks like specifically for payments
+
+Five surfaces show up in almost every scoping conversation:
+
+1. **Customer-facing platform.** The PSP merchant portal, the e-money customer mobile app, the issuer cardholder app, the chargeback management portal. These change weekly. Authentication, session handling, transaction confirmation flows, exemption handling on SCA.
+2. **Acquiring or issuing core.** FIS Connex, ACI BASE24, Tieto, in-house cores. Authorisation, clearing, settlement message flows. ISO 8583 or ISO 20022 message validation. Authorisation-host integration.
+3. **Tokenization service and card vault.** The component that holds PANs, the surrogate tokens, the detokenization API. PCI DSS scope-narrowing depends entirely on how this is segmented. Penetration testing here is the most sensitive part of the engagement.
+4. **Card-network connector.** Visa Direct, Mastercard Send, SEPA Instant gateway, national scheme connectors. The integration code, the certificates, the HSM integration on the connector side, the message validation.
+5. **Settlement engine, AML, and fraud rule engines.** Reconciliation, position-keeping, the AML transaction-monitoring rules engine, the real-time fraud scoring engine. Rule evasion testing and the integrity of the rule store both matter.
+
+Each surface has a different testing cadence. Customer-facing platforms change weekly. The card vault changes quarterly at most. The card-network connector changes when the scheme publishes a release, on the scheme's calendar.
+
+## Where continuous AI pentest fits
+
+The split is cleaner in payments than in generic fintech because the surfaces have different change rates and different testing constraints.
+
+- **Customer-facing platform, APIs, merchant portal, admin surfaces.** Continuous AI pentest. These surfaces ship code weekly, they have well-understood test envelopes, and they tolerate bounded validation without disrupting production.
+- **Card vault, HSM integration, key-management surfaces.** Human-led specialist testing. The rules of engagement are extremely tight. The blast radius of a mistake is large. Specialist firms with HSM testing track records run these engagements with a narrow scope and heavy governance.
+- **Card-network connector at scheme boundary.** TLPT-grade scenario-based testing when designated. The threat-intelligence input drives the scenario design. The red team includes specialists who have worked the scheme connectors before.
+
+The pattern we see across French and Benelux payment institutions: annual deep human-led tests on the card vault, the connector, and the AML engine. Continuous AI pentest on the customer-facing surfaces and the merchant-portal APIs. TLPT every three years on the consolidated critical-function scope when the firm is designated.
+
+Two concrete examples make this concrete.
+
+A French payment institution processing roughly €18B in annual volume across 80,000 SMB merchants. Acquiring core, tokenization service, card-network connector, reporting and reconciliation platform. The firm runs DORA Article 24 baseline plus PSD2 SCA testing plus PCI DSS 4.0 Requirement 11.4 inside a single annual programme reconciled into separate evidence packs. TLPT designation is expected in the next supervisory wave given the SEPA Instant participation and the merchant concentration. The current programme: an annual TLPT exercise scoped to the consolidated critical-function set, plus continuous AI pentest on the merchant portal and six public-facing APIs, plus a quarterly external human-led test on the card vault and the connector.
+
+A Belgian e-money institution issuing prepaid cards for B2B expense management, roughly €500M in outstanding e-money. Below the EBA TLPT volume threshold in the current wave, but above it by the next reassessment if growth holds. Article 24 baseline programme: annual external human-led test on the issuing core and the AML engine, continuous AI pentest on the customer-facing app and the admin portal and four internal APIs. PCI DSS scope is reduced because PANs are tokenised at issuance and the cardholder data environment sits behind a single hardened boundary. The firm reuses the same evidence chain for both regimes.
+
+## Procurement checklist for payments CISOs
+
+Questions worth asking any pentest vendor for a payments engagement:
+
+- Does the vendor understand PCI DSS scope-narrowing and avoid expanding scope by testing outside the segmented CDE without explicit instruction?
+- Does the vendor map findings to PSD2 SCA RTS overlay obligations where the test surface touches authentication?
+- Is HSM and key-management testing explicitly in or out of the statement of work, with clear handoff to the specialist firm that owns it?
+- Does the vendor produce evidence that drops into the DORA Article 30 ICT third-party register without manual rework?
+- Does the vendor have TLPT scenario-design familiarity, or do they refer you to a partner for that scope?
+- Where is the pentest data stored, under which jurisdiction, and is there CLOUD Act exposure? US-headquartered vendors carry this exposure even on EU-hosted findings.
+- Is rate limiting, kill-switch, and production-safety governance documented for the continuous portion of the programme?
+
+## Where Fleuret fits
+
+Fleuret is an EU-sovereign AI-driven continuous pentest platform. For payments, we test the surfaces that change between human engagements: the customer-facing platform, the merchant portal, the public and partner APIs, the internal admin portals, the back-office tooling that handles dispute and chargeback flows. We produce DORA-aligned evidence automatically and feed the PSD2 SCA RTS overlay where the test surface includes authentication.
+
+What Fleuret does not do, and where we will redirect you: HSM and key-management testing belongs to a specialist firm with that specific track record. TLPT execution on a designated entity belongs to an accredited red-team provider running the full TIBER-EU scenario with threat intelligence input. Fleuret provides the continuous validation layer between those engagements and the DORA evidence pack that ties everything together.
+
+Data residency is EU. No CLOUD Act exposure on pentest findings. If you are scoping a payments pentest programme under DORA, [book a demo](/demo).
+
+## Related compliance reading
+
+- [DORA pentest for fintech](/compliance/dora/fintech): the broader fintech-CISO guide to Article 24-27 scope and TLPT designation.
+- [DORA pentest for banking](/compliance/dora/banking): credit institution scoping, where ACPR oversight and core-banking surfaces drive the programme.
+- [PCI DSS pentest for e-commerce](/compliance/pcidss/ecommerce): Requirement 11.4 segmentation testing, relevant where the payments surface touches card data flows.
