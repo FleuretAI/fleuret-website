@@ -40,23 +40,31 @@ embed, no form" for v1. This TODO captures the v2 extension.
 
 ---
 
-## 3. GTM container pre-merge audit (ship gate for GA4 plan) — RESOLVED 2026-05-17
+## 3. GTM container pre-merge audit (ship gate for GA4 plan) — RESOLVED 2026-05-18
 
-**Status:** RESOLVED. Playwright audit on prod 2026-05-17 detected GA4 events double-firing through GTM container `GTM-W5JB9N2K` (audit gate had not been honoured). Container nuked + recreated as `GTM-NQFK57KC`, then swapped again to `GTM-TLLF3LB2` after moving the GTM workspace to the correct Google account (Fleuret AI, not perso). `index.html` points at `GTM-TLLF3LB2` (empty, zero tags). Dual-pipe premise (gtag.js owns GA4, GTM reserved for future marketing tags) restored.
+**Status:** RESOLVED via removal. Playwright audit on prod 2026-05-17/18 confirmed the dual-pipe gtag.js + GTM premise does not hold:
+1. Modern GTM containers auto-create a "Google tag" entity (separate menu from the Tags list) that injects its own `gtag/js?id=G-GCT3NK4C34&cx=c&gtm=...` even when Tags list is empty.
+2. The Vite prerender step (`scripts/prerender.mjs`) captures the dynamically-injected `gtm.js` `<script>` element into the static HTML, and the inline boot then re-executes on hydration = a second `gtm.js` load.
+
+Both bugs combine into a 2x GA4 event duplication that survived three container recreations (`GTM-W5JB9N2K` → `GTM-NQFK57KC` → `GTM-TLLF3LB2`). Fix: removed the GTM bootstrap (inline boot + noscript iframe) from `index.html` entirely 2026-05-18. gtag.js is now the sole GA4 dispatcher. GTM stays available in Fleuret AI account at `GTM-TLLF3LB2` for the day a real marketing tag is needed; re-introduce paired with the consent-banner upgrade required by TODOS#4.
 
 **Original ask:** Before merging the full-GA4 plan (`docs/superpowers/specs/2026-04-19-google-analytics-full-design.md`), log in to tagmanager.google.com, open container `GTM-W5JB9N2K`, verify zero GA4 tags exist. If any GA4 tag is present, pause and delete it (gtag.js in `index.html` owns GA4, GTM must not duplicate).
 
-**Why it mattered:** Dual-pipe architecture (gtag.js + GTM) only works if they are not both firing GA4. If GTM container has a GA4 tag on "All Pages" trigger, every page_view fires twice and GA4 funnel data is silently corrupted from day one.
+**Why it mattered:** Every page_view, scroll_depth, pricing_viewed, and demo_scheduler_fallback_clicked event was hitting `/g/collect` twice with identical payload. Funnel rates inflated 2x, audience triggers double-fired, decision data corrupted from analytics launch (2026-05-16) through removal (2026-05-18).
 
-**Lesson for next time:** Add a Playwright assertion in `tests/` that fails CI if `/g/collect` calls contain duplicate `cid` × `en` payloads on a single page load — turn this from a human audit into a hard gate.
+**Lesson for next time:** Before re-introducing GTM, add a Playwright assertion in `tests/` that fails CI if `/g/collect` calls contain duplicate `cid` × `en` payloads on a single page load — turn this from a human audit into a hard gate.
 
-**Context:** Flagged in Codex-adversarial review of `/plan-eng-review` on 2026-04-19 (finding #2). Resolved post-Playwright audit 2026-05-17.
+**Context:** Flagged in Codex-adversarial review of `/plan-eng-review` on 2026-04-19 (finding #2). Resolved by removal 2026-05-18.
 
 ---
 
-## 4. GTM workspace policy: no advertising tags (keeps 2-button banner legal)
+## 4. GTM re-introduction policy: paired with 3-button consent banner
 
-**What:** Inside GTM container `GTM-TLLF3LB2` (final fresh container under Fleuret AI account, 2026-05-17 — see TODO #3), add a workspace note / container description: "Policy: do NOT add advertising tags (LinkedIn Insight, Meta Pixel, Google Ads remarketing, TikTok Pixel) without first implementing consent category toggles in src/components/CookieBanner.tsx. Current banner is 2-button (Accept all / Refuse all). Adding ad tags without finer consent = CNIL violation."
+**What:** GTM is not currently loaded on the site (removed 2026-05-18, see TODO #3). When the first real marketing tag is needed (LinkedIn Insight, Meta Pixel, Google Ads remarketing, TikTok Pixel, etc.), re-introduce the GTM bootstrap in `index.html` AS A SINGLE COMMIT that also:
+1. Upgrades `src/components/CookieBanner.tsx` from 2-button (Accept all / Refuse all) to 3-button or category toggles (analytics / marketing / strictly necessary).
+2. Updates the gtag consent grant in `src/lib/gtag.ts` to flip `ad_storage`, `ad_user_data`, `ad_personalization` from `denied` to `granted` when the marketing category is accepted.
+3. Adds the Playwright CI assertion mentioned in TODO #3 (no duplicate `/g/collect` per event) before merging.
+4. Inside GTM container `GTM-TLLF3LB2`, adds a workspace note: "Policy: do NOT add advertising tags without the corresponding consent category toggle. Adding ad tags without finer consent = CNIL violation."
 
 **Why:** The 2-button banner only consents to `analytics_storage` per CNIL specificity rule. If someone adds a LinkedIn Insight tag to GTM later, the banner copy no longer covers the processing purpose = GDPR Art. 7(2) specificity violation + CNIL fine exposure.
 

@@ -62,38 +62,27 @@
   </head>
 
   <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript
-      ><iframe
-        src="https://www.googletagmanager.com/ns.html?id=GTM-TLLF3LB2"
-        height="0"
-        width="0"
-        style="display:none;visibility:hidden"
-      ></iframe
-    ></noscript>
-    <!-- End Google Tag Manager (noscript) -->
     <a href="#main-content" class="skip-to-content">Skip to main content</a>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
 
     <!-- Analytics block — moved from <head> to body end (Lighthouse W9 audit
-         2026-05-17). All three tags previously sat in <head> and accounted
-         for ~1.76s of render-blocking work + 427 KB of unused JS on mobile.
+         2026-05-17). All tags previously sat in <head> and accounted for
+         ~1.76s of render-blocking work + 427 KB of unused JS on mobile.
          Consent defaults still fire from <head> above; events captured via
          `dataLayer` survive the deferral because `dataLayer = []` is
-         initialised in <head> and the tags drain the queue when they load. -->
+         initialised in <head> and the tags drain the queue when they load.
 
-    <!-- Google Tag Manager. Reserved for future marketing tags only; the
-         GA4 hits flow through gtag.js below. Container audit gate documented
-         in TODOS.md item #3. -->
-    <script>
-      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-      })(window,document,'script','dataLayer','GTM-TLLF3LB2');
-    </script>
-    <!-- End Google Tag Manager -->
+         GTM intentionally NOT loaded here (Playwright audit 2026-05-17/18 on
+         prod proved a dual-pipe gtag.js + GTM setup double-fires every GA4
+         event — GTM auto-creates a "Google tag" entity that mirrors gtag.js
+         and reinjects `gtag/js?id=G-GCT3NK4C34` with `&cx=c&gtm=...` even
+         when the Tags list is empty. Plus the prerender step bakes the
+         dynamically-injected gtm.js <script> element into the static HTML,
+         then the inline boot re-executes on hydration = a second gtm.js
+         load. Re-introduce GTM only when the first real marketing tag is
+         needed (LinkedIn Insight, Meta Pixel, etc.) and pair it with the
+         3-button consent banner required by TODOS.md #4 CNIL policy. -->
 
     <!-- Google Analytics 4 (gtag.js). Boots with analytics_storage=denied per
          the gtag('consent','default') block in <head> above.
