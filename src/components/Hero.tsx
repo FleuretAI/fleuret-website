@@ -5,11 +5,13 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { DEMO_ROUTE } from "@/lib/routes";
 import { trackCTAClick } from "@/lib/gtag";
 import stoikLogo from "@/assets/investors/stoik.svg";
+import ouwbaLogo from "@/assets/clients/ouwba.svg";
 
 type TrustLogo = {
   name: string;
   logo: string;
-  href: string;
+  /** External brand link. Omit to render the logo without an anchor wrapper. */
+  href?: string;
   /** Set true to invert dark-on-light artwork so it reads on the dark hero. */
   invert?: boolean;
   /** Visual height in px at the largest breakpoint. */
@@ -18,6 +20,7 @@ type TrustLogo = {
 
 const TRUST_LOGOS: TrustLogo[] = [
   { name: "Stoïk", logo: stoikLogo, href: "https://www.stoik.io/", invert: true, heightPx: 22 },
+  { name: "Ouwba", logo: ouwbaLogo, heightPx: 22 },
 ];
 
 const Hero = () => {
@@ -185,26 +188,40 @@ const Hero = () => {
                 {t("clients.title")}
               </span>
               <ul className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4 sm:gap-x-14">
-                {TRUST_LOGOS.map((c) => (
-                  <li key={c.name}>
-                    <a
-                      href={c.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={c.name}
-                      className="block opacity-60 transition-opacity duration-300 hover:opacity-95 focus-visible:opacity-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-400 rounded-sm"
-                    >
-                      <img
-                        src={c.logo}
-                        alt={c.name}
-                        loading="lazy"
-                        decoding="async"
-                        style={{ height: `${c.heightPx ?? 22}px` }}
-                        className={`w-auto select-none ${c.invert ? "invert brightness-0" : ""}`}
-                      />
-                    </a>
-                  </li>
-                ))}
+                {TRUST_LOGOS.map((c) => {
+                  const img = (
+                    <img
+                      src={c.logo}
+                      alt={c.name}
+                      loading="lazy"
+                      decoding="async"
+                      style={{ height: `${c.heightPx ?? 22}px` }}
+                      className={`w-auto select-none ${c.invert ? "invert brightness-0" : ""}`}
+                    />
+                  );
+                  return (
+                    <li key={c.name}>
+                      {c.href ? (
+                        <a
+                          href={c.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={c.name}
+                          className="block opacity-60 transition-opacity duration-300 hover:opacity-95 focus-visible:opacity-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-400 rounded-sm"
+                        >
+                          {img}
+                        </a>
+                      ) : (
+                        <span
+                          aria-label={c.name}
+                          className="block opacity-60"
+                        >
+                          {img}
+                        </span>
+                      )}
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           )}
