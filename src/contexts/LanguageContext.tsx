@@ -179,7 +179,6 @@ export const translations = {
     'pricing.enterprise.f2': 'Tarifs dégressifs sur volume',
     'pricing.enterprise.f3': 'Scanners intégrés (infra, cloud, AD)',
     'pricing.enterprise.f4': 'Support dédié & intégrations',
-    'pricing.enterprise.cta': 'Nous contacter',
     'pricing.cta': 'Réserver une démo',
     'pricing.guarantee': '0 finding, 0 facture.',
     'pricing.guarantee.title': '0 finding, 0 facture.',
@@ -315,7 +314,7 @@ export const translations = {
     'about.vcs.title': 'Fonds',
     'about.vcs.subtitle': 'Investisseurs institutionnels.',
     'about.cta.title': 'Prêt à travailler avec nous ?',
-    'about.cta.demo': 'Réserver une démo',
+    'about.cta.news': 'Lire la dernière actualité',
     'about.cta.careers': 'Voir les postes',
     'about.back': 'Retour à l\'accueil',
 
@@ -628,7 +627,6 @@ export const translations = {
     'pricing.enterprise.f2': 'Volume discounts',
     'pricing.enterprise.f3': 'Integrated scanners (infra, cloud, AD)',
     'pricing.enterprise.f4': 'Dedicated support & integrations',
-    'pricing.enterprise.cta': 'Contact us',
     'pricing.cta': 'Book a demo',
     'pricing.guarantee': '0 findings, 0 invoice.',
     'pricing.guarantee.title': '0 findings, 0 invoice.',
@@ -764,7 +762,7 @@ export const translations = {
     'about.vcs.title': 'Funds',
     'about.vcs.subtitle': 'Institutional investors.',
     'about.cta.title': 'Ready to work with us?',
-    'about.cta.demo': 'Book a demo',
+    'about.cta.news': 'Read the latest news',
     'about.cta.careers': 'View open positions',
     'about.back': 'Back to home',
 

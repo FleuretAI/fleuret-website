@@ -11,7 +11,7 @@ import { staggerItem } from "@/lib/animations";
 import { SEO, designPartnerOfferJsonLd } from "@/seo/SEO";
 import { SITE_URL } from "@/seo/routes";
 import { CohortCountdown } from "@/components/designPartners/CohortCountdown";
-import { DEMO_ROUTE } from "@/lib/routes";
+import { ApplyForm } from "@/components/designPartners/ApplyForm";
 import {
   DP_COHORT_START_ISO,
   DP_COHORT_VISIBLE,
@@ -105,9 +105,9 @@ const DesignPartners = () => {
               )}
 
               <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
-                <Link to={localize(DEMO_ROUTE)} className="btn-cta btn-cta--lg">
-                  {t("hero.cta")}
-                </Link>
+                <HashLink to="#apply" smooth className="btn-cta btn-cta--lg">
+                  {t("designPartners.hero.cta")}
+                </HashLink>
                 <HashLink
                   to="#timeline"
                   smooth
@@ -118,6 +118,15 @@ const DesignPartners = () => {
               </div>
             </div>
           </ScrollReveal>
+        </section>
+
+        {/* Apply — inline 5-field form, qualified leads see the scheduler URL */}
+        <section id="apply" className="container mx-auto px-4 py-16 md:py-24">
+          <div className="max-w-2xl mx-auto">
+            <ScrollReveal>
+              <ApplyForm />
+            </ScrollReveal>
+          </div>
         </section>
 
         {/* Timeline — what you get, week by week */}

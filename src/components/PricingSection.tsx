@@ -312,10 +312,7 @@ const PricingSection = () => {
             <span className="fl-mono" style={{ display: "block", fontSize: "0.6875rem", letterSpacing: "0.22em", color: "rgba(255,255,255,0.45)", marginBottom: "0.4rem" }}>
               {t("pricing.alsoAvailable")}
             </span>
-            {t("pricing.enterprise.desc")}{" "}
-            <Link to={localize(DEMO_ROUTE)} style={{ color: "var(--fl-blue)", textDecoration: "none", whiteSpace: "nowrap" }}>
-              {t("pricing.enterprise.cta")} →
-            </Link>
+            {t("pricing.enterprise.desc")}
           </motion.p>
         </motion.div>
 
