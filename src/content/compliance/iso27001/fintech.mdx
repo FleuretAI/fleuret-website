@@ -1,0 +1,109 @@
+---
+title: "ISO 27001 pentest for fintech: dual-certification path with DORA"
+description: "Fintechs pursuing ISO 27001:2022 in parallel with DORA Article 24 face overlapping testing obligations. How to scope one pentest programme that satisfies both auditors and saves the test-fatigue burn."
+date: "2026-05-17"
+author: "Fleuret"
+tags: ["ISO 27001", "fintech", "pentest", "DORA", "compliance"]
+locale: en
+slug: fintech
+kind: compliance
+framework: iso27001
+industry: fintech
+faqs:
+  - question: "Can the same pentest cover ISO 27001 A.8.8 and DORA Article 24?"
+    answer: "Yes, if the scope covers the systems both frameworks care about and the evidence package is formatted for each auditor. Most EU fintechs run one continuous pentest programme on the customer-facing application + APIs + internal portals, then split the report into an Annex A.8.8 + A.8.29 evidence file for ISO and an Article 24 evidence file for the competent authority. The underlying tests are the same."
+  - question: "Does ISO 27001:2022 require an annual pentest for fintech?"
+    answer: "Not literally. Annex A.8.8 (Management of technical vulnerabilities) and A.8.29 (Security testing in the SDLC) describe controls, not a frequency. EU fintech auditors in 2026 expect at least annual depth-testing plus continuous vulnerability management. DORA Article 25 frequency expectations (annual baseline for critical functions) provide the harder floor."
+  - question: "How does the ISO 27001 scope statement interact with DORA scope?"
+    answer: "ISO 27001 scope is voluntary: you choose what is in the Statement of Applicability. DORA scope is regulatory and covers all critical or important ICT functions. Most fintechs align the two by writing the SoA to include the DORA-critical-function perimeter so a single audit cycle covers both. Smaller SoA is faster to certify but limits the certificate's commercial value to enterprise buyers."
+  - question: "Does ISO 27001 audit cover the same controls as a SOC 2 Type II?"
+    answer: "Partially. ISO 27001 is a controls framework (Annex A, 93 controls). SOC 2 is the Trust Services Criteria. There is mapping (CC1.x to A.5.x, CC7.x to A.8.8 / A.8.29). Most fintechs serving US enterprise customers run both, scope the same systems for both, and reuse the pentest evidence. ISO 27001 first, SOC 2 second is the most common sequence in 2026."
+  - question: "If we already have DORA testing done, do we still need a separate ISO 27001 pentest?"
+    answer: "Usually no. Same scope, same evidence, repackaged. The ISO auditor asks for evidence that A.8.8 and A.8.29 are operating effectively. The DORA Article 24 testing programme produces that evidence directly. Provide the test plan, methodology references, findings, remediation tickets, and retest results to the ISO auditor in the format their checklist expects."
+---
+
+Most EU fintechs hit ISO 27001 and DORA at the same time. The certification customers (banking partners, enterprise distribution, payment networks) ask for the ISO certificate. The regulator (ACPR, BaFin, CSSF, MFSA) asks for DORA Article 24 evidence. The trap is treating them as two compliance programmes. They are one programme with two reports.
+
+This page explains how to scope a fintech pentest so a single testing cycle produces evidence for both the ISO 27001:2022 auditor and the DORA competent authority, and where continuous AI pentest fits inside that programme.
+
+## What ISO 27001:2022 expects for fintech testing
+
+ISO/IEC 27001:2022 Annex A is the control reference. The 2022 revision restructured controls into four themes and reduced the count from 114 to 93. The relevant ones for fintech pentest scope:
+
+- **A.8.8 Management of technical vulnerabilities.** Documented process to identify, evaluate, and remediate technical vulnerabilities across the in-scope environment.
+- **A.8.29 Security testing in development and acceptance.** Security testing integrated into the SDLC, not bolted on at release.
+- **A.5.34 Privacy and protection of PII.** Where the fintech processes customer PII (KYC, payment data, behavioural signals), testing must demonstrate the technical measures hold.
+- **A.5.23 Information security for use of cloud services.** Fintechs running on AWS, GCP, Azure, or Scaleway must address cloud-service security in the SoA, including pentest scope for cloud-hosted critical functions.
+
+What the ISO auditor wants to see across these controls: a documented test plan, a referenced methodology (OWASP ASVS or WSTG, NIST SP 800-115), CVSS-scored findings, remediation tickets with assignees and dates, retest evidence, and risk-acceptance records for anything left open. The auditor is checking that a process exists and is operating, not that a particular tool was used.
+
+None of A.8.8, A.8.29, A.5.34, or A.5.23 mandates an annual pentest by name. All four collectively require evidence of a process that produces, in practice, an annual depth-test plus continuous validation. Fintech auditors in 2026 read a single yearly PDF as a starting point, not a complete answer, and surveillance audits increasingly ask for evidence from the months between deep engagements.
+
+## The DORA crosswalk
+
+The same evidence pack also covers DORA. The Article-by-Article mapping that ISO auditors and competent authorities both accept:
+
+| ISO 27001:2022 control | DORA reference | What the evidence is |
+|---|---|---|
+| A.8.8 Management of technical vulnerabilities | Article 24 (ICT-related incident management and reporting linked to vulnerability handling) | Continuous vulnerability identification, CVSS rating, remediation tracker, retest closure |
+| A.8.29 Security testing in development and acceptance | Article 25 (testing of ICT tools, systems, and applications) | Test plan, methodology, frequency, findings, SDLC integration evidence |
+| A.5.23 Information security for use of cloud services | Articles 28-30 (ICT third-party risk management) | Pentest scope covering cloud-hosted critical functions, third-party integration testing, exit-strategy testing |
+| A.5.34 Privacy and protection of PII | Article 24 + GDPR cross-reference | Pentest evidence covering PII-handling endpoints, data-flow surfaces, retention boundaries |
+
+One pentest cycle that scopes the customer-facing platform + APIs + internal portals + cloud-hosted critical functions produces evidence for every row above. The work is the same. The packaging is what differs by auditor.
+
+## What the pentest scope looks like specifically for fintech
+
+For a typical EU fintech (neobank, payment processor, embedded-finance provider, B2B fintech API), the in-scope surfaces are:
+
+1. **Customer-facing platform.** Web app, mobile apps (iOS + Android), customer authentication, account management, transaction interfaces. This is where the user-impacting findings live.
+2. **Open-banking APIs (PSD2).** Account information service, payment initiation, third-party-provider integrations. These are regulated interfaces with their own technical standards and threat model.
+3. **Internal and back-office systems.** Admin portals, KYC/AML tooling, dispute management, treasury interfaces. Often where the highest-impact findings sit (privilege escalation, mass-data exposure).
+4. **CI/CD pipeline.** Build infrastructure, secret stores, deployment automation. A.8.29 explicitly cares about testing inside the SDLC, and recent incidents have made supply-chain compromise an auditor focus.
+
+The scope you actually test is the union of what you write in the ISO Statement of Applicability and what DORA classifies as a critical or important ICT function. Aligning the two early (during pre-cert preparation, not after the first surveillance audit) is the single highest-leverage scoping decision a fintech CISO makes.
+
+## Where continuous AI pentest fits
+
+A.8.29 (security testing in the SDLC) is the control that rewards continuous validation most directly. Fintechs ship weekly or daily. A pentest that runs once a year produces findings on a codebase that no longer exists by the time the report is written.
+
+The pattern that holds for ISO + DORA together:
+
+- Continuous validation on production-equivalent staging, against every release candidate, with AI breadth-coverage on regression surfaces
+- Annual depth-pentest on production, human-led, covering business logic and authorisation edges that automated coverage misses
+- Quarterly third-party integration testing for cloud and API dependencies (A.5.23 + DORA 28-30)
+- Evidence generated automatically into the ISMS evidence repository, mapped to the ISO control and the DORA article at export time
+
+AI is for breadth and frequency. Human pentest is for depth and adversarial creativity. Both feed the same evidence pack.
+
+## Procurement checklist for fintech CISOs pursuing dual cert
+
+- Does the vendor produce an evidence pack mapped to both ISO 27001:2022 Annex A controls **and** DORA Articles 24-25?
+- Will the vendor scope flexibly to your Statement of Applicability boundary, or do they impose a fixed scope template?
+- Does the vendor integrate with your CI/CD (GitHub Actions, GitLab CI, CircleCI) to satisfy A.8.29 directly, or only produce post-release reports?
+- What is the retest SLA, and is retest evidence included by default in the contract or billed separately?
+- Where is your testing data stored, and under which jurisdiction? For EU fintechs, US-hosted vendors create a documented finding under A.5.23 and DORA third-party rules.
+- Can the same engagement also produce SOC 2 Type II-mapped evidence if you serve US enterprise customers, without a second pentest?
+
+## Concrete examples
+
+**A French neobank, ~€2.5B AUM, pursuing ISO 27001:2022 initial certification while already in DORA scope.** Single continuous pentest programme on mobile + web + open-banking APIs + admin portal. The Statement of Applicability was deliberately aligned to the DORA critical-function perimeter, so the ISO auditor and the ACPR competent authority received the same underlying evidence in two formats. ISO certificate issued in 9 months. DORA Article 24 evidence pack delivered to ACPR in parallel. Zero duplicate pentest engagements.
+
+**An Italian payments-focused fintech with US enterprise customers requiring SOC 2 Type II and ISO 27001.** Both audits scoped to the same production environment. One pentest cycle (annual human-led external test plus continuous AI validation on staging) fed three reports: SOC 2 CC4.1-CC8.1 evidence, ISO 27001 A.8.8 and A.8.29 evidence, DORA Article 24 evidence. Total testing spend reduced by roughly 40% versus running three parallel programmes. The remediation tracker stayed single-source: one ticket per finding, three audit-evidence exports.
+
+The pattern in both cases is the same. Scope once against the union of regulatory and certification perimeters. Test continuously, with annual depth on top. Export the same findings into the three formats the auditors expect. The fintechs that try to optimise per-framework end up running parallel programmes that consume security-team capacity without producing more security.
+
+## Where Fleuret fits
+
+Fleuret runs continuous AI pentest on fintech environments: customer-facing platform, open-banking APIs, internal portals, cloud-hosted critical functions. Our findings stream into the ISMS evidence repository and export with ISO 27001:2022 Annex A.8.8 + A.8.29 mapping, DORA Article 24-25 mapping, and SOC 2 Trust Services Criteria mapping side by side. EU data residency by default (Scaleway, France).
+
+Fleuret is not a certification body. We do not issue ISO 27001 certificates. We produce the testing evidence the certification body asks for, in the format that fintech auditors and EU competent authorities both accept.
+
+If you are scoping pentest for ISO 27001 + DORA together, [book a demo](/demo).
+
+## Related compliance reading
+
+- [ISO 27001 pentest for SaaS](/compliance/iso27001/saas): the same control set scoped for B2B SaaS rather than regulated fintech.
+- [ISO 27001 pentest for healthcare](/compliance/iso27001/healthcare): A.5.34 (PII protection) weighted more heavily for health data and special-category processing.
+- [DORA pentest for fintech](/compliance/dora/fintech): the DORA Article 24-25 view of the same testing programme, written for the competent-authority audience.
+- [SOC 2 pentest for fintech](/compliance/soc2/fintech): the Trust Services Criteria view, for fintechs selling into US enterprise in parallel with EU certification.

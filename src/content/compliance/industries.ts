@@ -22,6 +22,8 @@ export const INDUSTRY_SLUGS = [
   "healthcare",
   "banking",
   "payments",
+  "insurance",
+  "water",
 ] as const;
 export type IndustrySlug = (typeof INDUSTRY_SLUGS)[number];
 
@@ -77,6 +79,16 @@ export const INDUSTRIES: Record<IndustrySlug, IndustryProfile> = {
     slug: "payments",
     displayName: "payments",
     fullName: "Payments (payment institutions, e-money issuers, card networks under PSD2)",
+  },
+  insurance: {
+    slug: "insurance",
+    displayName: "insurance",
+    fullName: "Insurance (insurance undertakings, IORPs, reinsurers under Solvency II + IORP II)",
+  },
+  water: {
+    slug: "water",
+    displayName: "water",
+    fullName: "Water (drinking water suppliers and waste water management operators under NIS2 Annex I sector 1)",
   },
 };
 
