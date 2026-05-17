@@ -1,0 +1,92 @@
+---
+title: "NIS2 pentest for transport: scoping resilience testing for rail, aviation, and road operators"
+description: "NIS2 classifies transport operators as essential entities under Annex I sector 2. How transport CISOs scope pentest across the IT and OT-signalling boundary in rail, aviation, and road networks."
+date: "2026-05-17"
+author: "Fleuret"
+tags: ["NIS2", "transport", "pentest", "OT", "ICS", "compliance"]
+locale: en
+slug: transport
+kind: compliance
+framework: nis2
+industry: transport
+faqs:
+  - question: "Is my transport operator automatically essential under NIS2?"
+    answer: "Transport is listed in NIS2 Annex I, sector 2. Air, rail, water (maritime and inland) and road operators above the size thresholds are essential entities. Regional airports, train operating companies, and urban metro operators usually qualify by passenger volume alone."
+  - question: "Does NIS2 require pentest of safety-critical signalling systems (ETCS, ERTMS, ATC)?"
+    answer: "NIS2 Article 21 requires testing the effectiveness of security measures, but safety-critical signalling stays under sector-specific safety regimes (EN 50128 / EN 50129 for rail, EUROCAE for aviation). Pentest of these systems is restricted to laboratory or shadow environments. Production signalling is never tested live."
+  - question: "How does Article 23 incident reporting apply to a transport service outage?"
+    answer: "Article 23 mandates a 24-hour early warning, a 72-hour incident notification, and a 30-day final report. For transport, the trigger is operational disruption of the service, not just data compromise. A signalling failure that grounds trains for 30 minutes is reportable."
+  - question: "Can the same pentest vendor cover IT, OSS/BSS, and ticketing platforms together?"
+    answer: "Yes. Customer-facing IT, ticketing, the booking platform, the staff portal, the maintenance management system, and the operations IT backbone can all be tested by the same continuous-pentest vendor. Signalling and onboard rolling-stock systems need a sector-specialist firm (Cylus, Cervello for rail, or in-house OEM red-team teams)."
+  - question: "What if a pentest causes a real-time disruption to a rail dispatch board?"
+    answer: "Catastrophic. Every responsible vendor has documented rules of engagement that prohibit any traffic generation against dispatch, signalling, or scheduling systems without written authorisation from the network controller and a kill switch on the operations bridge. Unauthorised disruption is a reportable incident under Article 23 and a likely criminal matter under national CNI legislation."
+---
+
+Transport sits at sector 2 of NIS2 Annex I, immediately after energy. Rail, aviation, maritime and inland waterways, and road transport: every operator above the directive's size thresholds is classified an "essential entity" and enters the strictest enforcement track. National competent authorities (in France, ANSSI alongside the Ministère chargé des Transports; in Germany, BSI with the Eisenbahn-Bundesamt for rail) supervise with the same intensity they apply to energy operators. NIS2 Article 21 sets the baseline measures, Article 23 sets the incident-reporting cascade, and Article 21(2)(d) drags every ticketing vendor, every maintenance-software supplier, and every cloud platform inside the regulated perimeter through supply-chain risk management.
+
+This page lays out how to scope a NIS2 pentest programme specifically for transport: what surfaces matter, where IT and safety-critical OT meet, and what auditors and network controllers will actually accept.
+
+## What NIS2 expects from a transport operator
+
+NIS2 transposes into national law across EU Member States. The directive sets minimum security measures (Article 21) and incident reporting timelines (Article 23) but the testing programme specifics come from each national competent authority. For an SNCF, a Deutsche Bahn, a national airline group, or an ADP-scale airport, the new NIS2 obligations layer onto already-existing sector regimes: ANSSI's OIV framework in France, BSI's KRITIS audit cycle in Germany, and the safety case obligations under EN 50129 (rail) or EUROCAE (aviation).
+
+Concretely, every NIS2-essential transport operator must:
+
+- **Maintain a risk-management framework** that covers customer-facing IT, operations IT, and the boundary with safety-critical OT (signalling, ATC, port-OT, traffic-management)
+- **Test the effectiveness of security measures** on a documented risk-based cadence
+- **Document supply-chain security** for ticketing, maintenance, fleet-telemetry, and cloud platform vendors under Article 21(2)(d)
+- **Report significant incidents** within 24 hours (early warning), 72 hours (incident notification), one month (final report). For transport the trigger is service disruption, not only data compromise
+- **Train staff and the management body** on cybersecurity, with the management body personally liable for governance failures
+
+Penetration testing fits inside the testing-effectiveness requirement. Auditors expect a documented cadence, a scope mapped to the operator's critical service-delivery functions, and a methodology that respects the safety-engineering boundary on signalling and onboard systems.
+
+## What the pentest scope looks like specifically
+
+The realistic NIS2 testing scope for a transport operator splits into three concentric layers. Two are pentest territory. The third is not.
+
+**Layer (a): customer-facing IT.** Booking platforms, mobile apps, ticketing kiosks, loyalty programmes, refund engines, the public-API surface used by aggregators (Trainline, Omio, Skyscanner, navigation platforms). High change velocity. High exposure. This is standard application security work.
+
+**Layer (b): operations IT.** Maintenance-management systems (the rail-industry equivalent of OSS/BSS), fleet telemetry portals, crew rostering, the staff portal, the operations data warehouse, the integration backbone connecting them. Less exposed than layer (a), but loss of integrity here has direct operational consequences: a corrupted maintenance schedule grounds rolling stock; a tampered roster strands crews.
+
+**Layer (c): safety-critical OT.** Rail signalling (ETCS, ERTMS, interlockings, dispatch boards), onboard train control, air traffic control, port-side OT (crane control, terminal-operating systems at the OT boundary), urban traffic-management systems. This layer is governed by sector-specific safety regimes (EN 50128 and EN 50129 for rail software and hardware, EUROCAE ED-202A for airborne systems airworthiness security). It is tested under the safety-engineering process, in laboratory or shadow environments, never against live production. Pentest of this layer requires a sector-specialist firm and is co-signed by the safety authority before any traffic is generated.
+
+A concrete example. A national rail operator running roughly 3,000 trains per day scoped its NIS2 testing as follows. Layer (a): the ticketing platform, eight customer apps (national, regional, commuter, freight portal, group-booking, accessibility, baggage tracking, refund), the loyalty engine. Layer (b): the fleet maintenance portal, the crew rostering system, the operations data lake, the integration ESB. Layer (c): the signalling stack stayed entirely outside pentest scope. Its security assurance lives inside the EN 50129 safety case, validated in the operator's signalling laboratory by the sector specialist that built it.
+
+A second example. A regional airport handling around 12 million passengers per year scoped pentest across the passenger app, the baggage-tracking IT, the parking-payments backend, the airport-staff portal, and the connection to the national passenger-information backbone. Air traffic control software stays out: it is operated by the national ANSP (ENAV in Italy, DSNA in France) under EUROCAE airworthiness security references. The airport CISO has no testing authority over that software. What the airport CISO does test, and what auditors expect, is the integration boundary: the data flows between airport IT and the ANSP, the staff identities that cross both environments, and the supply-chain assurance for vendors with concurrent access.
+
+A pattern that repeats across rail, aviation, and ports: NIS2 testing scope is defined by what the operator legally controls, not by what runs inside the operator's perimeter. Signalling sits inside SNCF estate but is governed by the safety authority. ATC sits inside the airport perimeter but is operated by the national ANSP. Crane-control sits inside the port but is owned by the terminal operator. The pentest scope follows control, not geography.
+
+## Where continuous AI pentest fits
+
+Continuous AI pentest is appropriate for layers (a) and (b). It is not appropriate for layer (c).
+
+For (a), the customer-facing surface, continuous validation matches the deployment rhythm: ticketing platforms ship multiple times per week, mobile apps follow a fortnightly cadence, public APIs evolve constantly. Annual deep pentest cannot keep up. Continuous AI pentest fills the gap between releases.
+
+For (b), the operations IT layer, continuous validation works on the web consoles, the integration endpoints, the staff portals, the reporting layers. Anything below the integration backbone (the actual fleet-telemetry ingestion, real-time positioning feeds from rolling stock or aircraft) is tested with care: where it touches safety-critical telemetry, it inherits layer (c) constraints and shifts back to sector-specialist scope.
+
+Layer (c) is excluded. Signalling, dispatch, ATC, and onboard control systems require human expertise on the specific protocols (ETCS application levels, ARINC 429, AFDX, IEC 61375 onboard buses), and an operational consequence model that cannot be delegated to an autonomous agent. The right vendors here are the rail-cyber specialists (Cylus, Cervello) and the aviation-cyber teams inside Airbus CyberSecurity, Honeywell, or Collins. Test traffic against live signalling or live ATC is criminally negligent absent explicit written authorisation, a kill switch, and a network-controller standby.
+
+## Procurement checklist for transport CISOs
+
+If you are scoping NIS2 pentest for a transport operator:
+
+- Does the vendor explicitly exclude signalling, ATC, and onboard systems from its scope, with a written boundary statement?
+- Does the vendor have a documented kill-switch protocol and a named incident-coordination contact at the network controller before testing begins?
+- Does the vendor demonstrate awareness of the sector safety standards (EN 50128 / EN 50129 for rail, EUROCAE ED-202A for aviation)? Awareness does not mean authority to test, it means knowing what NOT to touch.
+- What is the contractual incident-reporting clause if vendor testing causes operational disruption? Article 23 timing applies the moment the operator's service is affected.
+- Where is passenger and operational data stored? EU residency is the procurement default for an essential-entity transport operator, not a preference.
+- Can the vendor coordinate with sector-specialist firms when supply-chain testing under Article 21(2)(d) requires reaching into a signalling or ATC vendor's remote-access tooling?
+
+## Where Fleuret fits
+
+Fleuret runs continuous AI pentest on the customer-facing IT and operations IT layers of transport operators. We do not test signalling, ATC, onboard control, or any safety-critical OT. We coordinate with sector specialists (rail-cyber and aviation-cyber firms) for engagements that require deep OT expertise, and our reports cleanly delineate which surfaces are inside our scope and which require the specialist engagement.
+
+Fleuret data residency is EU only. No CLOUD Act exposure on pentest findings from an essential-entity transport operator. Evidence packages are produced in formats accepted by ANSSI and BSI supervisory processes.
+
+If you are scoping NIS2 pentest for a transport entity, [book a demo](/demo).
+
+## Related compliance reading
+
+- [NIS2 pentest for energy](/compliance/nis2/energy): the sister essential-entity sector with its own OT boundary problem, useful for transport groups that also operate traction-power substations or airport-energy infrastructure.
+- [NIS2 pentest for telecom](/compliance/nis2/telecom): the sector 8 parallel, relevant when transport operators rely on dedicated GSM-R or private LTE/5G networks supplied by telecom vendors inside NIS2 scope.
+- [ISO 27001 pentest for SaaS](/compliance/iso27001/saas): Annex A controls most often required of ticketing, maintenance-management, and fleet-telemetry SaaS vendors supplying essential-entity transport operators.
