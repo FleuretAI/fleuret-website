@@ -6,7 +6,7 @@ import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/motion/ScrollReveal";
 import StaggerGroup from "@/components/motion/StaggerGroup";
 import { staggerItem } from "@/lib/animations";
-import { DEMO_ROUTE } from "@/lib/routes";
+import { NEWS_LATEST_ROUTE } from "@/lib/routes";
 import { motion } from "framer-motion";
 import { SEO } from "@/seo/SEO";
 import yanisPhoto from "@/assets/yanis.png";
@@ -375,8 +375,8 @@ const About = () => {
                 {t("about.cta.title")}
               </h2>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link to={localize(DEMO_ROUTE)} className="btn-cta">
-                  {t("about.cta.demo")}
+                <Link to={localize(NEWS_LATEST_ROUTE)} className="btn-cta">
+                  {t("about.cta.news")}
                 </Link>
                 <Link
                   to={localize("/careers")}

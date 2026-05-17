@@ -15,6 +15,14 @@
  */
 export const DEMO_ROUTE = "/demo";
 
+/**
+ * Latest-news route. Used by /about as the page-bottom primary CTA so visitors
+ * who arrive in brand-discovery mode (recruiting candidates, journalists,
+ * early-funnel investors) get pulled into the most recent story rather than
+ * dropped into the demo funnel. Update when a fresher news anchor exists.
+ */
+export const NEWS_LATEST_ROUTE = "/news/fleuret-raises-3-5m";
+
 export const DEMO_SCHEDULER_EMBED_URL =
   "https://calendar.google.com/calendar/appointments/schedules/AcZssZ1arZLbruGGaiZ4-p-q_Dd9_TTHfVmKcjZPIECZ70G6EIcenHCWLePHfa-QmXXgDjmqp1DcWHNE?gv=true";
 
