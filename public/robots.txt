@@ -3,3 +3,9 @@ Allow: /
 
 # Crawlable routes listed in the sitemap.
 Sitemap: https://fleuret.ai/sitemap.xml
+
+# AI assistant index per llmstxt.org. Curated short-form context for
+# answer engines (ChatGPT, Claude, Gemini, Perplexity). A denser companion
+# with pre-distilled facts and citation guidance lives at /llms-full.txt.
+# Index: https://fleuret.ai/llms.txt
+# Full:  https://fleuret.ai/llms-full.txt
