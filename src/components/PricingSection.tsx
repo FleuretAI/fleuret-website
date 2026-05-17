@@ -1,8 +1,10 @@
+import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { DEMO_ROUTE } from "@/lib/routes";
 import { staggerContainer, staggerItem } from "@/lib/animations";
+import { trackEvent } from "@/lib/gtag";
 
 const fleuretLines = [
   { id: "01.01", key: "pricing.standard.f1" },
@@ -20,9 +22,34 @@ const anchorLines = [
 
 const PricingSection = () => {
   const { t, localize } = useLanguage();
+  const sectionRef = useRef<HTMLElement | null>(null);
+
+  // Fire `pricing_viewed` once when the section enters the viewport. Used as
+  // the mid-funnel step for "homepage → pricing → demo/apply" exploration.
+  // Hash anchors (#pricing) don't trigger page_view, so IntersectionObserver
+  // is the only reliable signal that a homepage visitor actually saw pricing.
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") return;
+    let fired = false;
+    const obs = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting && !fired) {
+            fired = true;
+            trackEvent("pricing_viewed", { section: "homepage_pricing" });
+            obs.disconnect();
+          }
+        }
+      },
+      { threshold: 0.3 },
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
 
   return (
-    <section id="pricing" className="fl-section fl-section--solid" style={{ padding: "6rem 0 7rem", position: "relative", overflow: "hidden", scrollMarginTop: "5rem" }}>
+    <section ref={sectionRef} id="pricing" className="fl-section fl-section--solid" style={{ padding: "6rem 0 7rem", position: "relative", overflow: "hidden", scrollMarginTop: "5rem" }}>
       <div className="max-w-[1280px] mx-auto px-4 md:px-8" style={{ position: "relative", zIndex: 1 }}>
         {/* Header */}
         <motion.div
