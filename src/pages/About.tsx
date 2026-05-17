@@ -11,7 +11,9 @@ import { trackCTAClick } from "@/lib/gtag";
 import { motion } from "framer-motion";
 import { SEO } from "@/seo/SEO";
 import yanisPhoto from "@/assets/yanis.png";
+import yanisPhotoAvif from "@/assets/yanis.avif";
 import augustinPhoto from "@/assets/augustin.png";
+import augustinPhotoAvif from "@/assets/augustin.avif";
 import hornetsecurityLogo from "@/assets/investors/hornetsecurity.png";
 import almondLogo from "@/assets/investors/almond.svg";
 import gitguardianLogo from "@/assets/investors/gitguardian.svg";
@@ -135,6 +137,7 @@ const team = [
     roleFr: "Co-fondateur & CEO",
     linkedin: "https://www.linkedin.com/in/yanis-grigy-793635237/",
     photo: yanisPhoto,
+    photoAvif: yanisPhotoAvif,
   },
   {
     name: "Augustin Ponsin",
@@ -142,6 +145,7 @@ const team = [
     roleFr: "Co-fondateur & COO",
     linkedin: "https://www.linkedin.com/in/augustinponsin/",
     photo: augustinPhoto,
+    photoAvif: augustinPhotoAvif,
   },
 ];
 
@@ -294,15 +298,18 @@ const About = () => {
                   className="group p-6 rounded-2xl border border-white/8 bg-white/[0.02] hover:bg-white/[0.04] hover:border-white/15 transition-all duration-300 text-center"
                 >
                   <div className="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden border border-white/10">
-                    <img
-                      src={member.photo}
-                      alt={member.name}
-                      width={96}
-                      height={96}
-                      loading="lazy"
-                      decoding="async"
-                      className="w-full h-full object-cover"
-                    />
+                    <picture>
+                      <source srcSet={member.photoAvif} type="image/avif" />
+                      <img
+                        src={member.photo}
+                        alt={member.name}
+                        width={96}
+                        height={96}
+                        loading="lazy"
+                        decoding="async"
+                        className="w-full h-full object-cover"
+                      />
+                    </picture>
                   </div>
                   <h3 className="text-lg font-medium text-white mb-1">
                     {member.name}

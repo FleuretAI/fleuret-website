@@ -41,4 +41,32 @@ export default defineConfig(() => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  build: {
+    // Manual chunks split the heaviest third-party deps out of the main
+    // entry bundle so they can cache independently across releases and
+    // load in parallel rather than serialising behind the entry chunk.
+    // Lighthouse W9 audit 2026-05-17 surfaced a 212 KB main chunk with
+    // ~94 KB of unused JS; moving framer-motion + supabase + radix +
+    // recharts off the entry shrinks the LCP critical path.
+    rollupOptions: {
+      output: {
+        manualChunks(id: string) {
+          if (!id.includes("node_modules")) return undefined;
+          if (id.includes("react-router")) return "react-router";
+          if (id.includes("framer-motion")) return "framer-motion";
+          if (id.includes("@supabase")) return "supabase";
+          if (id.includes("@radix-ui")) return "radix";
+          if (id.includes("recharts") || id.includes("d3-")) return "recharts";
+          if (id.includes("react-hook-form") || id.includes("@hookform")) return "forms";
+          if (id.includes("date-fns") || id.includes("react-day-picker")) return "dates";
+          if (id.includes("@tanstack/react-query")) return "react-query";
+          if (id.includes("react-helmet-async")) return "react-helmet";
+          if (id.includes("@mdx-js")) return "mdx";
+          if (id.includes("embla-carousel")) return "embla";
+          if (id.includes("lucide-react")) return "lucide";
+          return undefined;
+        },
+      },
+    },
+  },
 }));
