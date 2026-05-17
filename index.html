@@ -30,28 +30,29 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
 
-    <!-- Font: Lufga. display=swap added so text paints with system font while
-         Lufga downloads — saves ~150ms of blank-text time on slow connections
-         (Lighthouse W9 audit P1 finding 2026-05-17). The preload hints below
-         drop the LCP weight (300) and the body weight (400) off the discovery
-         chain — the browser starts fetching them in parallel with the CSS
-         instead of after parsing the @font-face rules (W9 P2 push). -->
-    <link rel="preconnect" href="https://fonts.cdnfonts.com" crossorigin />
+    <!-- Font: Lufga, self-hosted (Lighthouse W9 P3 2026-05-17). Eliminates
+         the cross-origin round-trip to fonts.cdnfonts.com — DNS + TLS +
+         transfer collapse into the same connection as the HTML doc. Only
+         the 5 weights actually used in the codebase ship (audited via
+         grep). LufgaLight = LCP weight (hero h1), LufgaRegular = body
+         weight, both preloaded with crossorigin so the browser begins the
+         fetch in parallel with stylesheet parse instead of after
+         @font-face discovery. -->
     <link
       rel="preload"
       as="font"
       type="font/woff"
-      href="https://fonts.cdnfonts.com/s/67775/LufgaLight.woff"
+      href="/fonts/LufgaLight.woff"
       crossorigin
     />
     <link
       rel="preload"
       as="font"
       type="font/woff"
-      href="https://fonts.cdnfonts.com/s/67775/LufgaRegular.woff"
+      href="/fonts/LufgaRegular.woff"
       crossorigin
     />
-    <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/lufga&display=swap" />
+    <link rel="stylesheet" href="/fonts/lufga.css" />
 
     <!-- DNS preconnect for the analytics tags loaded at body end. Drops
          TLS handshake cost off the critical path so the deferred scripts

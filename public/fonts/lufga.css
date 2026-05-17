@@ -1,0 +1,46 @@
+/* Lufga — self-hosted (Lighthouse W9 P3, 2026-05-17).
+   Original served from fonts.cdnfonts.com which added a DNS + TLS + transfer
+   round-trip even with preconnect + preload. Same-origin removes the hop.
+   Only the 5 weights actually used in the codebase ship here (audited via
+   grep on fontWeight / font-* classes — italic excluded, single usage on
+   /demo falls back to system italic cleanly). */
+@font-face {
+  font-family: "Lufga";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: local("Lufga Light"), local("Lufga"),
+    url("/fonts/LufgaLight.woff") format("woff");
+}
+@font-face {
+  font-family: "Lufga";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local("Lufga"),
+    url("/fonts/LufgaRegular.woff") format("woff");
+}
+@font-face {
+  font-family: "Lufga";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: local("Lufga Medium"), local("Lufga"),
+    url("/fonts/LufgaMedium.woff") format("woff");
+}
+@font-face {
+  font-family: "Lufga";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: local("Lufga SemiBold"), local("Lufga"),
+    url("/fonts/LufgaSemiBold.woff") format("woff");
+}
+@font-face {
+  font-family: "Lufga";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local("Lufga Bold"), local("Lufga"),
+    url("/fonts/LufgaBold.woff") format("woff");
+}
