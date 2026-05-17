@@ -29,6 +29,17 @@ const Hero = () => {
 
   useEffect(() => {
     if (!canvasRef.current) return;
+    // Skip the canvas animation on small viewports + when the user opted out
+    // of motion. The radial-glow + vignette layers already carry the visual
+    // weight on mobile; the canvas adds TBT cost without a meaningful gain
+    // at those widths (Lighthouse W9 audit P1 finding 2026-05-17).
+    if (typeof window !== "undefined") {
+      const tooSmall = window.matchMedia("(max-width: 767px)").matches;
+      const prefersReducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+      if (tooSmall || prefersReducedMotion) return;
+    }
     const cleanup = mountHeroCanvas(canvasRef.current);
     return cleanup;
   }, []);
