@@ -64,7 +64,7 @@ A few reading notes.
 
 **Agent depth vs exposure breadth.** Fleuret optimises for what an agent finds end-to-end (recon, plan, exploit, validate, sign). Patrowl optimises for what the platform knows about your attack surface across time. Both are valid programs. They are not the same purchase.
 
-**Workflow integration as moat.** [The compliance moat in 2026 is workflow lock-in](/en/blog/pentest-compliance-workflow-jira-audit-2026): Jira tickets, signed audit PDF, board export, weekly re-test. Fleuret ships these on the default Continuous tier. Patrowl integrates with the same primitives but through the exposure-management dashboard, not a pentest-deliverable-first UX.
+**Workflow integration as moat.** [The compliance moat in 2026 is workflow lock-in](/blog/pentest-compliance-workflow-jira-audit-2026): Jira tickets, signed audit PDF, board export, weekly re-test. Fleuret ships these on the default Continuous tier. Patrowl integrates with the same primitives but through the exposure-management dashboard, not a pentest-deliverable-first UX.
 
 **Human-in-the-loop default.** Patrowl's pentester network is part of the product design, not an add-on. Fleuret keeps the human optional, defaulting to agentic delivery with human review available for high-stakes scopes. Buyers who want guaranteed human eyes on every finding lean Patrowl. Buyers who want machine cadence with on-demand human escalation lean Fleuret.
 
@@ -74,7 +74,7 @@ Three architectural choices drive the day-to-day operating difference.
 
 **Multi-agent agentic vs validate-and-monitor.** Fleuret's engine is a multi-agent hierarchical architecture: specialised agents for recon, planning, exploitation, validation, signing. The output is a chain of PoC-validated findings with reproducible exploit artifacts. Patrowl's engine pairs continuous exposure discovery with pentester validation, so the surface is wider but the per-asset agent depth is delivered through human pentesters on demand, not autonomous agents.
 
-**Open-weight LLM on EU infrastructure vs published security stack.** For [EU AI Act high-risk obligations from August 2026](/en/blog/sovereign-eu-ai-pentest-cloud-act-2026), the relevant questions are model identifier, model version, training data lineage, inference location. Fleuret runs open-weight models on Scaleway France with documentable provenance. Patrowl discloses its security stack in the product trust pages but is not built around open-weight LLM control specifically.
+**Open-weight LLM on EU infrastructure vs published security stack.** For [EU AI Act high-risk obligations from August 2026](/blog/sovereign-eu-ai-pentest-cloud-act-2026), the relevant questions are model identifier, model version, training data lineage, inference location. Fleuret runs open-weight models on Scaleway France with documentable provenance. Patrowl discloses its security stack in the product trust pages but is not built around open-weight LLM control specifically.
 
 **Coverage Graph vs exposure dashboard.** Fleuret's Coverage Graph tracks what was discovered, what was tested, what remains unexplored, and why. Patrowl's exposure dashboard answers the equivalent question through a different shape: surface-first, with continuous discovery and validation events. Buyers should ask both vendors "what did you not test, and why" and compare the answers.
 
@@ -98,8 +98,8 @@ Three architectural choices drive the day-to-day operating difference.
 
 Two checklists, both before the product demo:
 
-1. The [7-question sovereignty checklist](/en/blog/sovereign-eu-ai-pentest-cloud-act-2026) for legal-review pre-clearance.
-2. The [7-question workflow-lock-in checklist](/en/blog/pentest-compliance-workflow-jira-audit-2026) for operational fit.
+1. The [7-question sovereignty checklist](/blog/sovereign-eu-ai-pentest-cloud-act-2026) for legal-review pre-clearance.
+2. The [7-question workflow-lock-in checklist](/blog/pentest-compliance-workflow-jira-audit-2026) for operational fit.
 
 For Patrowl, also ask:
 
@@ -117,8 +117,8 @@ Both are valid procurement-ready vendors. The honest answer to "Patrowl alternat
 
 ## Related reading
 
-- [XBOW alternative in Europe: 5 agentic pentest tools EU regulated buyers actually consider](/en/blog/xbow-alternative-europe-agentic-pentest)
-- [Sovereign EU AI pentest in 2026: why CLOUD Act, Schrems II, and the EU AI Act disqualify US providers](/en/blog/sovereign-eu-ai-pentest-cloud-act-2026)
-- [The pentest moat is workflow lock-in: Jira, audit PDF, board export, weekly re-test](/en/blog/pentest-compliance-workflow-jira-audit-2026)
-- [DORA penetration testing requirements: what financial entities must do in 2026](/en/blog/dora-penetration-testing-requirements-2026)
-- [Continuous AI pentesting: why NIS2 changes the game](/en/blog/continuous-ai-pentesting-nis2)
+- [XBOW alternative in Europe: 5 agentic pentest tools EU regulated buyers actually consider](/blog/xbow-alternative-europe-agentic-pentest)
+- [Sovereign EU AI pentest in 2026: why CLOUD Act, Schrems II, and the EU AI Act disqualify US providers](/blog/sovereign-eu-ai-pentest-cloud-act-2026)
+- [The pentest moat is workflow lock-in: Jira, audit PDF, board export, weekly re-test](/blog/pentest-compliance-workflow-jira-audit-2026)
+- [DORA penetration testing requirements: what financial entities must do in 2026](/blog/dora-penetration-testing-requirements-2026)
+- [Continuous AI pentesting: why NIS2 changes the game](/blog/continuous-ai-pentesting-nis2)
