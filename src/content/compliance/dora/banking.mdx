@@ -1,0 +1,109 @@
+---
+title: "DORA pentest for banking: a practical 2026 guide for credit-institution CISOs"
+description: "DORA Article 24-27 plus the SSM/EBA supervisory expectations make pentest scoping in banking different from fintech. How credit institutions scope baseline testing, TLPT designation likelihood, and ICT third-party participation."
+date: "2026-05-17"
+author: "Fleuret"
+tags: ["DORA", "banking", "pentest", "TLPT", "credit institutions", "compliance"]
+locale: en
+slug: banking
+kind: compliance
+framework: dora
+industry: banking
+faqs:
+  - question: "Is every EU credit institution designated for TLPT under DORA?"
+    answer: "No. TLPT designation is decided by the competent authority based on systemic importance, ICT risk profile, and size. Most G-SIBs and O-SIIs are designated. Mid-tier credit institutions below the systemic threshold typically run the Article 24 baseline testing programme without a TLPT designation, though they should plan for it."
+  - question: "How does DORA Article 24 interact with the SSM SREP cyber assessment?"
+    answer: "The SSM SREP includes a cyber risk dimension that increasingly leans on DORA Article 24 evidence. Banks under direct ECB supervision should expect their Article 24 testing programme to feed the SREP cyber review. The same evidence pack travels to both."
+  - question: "Does my core banking system (T24, Avaloq, Mambu) need to be pentested every year?"
+    answer: "DORA Article 25 requires testing 'commensurate with the risk' for ICT systems supporting critical or important functions. The core banking system always qualifies. Most credit institutions run annual external pentest on the core, supplemented by continuous AI pentest on the surrounding application layer (e-banking, mobile app, open-banking APIs, internal portals)."
+  - question: "Does TLPT for a bank have to include the SWIFT environment?"
+    answer: "Yes when the bank participates in SWIFT FIN/InstantPayments at a material volume. The TIBER-EU methodology that DORA Article 26 references expects threat-led scenarios against payment infrastructure, and SWIFT CSCF (Customer Security Controls Framework) is a parallel attestation regime. TLPT scenario design usually includes a SWIFT-adjacent path."
+  - question: "Does PSD2 strong customer authentication testing satisfy DORA Article 24?"
+    answer: "No. PSD2 SCA testing is one input but Article 24 is broader: identification testing, source-code review, scenario-based tests, performance tests, end-to-end tests, compatibility tests. PSD2 SCA testing satisfies the authentication slice only."
+---
+
+The Digital Operational Resilience Act has been enforceable since 17 January 2025. For credit institutions, DORA does not arrive alone. It layers on top of the existing SSM supervisory model run by the ECB for significant institutions, the EBA guidelines on ICT and security risk management, and the national prudential authority for less significant institutions. The stakes are higher than for fintech: a G-SIB or O-SII designation pulls in a financial-stability mandate, and supervisors expect testing evidence that matches the systemic role of the entity.
+
+This page is the short version for credit-institution CISOs. Real article references, real banking examples, no fluff.
+
+## What DORA expects from a credit institution
+
+DORA Article 24 mandates a digital operational resilience testing programme for every in-scope financial entity. Credit institutions sit inside scope by default, regardless of size. The programme covers a defined set of testing categories:
+
+- **Vulnerability assessments** on systems supporting critical or important functions
+- **Open-source software analyses** to track component-level risk
+- **Network security assessments** including penetration tests
+- **Gap analyses** against the testing programme itself
+- **Physical security reviews** of data centres and operational sites
+- **Questionnaires and scanning software** for baseline hygiene
+- **Source-code reviews** on custom components handling money movement, KYC, settlement, or trading
+- **Scenario-based tests** that probe how the institution responds under simulated incident conditions
+- **Performance tests** to validate capacity headroom
+- **End-to-end tests** across the full transaction lifecycle
+- **Compatibility tests** when major versions of dependencies move
+
+Article 25 sets the frequency and scope rule: testing must be commensurate with the risk of the ICT systems involved, with annual cadence as the floor for systems supporting critical or important functions. The core banking platform, the channels stack, and the payments connectors always qualify. The competent authority (the ECB for significant institutions under the SSM, the national prudential authority for less significant institutions) can require more frequent testing on a case-by-case basis when supervisory dialogue surfaces a specific concern.
+
+## When TLPT designation applies
+
+Article 26 layers Threat-Led Penetration Testing on top of the baseline. Designation is made by the competent authority, with criteria set out in the EBA RTS on TLPT: systemic importance, ICT risk profile, size, retail-deposit volume, participation in payment infrastructure, and the institution's role in financial-stability terms.
+
+In practice:
+
+- **G-SIBs and O-SIIs** are typically designated from the start. The ECB and national authorities expect these institutions to run a TLPT every three years using the TIBER-EU methodology.
+- **Mid-tier credit institutions** below the systemic threshold are usually not designated initially. The Article 24 baseline programme is the obligation. CISOs should still plan for upward designation: supervisors are signalling that thresholds will move down over time as the testing market matures.
+- **Specialist credit institutions** (mortgage banks, consumer-credit specialists) face a designation decision that depends heavily on their role in payment infrastructure and their interconnection with systemic banks.
+
+A bank designated for TLPT runs a threat-led, scenario-based exercise on live production systems, with external testers, and mandatory participation from ICT third-party providers whose services support the scoped critical functions. The exercise is governed end-to-end by a TIBER cyber team at the competent authority.
+
+Two concrete examples we have seen during the first year of DORA enforcement:
+
+**A French Tier-2 retail credit institution, around €80B total assets, O-SII designation.** The DORA Article 24 testing programme combines annual external pentest on the Temenos T24 core, continuous AI pentest on e-banking, mobile, open-banking APIs, and four internal portals (loan origination, KYC, treasury workflow tooling, an internal customer-360 view). TLPT designation is expected at the next supervisory review, with scenario design likely to include a SWIFT-adjacent path given the bank's role in SEPA Instant settlement.
+
+**A Spanish savings bank below the systemic threshold, around €18B total assets.** No TLPT designation initially. The Article 24 programme covers annual external pentest on the Avaloq core, annual external pentest on e-banking, and continuous AI pentest on the mobile app, open-banking APIs, and customer portal. The CISO is planning for upward TLPT designation in three to five years as the ECB pushes thresholds down and as the institution's interconnection with a systemic parent group grows.
+
+## What the pentest scope looks like specifically for banking
+
+Four surfaces dominate the scoping conversation for credit institutions:
+
+1. **Core banking system.** Temenos T24/Transact, Avaloq, Mambu, SAP for Banking, or in-house mainframe equivalents. Annual external pentest is standard. Source-code review on custom extensions and integrations. The vendor's own attestation is not enough.
+2. **Channels.** E-banking web portal, mobile app, open-banking APIs under PSD2 (and the upcoming PSD3 regime), customer-facing portals for corporate banking. These change weekly. Continuous validation is the right tool. Point-in-time annual pentests on the channel stack go stale before the report is delivered.
+3. **Treasury and trading platforms.** Front office, middle office, risk engines. Annual pentest plus event-driven testing on every material change (new asset class, new venue connectivity, major risk-engine version).
+4. **SWIFT environment and payment hubs.** TARGET2, SEPA Instant, correspondent-banking connectivity. When the institution is designated for TLPT, scenario design usually includes a SWIFT-adjacent path, given the materiality of payment infrastructure to financial stability. SWIFT CSCF attestations run on a parallel calendar and the same evidence partially supports both regimes.
+
+## Where continuous AI pentest fits
+
+DORA does not name "AI pentesting" or "continuous pentest" specifically. It names outcomes: ongoing detection of vulnerabilities, validation of controls, evidence of effective remediation. For a credit institution, the fit is a layered model.
+
+Continuous AI pentest works on the surfaces that change continuously: e-banking front-ends, mobile apps, open-banking APIs, internal portals (loan origination, KYC, treasury workflow tooling), the DevOps pipeline itself. These are the surfaces where annual snapshots go stale within weeks.
+
+Human-led pentest remains required for the surfaces where deep specialist knowledge dominates: the core banking platform itself, the treasury and trading stack, and any SWIFT-adjacent testing under a TLPT mandate. AI complements between deep engagements. It does not replace them.
+
+The trap to avoid is treating a continuous-pentest platform as a TLPT substitute. TLPT requires external testers, threat intelligence aligned to the institution's real adversary profile, scenario design approved by a competent-authority cyber team, and live production execution with full governance. A platform vendor that pitches "AI replaces your TLPT" is misreading the regulation.
+
+## Procurement checklist for banking CISOs
+
+Six questions that matter when scoping a pentest vendor for a credit institution:
+
+- Does the vendor's evidence pack align with the SSM SREP cyber assessment workflow your supervisors run, in addition to DORA Article 24-27 mapping?
+- Does the vendor demonstrate TIBER-EU methodology familiarity, including the threat-intelligence and red-team separation TIBER expects, or do they refer you elsewhere for that scope?
+- Will the vendor coordinate cleanly with your SWIFT CSCF attestation cycle when scope overlaps, so you are not running two parallel evidence streams?
+- Does the vendor support your DORA Article 30 third-party register obligations, including documented participation in your testing programme when their services support a critical function?
+- Where is the pentest finding data stored, and under which jurisdiction? CLOUD Act exposure on US-headquartered vendors is a real procurement blocker for EU credit institutions, and IT-residency expectations from national supervisors are tightening.
+- What is the contractual remediation SLA, and does it include retest as a billed service or as part of the platform?
+
+## Where Fleuret fits
+
+Fleuret is an AI-driven continuous pentest platform built for EU regulated industries. For credit institutions, we test the application-layer surfaces that change between human engagements: e-banking, mobile, open-banking APIs under PSD2/PSD3, internal portals, and supplier-side application surfaces that fall inside your DORA Article 30 third-party register. We produce DORA-aligned evidence automatically, mapped to the Article 24 testing categories and the Article 25 frequency rule, ready to feed both your SSM SREP cyber file and your supervisory dialogue.
+
+Fleuret does not test core banking platforms. Temenos, Avaloq, Mambu, mainframe banking cores: those are human-led specialist engagements, and we will tell you so directly. Fleuret does not execute TLPT. Specialist red-team firms (Mandiant, NCC Group, Wavestone, and the TIBER-EU-experienced houses) own that scope. We complement them by keeping the in-scope channels validated between TLPT cycles.
+
+Fleuret data residency is EU. No CLOUD Act exposure on pentest findings. EU-sovereign by design.
+
+If you are scoping pentest for a credit institution under DORA, [book a demo](/demo).
+
+## Related compliance reading
+
+- [DORA pentest for fintech](/compliance/dora/fintech): The fintech-specific scoping playbook for payment institutions, e-money institutions, and crypto-asset service providers.
+- [DORA pentest for payments](/compliance/dora/payments): Payment-institution and acquirer scoping, with the PSD2/PSD3 overlay.
+- [ISO 27001 pentest for SaaS](/compliance/iso27001/saas): Annex A.8.8 / A.8.29 / A.5.34, the controls SaaS vendors most frequently map when supplying credit institutions.

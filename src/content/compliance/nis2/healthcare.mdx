@@ -1,0 +1,91 @@
+---
+title: "NIS2 pentest for healthcare: scoping resilience testing where IT meets patient safety"
+description: "NIS2 classifies healthcare providers as essential entities under Annex I sector 5. How hospital and medical-device CISOs scope pentest where IT systems overlap with patient safety and MDR/IVDR jurisdiction."
+date: "2026-05-17"
+author: "Fleuret"
+tags: ["NIS2", "healthcare", "pentest", "MDR", "patient safety", "compliance"]
+locale: en
+slug: healthcare
+kind: compliance
+framework: nis2
+industry: healthcare
+faqs:
+  - question: "Is my hospital automatically essential under NIS2?"
+    answer: "Healthcare is sector 5 of NIS2 Annex I. Healthcare providers, EU reference laboratories, R&D facilities for medicinal products, and manufacturers of basic pharmaceutical products are all named. Most hospitals above the medium-enterprise size threshold qualify as essential entities."
+  - question: "Does NIS2 require pentest of connected medical devices?"
+    answer: "NIS2 requires testing of security measures effectiveness (Article 21(2)). Medical devices themselves stay under MDR (EU) 2017/745 jurisdiction, which the manufacturer assesses. As a hospital operator, your obligation is to test the hospital-side network exposure of those devices, the device-management server, and the integration with EHR, not the device firmware."
+  - question: "How does Article 23 incident reporting apply if a ransomware event affects radiology PACS?"
+    answer: "Article 23 mandates a 24-hour early warning and 72-hour incident notification. A PACS outage that delays scans or prevents care is operational disruption of an essential service. Notification to the national CSIRT is required. If patient safety was at risk, additional reporting under national health-safety regimes (in France, ARS; in Germany, BfArM) is parallel."
+  - question: "Can the same pentest vendor cover EHR, HIS, and the patient portal together?"
+    answer: "Yes. EHR (Cerner, Epic, Dedalus, Maincare), HIS (admission, billing), the patient portal, the mobile app, lab-result integration, and pharmacy IT can all be tested by the same continuous-pentest vendor. Medical-device firmware testing requires a specialist (MedSec, Cynerio, Sentinel) and stays separate."
+  - question: "What if a pentest causes a delay to a real patient-care workflow?"
+    answer: "Catastrophic. Every responsible vendor must have documented rules of engagement excluding live patient-care surfaces (clinical pathways, surgery scheduling, real-time bedside) and a kill switch on the operations bridge. Disruption causing harm is a reportable incident under Article 23 AND may trigger national patient-safety reporting AND constitute a criminal matter."
+---
+
+Healthcare is sector 5 of the NIS2 Annex I list of essential entities. Healthcare providers, EU reference laboratories, R&D facilities for medicinal products, and manufacturers of basic pharmaceutical products are all named explicitly. Most hospitals above the medium-enterprise size threshold fall into the essential-entity tier, which carries the strictest supervisory regime under the directive. Enforcement is not theoretical: ENISA threat landscape reports document dozens of significant ransomware events against EU hospitals in recent years, several of which forced ambulance diversion, cancelled surgeries, and delayed cancer treatment.
+
+This page lays out how to scope a NIS2 pentest programme for a hospital, a hospital network, an EHR vendor, or a medical-device operator: which surfaces matter, where IT testing stops and MDR/IVDR jurisdiction begins, and what the procurement conversation needs to cover.
+
+## What NIS2 expects from a healthcare operator
+
+NIS2 transposes into national law across EU Member States. The directive sets minimum security measures (Article 21) and incident reporting timelines (Article 23). The national competent authority then layers sector-specific expectations on top. In France, ANSSI plus the regional Agences Régionales de Santé (ARS) for patient-safety overlap. In Germany, BSI plus the Bundesinstitut für Arzneimittel und Medizinprodukte (BfArM) for medical-device incident parallels. National CSIRTs operate the incident-notification channel in every Member State.
+
+Concretely, every NIS2-essential healthcare operator must:
+
+- **Maintain a risk-management framework** covering the hospital IT estate, the clinical IT estate (EHR, HIS, PACS, LIS), and the device-management infrastructure that connects medical devices to the network
+- **Test the effectiveness of security measures** (Article 21(2)) on a periodic risk-based cadence
+- **Manage supply-chain risk** explicitly under Article 21(2)(d), which is the dominant pattern in healthcare given dependencies on EHR vendors, cloud-imaging vendors, lab-information vendors, and connected-device vendors
+- **Report significant incidents** within 24 hours (early warning), 72 hours (incident notification), one month (final report) to the national CSIRT
+- **Train the management body** on cybersecurity risks, with personal liability for governance failures at the board level
+
+Penetration testing fits inside the testing-effectiveness requirement. Auditors expect a documented cadence, scope that covers the hospital's critical functions, and remediation evidence tied to risk register entries.
+
+## What the pentest scope looks like specifically
+
+The defining engineering problem in a hospital is that the IT estate, the clinical IT estate, and the medical-device estate all share infrastructure, and the surfaces that NIS2 considers "essential service" are the ones where IT failure becomes patient-safety failure. A workable scope splits into four surfaces:
+
+1. **EHR, HIS, patient portal, mobile app.** This is the IT layer the hospital operates directly or jointly with the EHR vendor. Maincare, Dedalus, Cerner, Epic, Softway Medical. Admission and billing systems. The patient portal that exposes appointment booking, prescription refills, lab results. The mobile app. Continuous pentest is appropriate here and this is where the bulk of the hospital's testing programme should sit.
+2. **Lab-results integration, pharmacy IT, billing.** The integration layer between the hospital and external labs (Cerba, Synlab, Eurofins in France; Synlab, Labor Berlin in Germany), the pharmacy IT used for dispensing, and the billing systems that interact with public payers (Assurance Maladie, gesetzliche Krankenkassen). HL7 and FHIR endpoints are particularly worth testing because they sit between trusted and less-trusted zones.
+3. **Medical-device management server and network exposure of connected devices.** The hospital is responsible for the network the device sits on, the management server that pushes configuration or firmware, and the segmentation that isolates the device subnet from corporate IT. The device itself is the manufacturer's responsibility (see next section). Testing the management server, the segmentation, and the network exposure is allowed, expected, and frequently the source of the largest finding categories.
+4. **Supply-chain attestation.** Hospitals depend on a small number of vendors for an enormous share of clinical functionality. Article 21(2)(d) requires the operator to manage supplier risk. In practice, this means the hospital should have contractual rights to test the EHR vendor's hospital-facing surface, request pentest evidence from the cloud-imaging vendor, and audit the medical-device-management vendor's remote-access tooling.
+
+A French regional hospital group running three hospitals and roughly eighty thousand inpatient stays per year provides a concrete picture. Their NIS2 pentest scope: Dedalus or Maincare EHR (hospital-facing web and integration surface), admission and billing, the patient portal, the lab-result integration with Cerba, the pharmacy IT, and the network exposure of the connected-device estate. Incident reporting goes to ANSSI via the national CSIRT, with parallel notification to ARS Île-de-France when patient safety is affected.
+
+A German university hospital running Epic EHR with a connected MRI fleet gives a different shape. Pentest scope: the Epic IT layer (web, integration, mobile), the patient portal, the device-management server that handles the MRI fleet, and the segmentation between the device subnet and corporate IT. The firmware of the MRI itself remains under the manufacturer's MDR Article 17 cybersecurity duty and is not in the hospital's pentest scope. Patient data residency for any pentest evidence containing PHI must stay inside the EU.
+
+## Where MDR/IVDR boundaries kick in
+
+The Medical Device Regulation (EU) 2017/745, specifically Article 17, places cybersecurity duties on the manufacturer of a medical device. The manufacturer assesses the device, including firmware and embedded software, and produces the conformity evidence that the notified body reviews. The In Vitro Diagnostic Regulation (EU) 2017/746 applies the same logic to IVDs.
+
+The practical boundary for a hospital pentest programme: the hospital tests the network around the device, the management server, the integration with EHR, and the segmentation. The hospital does not test the device firmware. Firmware testing is the manufacturer's job, audited through the MDR conformity process, and a hospital-commissioned pentest team poking at firmware risks both regulatory and patient-safety failure modes. When firmware-level concerns surface, route them to the manufacturer through the MDR vigilance channel.
+
+## Where continuous AI pentest fits
+
+Continuous AI pentest is appropriate for the IT estate, the EHR, the patient portal and mobile app, the integration layer, and the device-management server's hospital-facing surface. These surfaces change weekly, expose modern web and API attack surfaces, and benefit from continuous validation between annual deep tests.
+
+Continuous AI pentest is not appropriate for medical-device firmware. Firmware testing belongs to the manufacturer and to specialist firms with embedded-systems and MDR-aware expertise. A hospital scoping a continuous-pentest contract should set this boundary explicitly in the rules of engagement.
+
+## Procurement checklist for healthcare CISOs
+
+If you are scoping NIS2 pentest for an essential-entity healthcare operator:
+
+- Does the vendor have a written exclusion list covering live patient-care surfaces (clinical pathways, surgery scheduling, real-time bedside monitoring, drug dispensing in flight) and an emergency kill switch coordinated with the operations bridge?
+- Does the vendor understand the MDR/IVDR boundary and contractually commit to not testing device firmware?
+- Will the vendor accept and test EHR vendor surfaces (Maincare, Dedalus, Cerner, Epic, Softway Medical) under your supply-chain contractual rights, and coordinate with the EHR vendor's security team?
+- Where is pentest evidence stored? For an essential-entity healthcare operator, EU-only data residency for any artefact that might contain or reference patient PHI is a procurement requirement, not a preference.
+- What are the rules of engagement for ransomware-style payload simulation? Tabletop is acceptable; live payload deployment on hospital infrastructure is not.
+- Can the vendor produce evidence packages mapped to ANSSI, BSI, and ARS/BfArM audit formats and align with the Article 23 reporting cascade if findings escalate to incident territory?
+
+## Where Fleuret fits
+
+Fleuret runs continuous AI pentest on the IT, EHR, patient portal, mobile app, integration layer, and device-management server surfaces of healthcare operators. We do not test medical-device firmware. We coordinate with device-cybersecurity specialists (MedSec, Cynerio, Sentinel) when firmware-level concerns surface and route them to the manufacturer's MDR vigilance channel.
+
+Fleuret data residency is EU only. No CLOUD Act exposure on pentest evidence from an essential-entity hospital, even when findings reference patient-data flows.
+
+If you are scoping NIS2 pentest for a hospital, a hospital network, an EHR vendor, or a healthcare-adjacent operator, [book a demo](/demo).
+
+## Related compliance reading
+
+- [NIS2 pentest for energy](/compliance/nis2/energy): the parallel essential-entity sector, including the OT/IT boundary problem that mirrors the IT/medical-device boundary in healthcare.
+- [NIS2 pentest for telecom](/compliance/nis2/telecom): the third major essential-entity scope, useful when a hospital network operator also owns inter-site connectivity.
+- [ISO 27001 pentest for SaaS](/compliance/iso27001/saas): Annex A controls most often evidenced when an EHR vendor or healthtech SaaS sells into NIS2-essential hospital customers.
