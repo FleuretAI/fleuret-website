@@ -15,6 +15,7 @@ import yanisPhotoAvif from "@/assets/yanis.avif";
 import augustinPhoto from "@/assets/augustin.png";
 import augustinPhotoAvif from "@/assets/augustin.avif";
 import hornetsecurityLogo from "@/assets/investors/hornetsecurity.png";
+import hornetsecurityLogoAvif from "@/assets/investors/hornetsecurity.avif";
 import almondLogo from "@/assets/investors/almond.svg";
 import gitguardianLogo from "@/assets/investors/gitguardian.svg";
 import ovrseaLogo from "@/assets/investors/ovrsea.svg";
@@ -31,6 +32,9 @@ type Investor = {
   /** Set true to render name as headline and logo as small brand mark beneath. */
   personName?: boolean;
   logo?: string;
+  /** Optional next-gen format (AVIF). When present, rendered via <picture>
+   *  with the PNG/SVG `logo` as fallback. ~30-60% smaller for raster logos. */
+  logoAvif?: string;
   /** When true, invert logo colors so dark-on-light artwork reads on dark bg. */
   invertLogo?: boolean;
   subtitleFr?: string;
@@ -42,6 +46,7 @@ const investors: Investor[] = [
   {
     name: "Hornetsecurity",
     logo: hornetsecurityLogo,
+    logoAvif: hornetsecurityLogoAvif,
     invertLogo: true,
     subtitleFr: "via LTGR, holding fondatrice",
     subtitleEn: "via LTGR, founding holding",
@@ -172,22 +177,30 @@ function renderInvestorTile(
             {inv.name}
           </span>
           {inv.logo && (
-            <img
-              src={inv.logo}
-              alt=""
-              aria-hidden="true"
-              loading="lazy"
-              className={`h-6 md:h-7 max-w-[130px] ${logoClass}`}
-            />
+            <picture>
+              {inv.logoAvif && <source srcSet={inv.logoAvif} type="image/avif" />}
+              <img
+                src={inv.logo}
+                alt=""
+                aria-hidden="true"
+                loading="lazy"
+                decoding="async"
+                className={`h-6 md:h-7 max-w-[130px] ${logoClass}`}
+              />
+            </picture>
           )}
         </>
       ) : inv.logo ? (
-        <img
-          src={inv.logo}
-          alt={inv.name}
-          loading="lazy"
-          className={`h-10 md:h-12 max-w-[170px] ${logoClass}`}
-        />
+        <picture>
+          {inv.logoAvif && <source srcSet={inv.logoAvif} type="image/avif" />}
+          <img
+            src={inv.logo}
+            alt={inv.name}
+            loading="lazy"
+            decoding="async"
+            className={`h-10 md:h-12 max-w-[170px] ${logoClass}`}
+          />
+        </picture>
       ) : (
         <span className="text-base md:text-lg font-light tracking-wide text-white/75 group-hover:text-white transition-colors">
           {inv.name}
