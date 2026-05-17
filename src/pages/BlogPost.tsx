@@ -16,6 +16,7 @@ import Footer from "@/components/Footer";
 import { getPost } from "@/content/posts.generated";
 import { PostMeta } from "@/components/blog/PostMeta";
 import { PostAiSummarize } from "@/components/blog/PostAiSummarize";
+import { NewsletterCTA } from "@/components/blog/NewsletterCTA";
 
 /**
  * BlogPost is EAGER-imported from App.tsx (see design doc premise #10):
@@ -307,6 +308,14 @@ function PostArticle({
             </svg>
             {t("blog.share.copyLink")}
           </button>
+        </section>
+
+        {/* Newsletter capture — replaces the post-end dead zone */}
+        <section aria-label={t("newsletter.title")} className="mt-14 md:mt-16">
+          <NewsletterCTA
+            sourcePath={meta.path}
+            trackingLocation="blog_post_footer"
+          />
         </section>
       </article>
     </main>
