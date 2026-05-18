@@ -107,10 +107,21 @@
          cookieless by default; src/components/Analytics.tsx upgrades to
          cookie-based tracking via clarity('consent') after the cookie
          banner is accepted. RGPD-compliant when paired with the consent
-         bridge. -->
+         bridge.
+
+         The early-return guard is load-bearing: the Puppeteer prerender
+         step (scripts/prerender.mjs) executes this boot, which inserts a
+         dynamic `<script src="...clarity.ms/tag/wrwrt0esfs">` into the DOM.
+         Puppeteer serialises that DOM into the prerendered HTML, so the
+         tag ships in `<head>` of every prerendered route. On real-world
+         load the inline boot runs AGAIN at body-end — without the guard
+         this appends a second `<script>` element for the same Clarity
+         tag, double-initialising the SDK. The querySelector check spots
+         the pre-baked tag and short-circuits the second insert. -->
     <script type="text/javascript">
       (function(c,l,a,r,i,t,y){
         c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        if (l.querySelector('script[src*="clarity.ms/tag/"]')) return;
         t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
       })(window, document, "clarity", "script", "wrwrt0esfs");
