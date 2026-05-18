@@ -151,12 +151,23 @@ async function main() {
       // the hang only manifests in production builds and silently drops every
       // route except the first to a failure case). Helmet runs from the React
       // bundle, not from any of these — blocking them is safe.
+      //
+      // clarity.ms must be blocked too: without this, Puppeteer executes the
+      // inline Clarity boot during prerender, the dynamically-injected
+      // `<script src="https://www.clarity.ms/tag/wrwrt0esfs">` element is
+      // captured into the static HTML at body-top, AND on real-world load the
+      // inline boot at body-end runs again and appends a second Clarity
+      // `<script>`. That double-init was visible on prod 2026-05-18 via
+      // `document.scripts` showing two Clarity tag URLs per pageview. Same
+      // class of prerender double-bake bug that killed the GTM dual-pipe
+      // setup (PR #135).
       const BLOCKED_HOSTS = [
         "googletagmanager.com",
         "google-analytics.com",
         "analytics.google.com",
         "doubleclick.net",
         "g.doubleclick.net",
+        "clarity.ms",
         "cdnfonts.com",
         "fonts.cdnfonts.com",
       ];
