@@ -123,7 +123,7 @@ const Hero = () => {
         >
           <h1
             style={{
-              fontSize: "clamp(1.125rem, 4.5vw, 3.25rem)",
+              fontSize: "clamp(1.5rem, 4.5vw, 3.25rem)",
               fontWeight: 300,
               letterSpacing: "-0.02em",
               lineHeight: 1.15,
