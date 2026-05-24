@@ -72,7 +72,7 @@ export const translations = {
     'hero.title.line3': 'À chaque release.',
     'hero.subtitle': 'Fleuret délivre des pentests sur vos webapps et APIs grâce à l\'IA agentique. 2 500€ au lieu de 15 000€+. Preuves audit-ready pour DORA et NIS2.',
     'hero.cta': 'Réserver une démo',
-    'hero.cta.secondary': 'Voir la plateforme',
+    'hero.cta.secondary': 'Voir les tarifs',
     'hero.scrollCue': 'DÉFILER',
 
     // Partners (social proof)
@@ -203,9 +203,9 @@ export const translations = {
 
     // CTA
     'cta.title': 'Lancez votre premier pentest cette semaine.',
-    'cta.subtitle': '15 minutes avec l\'équipe. On scope sur votre vrai périmètre.',
+    'cta.subtitle': '15 minutes, sans engagement. On scope un pentest sur votre vrai périmètre.',
     'cta.button': 'Réserver une démo',
-    'cta.eyebrow': 'RÉSERVER · 015 MINUTES',
+    'cta.eyebrow': 'RÉSERVER · 15 MINUTES',
     'cta.titleA': 'Lancez votre premier pentest',
     'cta.titleB': 'cette semaine',
     'cta.ambient': '15 MIN · CET · NDA-READY',
@@ -539,7 +539,7 @@ export const translations = {
     'hero.title.line3': 'Every release.',
     'hero.subtitle': 'Fleuret runs pentests on your web apps and APIs with agentic AI. €2,500 instead of €15,000+. Audit-ready for DORA and NIS2.',
     'hero.cta': 'Book a demo',
-    'hero.cta.secondary': 'See the platform',
+    'hero.cta.secondary': 'See pricing',
     'hero.scrollCue': 'SCROLL',
 
     // Partners
@@ -670,9 +670,9 @@ export const translations = {
 
     // CTA
     'cta.title': 'Run your first pentest this week.',
-    'cta.subtitle': '15 minutes with the team. We scope it on your real perimeter.',
+    'cta.subtitle': '15 minutes, no commitment. We scope a pentest on your real perimeter.',
     'cta.button': 'Book a demo',
-    'cta.eyebrow': 'BOOK · 015 MINUTES',
+    'cta.eyebrow': 'BOOK · 15 MINUTES',
     'cta.titleA': 'Run your first pentest',
     'cta.titleB': 'this week',
     'cta.ambient': '15 MIN · CET · NDA-READY',

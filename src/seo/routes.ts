@@ -66,14 +66,18 @@ export const META: Record<RouteKey, MetaEntry> = {
       "Join Fleuret AI. Build the future of offensive security with agentic AI. Paris-based roles across engineering and security.",
   },
   designPartners: {
-    title: "Design Partners Program | Fleuret",
+    title: "Design Partners Program | Fleuret AI",
     description:
-      "Join the Fleuret Design Partners program. 50% off pentests for 12 months, direct founder access, priority product input.",
+      "5 slots, 3 AI pentests in 6 weeks for €4,900. Founder-led onboarding, NIS2 and DORA audit-ready report. Apply now.",
+    keywords:
+      "design partners, pentest pilot, AI pentest trial, DORA pentest, NIS2 pentest, Fleuret",
   },
   demo: {
-    title: "Book a Demo | Fleuret",
+    title: "Book a Free Demo | Fleuret AI",
     description:
-      "Book a 30-minute Fleuret demo with a founder. Agentic AI-powered pentesting, audit-ready results, European hosting.",
+      "See your attack surface in 30 minutes. Book a free demo with a Fleuret founder. AI-powered pentests at €2,500 vs €15,000+ traditional. EU-hosted.",
+    keywords:
+      "pentest demo, AI pentest demo, book pentest, Fleuret demo, automated pentest, DORA pentest demo",
   },
   mentionsLegales: {
     title: "Legal Notice | Fleuret",
