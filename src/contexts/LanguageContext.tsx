@@ -72,7 +72,7 @@ export const translations = {
     'hero.title.line3': 'À chaque release.',
     'hero.subtitle': 'Fleuret délivre des pentests sur vos webapps et APIs grâce à l\'IA agentique. 2 500€ au lieu de 15 000€+. Preuves audit-ready pour DORA et NIS2.',
     'hero.cta': 'Réserver une démo',
-    'hero.cta.secondary': 'Voir les tarifs',
+    'hero.cta.secondary': 'Voir la plateforme',
     'hero.scrollCue': 'DÉFILER',
 
     // Partners (social proof)
@@ -203,9 +203,9 @@ export const translations = {
 
     // CTA
     'cta.title': 'Lancez votre premier pentest cette semaine.',
-    'cta.subtitle': '15 minutes, sans engagement. On scope un pentest sur votre vrai périmètre.',
+    'cta.subtitle': '15 minutes avec l\'équipe. On scope sur votre vrai périmètre.',
     'cta.button': 'Réserver une démo',
-    'cta.eyebrow': 'RÉSERVER · 15 MINUTES',
+    'cta.eyebrow': 'RÉSERVER · 015 MINUTES',
     'cta.titleA': 'Lancez votre premier pentest',
     'cta.titleB': 'cette semaine',
     'cta.ambient': '15 MIN · CET · NDA-READY',
