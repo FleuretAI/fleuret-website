@@ -72,7 +72,7 @@ export const translations = {
     'hero.title.line3': 'À chaque release.',
     'hero.subtitle': 'Fleuret délivre des pentests sur vos webapps et APIs grâce à l\'IA agentique. 2 500€ au lieu de 15 000€+. Preuves audit-ready pour DORA et NIS2.',
     'hero.cta': 'Réserver une démo',
-    'hero.cta.secondary': 'Voir la plateforme',
+    'hero.cta.secondary': 'Voir les tarifs',
     'hero.scrollCue': 'DÉFILER',
 
     // Partners (social proof)
@@ -539,7 +539,7 @@ export const translations = {
     'hero.title.line3': 'Every release.',
     'hero.subtitle': 'Fleuret runs pentests on your web apps and APIs with agentic AI. €2,500 instead of €15,000+. Audit-ready for DORA and NIS2.',
     'hero.cta': 'Book a demo',
-    'hero.cta.secondary': 'See the platform',
+    'hero.cta.secondary': 'See pricing',
     'hero.scrollCue': 'SCROLL',
 
     // Partners

@@ -181,7 +181,7 @@ const Hero = () => {
             {t("hero.subtitle")}
           </p>
 
-          <div style={{ display: "flex", justifyContent: "center", paddingTop: "1rem" }}>
+          <div style={{ display: "flex", justifyContent: "center", gap: "1rem", paddingTop: "1rem", flexWrap: "wrap" }}>
             <Link
               to={localize(DEMO_ROUTE)}
               className="btn-cta btn-cta--lg"
@@ -195,6 +195,24 @@ const Hero = () => {
             >
               {t("hero.cta")}
             </Link>
+            <a
+              href="#pricing"
+              className="btn-cta btn-cta--lg"
+              style={{
+                background: "transparent",
+                border: "1px solid rgba(255,255,255,0.2)",
+                color: "rgba(255,255,255,0.8)",
+              }}
+              onClick={() =>
+                trackCTAClick({
+                  location: "hero",
+                  label: "see_pricing",
+                  destination: "#pricing",
+                })
+              }
+            >
+              {t("hero.cta.secondary")}
+            </a>
           </div>
 
           {TRUST_LOGOS.length > 0 && (
