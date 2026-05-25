@@ -150,8 +150,6 @@ export const translations = {
     'problem.legend.stat': 'déploiements partent sans audit',
 
     // Pricing
-    'pricing.title': 'Pricing',
-    'pricing.subtitle': 'transparent',
     'pricing.title.main': 'Tarification pentest',
     'pricing.title.accent': 'transparente',
     'pricing.description': 'Commencez par un POC à la webapp. Passez en continu quand vous êtes prêt.',
@@ -299,29 +297,6 @@ export const translations = {
     'comparison.chrome.criteria': '7 CRITÈRES · 3 PRESTATAIRES',
     'comparison.chrome.wins': 'FLEURET GAGNE 4 / 7',
     'comparison.win': 'GAGNE',
-
-    // Redesign 2026-05-09 — Pricing receipt
-    'pricing.eyebrow': 'TARIFS · 02 OFFRES',
-    'pricing.accent.tagline': '10× MOINS CHER · CHAQUE ANNÉE',
-    'pricing.subtitle.desc': 'Des résultats de niveau pentest, sans la facture de cabinet.',
-    'pricing.standard.lineItem': 'FLEURET STANDARD · pentest / an',
-    'pricing.standard.included': 'INCLUS · AUCUNE FACTURE SUPPLÉMENTAIRE',
-    'pricing.anchor.eyebrow': 'RÉFÉRENCE · ANCRAGE',
-    'pricing.anchor.lineItem': 'PENTEST CABINET DE CONSEIL · ponctuel',
-    'pricing.anchor.price': '25 000€+',
-    'pricing.anchor.unit': '/ pentest ponctuel',
-    'pricing.anchor.extras': 'EXTRAS · FACTURÉS À PART',
-    'pricing.anchor.line1': 'Créneau dans 8–12 semaines',
-    'pricing.anchor.line1Tag': '+ DÉLAI',
-    'pricing.anchor.line2': 'PDF des semaines plus tard',
-    'pricing.anchor.line2Tag': '+ ATTENTE',
-    'pricing.anchor.line3': 'Pas de plateforme · pas de re-test',
-    'pricing.anchor.line3Tag': '+ FACTURE',
-    'pricing.anchor.line4': 'Cycle achat annuel',
-    'pricing.anchor.line4Tag': '+ OPEX',
-    'pricing.anchor.footer': '· PAS DE PLATEFORME · PAS DE RE-TEST · PAS DE DASHBOARD ·',
-    'pricing.anchor.watermark': 'RÉFÉRENCE · ANCRAGE',
-    'pricing.alsoAvailable': 'ÉGALEMENT DISPONIBLE · ENTERPRISE',
 
     // Footer
     'footer.tagline': 'Pentest IA européen. Construit en France. Souverain par design.',
@@ -672,8 +647,6 @@ export const translations = {
     'problem.legend.stat': 'deploys ship unaudited',
 
     // Pricing
-    'pricing.title': 'Transparent',
-    'pricing.subtitle': 'pricing',
     'pricing.title.main': 'Transparent',
     'pricing.title.accent': 'pentest pricing',
     'pricing.description': 'Start with a per-webapp POC. Scale into continuous coverage when you are ready.',
@@ -821,29 +794,6 @@ export const translations = {
     'comparison.chrome.criteria': '7 CRITERIA · 3 PROVIDERS',
     'comparison.chrome.wins': 'FLEURET WINS 4 / 7',
     'comparison.win': 'WIN',
-
-    // Redesign 2026-05-09 — Pricing receipt
-    'pricing.eyebrow': 'PRICING · 02 TIERS',
-    'pricing.accent.tagline': '10× CHEAPER · EVERY YEAR',
-    'pricing.subtitle.desc': 'Pentest-grade results without a firm-grade invoice.',
-    'pricing.standard.lineItem': 'FLEURET STANDARD · pentest / year',
-    'pricing.standard.included': 'INCLUDED · NO EXTRA INVOICE',
-    'pricing.anchor.eyebrow': 'ANCHOR · REFERENCE',
-    'pricing.anchor.lineItem': 'CONSULTING-FIRM PENTEST · once',
-    'pricing.anchor.price': '€25,000+',
-    'pricing.anchor.unit': '/ one-off pentest',
-    'pricing.anchor.extras': 'EXTRAS · BILLED SEPARATELY',
-    'pricing.anchor.line1': 'Slot 8–12 weeks out',
-    'pricing.anchor.line1Tag': '+ DELAY',
-    'pricing.anchor.line2': 'PDF arrives weeks later',
-    'pricing.anchor.line2Tag': '+ WAIT',
-    'pricing.anchor.line3': 'No platform · no re-test',
-    'pricing.anchor.line3Tag': '+ INVOICE',
-    'pricing.anchor.line4': 'Annual procurement cycle',
-    'pricing.anchor.line4Tag': '+ OPEX',
-    'pricing.anchor.footer': '· NOT A PLATFORM · NO RE-TEST · NO DASHBOARD ·',
-    'pricing.anchor.watermark': 'ANCHOR · REFERENCE',
-    'pricing.alsoAvailable': 'ALSO AVAILABLE · ENTERPRISE',
 
     // Footer
     'footer.tagline': 'European AI pentest. Built in France. Sovereign by design.',

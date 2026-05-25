@@ -45,7 +45,7 @@ export function computeMultiYearPrice(annualPriceEur: number): number {
   if (annualPriceEur < 0) {
     throw new Error("annualPriceEur must be non-negative");
   }
-  return Math.round(annualPriceEur * (100 - MULTI_YEAR_DISCOUNT_PCT)) / 100;
+  return Math.round(annualPriceEur * (1 - MULTI_YEAR_DISCOUNT_PCT / 100));
 }
 
 /**

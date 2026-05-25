@@ -66,7 +66,7 @@ describe("computeMultiYearPrice", () => {
   });
 
   it("rounds correctly on non-flat numbers", () => {
-    expect(computeMultiYearPrice(12345)).toBe(11110.5);
+    expect(computeMultiYearPrice(12345)).toBe(11111);
   });
 
   it("throws on negative input", () => {
