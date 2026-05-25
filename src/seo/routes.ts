@@ -6,6 +6,7 @@ export type RouteKey =
   | "about"
   | "careers"
   | "designPartners"
+  | "partners"
   | "demo"
   | "mentionsLegales"
   | "privacy"
@@ -28,6 +29,7 @@ export const ROUTES: Record<RouteKey, string> = {
   about: "/about",
   careers: "/careers",
   designPartners: "/design-partners",
+  partners: "/partners",
   demo: "/demo",
   mentionsLegales: "/mentions-legales",
   privacy: "/privacy",
@@ -71,6 +73,13 @@ export const META: Record<RouteKey, MetaEntry> = {
       "5 slots, 3 AI pentests in 6 weeks for €4,900. Founder-led onboarding, NIS2 and DORA audit-ready report. Apply now.",
     keywords:
       "design partners, pentest pilot, AI pentest trial, DORA pentest, NIS2 pentest, Fleuret",
+  },
+  partners: {
+    title: "Channel Partners | Fleuret",
+    description:
+      "GRC platform or pentest marketplace? Resell Fleuret under your brand. 50% wholesale on Recurring, 60% on POC. Sovereign EU, DORA / NIS2 ready.",
+    keywords:
+      "Fleuret partners, GRC, Vanta, Sprinto, Drata, pentest marketplace, white label, wholesale, NIS2, DORA",
   },
   demo: {
     title: "Book a Free Demo | Fleuret AI",

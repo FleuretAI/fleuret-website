@@ -1,33 +1,20 @@
 import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { DEMO_ROUTE } from "@/lib/routes";
-import { staggerContainer, staggerItem } from "@/lib/animations";
+import { DP_COHORT_VISIBLE } from "@/lib/designPartnerConfig";
 import { trackEvent } from "@/lib/gtag";
 
-const fleuretLines = [
-  { id: "01.01", key: "pricing.standard.f1" },
-  { id: "01.02", key: "pricing.standard.f2" },
-  { id: "01.03", key: "pricing.standard.f3" },
-  { id: "01.04", key: "pricing.standard.f4" },
-] as const;
-
-const anchorLines = [
-  { id: "02.01", key: "pricing.anchor.line1", tag: "pricing.anchor.line1Tag" },
-  { id: "02.02", key: "pricing.anchor.line2", tag: "pricing.anchor.line2Tag" },
-  { id: "02.03", key: "pricing.anchor.line3", tag: "pricing.anchor.line3Tag" },
-  { id: "02.04", key: "pricing.anchor.line4", tag: "pricing.anchor.line4Tag" },
-] as const;
+const CheckIcon = ({ color }: { color: string }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" style={{ width: "1rem", height: "1rem", flexShrink: 0, marginTop: 2 }}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/>
+  </svg>
+);
 
 const PricingSection = () => {
   const { t, localize } = useLanguage();
   const sectionRef = useRef<HTMLElement | null>(null);
 
-  // Fire `pricing_viewed` once when the section enters the viewport. Used as
-  // the mid-funnel step for "homepage → pricing → demo/apply" exploration.
-  // Hash anchors (#pricing) don't trigger page_view, so IntersectionObserver
-  // is the only reliable signal that a homepage visitor actually saw pricing.
   useEffect(() => {
     const el = sectionRef.current;
     if (!el || typeof IntersectionObserver === "undefined") return;
@@ -48,304 +35,240 @@ const PricingSection = () => {
     return () => obs.disconnect();
   }, []);
 
+  const pocFeatures = [
+    t("pricing.poc.f1"),
+    t("pricing.poc.f2"),
+    t("pricing.poc.f3"),
+    t("pricing.poc.f4"),
+  ];
+
+  const tiers = [
+    {
+      key: "starter" as const,
+      testId: "pricing-tier-starter",
+      color: "var(--accent-blue)",
+      highlighted: false,
+      features: [
+        t("pricing.starter.f1"),
+        t("pricing.starter.f2"),
+        t("pricing.starter.f3"),
+        t("pricing.starter.f4"),
+      ],
+    },
+    {
+      key: "growth" as const,
+      testId: "pricing-tier-growth",
+      color: "var(--accent-violet)",
+      highlighted: true,
+      features: [
+        t("pricing.growth.f1"),
+        t("pricing.growth.f2"),
+        t("pricing.growth.f3"),
+        t("pricing.growth.f4"),
+        t("pricing.growth.f5"),
+      ],
+    },
+    {
+      key: "scale" as const,
+      testId: "pricing-tier-scale",
+      color: "var(--accent-red)",
+      highlighted: false,
+      features: [
+        t("pricing.scale.f1"),
+        t("pricing.scale.f2"),
+        t("pricing.scale.f3"),
+      ],
+    },
+  ];
+
   return (
-    <section ref={sectionRef} id="pricing" className="fl-section fl-section--solid" style={{ padding: "6rem 0 7rem", position: "relative", overflow: "hidden", scrollMarginTop: "5rem" }}>
-      <div className="max-w-[1280px] mx-auto px-4 md:px-8" style={{ position: "relative", zIndex: 1 }}>
+    <section ref={sectionRef} id="pricing" className="py-16 md:py-24 lg:py-32" style={{ scrollMarginTop: "5rem" }}>
+      <div className="max-w-[1280px] mx-auto px-4 md:px-8">
         {/* Header */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
-          variants={staggerContainer}
-          style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: "1rem", marginBottom: "2rem" }}
-        >
-          <motion.div variants={staggerItem} style={{ maxWidth: "44rem" }}>
-            <p className="fl-eyebrow" style={{ display: "inline-flex", alignItems: "center", gap: "0.6rem", margin: "0 0 1rem" }}>
-              <span className="fl-dot" style={{ background: "var(--fl-violet)" }} />
-              {t("pricing.eyebrow")}
-            </p>
-            <h2
-              style={{
-                fontSize: "clamp(26px, 2.9vw, 42px)",
-                fontWeight: 400,
-                letterSpacing: "-0.02em",
-                lineHeight: 1.1,
-                color: "#fff",
-                margin: 0,
-              }}
-            >
-              {t("pricing.title.main")}{" "}
-              <span className="fl-text-gradient">{t("pricing.title.accent")}</span>
-            </h2>
-            <p style={{ fontSize: "1rem", color: "rgba(255,255,255,0.6)", lineHeight: 1.55, maxWidth: "34rem", margin: "1rem 0 0" }}>
-              {t("pricing.subtitle.desc")}
-            </p>
-          </motion.div>
-          <motion.p
-            variants={staggerItem}
-            className="fl-mono"
-            style={{
-              fontSize: "0.75rem",
-              letterSpacing: "0.24em",
-              textTransform: "uppercase",
-              color: "rgba(255,255,255,0.4)",
-              margin: 0,
-              alignSelf: "flex-end",
-            }}
+        <div style={{ textAlign: "center", maxWidth: "56rem", margin: "0 auto 3rem" }}>
+          <h2 style={{ fontSize: "clamp(1.875rem, 4.5vw, 3.75rem)", fontWeight: 300, letterSpacing: "-0.02em", lineHeight: 1.1 }}>
+            {t("pricing.title.main")}{" "}
+            <span className="text-gradient-accent">{t("pricing.title.accent")}</span>
+          </h2>
+          <p style={{ fontSize: "1.125rem", color: "rgba(255,255,255,0.4)", lineHeight: 1.7, maxWidth: "42rem", margin: "1rem auto 0" }}>
+            {t("pricing.description")}
+          </p>
+        </div>
+
+        {/* Full-width category bars (desktop only, XBOW-style) */}
+        <div className="hidden md:grid md:grid-cols-[minmax(0,1fr)_minmax(0,3fr)] max-w-[76rem] mx-auto" style={{ marginBottom: "1rem" }}>
+          <div
+            data-testid="pricing-label-poc"
+            style={{ padding: "0.6rem 1.25rem", background: "rgba(79,143,255,0.06)", borderBottom: "2px solid rgba(79,143,255,0.25)", marginRight: "0.75rem" }}
           >
-            {t("pricing.accent.tagline")}
-          </motion.p>
-        </motion.div>
+            <span style={{ fontSize: "0.7rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.2em", color: "rgba(79,143,255,0.9)" }}>
+              {t("pricing.tab.poc")}
+            </span>
+            <span style={{ display: "block", fontSize: "0.65rem", color: "rgba(255,255,255,0.35)", marginTop: "0.15rem" }}>
+              {t("pricing.label.poc.sub")}
+            </span>
+          </div>
+          <div
+            data-testid="pricing-label-continuous"
+            style={{ padding: "0.6rem 1.25rem", background: "rgba(167,139,250,0.06)", borderBottom: "2px solid rgba(167,139,250,0.25)" }}
+          >
+            <span style={{ fontSize: "0.7rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.2em", color: "rgba(167,139,250,0.9)" }}>
+              {t("pricing.tab.continuous")}
+            </span>
+            <span style={{ display: "block", fontSize: "0.65rem", color: "rgba(255,255,255,0.35)", marginTop: "0.15rem" }}>
+              {t("pricing.label.continuous.sub")}
+            </span>
+          </div>
+        </div>
 
-        {/* Receipt sheet */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.1 }}
-          style={{
-            border: "1px solid rgba(255,255,255,0.08)",
-            borderRadius: 6,
-            background: "rgba(11,12,20,0.6)",
-            position: "relative",
-            overflow: "hidden",
-          }}
+        {/* 4-column grid: POC | Starter | Growth | Scale */}
+        <div
+          data-testid="pricing-layout"
+          className="grid md:grid-cols-4 gap-6 max-w-[76rem] mx-auto items-start"
         >
-          <div className="grid grid-cols-1 md:grid-cols-2" style={{ alignItems: "stretch" }}>
-            {/* Left — Fleuret */}
-            <div style={{ padding: "2.5rem clamp(1rem, 4vw, 2.25rem) 2rem", borderRight: "1px dashed rgba(255,255,255,0.1)", position: "relative" }}>
-              {/* Line item header row */}
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: "1rem", paddingBottom: "1.25rem", borderBottom: "1px dashed rgba(255,255,255,0.12)" }}>
-                <span className="fl-mono" style={{ fontSize: "0.75rem", letterSpacing: "0.18em", color: "rgba(255,255,255,0.7)" }}>
-                  01 · {t("pricing.standard.lineItem")}
-                </span>
-                <span className="fl-mono" style={{ fontSize: "0.875rem", color: "rgba(255,255,255,0.7)" }}>{t("pricing.standard.price")}</span>
-              </div>
-
-              {/* Hero price echo */}
-              <div style={{ display: "flex", alignItems: "baseline", gap: "0.75rem", margin: "1.5rem 0 0.5rem", flexWrap: "wrap" }}>
-                <span
-                  className="fl-mono"
-                  style={{
-                    fontSize: "clamp(44px, 4.7vw, 68px)",
-                    fontWeight: 400,
-                    letterSpacing: "-0.025em",
-                    color: "#fff",
-                    lineHeight: 1,
-                  }}
-                >
-                  {t("pricing.standard.price")}
-                </span>
-                <span className="fl-mono" style={{ fontSize: "0.75rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(255,255,255,0.5)" }}>
-                  {t("pricing.standard.unit")}
-                </span>
-              </div>
-
-              {/* Gradient divider */}
-              <div style={{ height: 1, background: "var(--fl-gradient)", opacity: 0.7, margin: "1.75rem 0 1.5rem" }} />
-
-              {/* INCLUDED header */}
-              <p className="fl-mono" style={{ fontSize: "0.6875rem", letterSpacing: "0.24em", color: "rgba(255,255,255,0.55)", margin: "0 0 1rem" }}>
-                {t("pricing.standard.included")}
+          {/* POC card */}
+          <div data-testid="pricing-poc-section">
+            <div
+              data-testid="pricing-card-poc"
+              style={{ display: "flex", flexDirection: "column", height: "100%", borderRadius: "1rem", padding: "2rem", border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.02)", transition: "all 0.3s", cursor: "default" }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.04)"; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.02)"; }}
+            >
+              <p style={{ fontSize: "0.875rem", textTransform: "uppercase", letterSpacing: "0.2em", color: "rgba(255,255,255,0.5)", fontWeight: 600, marginBottom: "1.5rem" }}>
+                {t("pricing.poc.name")}
               </p>
-
-              {/* Lines */}
-              <motion.ul
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-100px" }}
-                variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.07, delayChildren: 0.25 } } }}
-                style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column" }}
+              <div>
+                <span style={{ fontSize: "0.875rem", color: "rgba(255,255,255,0.4)", textTransform: "uppercase", letterSpacing: "0.1em", display: "block", marginBottom: "0.25rem" }}>
+                  {t("pricing.startingAt")}
+                </span>
+                <div style={{ display: "flex", alignItems: "baseline", gap: "0.5rem", marginBottom: "1rem" }}>
+                  <span style={{ fontSize: "clamp(1.5rem, 3.5vw, 2.25rem)", fontWeight: 300, color: "#fff", letterSpacing: "-0.02em" }}>{t("pricing.poc.price")}</span>
+                  <span style={{ fontSize: "0.875rem", color: "rgba(255,255,255,0.4)" }}>{t("pricing.poc.unit")}</span>
+                </div>
+              </div>
+              <p style={{ fontSize: "0.875rem", color: "rgba(255,255,255,0.4)", lineHeight: 1.7, marginBottom: "1rem" }}>{t("pricing.poc.desc")}</p>
+              <div
+                data-testid="pricing-poc-upgrade-credit"
+                style={{ display: "inline-block", alignSelf: "flex-start", fontSize: "0.75rem", color: "rgba(79,143,255,0.9)", background: "rgba(79,143,255,0.08)", border: "1px solid rgba(79,143,255,0.18)", borderRadius: "0.5rem", padding: "0.4rem 0.7rem", marginBottom: "1.5rem", lineHeight: 1.4 }}
               >
-                {fleuretLines.map((line) => (
-                  <motion.li
-                    key={line.id}
-                    variants={{
-                      hidden: { opacity: 0, x: -12 },
-                      visible: { opacity: 1, x: 0, transition: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] } },
-                    }}
-                    style={{
-                      display: "grid",
-                      gridTemplateColumns: "auto 1fr auto",
-                      alignItems: "center",
-                      gap: "1rem",
-                      padding: "0.7rem 0",
-                      borderBottom: "1px dashed rgba(255,255,255,0.08)",
-                      fontSize: "0.9375rem",
-                      color: "rgba(255,255,255,0.85)",
-                    }}
-                  >
-                    <span className="fl-mono" style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.75rem" }}>{line.id}</span>
-                    <span>{t(line.key)}</span>
-                    <span className="fl-mono" style={{ color: "var(--fl-violet)", fontSize: "0.6875rem", letterSpacing: "0.18em" }}>INCLUDED</span>
-                  </motion.li>
+                {t("pricing.poc.upgradeCredit")}
+              </div>
+              <ul style={{ listStyle: "none", padding: 0, margin: "0 0 2rem", display: "flex", flexDirection: "column", gap: "0.75rem", flex: 1 }}>
+                {pocFeatures.map((f) => (
+                  <li key={f} style={{ display: "flex", alignItems: "flex-start", gap: "0.75rem", fontSize: "0.875rem", color: "rgba(255,255,255,0.6)" }}>
+                    <CheckIcon color="var(--accent-blue)" />{f}
+                  </li>
                 ))}
-              </motion.ul>
-
-              <Link to={localize(DEMO_ROUTE)} className="fl-cta" style={{ marginTop: "2.25rem", width: "100%", maxWidth: "100%" }}>
-                {t("pricing.standard.cta")}
-                <span aria-hidden>→</span>
+              </ul>
+              <Link
+                to={localize(DEMO_ROUTE)}
+                style={{ display: "block", width: "100%", padding: "0.75rem 1.5rem", borderRadius: "0.5rem", fontSize: "0.875rem", fontWeight: 600, textAlign: "center", border: "1px solid rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.7)", transition: "all 0.3s" }}
+                onMouseEnter={(e) => { const el = e.currentTarget as HTMLElement; el.style.color = "#fff"; el.style.borderColor = "rgba(255,255,255,0.2)"; el.style.background = "rgba(255,255,255,0.04)"; }}
+                onMouseLeave={(e) => { const el = e.currentTarget as HTMLElement; el.style.color = "rgba(255,255,255,0.7)"; el.style.borderColor = "rgba(255,255,255,0.1)"; el.style.background = ""; }}
+              >
+                {t("pricing.poc.cta")}
               </Link>
             </div>
 
-            {/* Right — Anchor / firm reference */}
-            <div style={{ padding: "2.5rem clamp(1rem, 4vw, 2.25rem) 2rem", position: "relative", opacity: 0.62, overflow: "hidden" }}>
-              {/* Watermark */}
-              <div aria-hidden style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", pointerEvents: "none", overflow: "hidden" }}>
-                <span
-                  className="fl-mono"
-                  style={{
-                    transform: "rotate(-18deg)",
-                    fontSize: "clamp(2rem, 6vw, 5rem)",
-                    letterSpacing: "0.2em",
-                    color: "rgba(229,72,77,0.08)",
-                    whiteSpace: "nowrap",
-                  }}
-                >
-                  {t("pricing.anchor.watermark")}
-                </span>
-              </div>
-
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: "1rem", paddingBottom: "1.25rem", borderBottom: "1px dashed rgba(229,72,77,0.3)" }}>
-                <span className="fl-mono" style={{ fontSize: "0.75rem", letterSpacing: "0.18em", color: "rgba(229,72,77,0.85)" }}>
-                  02 · {t("pricing.anchor.lineItem")}
-                </span>
-                <span className="fl-mono" style={{ fontSize: "0.875rem", color: "rgba(229,72,77,0.85)" }}>{t("pricing.anchor.price")}</span>
-              </div>
-
-              <div style={{ display: "flex", alignItems: "baseline", gap: "0.75rem", margin: "1.5rem 0 0.5rem", flexWrap: "wrap" }}>
-                <s
-                  className="fl-mono"
-                  aria-label={t("pricing.anchor")}
-                  style={{
-                    fontSize: "clamp(44px, 4.7vw, 68px)",
-                    fontWeight: 400,
-                    letterSpacing: "-0.025em",
-                    color: "rgba(255,255,255,0.55)",
-                    lineHeight: 1,
-                    textDecoration: "line-through",
-                    textDecorationColor: "rgba(229,72,77,0.7)",
-                    textDecorationThickness: 4,
-                  }}
-                >
-                  {t("pricing.anchor.price")}
-                </s>
-                <span className="fl-mono" style={{ fontSize: "0.8125rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(255,255,255,0.4)" }}>
-                  {t("pricing.anchor.unit")}
-                </span>
-              </div>
-
-              <div style={{ height: 1, background: "rgba(229,72,77,0.45)", margin: "1.75rem 0 1.5rem" }} />
-
-              <p className="fl-mono" style={{ fontSize: "0.6875rem", letterSpacing: "0.24em", color: "rgba(229,72,77,0.85)", margin: "0 0 1rem" }}>
-                {t("pricing.anchor.extras")}
+            {/* Guarantee badge below POC card */}
+            <div
+              data-testid="pricing-guarantee"
+              style={{
+                marginTop: "1rem",
+                padding: "1rem 1.25rem",
+                borderRadius: "0.75rem",
+                border: "2px solid rgba(79,143,255,0.3)",
+                background: "rgba(79,143,255,0.06)",
+                textAlign: "center",
+              }}
+            >
+              <p style={{ fontSize: "1.1rem", fontWeight: 500, color: "#fff", margin: 0, marginBottom: "0.25rem" }}>
+                {t("pricing.guarantee.title")}
               </p>
-
-              <motion.ul
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-100px" }}
-                variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.07, delayChildren: 0.3 } } }}
-                style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column" }}
-              >
-                {anchorLines.map((line) => (
-                  <motion.li
-                    key={line.id}
-                    variants={{
-                      hidden: { opacity: 0, x: 12 },
-                      visible: { opacity: 1, x: 0, transition: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] } },
-                    }}
-                    style={{
-                      display: "grid",
-                      gridTemplateColumns: "auto 1fr auto",
-                      alignItems: "center",
-                      gap: "1rem",
-                      padding: "0.7rem 0",
-                      borderBottom: "1px dashed rgba(229,72,77,0.18)",
-                      fontSize: "0.9375rem",
-                      color: "rgba(255,255,255,0.7)",
-                    }}
-                  >
-                    <span className="fl-mono" style={{ color: "rgba(229,72,77,0.55)", fontSize: "0.75rem" }}>{line.id}</span>
-                    <span>{t(line.key)}</span>
-                    <span className="fl-mono" style={{ color: "rgba(229,72,77,0.8)", fontSize: "0.6875rem", letterSpacing: "0.18em" }}>{t(line.tag)}</span>
-                  </motion.li>
-                ))}
-              </motion.ul>
-
-              <p
-                className="fl-mono"
-                style={{
-                  fontSize: "0.625rem",
-                  letterSpacing: "0.22em",
-                  color: "rgba(229,72,77,0.65)",
-                  textAlign: "center",
-                  margin: "2.25rem 0 0",
-                  padding: "0.75rem 0",
-                  borderTop: "1px dashed rgba(229,72,77,0.3)",
-                  borderBottom: "1px dashed rgba(229,72,77,0.3)",
-                }}
-              >
-                {t("pricing.anchor.footer")}
+              <p style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.5)", margin: 0, lineHeight: 1.4 }}>
+                {t("pricing.guarantee.subtitle")}
               </p>
             </div>
           </div>
-        </motion.div>
 
-        {/* Footer row: guarantee stamp + enterprise inline */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-60px" }}
-          variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.15, delayChildren: 0.2 } } }}
-          style={{ display: "flex", justifyContent: "space-between", gap: "2rem", flexWrap: "wrap", marginTop: "2rem", alignItems: "center" }}
+          {/* Continuous tier cards */}
+          {tiers.map((tier) => (
+            <div key={tier.key} data-testid={tier.testId} style={{ position: "relative" }}>
+              {tier.highlighted && (
+                <div style={{ position: "absolute", inset: -1, borderRadius: "1rem", background: "linear-gradient(135deg, var(--accent-blue), var(--accent-violet), var(--accent-red))", opacity: 0.4, filter: "blur(1px)", zIndex: 0 }} />
+              )}
+              <div
+                style={{
+                  position: "relative", zIndex: 1, display: "flex", flexDirection: "column", height: "100%",
+                  borderRadius: "1rem", padding: "2rem",
+                  border: `1px solid ${tier.highlighted ? "rgba(255,255,255,0.1)" : "rgba(255,255,255,0.08)"}`,
+                  background: tier.highlighted ? "rgba(255,255,255,0.04)" : "rgba(255,255,255,0.02)",
+                  transition: "all 0.3s", cursor: "default",
+                }}
+                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = tier.highlighted ? "rgba(255,255,255,0.06)" : "rgba(255,255,255,0.04)"; }}
+                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = tier.highlighted ? "rgba(255,255,255,0.04)" : "rgba(255,255,255,0.02)"; }}
+              >
+                <p style={{ fontSize: "0.875rem", textTransform: "uppercase", letterSpacing: "0.2em", color: "rgba(255,255,255,0.5)", fontWeight: 600, marginBottom: "0.5rem" }}>
+                  {t(`pricing.${tier.key}.name`)}
+                </p>
+                <p style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.35)", marginBottom: "1.25rem" }}>
+                  {t(`pricing.${tier.key}.apps`)}
+                </p>
+                <div style={{ display: "flex", alignItems: "baseline", gap: "0.5rem", marginBottom: "1rem" }}>
+                  <span style={{ fontSize: "clamp(1.5rem, 3.5vw, 2.25rem)", fontWeight: 300, color: "#fff", letterSpacing: "-0.02em" }}>
+                    {t(`pricing.${tier.key}.price`)}
+                  </span>
+                  {t(`pricing.${tier.key}.unit`) !== `pricing.${tier.key}.unit` && t(`pricing.${tier.key}.unit`) !== "" && (
+                    <span style={{ fontSize: "0.875rem", color: "rgba(255,255,255,0.4)" }}>
+                      {t(`pricing.${tier.key}.unit`)}
+                    </span>
+                  )}
+                </div>
+                <p style={{ fontSize: "0.875rem", color: "rgba(255,255,255,0.4)", lineHeight: 1.7, marginBottom: "1.5rem" }}>
+                  {t(`pricing.${tier.key}.desc`)}
+                </p>
+                <ul style={{ listStyle: "none", padding: 0, margin: "0 0 2rem", display: "flex", flexDirection: "column", gap: "0.75rem", flex: 1 }}>
+                  {tier.features.map((f) => (
+                    <li key={f} style={{ display: "flex", alignItems: "flex-start", gap: "0.75rem", fontSize: "0.875rem", color: "rgba(255,255,255,0.6)" }}>
+                      <CheckIcon color={tier.color} />{f}
+                    </li>
+                  ))}
+                </ul>
+                <Link to={localize(DEMO_ROUTE)} className={tier.highlighted ? "btn-cta btn-cta--block" : ""} style={tier.highlighted ? {} : { display: "block", width: "100%", padding: "0.75rem 1.5rem", borderRadius: "0.5rem", fontSize: "0.875rem", fontWeight: 600, textAlign: "center", border: "1px solid rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.7)", transition: "all 0.3s" }}>
+                  {t(`pricing.${tier.key}.cta`)}
+                </Link>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <p style={{ textAlign: "center", fontSize: "0.875rem", color: "rgba(255,255,255,0.5)", marginTop: "2rem" }}>{t("pricing.anchor")}</p>
+
+        {DP_COHORT_VISIBLE && (
+          <Link
+            to={localize("/design-partners")}
+            data-testid="pricing-dp-banner"
+            style={{ display: "block", margin: "2.5rem auto 0", maxWidth: "44rem", padding: "1.25rem 1.5rem", borderRadius: "1rem", border: "1px solid rgba(212,168,75,0.25)", background: "linear-gradient(135deg, rgba(212,168,75,0.06), rgba(212,168,75,0.02))", textDecoration: "none", transition: "all 0.3s" }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(212,168,75,0.4)"; }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(212,168,75,0.25)"; }}
+          >
+            <p style={{ fontSize: "0.95rem", fontWeight: 500, color: "#fff", margin: 0, marginBottom: "0.25rem" }}>{t("pricing.dpBanner.title")}</p>
+            <p style={{ fontSize: "0.85rem", color: "rgba(255,255,255,0.55)", margin: 0, marginBottom: "0.5rem" }}>{t("pricing.dpBanner.subtitle")}</p>
+            <span style={{ fontSize: "0.85rem", fontWeight: 600, color: "rgba(212,168,75,0.95)" }}>{t("pricing.dpBanner.cta")} →</span>
+          </Link>
+        )}
+
+        <Link
+          to={localize("/partners")}
+          data-testid="pricing-partners-banner"
+          style={{ display: "block", margin: "1rem auto 0", maxWidth: "44rem", padding: "1rem 1.5rem", borderRadius: "1rem", border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.02)", textDecoration: "none", transition: "all 0.3s" }}
+          onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.18)"; }}
+          onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.08)"; }}
         >
-          <motion.div
-            variants={{
-              hidden: { opacity: 0, rotate: -8, scale: 0.92 },
-              visible: { opacity: 1, rotate: -3, scale: 1, transition: { duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94] } },
-            }}
-            style={{
-              border: "2px solid var(--fl-violet)",
-              borderRadius: 8,
-              padding: "1rem 1.25rem",
-              maxWidth: "22rem",
-              background: "rgba(139,92,246,0.04)",
-              transformOrigin: "center",
-            }}
-          >
-            <p style={{ margin: 0, fontSize: "1.1rem", color: "#fff", fontWeight: 400, letterSpacing: "-0.01em" }}>
-              {t("pricing.guarantee.title")}
-            </p>
-            <p style={{ margin: "0.35rem 0 0", fontSize: "0.8125rem", color: "rgba(255,255,255,0.55)", lineHeight: 1.5 }}>
-              {t("pricing.guarantee.subtitle")}
-            </p>
-          </motion.div>
-
-          <motion.p
-            variants={{
-              hidden: { opacity: 0, x: 16 },
-              visible: { opacity: 1, x: 0, transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] } },
-            }}
-            style={{
-              fontSize: "0.9375rem",
-              color: "rgba(255,255,255,0.6)",
-              margin: 0,
-              maxWidth: "32rem",
-              textAlign: "right",
-              lineHeight: 1.55,
-            }}
-          >
-            <span className="fl-mono" style={{ display: "block", fontSize: "0.6875rem", letterSpacing: "0.22em", color: "rgba(255,255,255,0.45)", marginBottom: "0.4rem" }}>
-              {t("pricing.alsoAvailable")}
-            </span>
-            {t("pricing.enterprise.desc")}
-          </motion.p>
-        </motion.div>
-
-        <p style={{ textAlign: "center", fontSize: "0.8125rem", color: "rgba(255,255,255,0.4)", marginTop: "2rem" }}>
-          {t("pricing.anchor")}
-        </p>
+          <p style={{ fontSize: "0.9rem", fontWeight: 500, color: "rgba(255,255,255,0.85)", margin: 0, marginBottom: "0.25rem" }}>{t("pricing.partnersBanner.title")}</p>
+          <p style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.45)", margin: 0, marginBottom: "0.4rem" }}>{t("pricing.partnersBanner.subtitle")}</p>
+          <span style={{ fontSize: "0.8rem", fontWeight: 600, color: "rgba(255,255,255,0.7)" }}>{t("pricing.partnersBanner.cta")} →</span>
+        </Link>
       </div>
     </section>
   );
