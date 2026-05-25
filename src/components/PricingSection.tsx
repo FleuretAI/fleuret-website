@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { DEMO_ROUTE } from "@/lib/routes";
@@ -14,7 +14,6 @@ const CheckIcon = ({ color }: { color: string }) => (
 const PricingSection = () => {
   const { t, localize } = useLanguage();
   const sectionRef = useRef<HTMLElement | null>(null);
-  const [recurringTerm, setRecurringTerm] = useState<"1yr" | "3yr">("1yr");
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -42,19 +41,45 @@ const PricingSection = () => {
     t("pricing.poc.f3"),
     t("pricing.poc.f4"),
   ];
-  const recurringFeatures = [
-    t("pricing.recurring.f1"),
-    t("pricing.recurring.f2"),
-    t("pricing.recurring.f3"),
-    t("pricing.recurring.f4"),
-    t("pricing.recurring.f5"),
-    t("pricing.recurring.f6"),
-  ];
 
-  const recurringPrice =
-    recurringTerm === "1yr"
-      ? t("pricing.recurring.price1yr")
-      : t("pricing.recurring.price3yr");
+  const tiers = [
+    {
+      key: "starter" as const,
+      testId: "pricing-tier-starter",
+      color: "var(--accent-blue)",
+      highlighted: false,
+      features: [
+        t("pricing.starter.f1"),
+        t("pricing.starter.f2"),
+        t("pricing.starter.f3"),
+        t("pricing.starter.f4"),
+      ],
+    },
+    {
+      key: "growth" as const,
+      testId: "pricing-tier-growth",
+      color: "var(--accent-violet)",
+      highlighted: true,
+      features: [
+        t("pricing.growth.f1"),
+        t("pricing.growth.f2"),
+        t("pricing.growth.f3"),
+        t("pricing.growth.f4"),
+        t("pricing.growth.f5"),
+      ],
+    },
+    {
+      key: "scale" as const,
+      testId: "pricing-tier-scale",
+      color: "var(--accent-red)",
+      highlighted: false,
+      features: [
+        t("pricing.scale.f1"),
+        t("pricing.scale.f2"),
+        t("pricing.scale.f3"),
+      ],
+    },
+  ];
 
   const pocCard = (
     <div
@@ -104,81 +129,6 @@ const PricingSection = () => {
     </div>
   );
 
-  const recurringCard = (
-    <div data-testid="pricing-card-recurring" style={{ position: "relative" }}>
-      <div data-testid="pricing-recurring-glow" style={{ position: "absolute", inset: -1, borderRadius: "1rem", background: "linear-gradient(135deg, var(--accent-blue), var(--accent-violet), var(--accent-red))", opacity: 0.4, filter: "blur(1px)", zIndex: 0 }} />
-      <div
-        style={{ position: "relative", zIndex: 1, display: "flex", flexDirection: "column", height: "100%", borderRadius: "1rem", padding: "2rem", border: "1px solid rgba(255,255,255,0.1)", background: "rgba(255,255,255,0.04)", transition: "all 0.3s", cursor: "default" }}
-        onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.06)"; }}
-        onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.04)"; }}
-      >
-        <p style={{ fontSize: "0.875rem", textTransform: "uppercase", letterSpacing: "0.2em", color: "rgba(255,255,255,0.5)", fontWeight: 600, marginBottom: "1.5rem" }}>
-          {t("pricing.recurring.name")}
-        </p>
-
-        <div
-          data-testid="pricing-recurring-toggle"
-          role="radiogroup"
-          aria-label="Recurring term"
-          style={{ display: "inline-flex", alignSelf: "flex-start", padding: "0.25rem", borderRadius: "0.5rem", background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.08)", marginBottom: "1rem" }}
-        >
-          {(["1yr", "3yr"] as const).map((term) => {
-            const active = recurringTerm === term;
-            return (
-              <button
-                key={term}
-                type="button"
-                role="radio"
-                aria-checked={active}
-                data-testid={`pricing-recurring-toggle-${term}`}
-                onClick={() => setRecurringTerm(term)}
-                style={{
-                  padding: "0.4rem 0.85rem",
-                  fontSize: "0.8rem",
-                  fontWeight: 500,
-                  borderRadius: "0.35rem",
-                  border: "none",
-                  cursor: "pointer",
-                  color: active ? "#fff" : "rgba(255,255,255,0.55)",
-                  background: active ? "rgba(255,255,255,0.12)" : "transparent",
-                  transition: "all 0.2s",
-                }}
-              >
-                {t(`pricing.recurring.toggle.${term}`)}
-              </button>
-            );
-          })}
-        </div>
-
-        <div>
-          <span style={{ fontSize: "0.875rem", color: "rgba(255,255,255,0.4)", textTransform: "uppercase", letterSpacing: "0.1em", display: "block", marginBottom: "0.25rem" }}>
-            {t("pricing.startingAt")}
-          </span>
-          <div style={{ display: "flex", alignItems: "baseline", gap: "0.5rem", marginBottom: "0.5rem" }}>
-            <span data-testid="pricing-recurring-price" style={{ fontSize: "clamp(1.875rem, 4vw, 3rem)", fontWeight: 300, color: "#fff", letterSpacing: "-0.02em" }}>{recurringPrice}</span>
-            <span style={{ fontSize: "0.875rem", color: "rgba(255,255,255,0.4)" }}>{t("pricing.recurring.unit")}</span>
-          </div>
-          {recurringTerm === "3yr" && (
-            <p data-testid="pricing-recurring-savings" style={{ fontSize: "0.75rem", color: "rgba(79,143,255,0.85)", margin: "0 0 1rem" }}>
-              {t("pricing.recurring.toggle.savings")}
-            </p>
-          )}
-        </div>
-        <p style={{ fontSize: "0.875rem", color: "rgba(255,255,255,0.4)", lineHeight: 1.7, marginBottom: "2rem" }}>{t("pricing.recurring.desc")}</p>
-        <ul style={{ listStyle: "none", padding: 0, margin: "0 0 2rem", display: "flex", flexDirection: "column", gap: "0.75rem", flex: 1 }}>
-          {recurringFeatures.map((f) => (
-            <li key={f} style={{ display: "flex", alignItems: "flex-start", gap: "0.75rem", fontSize: "0.875rem", color: "rgba(255,255,255,0.6)" }}>
-              <CheckIcon color="var(--accent-violet)" />{f}
-            </li>
-          ))}
-        </ul>
-        <Link to={localize(DEMO_ROUTE)} className="btn-cta btn-cta--block">
-          {t("pricing.recurring.cta")}
-        </Link>
-      </div>
-    </div>
-  );
-
   return (
     <section ref={sectionRef} id="pricing" className="py-16 md:py-24 lg:py-32" style={{ scrollMarginTop: "5rem" }}>
       <div className="max-w-[1280px] mx-auto px-4 md:px-8">
@@ -192,16 +142,71 @@ const PricingSection = () => {
           </p>
         </div>
 
+        {/* POC — entry point */}
+        <div data-testid="pricing-poc-section" className="max-w-[28rem] mx-auto" style={{ marginBottom: "4rem" }}>
+          {pocCard}
+        </div>
+
+        {/* Continuous tiers */}
+        <div style={{ textAlign: "center", marginBottom: "2rem" }}>
+          <h3 style={{ fontSize: "clamp(1.25rem, 3vw, 2rem)", fontWeight: 300, letterSpacing: "-0.02em", color: "#fff" }}>
+            {t("pricing.continuous.title")}
+          </h3>
+          <p style={{ fontSize: "1rem", color: "rgba(255,255,255,0.4)", marginTop: "0.5rem" }}>
+            {t("pricing.continuous.subtitle")}
+          </p>
+        </div>
+
         <div
-          data-testid="pricing-cards-grid"
-          className="grid md:grid-cols-2 gap-6 md:gap-8 max-w-[56rem] mx-auto"
+          data-testid="pricing-tiers-grid"
+          className="grid md:grid-cols-3 gap-6 max-w-[64rem] mx-auto"
         >
-          <div data-testid="pricing-card-slot-poc" style={{ order: 2 }} className="md:!order-none">
-            {pocCard}
-          </div>
-          <div data-testid="pricing-card-slot-recurring" style={{ order: 1 }} className="md:!order-none">
-            {recurringCard}
-          </div>
+          {tiers.map((tier) => (
+            <div key={tier.key} data-testid={tier.testId} style={{ position: "relative" }}>
+              {tier.highlighted && (
+                <div style={{ position: "absolute", inset: -1, borderRadius: "1rem", background: "linear-gradient(135deg, var(--accent-blue), var(--accent-violet), var(--accent-red))", opacity: 0.4, filter: "blur(1px)", zIndex: 0 }} />
+              )}
+              <div
+                style={{
+                  position: "relative", zIndex: 1, display: "flex", flexDirection: "column", height: "100%",
+                  borderRadius: "1rem", padding: "2rem",
+                  border: `1px solid ${tier.highlighted ? "rgba(255,255,255,0.1)" : "rgba(255,255,255,0.08)"}`,
+                  background: tier.highlighted ? "rgba(255,255,255,0.04)" : "rgba(255,255,255,0.02)",
+                  transition: "all 0.3s", cursor: "default",
+                }}
+                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = tier.highlighted ? "rgba(255,255,255,0.06)" : "rgba(255,255,255,0.04)"; }}
+                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = tier.highlighted ? "rgba(255,255,255,0.04)" : "rgba(255,255,255,0.02)"; }}
+              >
+                <p style={{ fontSize: "0.875rem", textTransform: "uppercase", letterSpacing: "0.2em", color: "rgba(255,255,255,0.5)", fontWeight: 600, marginBottom: "0.5rem" }}>
+                  {t(`pricing.${tier.key}.name`)}
+                </p>
+                <p style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.35)", marginBottom: "1.25rem" }}>
+                  {t(`pricing.${tier.key}.apps`)}
+                </p>
+                <div style={{ display: "flex", alignItems: "baseline", gap: "0.5rem", marginBottom: "1rem" }}>
+                  <span style={{ fontSize: "clamp(1.5rem, 3.5vw, 2.25rem)", fontWeight: 300, color: "#fff", letterSpacing: "-0.02em" }}>
+                    {t(`pricing.${tier.key}.price`)}
+                  </span>
+                  <span style={{ fontSize: "0.875rem", color: "rgba(255,255,255,0.4)" }}>
+                    {t(`pricing.${tier.key}.unit`)}
+                  </span>
+                </div>
+                <p style={{ fontSize: "0.875rem", color: "rgba(255,255,255,0.4)", lineHeight: 1.7, marginBottom: "1.5rem" }}>
+                  {t(`pricing.${tier.key}.desc`)}
+                </p>
+                <ul style={{ listStyle: "none", padding: 0, margin: "0 0 2rem", display: "flex", flexDirection: "column", gap: "0.75rem", flex: 1 }}>
+                  {tier.features.map((f) => (
+                    <li key={f} style={{ display: "flex", alignItems: "flex-start", gap: "0.75rem", fontSize: "0.875rem", color: "rgba(255,255,255,0.6)" }}>
+                      <CheckIcon color={tier.color} />{f}
+                    </li>
+                  ))}
+                </ul>
+                <Link to={localize(DEMO_ROUTE)} className={tier.highlighted ? "btn-cta btn-cta--block" : ""} style={tier.highlighted ? {} : { display: "block", width: "100%", padding: "0.75rem 1.5rem", borderRadius: "0.5rem", fontSize: "0.875rem", fontWeight: 600, textAlign: "center", border: "1px solid rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.7)", transition: "all 0.3s" }}>
+                  {t(`pricing.${tier.key}.cta`)}
+                </Link>
+              </div>
+            </div>
+          ))}
         </div>
 
         <p style={{ textAlign: "center", fontSize: "0.875rem", color: "rgba(255,255,255,0.5)", marginTop: "2rem" }}>{t("pricing.anchor")}</p>
