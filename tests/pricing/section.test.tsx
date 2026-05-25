@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { render, screen, within } from "@testing-library/react";
+import { render, screen, fireEvent, within } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import PricingSection from "@/components/PricingSection";
 import { LanguageProvider } from "@/contexts/LanguageContext";
@@ -14,24 +14,54 @@ function renderSection() {
   );
 }
 
-describe("PricingSection — POC card", () => {
-  it("renders POC card", () => {
+function switchToPoc() {
+  fireEvent.click(screen.getByTestId("pricing-tab-poc"));
+}
+
+describe("PricingSection — tab toggle", () => {
+  it("renders the tab toggle with POC and Continuous options", () => {
     renderSection();
+    expect(screen.getByTestId("pricing-tab-toggle")).toBeInTheDocument();
+    expect(screen.getByTestId("pricing-tab-poc")).toBeInTheDocument();
+    expect(screen.getByTestId("pricing-tab-continuous")).toBeInTheDocument();
+  });
+
+  it("defaults to Continuous tab", () => {
+    renderSection();
+    expect(screen.getByTestId("pricing-tab-continuous").getAttribute("aria-selected")).toBe("true");
+    expect(screen.getByTestId("pricing-panel-continuous")).toBeInTheDocument();
+  });
+
+  it("switches to POC tab on click", () => {
+    renderSection();
+    switchToPoc();
+    expect(screen.getByTestId("pricing-tab-poc").getAttribute("aria-selected")).toBe("true");
+    expect(screen.getByTestId("pricing-panel-poc")).toBeInTheDocument();
+  });
+});
+
+describe("PricingSection — POC panel", () => {
+  it("renders POC card when POC tab active", () => {
+    renderSection();
+    switchToPoc();
     expect(screen.getByTestId("pricing-card-poc")).toBeInTheDocument();
   });
 
   it("POC card includes the upgrade-credit pill", () => {
     renderSection();
+    switchToPoc();
     const pill = screen.getByTestId("pricing-poc-upgrade-credit");
     expect(pill).toBeInTheDocument();
     expect(pill.textContent?.trim().length).toBeGreaterThan(10);
   });
 
-  it("guarantee block renders inside POC card", () => {
+  it("guarantee badge renders outside POC card, prominently", () => {
     renderSection();
-    const pocCard = screen.getByTestId("pricing-card-poc");
+    switchToPoc();
+    const guarantee = screen.getByTestId("pricing-guarantee");
+    expect(guarantee).toBeInTheDocument();
     const titleRegex = /(0 finding|0 findings)/i;
-    expect(within(pocCard).getByText(titleRegex)).toBeInTheDocument();
+    expect(within(guarantee).getByText(titleRegex)).toBeInTheDocument();
   });
 });
 
