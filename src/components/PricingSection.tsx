@@ -187,9 +187,11 @@ const PricingSection = () => {
                   <span style={{ fontSize: "clamp(1.5rem, 3.5vw, 2.25rem)", fontWeight: 300, color: "#fff", letterSpacing: "-0.02em" }}>
                     {t(`pricing.${tier.key}.price`)}
                   </span>
-                  <span style={{ fontSize: "0.875rem", color: "rgba(255,255,255,0.4)" }}>
-                    {t(`pricing.${tier.key}.unit`)}
-                  </span>
+                  {t(`pricing.${tier.key}.unit`) !== `pricing.${tier.key}.unit` && t(`pricing.${tier.key}.unit`) !== "" && (
+                    <span style={{ fontSize: "0.875rem", color: "rgba(255,255,255,0.4)" }}>
+                      {t(`pricing.${tier.key}.unit`)}
+                    </span>
+                  )}
                 </div>
                 <p style={{ fontSize: "0.875rem", color: "rgba(255,255,255,0.4)", lineHeight: 1.7, marginBottom: "1.5rem" }}>
                   {t(`pricing.${tier.key}.desc`)}
