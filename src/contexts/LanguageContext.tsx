@@ -170,7 +170,9 @@ export const translations = {
 
     // Pricing — Continuous tiers
     'pricing.tab.poc': 'POC par webapp',
+    'pricing.label.poc.sub': 'Pentest ponctuel, par webapp',
     'pricing.tab.continuous': 'Protection continue',
+    'pricing.label.continuous.sub': 'Abonnement annuel, couverture multi-surface',
     'pricing.continuous.title': 'Protection continue',
     'pricing.continuous.subtitle': 'POC validé ? Passez en continu. Choisissez le tier adapté à votre surface.',
 
@@ -689,7 +691,9 @@ export const translations = {
 
     // Pricing — Continuous tiers
     'pricing.tab.poc': 'Per-webapp POC',
+    'pricing.label.poc.sub': 'One-time pentest, per webapp',
     'pricing.tab.continuous': 'Continuous protection',
+    'pricing.label.continuous.sub': 'Annual subscription, multi-surface coverage',
     'pricing.continuous.title': 'Continuous protection',
     'pricing.continuous.subtitle': 'POC validated? Go continuous. Pick the tier that matches your attack surface.',
 

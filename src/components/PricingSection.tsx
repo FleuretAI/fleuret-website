@@ -95,22 +95,28 @@ const PricingSection = () => {
           </p>
         </div>
 
-        {/* Category labels row (desktop only) */}
-        <div className="hidden md:grid md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)] gap-6 max-w-[76rem] mx-auto" style={{ marginBottom: "0.75rem" }}>
-          <div>
-            <span
-              data-testid="pricing-label-poc"
-              style={{ display: "inline-block", fontSize: "0.7rem", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.2em", color: "rgba(79,143,255,0.85)", background: "rgba(79,143,255,0.08)", border: "1px solid rgba(79,143,255,0.18)", borderRadius: "0.4rem", padding: "0.3rem 0.7rem" }}
-            >
+        {/* Full-width category bars (desktop only, XBOW-style) */}
+        <div className="hidden md:grid md:grid-cols-[minmax(0,1fr)_minmax(0,3fr)] max-w-[76rem] mx-auto" style={{ marginBottom: "1rem" }}>
+          <div
+            data-testid="pricing-label-poc"
+            style={{ padding: "0.6rem 1.25rem", background: "rgba(79,143,255,0.06)", borderBottom: "2px solid rgba(79,143,255,0.25)", marginRight: "0.75rem" }}
+          >
+            <span style={{ fontSize: "0.7rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.2em", color: "rgba(79,143,255,0.9)" }}>
               {t("pricing.tab.poc")}
             </span>
+            <span style={{ display: "block", fontSize: "0.65rem", color: "rgba(255,255,255,0.35)", marginTop: "0.15rem" }}>
+              {t("pricing.label.poc.sub")}
+            </span>
           </div>
-          <div style={{ gridColumn: "2 / 5" }}>
-            <span
-              data-testid="pricing-label-continuous"
-              style={{ display: "inline-block", fontSize: "0.7rem", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.2em", color: "rgba(167,139,250,0.85)", background: "rgba(167,139,250,0.08)", border: "1px solid rgba(167,139,250,0.18)", borderRadius: "0.4rem", padding: "0.3rem 0.7rem" }}
-            >
+          <div
+            data-testid="pricing-label-continuous"
+            style={{ padding: "0.6rem 1.25rem", background: "rgba(167,139,250,0.06)", borderBottom: "2px solid rgba(167,139,250,0.25)" }}
+          >
+            <span style={{ fontSize: "0.7rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.2em", color: "rgba(167,139,250,0.9)" }}>
               {t("pricing.tab.continuous")}
+            </span>
+            <span style={{ display: "block", fontSize: "0.65rem", color: "rgba(255,255,255,0.35)", marginTop: "0.15rem" }}>
+              {t("pricing.label.continuous.sub")}
             </span>
           </div>
         </div>
