@@ -142,25 +142,26 @@ const PricingSection = () => {
           </p>
         </div>
 
-        {/* POC — entry point */}
-        <div data-testid="pricing-poc-section" className="max-w-[28rem] mx-auto" style={{ marginBottom: "4rem" }}>
-          {pocCard}
-        </div>
-
-        {/* Continuous tiers */}
-        <div style={{ textAlign: "center", marginBottom: "2rem" }}>
-          <h3 style={{ fontSize: "clamp(1.25rem, 3vw, 2rem)", fontWeight: 300, letterSpacing: "-0.02em", color: "#fff" }}>
-            {t("pricing.continuous.title")}
-          </h3>
-          <p style={{ fontSize: "1rem", color: "rgba(255,255,255,0.4)", marginTop: "0.5rem" }}>
-            {t("pricing.continuous.subtitle")}
-          </p>
-        </div>
-
+        {/* Desktop: POC left + tiers right. Mobile: POC on top, tiers stacked below. */}
         <div
-          data-testid="pricing-tiers-grid"
-          className="grid md:grid-cols-3 gap-6 max-w-[64rem] mx-auto"
+          data-testid="pricing-layout"
+          className="grid md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] gap-6 md:gap-8 max-w-[72rem] mx-auto"
         >
+          {/* POC — entry point (tall left column on desktop) */}
+          <div data-testid="pricing-poc-section">
+            {pocCard}
+          </div>
+
+          {/* Continuous tiers (right column on desktop, stacked) */}
+          <div data-testid="pricing-tiers-grid" className="flex flex-col gap-4">
+            <div style={{ marginBottom: "0.5rem" }}>
+              <h3 style={{ fontSize: "clamp(1.125rem, 2.5vw, 1.5rem)", fontWeight: 300, letterSpacing: "-0.02em", color: "#fff", margin: 0 }}>
+                {t("pricing.continuous.title")}
+              </h3>
+              <p style={{ fontSize: "0.875rem", color: "rgba(255,255,255,0.4)", marginTop: "0.25rem" }}>
+                {t("pricing.continuous.subtitle")}
+              </p>
+            </div>
           {tiers.map((tier) => (
             <div key={tier.key} data-testid={tier.testId} style={{ position: "relative" }}>
               {tier.highlighted && (
@@ -209,6 +210,7 @@ const PricingSection = () => {
               </div>
             </div>
           ))}
+          </div>
         </div>
 
         <p style={{ textAlign: "center", fontSize: "0.875rem", color: "rgba(255,255,255,0.5)", marginTop: "2rem" }}>{t("pricing.anchor")}</p>
