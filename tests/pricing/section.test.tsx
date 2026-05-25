@@ -43,9 +43,9 @@ describe("PricingSection — continuous tiers", () => {
     expect(screen.getByTestId("pricing-tier-scale")).toBeInTheDocument();
   });
 
-  it("renders the 3-column tiers grid", () => {
+  it("renders the pricing layout grid", () => {
     renderSection();
-    expect(screen.getByTestId("pricing-tiers-grid")).toBeInTheDocument();
+    expect(screen.getByTestId("pricing-layout")).toBeInTheDocument();
   });
 
   it("Starter shows €10,000 price", () => {
