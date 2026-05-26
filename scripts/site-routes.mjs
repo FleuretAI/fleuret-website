@@ -15,6 +15,7 @@ export const STATIC_PATHS = [
   "/careers",
   "/design-partners",
   "/partners",
+  "/platform",
   "/demo",
   "/mentions-legales",
   "/privacy",

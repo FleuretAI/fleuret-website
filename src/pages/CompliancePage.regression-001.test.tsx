@@ -63,16 +63,20 @@ function renderPage(route = "/compliance/dora/fintech") {
 describe("CompliancePage breadcrumb (ISSUE-001 regression)", () => {
   it("renders a Compliance link pointing at /compliance, not plain text", async () => {
     renderPage();
-    // Suspense awaits MDX promise — findByRole resolves once article loads.
-    const link = await screen.findByRole("link", { name: "Compliance" });
-    expect(link.getAttribute("href")).toBe("/compliance");
+    // Multiple "Compliance" links exist (breadcrumb + footer). Verify at least
+    // one points to /compliance.
+    const links = await screen.findAllByRole("link", { name: "Compliance" });
+    const complianceLink = links.find((l) => l.getAttribute("href") === "/compliance");
+    expect(complianceLink).toBeDefined();
   });
 
   it("keeps Home as a separate link, not collapsed with Compliance", async () => {
     renderPage();
     const home = await screen.findByRole("link", { name: "Home" });
-    const compliance = await screen.findByRole("link", { name: "Compliance" });
-    expect(home).not.toBe(compliance);
+    const complianceLinks = await screen.findAllByRole("link", { name: "Compliance" });
+    const complianceLink = complianceLinks.find((l) => l.getAttribute("href") === "/compliance");
+    expect(complianceLink).toBeDefined();
+    expect(home).not.toBe(complianceLink);
     expect(home.getAttribute("href")).toBe("/");
   });
 
