@@ -16,7 +16,7 @@ faqs:
   - question: "How do the two vendors compare on EU sovereignty?"
     answer: "Pentera is headquartered in Israel with global operations. Fleuret AI is a French agentic pentest platform with infrastructure on Scaleway in France, open-weight LLMs only, and no US API call in the customer data path. For EU regulated buyers under DORA Article 28 sub-processor review, the FR-sovereign stack is a cleaner audit answer."
   - question: "What does Pentera cost vs Fleuret AI?"
-    answer: "Pentera publishes an annual subscription benchmark around €46,000 per year for the full platform. Fleuret AI prices in tiers: Quick €500 per pentest, Standard €2,500 to €5,000, Continuous €25,000 to €35,000 per year with unlimited rescans, Design Partner cohort €4,900 flat. For external web app + API scope at continuous cadence, the cost gap is 30 to 60 percent in Fleuret's favour."
+    answer: "Pentera publishes an annual subscription benchmark around €46,000 per year for the full platform. Fleuret AI prices in tiers: POC €3,000 per webapp, Starter €10,000/year, Growth €25,000/year with unlimited rescans, Design Partner cohort €4,900 flat. For external web app + API scope at continuous cadence, the cost gap is 30 to 60 percent in Fleuret's favour."
   - question: "Can Fleuret AI cover Active Directory and internal-network pentest?"
     answer: "Not in 2026. Fleuret AI is strong on web applications, REST and GraphQL APIs, and external infrastructure. Active Directory, Kerberos-heavy internal network, and credential-spray attacks remain a strength for tools like Pentera or one annual human red team engagement. The honest map is: Fleuret AI for 80 percent of the external surface, internal-network specialist for the rest."
 ---
@@ -55,7 +55,7 @@ Pentera (formerly Pcysys) is headquartered in Petah Tikva, Israel, founded 2015.
 | DORA Article 24 audit PDF | Shipped by default with every engagement | Strong on internal-network DORA scope; web-app audit PDF less native |
 | NIS2 Annex I mapping | Shipped by default | Available within broader validation reports |
 | Continuous cadence | Weekly or per-deploy on Continuous tier | Continuous automated validation built in |
-| Pricing transparency | Public tiers (€500 / €2.5-5k / €25-35k/yr) | Around €46,000 per year (public benchmarks) |
+| Pricing transparency | Public tiers (POC €3k / Starter €10k/yr / Growth €25k/yr) | Around €46,000 per year (public benchmarks) |
 | Best-fit ICP | EU regulated mid-market with DORA / NIS2 web-app + API scope | Mid-market and enterprise with material internal-network risk |
 | Annual budget floor | €0 (Quick tier ad-hoc) | €46,000 (full-platform annual) |
 
@@ -63,7 +63,7 @@ A few reading notes.
 
 **Different categories solving different problems.** Pentera dominates internal-network automated validation. Fleuret AI dominates external web-app + API agentic pentest. Comparing them as direct substitutes misses the architecture difference. The real question is which attack surface dominates the buyer's risk register.
 
-**Pricing tier gap.** Pentera's €46,000-per-year benchmark is roughly the same as Fleuret AI's Continuous tier price (€25,000 to €35,000 per year), but the platforms target different scope. A mid-market buyer with no internal-network problem who pays €46,000 per year for Pentera is solving the wrong problem. Same buyer at €25,000 per year on Fleuret Continuous covers the external surface where their risk actually lives.
+**Pricing tier gap.** Pentera's €46,000-per-year benchmark is above Fleuret AI's Growth tier (€25,000/year), but the platforms target different scope. A mid-market buyer with no internal-network problem who pays €46,000 per year for Pentera is solving the wrong problem. Same buyer at €25,000 per year on Fleuret Growth covers the external surface where their risk actually lives.
 
 **Sovereignty posture difference.** Pentera operates globally with regional hosting flexibility for EU customers. Fleuret AI runs all customer data and inference on EU infrastructure (Scaleway France, Vercel fra1, open-weight LLMs only). For [EU AI Act high-risk preparedness from August 2026](/blog/sovereign-eu-ai-pentest-cloud-act-2026) and DORA Article 28 sub-processor review, this is a documentation depth difference, not a marketing line.
 
@@ -85,7 +85,7 @@ A few reading notes.
 
 **EU sovereignty-strict procurement.** Fleuret AI's documentation depth on EU infrastructure (Scaleway France, open-weight LLMs, public sub-processor list) clears DORA Article 28 sub-processor review without operational exception requests.
 
-**Quick-test or one-off engagement budget.** Fleuret AI's Quick tier at €500 per pentest is order-of-magnitude cheaper than any Pentera engagement. Right answer when the buying decision is "we need one external pentest before the auditor arrives".
+**Quick-test or one-off engagement budget.** Fleuret AI's POC at €3,000 per webapp is a fraction of any Pentera engagement. Right answer when the buying decision is "we need one external pentest before the auditor arrives".
 
 ## Where Fleuret AI stands today
 

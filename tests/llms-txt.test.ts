@@ -72,8 +72,8 @@ describe("public/llms-full.txt", () => {
   });
 
   it("declares pricing transparently", () => {
-    expect(llmsFullTxt).toContain("€500");
-    expect(llmsFullTxt).toContain("€2,500");
+    expect(llmsFullTxt).toContain("€3,000");
+    expect(llmsFullTxt).toContain("€10,000");
     expect(llmsFullTxt).toContain("€25,000");
   });
 
