@@ -4,7 +4,8 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { DEMO_ROUTE } from "@/lib/routes";
 import { trackCTAClick } from "@/lib/gtag";
 import stoikLogo from "@/assets/investors/stoik.svg";
-// import ouwbaLogo from "@/assets/clients/ouwba.svg"; // hidden pending re-permission
+import ouwbaLogo from "@/assets/clients/ouwba.svg";
+import rizlumLogo from "@/assets/clients/rizlum.svg";
 
 type TrustLogo = {
   name: string;
@@ -18,8 +19,9 @@ type TrustLogo = {
 };
 
 const TRUST_LOGOS: TrustLogo[] = [
+  { name: "Ouwba", logo: ouwbaLogo, heightPx: 22 },
   { name: "Stoïk", logo: stoikLogo, invert: true, heightPx: 22 },
-  // { name: "Ouwba", logo: ouwbaLogo, heightPx: 22 }, // hidden pending re-permission
+  { name: "Rizlum AI", logo: rizlumLogo, heightPx: 30 },
 ];
 
 const Hero = () => {
