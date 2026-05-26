@@ -75,7 +75,7 @@ const App = () => (
           <Suspense fallback={null}>
             <Analytics />
           </Suspense>
-          {import.meta.env.VITE_ANNOUNCE_VISIBLE !== "false" && <AnnouncementBanner />}
+          <AnnouncementBanner />
           <Suspense fallback={null}>
             <Routes>
               {APP_ROUTES.map((r) => (
