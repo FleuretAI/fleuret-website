@@ -20,8 +20,8 @@ type TrustLogo = {
 
 const TRUST_LOGOS: TrustLogo[] = [
   { name: "Ouwba", logo: ouwbaLogo, heightPx: 22 },
-  { name: "Stoïk", logo: stoikLogo, invert: true, heightPx: 22 },
-  { name: "Rizlum AI", logo: rizlumLogo, heightPx: 30 },
+  { name: "Stoïk", logo: stoikLogo, invert: true, heightPx: 24 },
+  { name: "Rizlum AI", logo: rizlumLogo, heightPx: 28 },
 ];
 
 const Hero = () => {
@@ -227,7 +227,12 @@ const Hero = () => {
               >
                 {t("clients.title")}
               </span>
-              <ul className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4 sm:gap-x-14">
+              <ul
+                className="grid items-center justify-center gap-y-4"
+                style={{
+                  gridTemplateColumns: `repeat(${TRUST_LOGOS.length}, minmax(0, 140px))`,
+                }}
+              >
                 {TRUST_LOGOS.map((c) => {
                   const img = (
                     <img
@@ -240,21 +245,21 @@ const Hero = () => {
                     />
                   );
                   return (
-                    <li key={c.name}>
+                    <li key={c.name} className="flex items-center justify-center">
                       {c.href ? (
                         <a
                           href={c.href}
                           target="_blank"
                           rel="noopener noreferrer"
                           aria-label={c.name}
-                          className="block opacity-60 transition-opacity duration-300 hover:opacity-95 focus-visible:opacity-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-400 rounded-sm"
+                          className="flex items-center justify-center opacity-60 transition-opacity duration-300 hover:opacity-95 focus-visible:opacity-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-400 rounded-sm"
                         >
                           {img}
                         </a>
                       ) : (
                         <span
                           aria-label={c.name}
-                          className="block opacity-60"
+                          className="flex items-center justify-center opacity-60"
                         >
                           {img}
                         </span>

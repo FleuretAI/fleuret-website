@@ -55,12 +55,12 @@ const Navbar = () => {
         role="banner"
         id="nav"
       >
-        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-8 flex items-center justify-between gap-4">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-8 flex items-center justify-between gap-4 lg:grid lg:grid-cols-[1fr_auto_1fr]">
           {/* Logo */}
           <Link
             to={homePath}
             onClick={close}
-            className="flex items-center gap-2.5 hover:opacity-80 transition-opacity flex-shrink-0"
+            className="flex items-center gap-2.5 hover:opacity-80 transition-opacity flex-shrink-0 lg:justify-self-start"
             aria-label="Fleuret AI - Home"
           >
             <img
@@ -85,7 +85,7 @@ const Navbar = () => {
 
           {/* Desktop pill nav */}
           <nav
-            className="hidden lg:flex items-center gap-1 rounded-full px-1.5 py-1.5 border border-white/10 bg-white/5 backdrop-blur-sm"
+            className="hidden lg:flex items-center gap-1 rounded-full px-1.5 py-1.5 border border-white/10 bg-white/5 backdrop-blur-sm lg:justify-self-center"
             aria-label="Main navigation"
           >
             {navItems.map((item) =>
@@ -163,7 +163,7 @@ const Navbar = () => {
           </nav>
 
           {/* Desktop right zone */}
-          <div className="hidden lg:flex items-center gap-3">
+          <div className="hidden lg:flex items-center gap-3 lg:justify-self-end">
             <Link
               to={localize(DEMO_ROUTE)}
               className="btn-cta btn-cta--sm"
