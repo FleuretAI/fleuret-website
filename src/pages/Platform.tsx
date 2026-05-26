@@ -324,7 +324,7 @@ const Platform = () => {
               <Eyebrow>PLATFORM <Sep /> ÉMILE V2</Eyebrow>
             </ScrollReveal>
             <ScrollReveal delay={0.05}>
-              <h1 className="mt-6 text-[clamp(40px,6.8vw,88px)] leading-[1.0] tracking-[-0.035em] font-medium text-white max-w-[14ch] mx-auto">
+              <h1 className="mt-6 text-[clamp(40px,6.8vw,88px)] leading-[1.0] tracking-[-0.035em] font-light text-white max-w-[14ch] mx-auto">
                 {t("platformPage.hero.title")}{" "}
                 <span className="text-gradient-accent">{t("platformPage.hero.highlight")}</span>
               </h1>
@@ -362,7 +362,7 @@ const Platform = () => {
               <Eyebrow>PRINCIPLE 01 <Sep /> PROOF OVER PROBABILITY</Eyebrow>
             </ScrollReveal>
             <ScrollReveal delay={0.05}>
-              <h2 className="mt-6 text-[clamp(32px,4.2vw,56px)] leading-[1.05] tracking-[-0.028em] font-medium text-white max-w-[18ch] mx-auto">
+              <h2 className="mt-6 text-[clamp(32px,4.2vw,56px)] leading-[1.05] tracking-[-0.028em] font-light text-white max-w-[18ch] mx-auto">
                 {t("platformPage.philosophy.title")}{" "}
                 <span className="text-gradient-accent">{t("platformPage.philosophy.highlight")}</span>
               </h2>
@@ -383,7 +383,7 @@ const Platform = () => {
                 <Eyebrow>PROCESS <Sep /> 04 STAGES</Eyebrow>
               </ScrollReveal>
               <ScrollReveal delay={0.05}>
-                <h2 className="text-[clamp(32px,4.2vw,56px)] leading-[1.05] tracking-[-0.028em] font-medium text-white">
+                <h2 className="text-[clamp(32px,4.2vw,56px)] leading-[1.05] tracking-[-0.028em] font-light text-white">
                   {t("platformPage.process.title")}{" "}
                   <span className="text-gradient-accent">{t("platformPage.process.highlight")}</span>
                 </h2>
@@ -421,7 +421,7 @@ const Platform = () => {
                       <span className="font-mono text-[11px] text-white/50 tracking-[0.16em] uppercase">
                         {step.num} <span className="text-white/20">·</span> {step.label}
                       </span>
-                      <h3 className="text-lg leading-[1.2] font-medium tracking-[-0.015em] text-white">
+                      <h3 className="text-lg leading-[1.2] font-light tracking-[-0.015em] text-white">
                         {t(`platformPage.process.${step.key}.title`)}
                       </h3>
                       <p className="text-white/60 text-[14.5px] leading-[1.55]">
@@ -480,7 +480,7 @@ const Platform = () => {
             <div className="max-w-[760px] mb-14 space-y-4">
               <ScrollReveal><Eyebrow>ARCHITECTURE <Sep /> 05 COMPONENTS</Eyebrow></ScrollReveal>
               <ScrollReveal delay={0.05}>
-                <h2 className="text-[clamp(32px,4.2vw,56px)] leading-[1.05] tracking-[-0.028em] font-medium text-white">
+                <h2 className="text-[clamp(32px,4.2vw,56px)] leading-[1.05] tracking-[-0.028em] font-light text-white">
                   {t("platformPage.arch.title")}{" "}
                   <span className="text-gradient-accent">{t("platformPage.arch.highlight")}</span>
                 </h2>
@@ -506,7 +506,7 @@ const Platform = () => {
                     }`}
                   >
                     <span className={`inline-block w-[9px] h-[9px] rounded-full mb-7 ${comp.dot} ${comp.shadow}`} />
-                    <h3 className={`text-[19px] leading-[1.25] font-medium tracking-[-0.012em] mb-3 ${comp.title}`}>
+                    <h3 className={`text-[19px] leading-[1.25] font-light tracking-[-0.012em] mb-3 ${comp.title}`}>
                       {t(`platformPage.arch.${comp.key}.title`)}
                     </h3>
                     <p className="text-white/60 text-[15px] leading-[1.55]">
@@ -529,7 +529,7 @@ const Platform = () => {
             <div className="max-w-[760px] mb-14 space-y-4">
               <ScrollReveal><Eyebrow>BY DESIGN <Sep /> 03 DECISIONS</Eyebrow></ScrollReveal>
               <ScrollReveal delay={0.05}>
-                <h2 className="text-[clamp(32px,4.2vw,56px)] leading-[1.05] tracking-[-0.028em] font-medium text-white">
+                <h2 className="text-[clamp(32px,4.2vw,56px)] leading-[1.05] tracking-[-0.028em] font-light text-white">
                   {t("platformPage.diff.title")}{" "}
                   <span className="text-gradient-accent">{t("platformPage.diff.highlight")}</span>
                 </h2>
@@ -559,7 +559,7 @@ const Platform = () => {
                     </span>
                   </div>
                   <div>
-                    <h3 className={`text-[clamp(22px,2vw,28px)] font-medium tracking-[-0.018em] leading-[1.2] mb-3 ${pt.titleCls}`}>
+                    <h3 className={`text-[clamp(22px,2vw,28px)] font-light tracking-[-0.018em] leading-[1.2] mb-3 ${pt.titleCls}`}>
                       {t(`platformPage.diff.${pt.key}.title`)}
                     </h3>
                     <p className="text-white/60 text-base leading-[1.6] max-w-[60ch]">
@@ -585,7 +585,7 @@ const Platform = () => {
             <div className="max-w-[760px] mb-14 space-y-4">
               <ScrollReveal><Eyebrow>PRODUCTION SAFETY <Sep /> 03 GUARANTEES</Eyebrow></ScrollReveal>
               <ScrollReveal delay={0.05}>
-                <h2 className="text-[clamp(32px,4.2vw,56px)] leading-[1.05] tracking-[-0.028em] font-medium text-white">
+                <h2 className="text-[clamp(32px,4.2vw,56px)] leading-[1.05] tracking-[-0.028em] font-light text-white">
                   {t("platformPage.production.title")}{" "}
                   <span className="text-gradient-accent">{t("platformPage.production.highlight")}</span>
                 </h2>
@@ -605,7 +605,7 @@ const Platform = () => {
                   className="p-7 rounded-2xl border border-white/8 bg-white/[0.018] hover:bg-white/[0.04] hover:border-white/[0.14] transition-all duration-250"
                 >
                   <span className={`inline-block w-[9px] h-[9px] rounded-full mb-7 ${pt.dot} ${pt.shadow}`} />
-                  <h3 className={`text-[19px] leading-[1.25] font-medium tracking-[-0.012em] mb-3 ${pt.title}`}>
+                  <h3 className={`text-[19px] leading-[1.25] font-light tracking-[-0.012em] mb-3 ${pt.title}`}>
                     {t(`platformPage.production.${pt.key}.title`)}
                   </h3>
                   <p className="text-white/60 text-[15px] leading-[1.55]">
@@ -645,7 +645,7 @@ const Platform = () => {
               <Eyebrow>GET STARTED <Sep /> 15 MINUTES</Eyebrow>
             </ScrollReveal>
             <ScrollReveal delay={0.05}>
-              <h2 className="mt-6 text-[clamp(32px,4.2vw,56px)] leading-[1.05] tracking-[-0.028em] font-medium text-white max-w-[18ch] mx-auto">
+              <h2 className="mt-6 text-[clamp(32px,4.2vw,56px)] leading-[1.05] tracking-[-0.028em] font-light text-white max-w-[18ch] mx-auto">
                 {t("platformPage.cta.title")}{" "}
                 <span className="text-gradient-accent">{t("platformPage.cta.highlight")}</span>
               </h2>
