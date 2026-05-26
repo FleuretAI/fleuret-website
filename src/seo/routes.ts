@@ -16,6 +16,7 @@ export type RouteKey =
   | "resources"
   | "blog"
   | "compliance"
+  | "platform"
   | "fundraise"
   | "notFound";
 
@@ -39,6 +40,7 @@ export const ROUTES: Record<RouteKey, string> = {
   resources: "/resources",
   blog: "/blog",
   compliance: "/compliance",
+  platform: "/platform",
   fundraise: "/news/fleuret-raises-3-5m",
   notFound: "/404",
 };
@@ -133,6 +135,13 @@ export const META: Record<RouteKey, MetaEntry> = {
       "Practical compliance guides for CISOs: DORA, NIS2, ISO 27001, SOC 2, PCI DSS pentest scoping by industry. AI-driven continuous pentest hosted in Europe.",
     keywords:
       "compliance pentest, DORA pentest, NIS2 pentest, ISO 27001 pentest, SOC 2 pentest, PCI DSS pentest",
+  },
+  platform: {
+    title: "Platform | How Émile Works | Fleuret AI",
+    description:
+      "Inside Fleuret's agentic pentest engine. Multi-agent orchestration, proof-of-concept validation, audit-ready compliance output. Sovereign EU, zero false positives.",
+    keywords:
+      "Émile, agentic pentest, multi-agent, Coverage Graph, automated pentesting, DORA, NIS2, sovereign EU, pentest platform",
   },
   fundraise: {
     title: "Fleuret raises €3.5M to industrialize agentic AI pentesting",
