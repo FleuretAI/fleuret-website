@@ -183,7 +183,7 @@ const Hero = () => {
             {t("hero.subtitle")}
           </p>
 
-          <div style={{ display: "flex", justifyContent: "center", gap: "1rem", paddingTop: "1rem", flexWrap: "wrap" }}>
+          <div style={{ display: "flex", justifyContent: "center", gap: "1rem", paddingTop: "1rem", flexWrap: "wrap", marginRight: "0.5rem" }}>
             <Link
               to={localize(DEMO_ROUTE)}
               className="btn-cta btn-cta--lg"
