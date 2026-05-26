@@ -15,7 +15,7 @@ import augustinPhoto from "@/assets/augustin.png";
 import raiseLogo from "@/assets/investors/raise.svg";
 import aurigaLogo from "@/assets/investors/auriga.svg";
 import windLogo from "@/assets/investors/wind.svg";
-import unitedFoundersLogo from "@/assets/investors/unitedfounders.svg";
+
 import betterAngleLogo from "@/assets/investors/betterangle.svg";
 import hornetsecurityLogo from "@/assets/investors/hornetsecurity.png";
 import almondLogo from "@/assets/investors/almond.svg";
@@ -61,7 +61,7 @@ const copy: Record<Lang, {
     heroTitle: "Fleuret lève 3,5 M€ pour industrialiser le pentest par IA agentique",
     heroSub: "Un tour d'amorçage européen pour rendre le pentest continu, rapide et abordable. Webapp, API, infra externe aujourd'hui. Cloud, Active Directory et mobile dès 2026.",
     openingH: "Ce que nous annonçons",
-    openingP1: "Nous levons 3,5 M€ pour accélérer Fleuret, plateforme de sécurité offensive pilotée par IA agentique. Le tour réunit 2,8 M€ en équity, menés par RAISE Capital aux côtés d'Auriga Cyber Ventures, Wind Capital et United Founders, complétés par un cercle d'angels opérateurs de la cybersécurité européenne. S'y ajoutent 700 k€ de prêt amorçage Bpifrance.",
+    openingP1: "Nous levons 3,5 M€ pour accélérer Fleuret, plateforme de sécurité offensive pilotée par IA agentique. Le tour réunit 2,8 M€ en équity, menés par RAISE Capital aux côtés d'Auriga Cyber Ventures et Wind Capital, complétés par un cercle d'angels opérateurs de la cybersécurité européenne. S'y ajoutent 700 k€ de prêt amorçage Bpifrance.",
     openingP2: "Les fonds arrivent mi-mai 2026. Ils financent le produit, l'équipe et la couverture des scopes attendus par nos clients : NIS2, DORA, ISO 27001.",
     problemH: "Pourquoi maintenant",
     problemP: "Les DSI européennes déploient chaque jour. Les cabinets de pentest livrent en 2 à 4 semaines, à 10 000 € et plus, une à deux fois par an. Entre deux audits, 3 à 12 mois d'exposition aveugle. Le calcul ne tient plus. Fleuret livre un pentest de niveau humain en heures, avec PoC reproductible et rapport audit-ready, à 2 500 € par scope. Zéro faux positif toléré.",
@@ -79,7 +79,7 @@ const copy: Record<Lang, {
       p: "Go-to-market direct auprès des RSSI, CTO et DPO européens, plus partenariats avec assureurs cyber et cabinets spécialisés. Hébergement européen (fra1), résidence des données en Europe.",
     },
     vcsH: "Nos investisseurs",
-    vcsP: "RAISE Capital mène le tour. Auriga Cyber Ventures, Wind Capital et United Founders co-investissent.",
+    vcsP: "RAISE Capital mène le tour. Auriga Cyber Ventures et Wind Capital co-investissent.",
     angelsH: "Business angels",
     angelsP: "Des opérateurs qui ont construit la cybersécurité européenne : fondateurs d'Almond, GitGuardian, Stoïk, OVRSEA et Hornetsecurity. Leur réseau client, leur expertise produit et leur vécu opérationnel nous font gagner des années.",
     complianceH: "NIS2, DORA, ISO 27001",
@@ -99,7 +99,7 @@ const copy: Record<Lang, {
     heroTitle: "Fleuret raises €3.5M to industrialize agentic AI pentesting",
     heroSub: "A European seed round to make pentesting continuous, fast and affordable. Webapp, API and external infrastructure today. Cloud, Active Directory and mobile coming in 2026.",
     openingH: "What we're announcing",
-    openingP1: "We're raising €3.5M to accelerate Fleuret, an offensive security platform driven by agentic AI. The round includes €2.8M in equity, led by RAISE Capital alongside Auriga Cyber Ventures, Wind Capital and United Founders, backed by a circle of operator angels from European cybersecurity. On top of that, a €700k Bpifrance innovation loan.",
+    openingP1: "We're raising €3.5M to accelerate Fleuret, an offensive security platform driven by agentic AI. The round includes €2.8M in equity, led by RAISE Capital alongside Auriga Cyber Ventures and Wind Capital, backed by a circle of operator angels from European cybersecurity. On top of that, a €700k Bpifrance innovation loan.",
     openingP2: "Funds close mid-May 2026. They fund product, team and the scopes our customers need for NIS2, DORA and ISO 27001.",
     problemH: "Why now",
     problemP: "European CIOs ship every day. Pentest firms deliver in 2 to 4 weeks, at €10,000 and up, once or twice a year. Between audits, 3 to 12 months of blind exposure. The math no longer works. Fleuret delivers human-grade pentests in hours, with reproducible PoC and audit-ready reports, at €2,500 per scope. Zero false positives tolerated.",
@@ -117,7 +117,7 @@ const copy: Record<Lang, {
       p: "Direct go-to-market to European CISOs, CTOs and DPOs, plus partnerships with cyber insurers and specialized firms. EU hosting (fra1), data residency in Europe.",
     },
     vcsH: "Our investors",
-    vcsP: "RAISE Capital leads. Auriga Cyber Ventures, Wind Capital and United Founders co-invest.",
+    vcsP: "RAISE Capital leads. Auriga Cyber Ventures and Wind Capital co-invest.",
     angelsH: "Business angels",
     angelsP: "Operators who built European cybersecurity: founders of Almond, GitGuardian, Stoïk, OVRSEA and Hornetsecurity. Their customer network, product expertise and operator experience compress years of learning for us.",
     complianceH: "NIS2, DORA, ISO 27001",
@@ -146,7 +146,6 @@ const vcs: InvestorTile[] = [
   { name: "RAISE Capital", logo: raiseLogo, invertLogo: true, url: "https://raise.co/", subtitleFr: "Lead", subtitleEn: "Lead" },
   { name: "Auriga Cyber Ventures", logo: aurigaLogo, invertLogo: true, url: "https://aurigacyber.com/" },
   { name: "Wind Capital", logo: windLogo },
-  { name: "United Founders", logo: unitedFoundersLogo, url: "https://unitedfounders.vc/" },
   { name: "Better Angle", logo: betterAngleLogo },
 ];
 
@@ -363,7 +362,7 @@ const FleuretRaises = () => {
                 <p className="text-white/50 text-sm md:text-base max-w-2xl">{c.vcsP}</p>
               </div>
             </ScrollReveal>
-            <StaggerGroup className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-4">
+            <StaggerGroup className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
               {vcs.map((inv, idx) => (
                 <InvestorTile key={inv.name} inv={inv} lang={language} idx={idx} />
               ))}
@@ -458,13 +457,13 @@ const FleuretRaises = () => {
                   {c.ctaDemo}
                 </Link>
                 <Link
-                  to={localize("/")}
+                  to={localize("/platform")}
                   className="inline-flex items-center justify-center rounded-[6px] px-8 py-3 text-sm font-medium text-white/70 border border-white/10 hover:text-white hover:border-white/20 hover:bg-white/[0.04] transition-all"
                   onClick={() =>
                     trackCTAClick({
                       location: "fleuret_raises_footer",
                       label: "view_platform",
-                      destination: "/",
+                      destination: "/platform",
                     })
                   }
                 >
