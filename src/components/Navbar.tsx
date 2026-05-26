@@ -38,8 +38,9 @@ const Navbar = () => {
 
   const homePath = localize("/");
   const navItems = [
-    { path: `${homePath}#platform`, label: t("nav.platform") },
-    { path: `${homePath}#pricing`,  label: t("nav.pricing") },
+    { path: "/platform", label: t("nav.platform"), isRoute: true },
+    { path: `${homePath}#pricing`,  label: t("nav.pricing"), isRoute: false },
+    { path: localize("/blog"), label: t("nav.blog"), isRoute: true },
   ];
 
   return (
@@ -88,16 +89,26 @@ const Navbar = () => {
             className="hidden lg:flex items-center gap-1 rounded-full px-1.5 py-1.5 border border-white/10 bg-white/5 backdrop-blur-sm"
             aria-label="Main navigation"
           >
-            {navItems.map((item) => (
-              <HashLink
-                key={item.path}
-                to={item.path}
-                smooth
-                className="text-sm font-medium text-white/50 hover:text-white px-4 py-1.5 rounded-full transition-colors hover:bg-white/5"
-              >
-                {item.label}
-              </HashLink>
-            ))}
+            {navItems.map((item) =>
+              item.isRoute ? (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  className="text-sm font-medium text-white/50 hover:text-white px-4 py-1.5 rounded-full transition-colors hover:bg-white/5"
+                >
+                  {item.label}
+                </Link>
+              ) : (
+                <HashLink
+                  key={item.path}
+                  to={item.path}
+                  smooth
+                  className="text-sm font-medium text-white/50 hover:text-white px-4 py-1.5 rounded-full transition-colors hover:bg-white/5"
+                >
+                  {item.label}
+                </HashLink>
+              )
+            )}
 
             {/* Resources */}
             <Link
@@ -219,9 +230,10 @@ const Navbar = () => {
         aria-hidden={!mobileOpen}
         aria-label="Mobile navigation"
       >
-        <HashLink to={`${homePath}#platform`} smooth onClick={close} className="px-4 py-3.5 rounded-lg text-base text-white/70 hover:text-white hover:bg-white/4 transition-colors">{t("nav.platform")}</HashLink>
+        <Link to="/platform" onClick={close} className="px-4 py-3.5 rounded-lg text-base text-white/70 hover:text-white hover:bg-white/4 transition-colors">{t("nav.platform")}</Link>
         <HashLink to={`${homePath}#pricing`}  smooth onClick={close} className="px-4 py-3.5 rounded-lg text-base text-white/70 hover:text-white hover:bg-white/4 transition-colors">{t("nav.pricing")}</HashLink>
         <Link to={localize("/resources")} onClick={close} className="px-4 py-3.5 rounded-lg text-base text-white/70 hover:text-white hover:bg-white/4 transition-colors">{t("nav.resources")}</Link>
+        <Link to={localize("/blog")} onClick={close} className="px-4 py-3.5 rounded-lg text-base text-white/70 hover:text-white hover:bg-white/4 transition-colors">{t("nav.blog")}</Link>
 
         <p className="text-[0.7rem] font-medium text-white/35 uppercase tracking-[0.15em] px-4 pt-4 pb-1">
           {t("nav.company")}

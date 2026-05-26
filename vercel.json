@@ -96,5 +96,12 @@
       ]
     }
   ],
+  "redirects": [
+    { "source": "/compliance/dora", "destination": "/compliance", "statusCode": 301 },
+    { "source": "/compliance/nis2", "destination": "/compliance", "statusCode": 301 },
+    { "source": "/compliance/iso27001", "destination": "/compliance", "statusCode": 301 },
+    { "source": "/compliance/soc2", "destination": "/compliance", "statusCode": 301 },
+    { "source": "/compliance/pcidss", "destination": "/compliance", "statusCode": 301 }
+  ],
   "outputDirectory": "dist"
 }
