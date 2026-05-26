@@ -40,7 +40,6 @@ const Navbar = () => {
   const navItems = [
     { path: "/platform", label: t("nav.platform"), isRoute: true },
     { path: `${homePath}#pricing`,  label: t("nav.pricing"), isRoute: false },
-    { path: localize("/blog"), label: t("nav.blog"), isRoute: true },
   ];
 
   return (
@@ -233,7 +232,6 @@ const Navbar = () => {
         <Link to="/platform" onClick={close} className="px-4 py-3.5 rounded-lg text-base text-white/70 hover:text-white hover:bg-white/4 transition-colors">{t("nav.platform")}</Link>
         <HashLink to={`${homePath}#pricing`}  smooth onClick={close} className="px-4 py-3.5 rounded-lg text-base text-white/70 hover:text-white hover:bg-white/4 transition-colors">{t("nav.pricing")}</HashLink>
         <Link to={localize("/resources")} onClick={close} className="px-4 py-3.5 rounded-lg text-base text-white/70 hover:text-white hover:bg-white/4 transition-colors">{t("nav.resources")}</Link>
-        <Link to={localize("/blog")} onClick={close} className="px-4 py-3.5 rounded-lg text-base text-white/70 hover:text-white hover:bg-white/4 transition-colors">{t("nav.blog")}</Link>
 
         <p className="text-[0.7rem] font-medium text-white/35 uppercase tracking-[0.15em] px-4 pt-4 pb-1">
           {t("nav.company")}
