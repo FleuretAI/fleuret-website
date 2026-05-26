@@ -118,7 +118,7 @@ const Hero = () => {
       />
 
       {/* Text content */}
-      <div className="container mx-auto px-4 relative" style={{ zIndex: 10 }}>
+      <div className="max-w-[1280px] mx-auto px-4 md:px-8 relative" style={{ zIndex: 10 }}>
         <div
           className="max-w-4xl mx-auto text-center px-2"
           style={{ paddingTop: "clamp(2.5rem, 8vw, 5rem)", paddingBottom: "clamp(2.5rem, 8vw, 5rem)" }}
