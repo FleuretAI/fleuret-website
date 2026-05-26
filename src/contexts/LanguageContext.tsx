@@ -288,6 +288,11 @@ export const translations = {
     'cta.titleB': 'cette semaine',
     'cta.ambient': '15 MIN · CET · NDA-READY',
 
+    // Latest blog section (homepage)
+    'home.latestBlog.title': 'Derniers articles',
+    'home.latestBlog.viewAll': 'Voir tous les articles',
+    'home.latestBlog.readMore': 'Lire la suite',
+
     // Redesign 2026-05-09 — Why diptych
     'problem.diptych.eyebrow': 'LE PROBLÈME · DÉCALAGE DE CADENCE',
     'problem.diptych.left': '247 déploiements YTD · 3,2/jour',
@@ -812,6 +817,11 @@ export const translations = {
     'cta.titleA': 'Run your first pentest',
     'cta.titleB': 'this week',
     'cta.ambient': '15 MIN · CET · NDA-READY',
+
+    // Latest blog section (homepage)
+    'home.latestBlog.title': 'Latest from the blog',
+    'home.latestBlog.viewAll': 'View all articles',
+    'home.latestBlog.readMore': 'Read more',
 
     // Redesign 2026-05-09 — Why diptych
     'problem.diptych.eyebrow': 'THE PROBLEM · CADENCE MISMATCH',
