@@ -18,8 +18,9 @@
     "pretest": "bun run build:posts",
     "test": "vitest run",
     "test:watch": "vitest",
-    "build:prerender": "bun run build:posts -- --strict && vite build && bun run build:sitemap && bun run build:feed && bun run build:ensure-fallback && node scripts/prerender.mjs",
-    "build:ensure-fallback": "node scripts/ensure-fallback-shells.mjs"
+    "build:prerender": "bun run build:posts -- --strict && vite build && bun run build:sitemap && bun run build:feed && bun run build:ensure-fallback && node scripts/prerender.mjs && bun run assert:hub-links",
+    "build:ensure-fallback": "node scripts/ensure-fallback-shells.mjs",
+    "assert:hub-links": "node scripts/assert-hub-links.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

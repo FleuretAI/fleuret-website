@@ -5,12 +5,20 @@ import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/motion/ScrollReveal";
 import { listPosts } from "@/content/posts.generated";
 import { PostRow } from "@/components/blog/PostRow";
+import { PrerenderMarker } from "@/components/PrerenderMarker";
 
 /**
  * /blog — editorial list page. Typography pattern follows About.tsx /
  * Careers.tsx: pt-32/pb-20 main, centered hero, font-light H1 with
  * gradient highlight, text-white/50 subtitle. Post rows share the same
  * type weight so the page reads as one document.
+ *
+ * PrerenderMarker (flag="blogIndexRendered") flips data-blog-index-rendered
+ * on <html> after mount so scripts/prerender.mjs knows the lazy ComponentType
+ * chunk for this route has resolved before snapshotting. Without it Puppeteer
+ * snapshots the App-level Suspense fallback (Navbar + Footer only, zero post
+ * links), shipping an empty hub to prod. See PR #146 for the LatestBlog
+ * equivalent on the homepage Suspense boundary.
  */
 const BlogIndex = () => {
   const { t, language } = useLanguage();
@@ -18,6 +26,7 @@ const BlogIndex = () => {
   return (
     <>
       <SEO pageKey="blog" />
+      <PrerenderMarker flag="blogIndexRendered" />
       <Navbar />
       <main id="main-content" className="pt-40 md:pt-48 pb-20">
         <section className="container mx-auto px-4 text-center mb-16 md:mb-20">

@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/motion/ScrollReveal";
 import { listCompliancePosts } from "@/content/posts.generated";
 import { FRAMEWORKS, type FrameworkSlug } from "@/content/compliance/frameworks";
+import { PrerenderMarker } from "@/components/PrerenderMarker";
 
 /**
  * /compliance — hub index for pSEO compliance × industry pages. Groups
@@ -51,6 +52,12 @@ const ComplianceIndex = () => {
         pageKey="compliance"
         jsonLd={[breadcrumbJsonLd(breadcrumb), itemListJsonLd]}
       />
+      {/* PrerenderMarker flips data-compliance-index-rendered on <html> after
+          this lazy chunk mounts. scripts/prerender.mjs waits for it before
+          snapshotting; without it Puppeteer captures the App-level Suspense
+          fallback (Navbar + Footer only, zero compliance/* links). The 15
+          pSEO sub-pages then receive zero PageRank from the hub. */}
+      <PrerenderMarker flag="complianceIndexRendered" />
       <Navbar />
       <main id="main-content" className="pt-40 md:pt-48 pb-20">
         <section className="container mx-auto px-4 text-center mb-16 md:mb-20">
