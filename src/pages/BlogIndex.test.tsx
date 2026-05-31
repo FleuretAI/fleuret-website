@@ -62,4 +62,12 @@ describe("BlogIndex", () => {
     const b = screen.getByText("Post B");
     expect(a.compareDocumentPosition(b)).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
   });
+
+  it("flips data-blog-index-rendered on <html> after mount (prerender marker)", () => {
+    // Clean state before render so a previous test can't false-pass this one.
+    delete document.documentElement.dataset.blogIndexRendered;
+    renderIndex("/blog");
+    // PrerenderMarker writes the flag in a useEffect so React 18 commits first.
+    expect(document.documentElement.dataset.blogIndexRendered).toBe("true");
+  });
 });

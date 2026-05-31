@@ -54,6 +54,23 @@ function isCompliancePath(route) {
   return /^\/compliance\/[^/]+\/[^/]+$/.test(route);
 }
 
+// Hub routes share BlogPost.tsx's bug shape: the page component is React.lazy
+// in App.tsx, so the App-level Suspense fallback renders during prerender
+// until the chunk resolves. Helmet writes data-rh on the fallback's SEO
+// component, satisfying the generic wait predicate, and the snapshot ships
+// with zero anchor links to sub-pages. The fix: wait for a marker that only
+// flips after the actual hub component mounts (PrerenderMarker inside each
+// hub stamps data-blog-index-rendered / data-compliance-index-rendered on
+// <html>). If the chunk fails to load, the wait times out and renderRoute
+// throws — loud build failure, no silent shell ships.
+function isBlogIndexPath(route) {
+  return route === "/blog";
+}
+
+function isComplianceIndexPath(route) {
+  return route === "/compliance";
+}
+
 function wait(ms) {
   return new Promise((r) => setTimeout(r, ms));
 }
@@ -221,6 +238,26 @@ async function main() {
               !!document.querySelector(
                 'article[data-compliance-framework][data-rendered="true"]',
               ),
+            { timeout: 30_000 },
+          );
+        } else if (isBlogIndexPath(route)) {
+          // /blog hub: BlogIndex is React.lazy() in App.tsx. Wait for the
+          // PrerenderMarker inside BlogIndex to flip data-blog-index-rendered
+          // on <html>. Generic data-rh predicate fires too early (Helmet runs
+          // from the Suspense fallback shell's SEO component), shipping a
+          // Navbar+Footer-only snapshot with zero blog post anchors.
+          await page.waitForFunction(
+            () =>
+              document.documentElement.dataset.blogIndexRendered === "true",
+            { timeout: 30_000 },
+          );
+        } else if (isComplianceIndexPath(route)) {
+          // /compliance hub: ComplianceIndex is React.lazy() in App.tsx.
+          // Same fix shape as the blog hub above.
+          await page.waitForFunction(
+            () =>
+              document.documentElement.dataset.complianceIndexRendered ===
+              "true",
             { timeout: 30_000 },
           );
         } else {
