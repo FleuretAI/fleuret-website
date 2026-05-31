@@ -20,6 +20,7 @@ const HowItWorks = lazy(() => import("@/components/HowItWorks"));
 const ComparisonTable = lazy(() => import("@/components/ComparisonTable"));
 const PricingSection = lazy(() => import("@/components/PricingSection"));
 const CTASection = lazy(() => import("@/components/CTASection"));
+const LatestBlog = lazy(() => import("@/components/LatestBlog"));
 const Footer = lazy(() => import("@/components/Footer"));
 
 const Index = () => {
@@ -44,6 +45,7 @@ const Index = () => {
           <ComparisonTable />
           <PricingSection />
           <CTASection />
+          <LatestBlog />
           <Footer />
           <PrerenderMarker flag="homeRendered" />
         </Suspense>
