@@ -86,9 +86,9 @@ export const META: Record<RouteKey, MetaEntry> = {
   demo: {
     title: "Book a Free Demo | Fleuret AI",
     description:
-      "See your attack surface in 30 minutes. Book a free demo with a Fleuret founder. POC pentest at €3,000 vs €15,000+ traditional consulting. EU-hosted, NIS2 and DORA audit-ready.",
+      "30-minute demo with a Fleuret founder. POC pentest at €3,000 vs €15,000+ consulting. EU-hosted, NIS2 and DORA audit-ready.",
     keywords:
-      "pentest demo, AI pentest demo, book pentest, Fleuret demo, automated pentest, DORA pentest demo, POC pentest, agentic AI pentest cost, NIS2 pentest pricing, €3000 pentest",
+      "pentest demo, AI pentest demo, book pentest, Fleuret demo, automated pentest, DORA pentest demo, POC pentest, agentic AI pentest cost, NIS2 pentest pricing, €3,000 pentest",
   },
   mentionsLegales: {
     title: "Legal Notice | Fleuret",
