@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import PricingSection from "@/components/PricingSection";
 import { PrerenderMarker } from "@/components/PrerenderMarker";
 import { useLanguage } from "@/contexts/LanguageContext";
 import {
@@ -11,14 +12,14 @@ import {
 } from "@/seo/SEO";
 
 // Below-fold sections lazy-loaded so their JS chunks don't compete with the
-// hero render on first paint. Suspense resolves once all five resolve, then
-// PrerenderMarker flips data-home-rendered="true" on <html> — scripts/
-// prerender.mjs waits on that flag for the `/` route so the static HTML
-// still ships full content for SEO (Lighthouse W9 P4 2026-05-17).
+// hero render on first paint. PricingSection is eager-loaded because the hero
+// secondary CTA links to `#pricing` and GA4 week May 3-30 shows the click
+// firing 206 times across 29 users (7.1/user) — the hydration race makes the
+// anchor smooth-scroll unresponsive on slow nets so users mash the button.
+// Eager-load guarantees the scroll handler is wired on first interactive paint.
 const WhySection = lazy(() => import("@/components/WhySection"));
 const HowItWorks = lazy(() => import("@/components/HowItWorks"));
 const ComparisonTable = lazy(() => import("@/components/ComparisonTable"));
-const PricingSection = lazy(() => import("@/components/PricingSection"));
 const CTASection = lazy(() => import("@/components/CTASection"));
 const Footer = lazy(() => import("@/components/Footer"));
 
