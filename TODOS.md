@@ -294,6 +294,48 @@ Source: YC friend's 9-point website guide. Mapped against fleuret.ai. W1 (hero r
 
 ---
 
+## N. Related compliance pages cross-link block on every CompliancePage
+
+**What:** Below article body (between final `<hr>` and the "Book a demo" CTA at `src/pages/CompliancePage.tsx:271`), render 3-5 sibling anchor links: every same-framework sibling (e.g. NIS2/water → NIS2/energy, NIS2/healthcare, NIS2/telecom, NIS2/transport) plus 1-2 cross-framework anchors most topically adjacent (e.g. DORA/fintech for the NIS2/healthcare reader). Pulled from existing `listCompliancePosts()` metadata, no new registry.
+
+**Why:** Distributes PageRank through the pSEO long-tail without relying solely on the hub. Hub fix (2026-05-31 plan-eng-review) is the necessary condition; article-to-article edges are the sufficient condition for Google to treat the pSEO grid as a topical cluster, not isolated pages. Adds ~50 new internal edges across 15 pages, near-zero render cost.
+
+**Pros:**
+- 50 new internal edges, zero new data dependency.
+- Independent SEO signal from the hub fix, useful if hub fix alone is not enough.
+- Cheap render (one component, no fetch).
+
+**Cons:**
+- Adding now would have prevented clean attribution of hub-fix-only impact.
+- Cross-framework selection logic needs a heuristic (e.g. shared industry tag, or hand-mapped table).
+
+**Context:** Pulled out of 2026-05-31 plan-eng-review (Issue TODO 1) so the GSC indexing fix wave could ship as a clean experiment. Wait at least 7 days post-hub-fix-merge before picking this up — measure GSC index count delta first. If hub fix alone closes the 20-page gap, deprioritize. If gap stays > 5 pages, pick this up.
+
+**Depends on:** Hub fix PR merged + 7 days of post-merge GSC measurement.
+
+---
+
+## N+1. Generic prerender invariant — every page in dist/ has >=1 internal anchor
+
+**What:** Extend or generalize `scripts/assert-hub-links.mjs` to walk every `dist/**/index.html` and assert each contains at least one `<a href="/...">` to another internal route. Catches the broader class of "prerender wait fired too early and shipped a navbar-only shell" bugs, not just the two hubs we just fixed.
+
+**Why:** The hub-render bug we just diagnosed (2026-05-31) was the second of its class on this codebase (first was the GTM dual-init silent regression caught by PR #135). Cheap generic invariant catches future cases before they deindex pages.
+
+**Pros:**
+- One script catches a regression class, not just two cases.
+- Aligns with the loud-fail philosophy already encoded in `scripts/prerender.mjs:158`.
+- Fast (~50-100ms across all dist pages).
+
+**Cons:**
+- Needs an allowlist for legit single-anchor pages (mentions-legales, terms, privacy may only link to nav/footer).
+- Risk of noise-failing on prerender quirks, training the team to ignore the assertion.
+
+**Context:** Pulled out of 2026-05-31 plan-eng-review (Issue TODO 2). Prove out per-hub `assert-hub-links.mjs` first; generalize once we know the threshold tuning.
+
+**Depends on:** Hub fix PR shipped, per-hub assertion stable in production for >=2 weeks.
+
+---
+
 ## Completed
 
 ### 1. Stand up vitest + React Testing Library
