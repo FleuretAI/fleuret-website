@@ -201,9 +201,9 @@ const Hero = () => {
               href="#pricing"
               className="btn-cta btn-cta--lg"
               style={{
-                background: "transparent",
-                border: "1px solid rgba(255,255,255,0.2)",
-                color: "rgba(255,255,255,0.8)",
+                background: "rgba(255,255,255,0.04)",
+                border: "1px solid rgba(255,255,255,0.35)",
+                color: "rgba(255,255,255,0.95)",
               }}
               onClick={() =>
                 trackCTAClick({
