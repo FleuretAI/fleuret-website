@@ -4,8 +4,10 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { DEMO_ROUTE } from "@/lib/routes";
 import { trackCTAClick } from "@/lib/gtag";
 import stoikLogo from "@/assets/investors/stoik.svg";
-import ouwbaLogo from "@/assets/clients/ouwba.svg";
-import rizlumLogo from "@/assets/clients/rizlum.svg";
+// Ouwba + Rizlum AI temporarily hidden per Yanis 2026-06-02. Restore by
+// uncommenting these two imports AND the matching array entries below.
+// import ouwbaLogo from "@/assets/clients/ouwba.svg";
+// import rizlumLogo from "@/assets/clients/rizlum.svg";
 
 type TrustLogo = {
   name: string;
@@ -19,9 +21,12 @@ type TrustLogo = {
 };
 
 const TRUST_LOGOS: TrustLogo[] = [
-  { name: "Ouwba", logo: ouwbaLogo, heightPx: 22 },
+  // Ouwba + Rizlum AI temporarily removed per Yanis 2026-06-02 (will reinstate
+  // later, see imports above). Stoïk remains as the public-clearance reference
+  // logo since PR #67 (2026-04-27).
+  // { name: "Ouwba", logo: ouwbaLogo, heightPx: 22 },
   { name: "Stoïk", logo: stoikLogo, invert: true, heightPx: 24 },
-  { name: "Rizlum AI", logo: rizlumLogo, heightPx: 28 },
+  // { name: "Rizlum AI", logo: rizlumLogo, heightPx: 28 },
 ];
 
 const Hero = () => {
