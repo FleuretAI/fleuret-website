@@ -811,7 +811,7 @@ export const translations = {
 
     // CTA
     'cta.title': 'Run your first pentest this week.',
-    'cta.subtitle': '15 minutes, no commitment. We scope a pentest on your real perimeter.',
+    'cta.subtitle': '15 minutes with the team. We scope it on your real perimeter.',
     'cta.button': 'Book a demo',
     'cta.eyebrow': 'BOOK · 15 MINUTES',
     'cta.titleA': 'Run your first pentest',
