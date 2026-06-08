@@ -139,9 +139,9 @@ export const META: Record<RouteKey, MetaEntry> = {
   platform: {
     title: "Platform | How Émile Works | Fleuret AI",
     description:
-      "Inside Fleuret's agentic pentest engine. Multi-agent orchestration, proof-of-concept validation, audit-ready compliance output. Sovereign EU, zero false positives.",
+      "Inside Fleuret's agentic AI pentest engine. Multi-agent orchestration, proof-of-concept validation, audit-ready compliance output. Sovereign EU, zero false positives.",
     keywords:
-      "Émile, agentic pentest, multi-agent, Coverage Graph, automated pentesting, DORA, NIS2, sovereign EU, pentest platform",
+      "Émile, agentic AI pentest, multi-agent pentest, AI pentest engine, automated pentesting, web app pentest, API pentest, Active Directory pentest, DORA pentest, NIS2 pentest, sovereign EU pentest, pentest platform",
   },
   fundraise: {
     title: "Fleuret raises €3.5M to industrialize agentic AI pentesting",
