@@ -130,11 +130,11 @@ export const META: Record<RouteKey, MetaEntry> = {
       "Our latest insights on continuous AI pentesting, European compliance and offensive security.",
   },
   compliance: {
-    title: "Compliance guides | Fleuret",
+    title: "Compliance Pentest Guides | DORA, NIS2, ISO 27001 | Fleuret",
     description:
-      "Practical compliance guides for CISOs: DORA, NIS2, ISO 27001, SOC 2, PCI DSS pentest scoping by industry. AI-driven continuous pentest hosted in Europe.",
+      "Practical pentest scoping for CISOs: DORA, NIS2, ISO 27001, SOC 2, PCI DSS by industry. Agentic AI pentest with audit-ready evidence. EU-hosted, €3,000 POC vs €15,000+ consulting.",
     keywords:
-      "compliance pentest, DORA pentest, NIS2 pentest, ISO 27001 pentest, SOC 2 pentest, PCI DSS pentest",
+      "compliance pentest, DORA pentest, NIS2 pentest, ISO 27001 pentest, SOC 2 pentest, PCI DSS pentest, agentic AI compliance pentest, automated DORA pentest, NIS2 pentest scoping, Active Directory pentest, EU sovereign compliance pentest, pentest €3000",
   },
   platform: {
     title: "Platform | How Émile Works | Fleuret AI",
