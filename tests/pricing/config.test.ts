@@ -1,10 +1,8 @@
 import { describe, expect, it } from "vitest";
 import {
   POC_PRICE_EUR,
-  STARTER_PRICE_EUR,
-  STARTER_MAX_APPS,
-  GROWTH_PRICE_EUR,
-  GROWTH_MAX_APPS,
+  PENTEST_PRICE_EUR,
+  ADVANCED_PENTEST_PRICE_EUR,
   WHOLESALE_RATE_GRC_PCT,
   WHOLESALE_RATE_MARKETPLACE_PCT,
   POC_TO_RECURRING_CREDIT_WINDOW_MONTHS,
@@ -17,14 +15,12 @@ describe("pricingConfig — constants", () => {
     expect(POC_PRICE_EUR).toBe(3000);
   });
 
-  it("Starter is €10,000/yr for up to 3 apps", () => {
-    expect(STARTER_PRICE_EUR).toBe(10000);
-    expect(STARTER_MAX_APPS).toBe(3);
+  it("Pentest (standard) is €4,000 per test", () => {
+    expect(PENTEST_PRICE_EUR).toBe(4000);
   });
 
-  it("Growth is €25,000/yr for up to 10 apps", () => {
-    expect(GROWTH_PRICE_EUR).toBe(25000);
-    expect(GROWTH_MAX_APPS).toBe(10);
+  it("Advanced pentest is €8,000 per test", () => {
+    expect(ADVANCED_PENTEST_PRICE_EUR).toBe(8000);
   });
 
   it("SaaS GRC wholesale rate is 50%", () => {
@@ -41,16 +37,16 @@ describe("pricingConfig — constants", () => {
 });
 
 describe("computeWholesalePrice", () => {
-  it("SaaS GRC wholesale on €25,000 Growth is €12,500", () => {
-    expect(computeWholesalePrice(25000, "saas-grc")).toBe(12500);
+  it("SaaS GRC wholesale on €4,000 Pentest is €2,000", () => {
+    expect(computeWholesalePrice(4000, "saas-grc")).toBe(2000);
   });
 
-  it("SaaS GRC wholesale on €10,000 Starter is €5,000", () => {
-    expect(computeWholesalePrice(10000, "saas-grc")).toBe(5000);
+  it("SaaS GRC wholesale on €8,000 Advanced is €4,000", () => {
+    expect(computeWholesalePrice(8000, "saas-grc")).toBe(4000);
   });
 
-  it("marketplace wholesale on €3,000 POC is €1,800", () => {
-    expect(computeWholesalePrice(3000, "marketplace")).toBe(1800);
+  it("marketplace wholesale on €4,000 Pentest is €2,400", () => {
+    expect(computeWholesalePrice(4000, "marketplace")).toBe(2400);
   });
 
   it("returns 0 for 0 input", () => {
@@ -64,38 +60,38 @@ describe("computeWholesalePrice", () => {
 
   it("throws on unknown partner type", () => {
     // @ts-expect-error: deliberate runtime check
-    expect(() => computeWholesalePrice(25000, "enterprise")).toThrow();
+    expect(() => computeWholesalePrice(4000, "enterprise")).toThrow();
   });
 });
 
 describe("computeUpgradeCredit", () => {
-  it("POC €3,000 credits against Starter €10,000 → €7,000", () => {
+  it("POC €3,000 credits against a €4,000 first test → €1,000", () => {
     expect(
-      computeUpgradeCredit({ pocPaidEur: 3000, tierYear1Eur: 10000 }),
-    ).toBe(7000);
+      computeUpgradeCredit({ pocPaidEur: 3000, tierYear1Eur: 4000 }),
+    ).toBe(1000);
   });
 
-  it("POC €3,000 credits against Growth €25,000 → €22,000", () => {
+  it("POC €3,000 credits against a €8,000 advanced test → €5,000", () => {
     expect(
-      computeUpgradeCredit({ pocPaidEur: 3000, tierYear1Eur: 25000 }),
-    ).toBe(22000);
+      computeUpgradeCredit({ pocPaidEur: 3000, tierYear1Eur: 8000 }),
+    ).toBe(5000);
   });
 
   it("returns full tier price when no POC was paid", () => {
     expect(
-      computeUpgradeCredit({ pocPaidEur: 0, tierYear1Eur: 10000 }),
-    ).toBe(10000);
+      computeUpgradeCredit({ pocPaidEur: 0, tierYear1Eur: 4000 }),
+    ).toBe(4000);
   });
 
   it("throws when POC credit would exceed tier price", () => {
     expect(() =>
-      computeUpgradeCredit({ pocPaidEur: 50000, tierYear1Eur: 10000 }),
+      computeUpgradeCredit({ pocPaidEur: 50000, tierYear1Eur: 4000 }),
     ).toThrow();
   });
 
   it("throws on negative input", () => {
     expect(() =>
-      computeUpgradeCredit({ pocPaidEur: -1, tierYear1Eur: 10000 }),
+      computeUpgradeCredit({ pocPaidEur: -1, tierYear1Eur: 4000 }),
     ).toThrow();
     expect(() =>
       computeUpgradeCredit({ pocPaidEur: 0, tierYear1Eur: -1 }),

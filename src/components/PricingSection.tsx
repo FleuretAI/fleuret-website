@@ -35,48 +35,42 @@ const PricingSection = () => {
     return () => obs.disconnect();
   }, []);
 
-  const pocFeatures = [
-    t("pricing.poc.f1"),
-    t("pricing.poc.f2"),
-    t("pricing.poc.f3"),
-    t("pricing.poc.f4"),
-  ];
-
+  // Product-led, per-test façade. Pentest + Advanced are concrete one-off
+  // products; Continuous is the recurring moat (quote → demo), highlighted.
   const tiers = [
     {
-      key: "starter" as const,
-      testId: "pricing-tier-starter",
+      key: "pentest" as const,
+      testId: "pricing-tier-pentest",
       color: "var(--accent-blue)",
       highlighted: false,
       features: [
-        t("pricing.starter.f1"),
-        t("pricing.starter.f2"),
-        t("pricing.starter.f3"),
-        t("pricing.starter.f4"),
+        t("pricing.pentest.f1"),
+        t("pricing.pentest.f2"),
+        t("pricing.pentest.f3"),
       ],
     },
     {
-      key: "growth" as const,
-      testId: "pricing-tier-growth",
+      key: "advanced" as const,
+      testId: "pricing-tier-advanced",
       color: "var(--accent-violet)",
-      highlighted: true,
-      features: [
-        t("pricing.growth.f1"),
-        t("pricing.growth.f2"),
-        t("pricing.growth.f3"),
-        t("pricing.growth.f4"),
-        t("pricing.growth.f5"),
-      ],
-    },
-    {
-      key: "scale" as const,
-      testId: "pricing-tier-scale",
-      color: "var(--accent-red)",
       highlighted: false,
       features: [
-        t("pricing.scale.f1"),
-        t("pricing.scale.f2"),
-        t("pricing.scale.f3"),
+        t("pricing.advanced.f1"),
+        t("pricing.advanced.f2"),
+        t("pricing.advanced.f3"),
+      ],
+    },
+    {
+      key: "continuous" as const,
+      testId: "pricing-tier-continuous",
+      color: "var(--accent-red)",
+      highlighted: true,
+      features: [
+        t("pricing.continuous.f1"),
+        t("pricing.continuous.f2"),
+        t("pricing.continuous.f3"),
+        t("pricing.continuous.f4"),
+        t("pricing.continuous.f5"),
       ],
     },
   ];
@@ -95,103 +89,11 @@ const PricingSection = () => {
           </p>
         </div>
 
-        {/* Full-width category bars (desktop only, XBOW-style) */}
-        <div className="hidden md:grid md:grid-cols-[minmax(0,1fr)_minmax(0,3fr)] max-w-[76rem] mx-auto" style={{ marginBottom: "1rem" }}>
-          <div
-            data-testid="pricing-label-poc"
-            style={{ padding: "0.6rem 1.25rem", background: "rgba(79,143,255,0.06)", borderBottom: "2px solid rgba(79,143,255,0.25)", marginRight: "0.75rem" }}
-          >
-            <span style={{ fontSize: "0.7rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.2em", color: "rgba(79,143,255,0.9)" }}>
-              {t("pricing.tab.poc")}
-            </span>
-            <span style={{ display: "block", fontSize: "0.65rem", color: "rgba(255,255,255,0.35)", marginTop: "0.15rem" }}>
-              {t("pricing.label.poc.sub")}
-            </span>
-          </div>
-          <div
-            data-testid="pricing-label-continuous"
-            style={{ padding: "0.6rem 1.25rem", background: "rgba(167,139,250,0.06)", borderBottom: "2px solid rgba(167,139,250,0.25)" }}
-          >
-            <span style={{ fontSize: "0.7rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.2em", color: "rgba(167,139,250,0.9)" }}>
-              {t("pricing.tab.continuous")}
-            </span>
-            <span style={{ display: "block", fontSize: "0.65rem", color: "rgba(255,255,255,0.35)", marginTop: "0.15rem" }}>
-              {t("pricing.label.continuous.sub")}
-            </span>
-          </div>
-        </div>
-
-        {/* 4-column grid: POC | Starter | Growth | Scale */}
+        {/* 3-column grid: Pentest | Advanced | Continuous */}
         <div
           data-testid="pricing-layout"
-          className="grid md:grid-cols-4 gap-6 max-w-[76rem] mx-auto items-start"
+          className="grid md:grid-cols-3 gap-6 max-w-[64rem] mx-auto items-start"
         >
-          {/* POC card */}
-          <div data-testid="pricing-poc-section">
-            <div
-              data-testid="pricing-card-poc"
-              style={{ display: "flex", flexDirection: "column", height: "100%", borderRadius: "1rem", padding: "2rem", border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.02)", transition: "all 0.3s", cursor: "default" }}
-              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.04)"; }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.02)"; }}
-            >
-              <p style={{ fontSize: "0.875rem", textTransform: "uppercase", letterSpacing: "0.2em", color: "rgba(255,255,255,0.5)", fontWeight: 600, marginBottom: "1.5rem" }}>
-                {t("pricing.poc.name")}
-              </p>
-              <div>
-                <span style={{ fontSize: "0.875rem", color: "rgba(255,255,255,0.4)", textTransform: "uppercase", letterSpacing: "0.1em", display: "block", marginBottom: "0.25rem" }}>
-                  {t("pricing.startingAt")}
-                </span>
-                <div style={{ display: "flex", alignItems: "baseline", gap: "0.5rem", marginBottom: "1rem" }}>
-                  <span style={{ fontSize: "clamp(1.5rem, 3.5vw, 2.25rem)", fontWeight: 300, color: "#fff", letterSpacing: "-0.02em" }}>{t("pricing.poc.price")}</span>
-                  <span style={{ fontSize: "0.875rem", color: "rgba(255,255,255,0.4)" }}>{t("pricing.poc.unit")}</span>
-                </div>
-              </div>
-              <p style={{ fontSize: "0.875rem", color: "rgba(255,255,255,0.4)", lineHeight: 1.7, marginBottom: "1rem" }}>{t("pricing.poc.desc")}</p>
-              <div
-                data-testid="pricing-poc-upgrade-credit"
-                style={{ display: "inline-block", alignSelf: "flex-start", fontSize: "0.75rem", color: "rgba(79,143,255,0.9)", background: "rgba(79,143,255,0.08)", border: "1px solid rgba(79,143,255,0.18)", borderRadius: "0.5rem", padding: "0.4rem 0.7rem", marginBottom: "1.5rem", lineHeight: 1.4 }}
-              >
-                {t("pricing.poc.upgradeCredit")}
-              </div>
-              <ul style={{ listStyle: "none", padding: 0, margin: "0 0 2rem", display: "flex", flexDirection: "column", gap: "0.75rem", flex: 1 }}>
-                {pocFeatures.map((f) => (
-                  <li key={f} style={{ display: "flex", alignItems: "flex-start", gap: "0.75rem", fontSize: "0.875rem", color: "rgba(255,255,255,0.6)" }}>
-                    <CheckIcon color="var(--accent-blue)" />{f}
-                  </li>
-                ))}
-              </ul>
-              <Link
-                to={localize(DEMO_ROUTE)}
-                style={{ display: "block", width: "100%", padding: "0.75rem 1.5rem", borderRadius: "0.5rem", fontSize: "0.875rem", fontWeight: 600, textAlign: "center", border: "1px solid rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.7)", transition: "all 0.3s" }}
-                onMouseEnter={(e) => { const el = e.currentTarget as HTMLElement; el.style.color = "#fff"; el.style.borderColor = "rgba(255,255,255,0.2)"; el.style.background = "rgba(255,255,255,0.04)"; }}
-                onMouseLeave={(e) => { const el = e.currentTarget as HTMLElement; el.style.color = "rgba(255,255,255,0.7)"; el.style.borderColor = "rgba(255,255,255,0.1)"; el.style.background = ""; }}
-              >
-                {t("pricing.poc.cta")}
-              </Link>
-            </div>
-
-            {/* Guarantee badge below POC card */}
-            <div
-              data-testid="pricing-guarantee"
-              style={{
-                marginTop: "1rem",
-                padding: "1rem 1.25rem",
-                borderRadius: "0.75rem",
-                border: "2px solid rgba(79,143,255,0.3)",
-                background: "rgba(79,143,255,0.06)",
-                textAlign: "center",
-              }}
-            >
-              <p style={{ fontSize: "1.1rem", fontWeight: 500, color: "#fff", margin: 0, marginBottom: "0.25rem" }}>
-                {t("pricing.guarantee.title")}
-              </p>
-              <p style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.5)", margin: 0, lineHeight: 1.4 }}>
-                {t("pricing.guarantee.subtitle")}
-              </p>
-            </div>
-          </div>
-
-          {/* Continuous tier cards */}
           {tiers.map((tier) => (
             <div key={tier.key} data-testid={tier.testId} style={{ position: "relative" }}>
               {tier.highlighted && (
@@ -208,13 +110,10 @@ const PricingSection = () => {
                 onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = tier.highlighted ? "rgba(255,255,255,0.06)" : "rgba(255,255,255,0.04)"; }}
                 onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = tier.highlighted ? "rgba(255,255,255,0.04)" : "rgba(255,255,255,0.02)"; }}
               >
-                <p style={{ fontSize: "0.875rem", textTransform: "uppercase", letterSpacing: "0.2em", color: "rgba(255,255,255,0.5)", fontWeight: 600, marginBottom: "0.5rem" }}>
+                <p style={{ fontSize: "0.875rem", textTransform: "uppercase", letterSpacing: "0.2em", color: "rgba(255,255,255,0.5)", fontWeight: 600, marginBottom: "1rem" }}>
                   {t(`pricing.${tier.key}.name`)}
                 </p>
-                <p style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.35)", marginBottom: "1.25rem" }}>
-                  {t(`pricing.${tier.key}.apps`)}
-                </p>
-                <div style={{ display: "flex", alignItems: "baseline", gap: "0.5rem", marginBottom: "1rem" }}>
+                <div style={{ display: "flex", alignItems: "baseline", gap: "0.5rem", marginBottom: "0.75rem" }}>
                   <span style={{ fontSize: "clamp(1.5rem, 3.5vw, 2.25rem)", fontWeight: 300, color: "#fff", letterSpacing: "-0.02em" }}>
                     {t(`pricing.${tier.key}.price`)}
                   </span>
@@ -224,6 +123,9 @@ const PricingSection = () => {
                     </span>
                   )}
                 </div>
+                <p style={{ fontSize: "0.8rem", color: tier.color, lineHeight: 1.5, marginBottom: "1rem", fontWeight: 500 }}>
+                  {t(`pricing.${tier.key}.depth`)}
+                </p>
                 <p style={{ fontSize: "0.875rem", color: "rgba(255,255,255,0.4)", lineHeight: 1.7, marginBottom: "1.5rem" }}>
                   {t(`pricing.${tier.key}.desc`)}
                 </p>
@@ -242,7 +144,31 @@ const PricingSection = () => {
           ))}
         </div>
 
-        <p style={{ textAlign: "center", fontSize: "0.875rem", color: "rgba(255,255,255,0.5)", marginTop: "2rem" }}>{t("pricing.anchor")}</p>
+        {/* Anchor line: boutique comparison + first-test credit (where POC lives now) */}
+        <p style={{ textAlign: "center", fontSize: "0.95rem", color: "rgba(255,255,255,0.55)", marginTop: "2rem", maxWidth: "44rem", marginLeft: "auto", marginRight: "auto", lineHeight: 1.6 }}>
+          {t("pricing.anchor")}
+        </p>
+
+        {/* Guarantee badge */}
+        <div
+          data-testid="pricing-guarantee"
+          style={{
+            margin: "1.5rem auto 0",
+            maxWidth: "32rem",
+            padding: "1rem 1.5rem",
+            borderRadius: "0.75rem",
+            border: "2px solid rgba(79,143,255,0.3)",
+            background: "rgba(79,143,255,0.06)",
+            textAlign: "center",
+          }}
+        >
+          <p style={{ fontSize: "1.1rem", fontWeight: 500, color: "#fff", margin: 0, marginBottom: "0.25rem" }}>
+            {t("pricing.guarantee.title")}
+          </p>
+          <p style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.5)", margin: 0, lineHeight: 1.4 }}>
+            {t("pricing.guarantee.subtitle")}
+          </p>
+        </div>
 
         {DP_COHORT_VISIBLE && (
           <Link
