@@ -14,65 +14,52 @@ function renderSection() {
   );
 }
 
-describe("PricingSection — category labels", () => {
-  it("renders POC and Continuous category labels", () => {
-    renderSection();
-    expect(screen.getByTestId("pricing-label-poc")).toBeInTheDocument();
-    expect(screen.getByTestId("pricing-label-continuous")).toBeInTheDocument();
-  });
-});
-
-describe("PricingSection — POC card", () => {
-  it("renders POC card", () => {
-    renderSection();
-    expect(screen.getByTestId("pricing-card-poc")).toBeInTheDocument();
-  });
-
-  it("POC card includes the upgrade-credit pill", () => {
-    renderSection();
-    const pill = screen.getByTestId("pricing-poc-upgrade-credit");
-    expect(pill).toBeInTheDocument();
-    expect(pill.textContent?.trim().length).toBeGreaterThan(10);
-  });
-
-  it("guarantee badge renders prominently below POC card", () => {
-    renderSection();
-    const guarantee = screen.getByTestId("pricing-guarantee");
-    expect(guarantee).toBeInTheDocument();
-    const titleRegex = /(0 finding|0 findings)/i;
-    expect(within(guarantee).getByText(titleRegex)).toBeInTheDocument();
-  });
-});
-
-describe("PricingSection — continuous tiers", () => {
-  it("renders all 3 tier cards (Starter, Growth, Scale)", () => {
-    renderSection();
-    expect(screen.getByTestId("pricing-tier-starter")).toBeInTheDocument();
-    expect(screen.getByTestId("pricing-tier-growth")).toBeInTheDocument();
-    expect(screen.getByTestId("pricing-tier-scale")).toBeInTheDocument();
-  });
-
+describe("PricingSection — 3-card product-led layout", () => {
   it("renders the pricing layout grid", () => {
     renderSection();
     expect(screen.getByTestId("pricing-layout")).toBeInTheDocument();
   });
 
-  it("Starter shows €10,000 price", () => {
+  it("renders all 3 cards (Pentest, Advanced, Continuous)", () => {
     renderSection();
-    const starter = screen.getByTestId("pricing-tier-starter");
-    expect(starter.textContent).toMatch(/10[,.]?000/);
+    expect(screen.getByTestId("pricing-tier-pentest")).toBeInTheDocument();
+    expect(screen.getByTestId("pricing-tier-advanced")).toBeInTheDocument();
+    expect(screen.getByTestId("pricing-tier-continuous")).toBeInTheDocument();
   });
 
-  it("Growth shows €25,000 price", () => {
+  it("does NOT render the old category labels or separate POC card", () => {
     renderSection();
-    const growth = screen.getByTestId("pricing-tier-growth");
-    expect(growth.textContent).toMatch(/25[,.]?000/);
+    expect(screen.queryByTestId("pricing-label-poc")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("pricing-label-continuous")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("pricing-card-poc")).not.toBeInTheDocument();
   });
 
-  it("Scale shows custom pricing", () => {
+  it("Pentest shows €4,000 per-test price", () => {
     renderSection();
-    const scale = screen.getByTestId("pricing-tier-scale");
-    expect(scale.textContent).toMatch(/custom|sur mesure/i);
+    const pentest = screen.getByTestId("pricing-tier-pentest");
+    expect(pentest.textContent).toMatch(/4[,. ]?000/);
+  });
+
+  it("Advanced shows €8,000 per-test price", () => {
+    renderSection();
+    const advanced = screen.getByTestId("pricing-tier-advanced");
+    expect(advanced.textContent).toMatch(/8[,. ]?000/);
+  });
+
+  it("Continuous shows custom / quote pricing", () => {
+    renderSection();
+    const continuous = screen.getByTestId("pricing-tier-continuous");
+    expect(continuous.textContent).toMatch(/custom|sur devis/i);
+  });
+});
+
+describe("PricingSection — guarantee + anchor", () => {
+  it("guarantee badge renders below the grid", () => {
+    renderSection();
+    const guarantee = screen.getByTestId("pricing-guarantee");
+    expect(guarantee).toBeInTheDocument();
+    const titleRegex = /(0 finding|0 findings)/i;
+    expect(within(guarantee).getByText(titleRegex)).toBeInTheDocument();
   });
 });
 
