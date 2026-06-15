@@ -84,11 +84,11 @@ export const META: Record<RouteKey, MetaEntry> = {
       "Fleuret partners, GRC, Vanta, Sprinto, Drata, pentest marketplace, white label, wholesale, NIS2, DORA",
   },
   demo: {
-    title: "Book a Free Demo | Fleuret AI",
+    title: "Book a Demo | Agentic AI Pentest in Hours | Fleuret AI",
     description:
-      "30-minute demo with a Fleuret founder. POC pentest at €3,000 vs €15,000+ consulting. EU-hosted, NIS2 and DORA audit-ready.",
+      "30-minute call with a Fleuret founder. See how Émile delivers human-grade pentests in hours, not weeks. Webapp, REST, GraphQL, external infra. EU-hosted, NIS2 and DORA audit-ready.",
     keywords:
-      "pentest demo, AI pentest demo, book pentest, Fleuret demo, automated pentest, DORA pentest demo, POC pentest, agentic AI pentest cost, NIS2 pentest pricing, €3,000 pentest",
+      "pentest demo, AI pentest demo, book pentest, Fleuret demo, automated pentest, DORA pentest demo, agentic AI pentest, NIS2 pentest, autonomous pentest demo, EU pentest provider, Active Directory pentest demo",
   },
   mentionsLegales: {
     title: "Legal Notice | Fleuret",
