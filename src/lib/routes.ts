@@ -24,7 +24,7 @@ export const DEMO_ROUTE = "/demo";
 export const NEWS_LATEST_ROUTE = "/news/fleuret-raises-3-5m";
 
 export const DEMO_SCHEDULER_EMBED_URL =
-  "https://calendar.google.com/calendar/appointments/schedules/AcZssZ1arZLbruGGaiZ4-p-q_Dd9_TTHfVmKcjZPIECZ70G6EIcenHCWLePHfa-QmXXgDjmqp1DcWHNE?gv=true";
+  "https://calendar.google.com/calendar/appointments/schedules/AcZssZ1cAggFoBj4ZTGms-JRvzBbVcDM4xpgIDCmH-MkB1C_WB4fCiXKx0q9DRwZRqwM0DE4Fxu61_ko?gv=true";
 
 export const DEMO_SCHEDULER_SHORT_URL =
-  "https://calendar.app.google/H9GMsaSvZMhwRbueA";
+  "https://calendar.app.google/zQvJoUiDncYQC9d1A";
