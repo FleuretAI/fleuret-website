@@ -122,6 +122,9 @@ const SecurityPolicy = () => {
                   <Link to={localize("/privacy")} className="text-[var(--accent-blue)] hover:underline">politique de confidentialité</Link>.
                 </li>
                 <li>
+                  <strong className="text-white/70">Données d'engagement (tests d'intrusion) :</strong> les données collectées pendant les tests — vulnérabilités, preuves d'exploitation (PoC) et rapports — sont conservées 18 mois dans un environnement européen strictement segmenté par client, puis supprimées. Le client dispose d'un accès intégral à ses données à tout moment durant cette période et peut en demander la suppression anticipée.
+                </li>
+                <li>
                   <strong className="text-white/70">Registre des traitements :</strong> nous maintenons un registre des activités de traitement conformément à l'article 30 du RGPD.
                 </li>
               </ul>
@@ -141,6 +144,9 @@ const SecurityPolicy = () => {
                 <li>
                   <strong className="text-white/70">Limited retention:</strong> data is deleted upon expiration of the retention periods defined in our{" "}
                   <Link to={localize("/privacy")} className="text-[var(--accent-blue)] hover:underline">privacy policy</Link>.
+                </li>
+                <li>
+                  <strong className="text-white/70">Engagement (penetration testing) data:</strong> data collected during testing — vulnerabilities, exploitation evidence (PoC) and reports — is retained for 18 months in a strictly per-client segmented European environment, then deleted. Clients retain full access to their data at any time during this period and may request early deletion.
                 </li>
                 <li>
                   <strong className="text-white/70">Processing records:</strong> we maintain a record of processing activities in accordance with Article 30 of the GDPR.
