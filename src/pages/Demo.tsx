@@ -7,7 +7,7 @@ import {
   DEMO_SCHEDULER_SHORT_URL,
 } from "@/lib/routes";
 import { SEO } from "@/seo/SEO";
-import { trackEvent } from "@/lib/gtag";
+import { trackEvent, isGtagAvailable } from "@/lib/gtag";
 
 /**
  * /demo route.
@@ -36,9 +36,26 @@ const Demo = () => {
   const { t } = useLanguage();
 
   // Title and description are owned by <SEO pageKey="demo" /> below.
-  // Fire the demo-page-view analytics event once on mount.
+  // Fire the demo-page-view event once gtag is reachable. The bare gtag global
+  // is injected by index.html but can race with React mount (observed 8 page
+  // views vs 3 demo_page_view events in GA4 week May 18 - Jun 14, 2026 — 62%
+  // measurement gap). Poll for up to ~2s so the event lands once the script
+  // catches up. The page is funnel-critical, so retry rather than silently miss.
   useEffect(() => {
-    trackEvent("demo_page_view", { page_path: "/demo" });
+    let cancelled = false;
+    let attempts = 0;
+    const tryFire = () => {
+      if (cancelled) return;
+      if (isGtagAvailable()) {
+        trackEvent("demo_page_view", { page_path: "/demo" });
+        return;
+      }
+      if (attempts++ < 20) setTimeout(tryFire, 100);
+    };
+    tryFire();
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   return (
