@@ -118,11 +118,11 @@ export const META: Record<RouteKey, MetaEntry> = {
       "sub-processors, GDPR, DPA, EU hosting, Scaleway, sovereignty, compliance, NIS2, DORA",
   },
   resources: {
-    title: "Resources | Fleuret",
+    title: "Resources | Blog and Compliance Hub | Fleuret",
     description:
-      "Insights, case studies and guides on AI-powered pentesting, NIS2/DORA compliance and offensive security.",
+      "Browse the Fleuret blog (industry analysis and competitor breakdowns) and the compliance hub (DORA, NIS2, ISO 27001 pentest scoping by industry).",
     keywords:
-      "fleuret resources, pentest blog, cybersecurity insights, NIS2, DORA, agentic AI",
+      "fleuret resources, pentest blog, compliance hub, DORA scoping, NIS2 scoping, ISO 27001 pentest, agentic AI pentest, Fleuret library",
   },
   blog: {
     title: "Blog | Fleuret",
