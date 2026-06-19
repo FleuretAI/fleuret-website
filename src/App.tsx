@@ -4,7 +4,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import CookieBanner from "./components/CookieBanner";
-import AnnouncementBanner from "./components/AnnouncementBanner";
 // Analytics is lazy-loaded so its JS (gtag bridge, scroll-depth listeners,
 // outbound-click delegate) doesn't sit on the LCP critical path. Lighthouse
 // W9 P2 — fires after Suspense resolves, no visible UX dependency.
@@ -34,9 +33,6 @@ const BlogIndex = lazy(() => import("./pages/BlogIndex"));
 const ComplianceIndex = lazy(() => import("./pages/ComplianceIndex"));
 const Platform = lazy(() => import("./pages/Platform"));
 const NotFound = lazy(() => import("./pages/NotFound"));
-// Unlinked, noindex-ed fundraise announcement page. Kept out of sitemap and
-// prerender list until press embargo drops. URL resolves via SPA routing only.
-const FleuretRaises = lazy(() => import("./pages/FleuretRaises"));
 
 const queryClient = new QueryClient();
 
@@ -63,7 +59,6 @@ const APP_ROUTES: RouteDef[] = [
     path: "/compliance/:framework/:industry",
     element: <CompliancePage />,
   },
-  { path: "/news/fleuret-raises-3-5m", element: <FleuretRaises /> },
 ];
 
 const App = () => (
@@ -75,7 +70,6 @@ const App = () => (
           <Suspense fallback={null}>
             <Analytics />
           </Suspense>
-          <AnnouncementBanner />
           <Suspense fallback={null}>
             <Routes>
               {APP_ROUTES.map((r) => (

@@ -60,17 +60,7 @@ export const translations = {
     'cookie.deny': 'Refuser',
     'cookie.accept': 'Tout accepter',
 
-    // Announcement banner (top of site)
-    'announce.label': 'Annonce',
-    'announce.text': 'Fleuret lève 3,5M€ en pre-seed',
-    'announce.cta': 'Lire l’annonce',
-    'announce.dismiss': 'Fermer l’annonce',
-
     // Hero
-    'hero.badge': 'Fleuret lève 3,5M€ pre-seed pour construire le futur de la sécurité IA',
-    'hero.badge.label': 'Actualité',
-    'hero.badge.text': 'Fleuret lève 3,5M€ pre-seed pour construire le futur de la sécurité IA',
-    'hero.badge.text.short': 'Fleuret lève 3,5M€ pre-seed',
     'hero.title.line1': 'Pentest de niveau humain.',
     'hero.title.line2': 'Une fraction du prix.',
     'hero.title.line3': 'À chaque release.',
@@ -572,17 +562,7 @@ export const translations = {
     'cookie.deny': 'Deny',
     'cookie.accept': 'Accept All',
 
-    // Announcement banner (top of site)
-    'announce.label': 'Announcement',
-    'announce.text': 'Fleuret raises €3.5M pre-seed',
-    'announce.cta': 'Read the announcement',
-    'announce.dismiss': 'Dismiss announcement',
-
     // Hero
-    'hero.badge': 'Fleuret raised €3.5M pre-seed to build the future of AI security',
-    'hero.badge.label': 'News',
-    'hero.badge.text': 'Fleuret raised €3.5M pre-seed to build the future of AI security',
-    'hero.badge.text.short': 'Fleuret raised €3.5M pre-seed',
     'hero.title.line1': 'Human-grade pentest.',
     'hero.title.line2': 'A fraction of the cost.',
     'hero.title.line3': 'Every release.',
