@@ -17,7 +17,6 @@ export type RouteKey =
   | "blog"
   | "compliance"
   | "platform"
-  | "fundraise"
   | "notFound";
 
 export const SITE_URL = "https://fleuret.ai";
@@ -41,7 +40,6 @@ export const ROUTES: Record<RouteKey, string> = {
   blog: "/blog",
   compliance: "/compliance",
   platform: "/platform",
-  fundraise: "/news/fleuret-raises-3-5m",
   notFound: "/404",
 };
 
@@ -142,13 +140,6 @@ export const META: Record<RouteKey, MetaEntry> = {
       "Inside Fleuret's agentic AI pentest engine. Multi-agent orchestration, proof-of-concept validation, audit-ready compliance output. Sovereign EU, zero false positives.",
     keywords:
       "Émile, agentic AI pentest, multi-agent pentest, AI pentest engine, automated pentesting, web app pentest, API pentest, Active Directory pentest, DORA pentest, NIS2 pentest, sovereign EU pentest, pentest platform",
-  },
-  fundraise: {
-    title: "Fleuret raises €3.5M to industrialize agentic AI pentesting",
-    description:
-      "Fleuret raises €3.5M (equity + Bpifrance innovation loan) to accelerate agentic AI pentesting in Europe. Round led by RAISE Capital with Auriga, Wind and United Founders.",
-    keywords:
-      "Fleuret, seed round, funding, agentic AI pentesting, cybersecurity, RAISE Capital, Auriga, Bpifrance, NIS2, DORA",
   },
   notFound: {
     title: "Page Not Found | Fleuret",

@@ -25,7 +25,6 @@ export const STATIC_PATHS = [
   "/resources",
   "/blog",
   "/compliance",
-  "/news/fleuret-raises-3-5m",
 ];
 
 // Backwards-compat aliases. Older script imports still resolve.

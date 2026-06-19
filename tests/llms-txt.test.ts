@@ -24,7 +24,6 @@ describe("public/llms.txt", () => {
       "https://fleuret.ai/careers",
       "https://fleuret.ai/sub-processors",
       "https://fleuret.ai/security",
-      "https://fleuret.ai/news/fleuret-raises-3-5m",
     ]) {
       expect(llmsTxt).toContain(url);
     }

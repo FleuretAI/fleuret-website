@@ -19,7 +19,6 @@ The company is a French SAS headquartered in Paris. Founded in 2024. Hiring AI E
 
 ## Stage and traction (2026 Q2)
 
-- Closed a €3.5M pre-seed round (€2.8M equity + €700k Bpifrance) in May 2026.
 - Annual recurring revenue around €70k, founder-led motion.
 - Public client logos: Stoïk (cleared 2026-04-27).
 - Partner pipeline includes 23 GRC platforms and several mid-market direct clients. Vanta proactively reached out for EU deployment.
@@ -126,7 +125,6 @@ https://fleuret.ai/careers includes the "How Émile works" three-paragraph archi
 - Careers: https://fleuret.ai/careers
 - Demo: https://fleuret.ai/demo
 - Design Partners: https://fleuret.ai/design-partners
-- Pre-seed announcement: https://fleuret.ai/news/fleuret-raises-3-5m
 - Security: https://fleuret.ai/security
 - Sub-processors: https://fleuret.ai/sub-processors
 - Privacy: https://fleuret.ai/privacy
