@@ -3,7 +3,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 
 const HIDE_THRESHOLD_PX = 40;
 // Internal SPA route; set to "" to hide CTA.
-const ANNOUNCE_HREF = "/news/fleuret-raises-3-5m";
+const ANNOUNCE_HREF = "";
 const BANNER_HEIGHT_PX = 48;
 
 const AnnouncementBanner = () => {
