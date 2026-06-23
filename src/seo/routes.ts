@@ -63,9 +63,11 @@ export const META: Record<RouteKey, MetaEntry> = {
       "Fleuret AI combines agentic AI and offensive expertise to make pentesting fast, affordable and continuous. Our mission and founding team.",
   },
   careers: {
-    title: "Careers | Fleuret AI",
+    title: "Careers | AI engineering and offensive security roles | Fleuret AI",
     description:
-      "Join Fleuret AI. Build the future of offensive security with agentic AI. Paris-based roles across engineering and security.",
+      "Paris roles: AI engineer, senior offensive security engineer, founding engineer. Build Émile, the agentic orchestration layer behind Fleuret's pentests. Open positions and how to apply.",
+    keywords:
+      "AI engineer Paris, offensive security engineer Paris, founding engineer Paris, cyber security jobs Paris, agentic AI security jobs, multi-agent orchestration engineer, LLM red team engineer, AI red teaming jobs, pentest engineer jobs, sovereign EU cyber jobs, Fleuret careers, Fleuret hiring",
   },
   designPartners: {
     title: "Design Partners Program | Fleuret AI",
