@@ -183,6 +183,39 @@ const Demo = () => {
 
             {/* Right column: scheduler */}
             <div className="flex flex-col gap-3" style={{ minWidth: 0 }}>
+              {/*
+                Mobile-only fallback CTA, above the iframe. The existing fallback
+                line below the iframe is invisible on mobile in practice — the
+                520-684px scheduler pushes it off-screen and 0 fallback clicks
+                landed across the prior 3 GA4 weeks (~5 /demo visitors/week).
+                Surface a visible link before users see the iframe.
+              */}
+              <a
+                href={DEMO_SCHEDULER_SHORT_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() =>
+                  trackEvent("demo_scheduler_fallback_clicked", {
+                    destination: DEMO_SCHEDULER_SHORT_URL,
+                    placement: "mobile_top",
+                  })
+                }
+                className="md:hidden"
+                style={{
+                  display: "block",
+                  textAlign: "center",
+                  fontSize: "0.9375rem",
+                  color: "rgba(255,255,255,0.9)",
+                  background: "rgba(255,255,255,0.06)",
+                  border: "1px solid rgba(255,255,255,0.18)",
+                  borderRadius: 10,
+                  padding: "0.75rem 1rem",
+                  textDecoration: "none",
+                }}
+              >
+                {t("demo.fallback.link")} →
+              </a>
+
               <div
                 style={{
                   borderRadius: 16,
