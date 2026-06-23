@@ -169,7 +169,10 @@ const SubProcessors = () => {
           {isFr ? "Sous-processeurs actifs" : "Active sub-processors"}
         </h2>
 
-        <div className="overflow-x-auto rounded-2xl border border-white/8 bg-white/[0.02]">
+        {/* Desktop: real table. Mobile: stacked card-list of the same data so
+            users don't have to side-scroll a 5-column table on a 390px viewport
+            (last column was being clipped, see PR notes). */}
+        <div className="hidden sm:block overflow-x-auto rounded-2xl border border-white/8 bg-white/[0.02]">
           <table className="w-full text-sm">
             <thead>
               <tr className="text-left text-white/40 text-[11px] sm:text-xs uppercase tracking-normal sm:tracking-wider border-b border-white/8">
@@ -202,6 +205,35 @@ const SubProcessors = () => {
             </tbody>
           </table>
         </div>
+        <ul className="sm:hidden flex flex-col gap-3 list-none p-0">
+          {ACTIVE.map((r) => (
+            <li
+              key={r.vendor}
+              className="rounded-2xl border border-white/8 bg-white/[0.02] p-4 flex flex-col gap-3"
+            >
+              <div className="flex items-baseline justify-between gap-3">
+                <span className="text-white font-medium text-sm">{r.vendor}</span>
+                <span className="text-white/60 text-xs">{r.country}</span>
+              </div>
+              <div>
+                <p className="text-[10px] uppercase tracking-wider text-white/40 mb-1">{isFr ? "Finalité" : "Purpose"}</p>
+                <p className="text-white/70 text-sm leading-relaxed">{isFr ? r.purposeFr : r.purposeEn}</p>
+              </div>
+              <div>
+                <p className="text-[10px] uppercase tracking-wider text-white/40 mb-1">{isFr ? "Données traitées" : "Data processed"}</p>
+                <p className="text-white/70 text-sm leading-relaxed">{isFr ? r.dataFr : r.dataEn}</p>
+              </div>
+              <a
+                href={r.dpa}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[var(--accent-blue)] hover:underline text-xs self-start"
+              >
+                {isFr ? "Voir le DPA" : "View DPA"}
+              </a>
+            </li>
+          ))}
+        </ul>
 
         <h2 className="text-xl font-semibold text-white mb-4 mt-12">
           {isFr ? "En évaluation (à ajouter Q3 2026)" : "Under evaluation (Q3 2026)"}
