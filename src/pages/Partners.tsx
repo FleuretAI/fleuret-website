@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { SEO } from "@/seo/SEO";
 import { DEMO_ROUTE } from "@/lib/routes";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 const Partners = () => {
   const { t, localize } = useLanguage();
@@ -16,7 +18,9 @@ const Partners = () => {
   ];
 
   return (
-    <main id="main-content" className="min-h-screen pt-32 md:pt-40 pb-20 px-4">
+    <>
+      <Navbar />
+      <main id="main-content" className="min-h-screen pt-32 md:pt-40 pb-20 px-4">
       <SEO pageKey="partners" />
       <div className="max-w-5xl mx-auto">
         <Link
@@ -142,7 +146,9 @@ const Partners = () => {
           </Link>
         </section>
       </div>
-    </main>
+      </main>
+      <Footer />
+    </>
   );
 };
 

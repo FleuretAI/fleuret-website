@@ -1,9 +1,13 @@
 import { Link } from "react-router-dom";
 import { SEO } from "@/seo/SEO";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 const MentionsLegales = () => {
   return (
-    <main id="main-content" className="min-h-screen pt-40 md:pt-48 pb-20 px-4">
+    <>
+      <Navbar />
+      <main id="main-content" className="min-h-screen pt-40 md:pt-48 pb-20 px-4">
       <SEO pageKey="mentionsLegales" />
       <div className="max-w-3xl mx-auto">
         <Link
@@ -139,7 +143,9 @@ const MentionsLegales = () => {
           Last updated: 13 May 2026
         </p>
       </div>
-    </main>
+      </main>
+      <Footer />
+    </>
   );
 };
 
