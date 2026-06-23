@@ -205,11 +205,12 @@ const Navbar = () => {
         </div>
       </header>
 
-      {/* Mobile backdrop */}
+      {/* Mobile backdrop — heavier scrim + blur so the hero text and trust
+          logos don't bleed through and visually compete with the drawer menu. */}
       <div
         ref={backdropRef}
         onClick={close}
-        className="lg:hidden fixed inset-0 bg-black/40 transition-opacity duration-250"
+        className="lg:hidden fixed inset-0 bg-black/70 backdrop-blur-sm transition-opacity duration-250"
         style={{ zIndex: 35, opacity: mobileOpen ? 1 : 0, pointerEvents: mobileOpen ? "auto" : "none" }}
         aria-hidden={!mobileOpen}
       />
