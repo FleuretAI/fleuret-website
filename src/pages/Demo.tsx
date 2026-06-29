@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -34,6 +34,30 @@ import { trackEvent, isGtagAvailable } from "@/lib/gtag";
  */
 const Demo = () => {
   const { t } = useLanguage();
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+
+  // Measure real scheduler engagement. The booking itself happens inside the
+  // cross-origin Google appointment iframe, which emits no postMessage and
+  // supports no confirmation-redirect URL, so a confirmed booking is invisible
+  // to GA4. The next-best signal is interaction: when a visitor clicks into the
+  // iframe to pick a slot, the parent window blurs and document.activeElement
+  // becomes the iframe element. Fire demo_scheduler_engaged once per page. True
+  // booked counts live in the booking calendar and are read loop-side via the
+  // Calendar API (see the ga4-loop skill). This replaces demo_scheduler_fallback_clicked
+  // as the funnel's terminal intent signal — the fallback only fires when the
+  // iframe is blocked, so it under-counts engagement by design.
+  useEffect(() => {
+    let fired = false;
+    const onBlur = () => {
+      if (fired) return;
+      if (document.activeElement === iframeRef.current) {
+        fired = true;
+        trackEvent("demo_scheduler_engaged", { page_path: "/demo" });
+      }
+    };
+    window.addEventListener("blur", onBlur);
+    return () => window.removeEventListener("blur", onBlur);
+  }, []);
 
   // Title and description are owned by <SEO pageKey="demo" /> below.
   // Fire the demo-page-view event once gtag is reachable. The bare gtag global
@@ -229,6 +253,7 @@ const Demo = () => {
                 }}
               >
                 <iframe
+                  ref={iframeRef}
                   title={t("demo.iframe.title")}
                   src={DEMO_SCHEDULER_EMBED_URL}
                   loading="lazy"
